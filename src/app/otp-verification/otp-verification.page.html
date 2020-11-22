@@ -1,0 +1,14 @@
+<ion-content>
+
+  <p>Enter the 6 digit confirmation code that we sent to your phone number</p>
+
+  <code-input [isCodeHidden]="false" [isNonDigitsCode]="false" [codeLength]="6">
+  </code-input>
+
+
+  <div class="bottom">
+    <ion-button (click)="continue()">
+      Continue
+    </ion-button>
+  </div>
+</ion-content>

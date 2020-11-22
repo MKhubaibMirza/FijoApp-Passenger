@@ -1,0 +1,41 @@
+<ion-content *ngIf="!IsSaving" class="ion-padding" scrollY="false">
+  <p class="title">
+    <b>
+      How would you like to pay?
+    </b>
+  </p>
+  <br>
+  <ion-grid class="ion-no-padding">
+    <ion-row (click)="onSelect()" class="row ion-no-padding">
+      <ion-col size="2">
+        <ion-icon class="icon" name="card-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="8">
+        <p class="text">Pay via Credit Card</p>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon class="chevron" name="chevron-forward-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row (click)="onSelect()" class="row ion-no-padding">
+      <ion-col size="2">
+        <ion-icon class="icon" name="cash-outline"></ion-icon>
+      </ion-col>
+      <ion-col size="8">
+        <p class="text">Pay via Cash</p>
+      </ion-col>
+      <ion-col size="2">
+        <ion-icon class="chevron" name="chevron-forward-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-content *ngIf="IsSaving" class="ion-padding" scrollY="false">
+  <ion-spinner name="lines"></ion-spinner>
+  <p class="savetitle">
+    <b>
+      Saving your payment method
+    </b>
+  </p>
+  <br>
+</ion-content>

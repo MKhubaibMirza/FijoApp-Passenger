@@ -1,0 +1,18 @@
+ion-content {
+    // --background: url(../../assets/bg.png) 0 0/100% 100% no-repeat;
+    --background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('../../assets/bg.png') repeat center center / cover;
+}
+
+ion-card {
+    color: white;
+    background: transparent;
+    box-shadow: none;
+
+
+    p {
+        font-size: 45px;
+        padding: 0px 60px;
+        color: #ffff00;
+        font-weight: bold;
+    }
+}

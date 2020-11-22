@@ -1,0 +1,143 @@
+ion-content {
+    // --background: url(../../assets/bg.png) 0 0/100% 100% no-repeat;
+    --background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../assets/bg.png') repeat center center / cover;
+}
+
+.logo {
+    width: 160px;
+    margin: auto;
+    display: block;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+.input {
+    margin: auto;
+    display: block;
+    width: 90%;
+    color: white;
+    margin-top: 26px;
+    font-size: 20px;
+}
+
+.forgot {
+    font-size: 17px;
+    text-align: right;
+    margin-right: 6%;
+    color: white;
+}
+
+.login {
+    width: 90%;
+    margin: auto;
+    display: block;
+    height: 45px;
+    font-size: 18px;
+    /* box-shadow: 0px 8px 20px 7px #3f8c00; */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: "Anton", sans-serif;
+    --background: #ffff00;
+    letter-spacing: 5;
+    color: #006600;
+}
+
+
+.center {
+    width: 55%;
+    margin-bottom: 20px !important;
+    margin: auto;
+    display: block;
+    margin-top: -14px;
+
+    .divider-line-x {
+        position: relative;
+        text-align: center;
+        font-family: Arial;
+        font-weight: bold;
+        font-size: 18px;
+        color: white;
+        border-bottom: 2px solid #ffff00;
+
+        span {
+            position: relative;
+            top: 13px;
+            padding: 5px 13px;
+            background: #4d944d;
+            border-radius: 10px;
+            color: yellow;
+        }
+    }
+}
+
+
+.fb {
+    margin: auto;
+    font-size: 16px;
+    padding: 14px;
+    display: block;
+    outline: none;
+    width: 100%;
+    background: #3b5998;
+    color: white;
+    border-radius: 5px;
+    height: 45px;
+
+    img {
+        float: left;
+        height: 15px;
+        margin-left: 10px;
+    }
+}
+
+.google {
+    margin: auto;
+    font-size: 16px;
+    padding: 14px;
+    display: block;
+    outline: none;
+    width: 100%;
+    background: white;
+    color: grey;
+    border-radius: 5px;
+    height: 45px;
+
+    img {
+        float: left;
+        height: 15px;
+        margin-left: 10px;
+    }
+}
+
+.signup {
+    margin: auto;
+    font-size: 16px;
+    padding: 14px;
+    display: block;
+    outline: none;
+    width: 100%;
+    background: #36abe0;
+    color: white;
+    border-radius: 5px;
+    height: 45px;
+
+    img {
+        float: left;
+        height: 25px;
+        margin-left: 5px;
+        position: relative;
+        top: -5px;
+    }
+}
+
+
+ion-footer {
+    ion-toolbar {
+        p {
+            text-align: center;
+            outline: none;
+            color: #ffff00;
+            font-size: 17px;
+        }
+    }
+}

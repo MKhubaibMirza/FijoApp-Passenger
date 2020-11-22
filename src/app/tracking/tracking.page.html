@@ -1,0 +1,91 @@
+<ion-content>
+  <agm-map #agmmap [zoom]="zoom" [latitude]="latitude" [longitude]="longitude" [zoomControl]="false"
+    [streetViewControl]="false">
+    <agm-direction (onResponse)="onResponse($event)"  [renderOptions]="renderOptions" [markerOptions]="markerOptions" [origin]="origin"
+      [destination]="destination">
+    </agm-direction> 
+    <!-- <agm-marker [animation]="currentMarkerAnimation" [iconUrl]="currentMarker"
+    [latitude]="latitude" [longitude]="longitude">
+  </agm-marker> -->
+  </agm-map>
+</ion-content>
+<ion-footer *ngIf="!DriverFound" class="ion-no-border" style="background: transparent;position: absolute;bottom: 30px;">
+  <ion-card *ngIf="!isSearching" class="FooterCard">
+    <ion-card-content>
+      <ion-grid *ngIf="!isSearching" class="ion-no-padding">
+        <ion-row class="ion-no-padding">
+          <ion-col size="9">
+            <p class="FooterTitle">Confirming..</p>
+          </ion-col>
+          <ion-col size="3">
+            <img src="assets/logo.png" class="logoImg" alt="">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <br>
+      <p class="bottomtext">Preparing your ride</p>
+      <ion-progress-bar class="progress" color="medium" value="0.5"></ion-progress-bar>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="isSearching" class="FooterCard">
+    <ion-card-content>
+      <ion-grid class="ion-no-padding">
+        <ion-row class="ion-no-padding">
+          <ion-col size="9">
+            <p class="FooterTitle">Searching..</p>
+          </ion-col>
+          <ion-col size="3">
+            <ion-spinner class="spinner"></ion-spinner>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <br>
+      <p class="bottomtext">Finding drivers near you</p>
+      <ion-progress-bar class="progress" color="medium" value="0.9"></ion-progress-bar>
+    </ion-card-content>
+  </ion-card>
+</ion-footer>
+<ion-footer *ngIf="DriverFound" class="ion-no-border" style="background: transparent;position: absolute;bottom: 30px;">
+  <ion-card class="FooterCard">
+    <ion-card-content>
+      <ion-grid class="ion-no-padding">
+        <ion-row class="ion-no-padding">
+          <ion-col size="9">
+            <p class="FooterTopTitle">Abdullah is on the way</p>
+            <p class="FooterBottomTitle">{{totaltime}}</p>
+          </ion-col>
+          <ion-col size="3">
+            <img src="assets/dummyman.png" class="driverImg" alt="">
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <br>
+      <ion-grid class="ion-no-padding">
+        <ion-row class="ion-no-padding">
+          <ion-col size="3">
+            <img src="assets/FijoTaxi_GreenCar.png" class="smallCar" alt="">
+          </ion-col>
+          <ion-col size="9">
+            <p class="carDetails">Honda Civic Black FSD5959</p> 
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <div class="bottomIconAndText">
+              <ion-icon name="chatbox-ellipses"></ion-icon>
+              <span>Contact</span> 
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="bottomIconAndText">
+              <ion-icon name="close-circle"></ion-icon>
+              <span>Cancel</span>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-footer>

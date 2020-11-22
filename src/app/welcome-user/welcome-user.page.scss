@@ -1,0 +1,36 @@
+ion-content {
+    --background: green;
+    border: 5px solid yellow;
+}
+
+.title {
+    text-align: center;
+    color: yellow;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.text {
+    text-align: center;
+    color: white;
+    padding-left: 13px;
+    padding-right: 13px;
+}
+
+.promocode {
+    width: 50%;
+    margin: auto;
+    display: block;
+    background: green;
+    border: 5px solid white;
+
+    ion-text {
+        p {
+            color: yellow;
+            text-align: center;
+            padding: 9px;
+            font-weight: bold;
+            margin: 0;
+        }
+    }
+}

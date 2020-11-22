@@ -1,0 +1,36 @@
+<ion-content>
+
+  <div class="top">
+
+    <ion-grid fixed>
+      <p class="firsttext">Enter your Mobile Number <br><span>(with country code)</span></p>
+
+      <ion-row>
+        <ion-col size="3">
+          <div class="icons">
+            <!-- flag img -->
+            <img [src]="countryData.flag" *ngIf="countryData" alt="">
+          </div>
+        </ion-col>
+
+        <ion-col size='9'>
+          <ion-input class="input" type="number" class="ion-no-margin" [(ngModel)]="phone" (keyup)="getflag()"
+            placeholder="Enter mobile"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <p class="sendcode">We'll send you a verification code</p>
+      <br><br>
+      <p class="login" (click)="viaEmail()">Or Login with your Email</p>
+    </ion-grid>
+  </div>
+
+  <div class="bottom">
+    <ion-button (click)="next()">
+      NEXT
+    </ion-button>
+
+    <p>Continue to receive an SMS confirmation and accept FijoTaxi's <span>Privacy Policy</span> and <span>Terms of
+        Use</span></p>
+  </div>
+</ion-content>

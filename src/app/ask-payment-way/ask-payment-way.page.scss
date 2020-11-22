@@ -1,0 +1,47 @@
+ion-content {
+    --background: green;
+    border: 5px solid yellow;
+}
+.title{
+    margin: 0;
+    color: yellow;
+    font-size: 19px;
+}
+.row{
+    background: yellow;
+    color: green;
+    outline: none;
+    margin-bottom: 19px;
+}
+.icon{
+    font-size: 27px;
+    text-align: center;
+    margin: auto;
+    display: block;
+    margin-top: 11px;
+}
+.text{
+    font-weight: bold;
+    text-align: left;
+}
+.chevron{
+    font-size: 27px;
+    text-align: right; 
+    margin-top: 11px;
+    float: right;
+    margin-right: 3px;
+}
+.savetitle{
+    text-align: center;
+    color: yellow;
+    font-size: 19px;
+}
+ion-spinner{
+    --color: yellow;
+    display: block;
+    margin: auto;
+    width: 75px;
+    height: 75px;
+    margin-top: 21px;
+    margin-top: 33px;
+} 

@@ -1,0 +1,10 @@
+{
+  "name": "fijo_passenger",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
+  },
+  "type": "angular"
+}

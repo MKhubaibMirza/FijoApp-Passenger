@@ -1,0 +1,63 @@
+<ion-content>
+
+  <img class="logo" src="../../assets/logo.png" alt="">
+
+  <ion-item color='transparent ion-no-padding' class="input">
+    <ion-label position="floating" color='light'>Email</ion-label>
+    <ion-input [(ngModel)]="loginData.email" type="email" color="light"></ion-input>
+  </ion-item>
+
+  <ion-item color='transparent ion-no-padding' class="input">
+    <ion-label position="floating" color='light'>Password</ion-label>
+    <ion-input [(ngModel)]="loginData.password" type="Password" color="light"></ion-input>
+  </ion-item>
+
+  <p class="forgot">Forgot Password?</p>
+
+  <ion-button expand="block" class="login" (click)="loginClick()">
+    Login
+  </ion-button>
+
+  <br>
+  <div class="center">
+    <div class="divider-line-x"><span>or</span></div>
+  </div>
+
+  <br>
+  <ion-grid>
+    <ion-row style="width: 93%; margin: auto;">
+      <ion-col size="12" style="margin-bottom: 13px;">
+        <button class="fb ion-activatable ripple-parent">
+          <img src="assets/f.png" alt="">
+          Facebook
+          <ion-ripple-effect></ion-ripple-effect>
+        </button>
+      </ion-col>
+      <ion-col size="12" style="margin-bottom: 13px;">
+        <div>
+          <button class="google ion-activatable ripple-parent">
+            <img src="assets/gg.png" alt="">
+            Google
+            <ion-ripple-effect></ion-ripple-effect>
+          </button>
+        </div>
+      </ion-col>
+      <ion-col size="12">
+        <div>
+          <button routerLink="/signup" class="signup ion-activatable ripple-parent">
+            <img src="assets/mail.png" alt="">
+            Sign Up With Email
+            <ion-ripple-effect></ion-ripple-effect>
+          </button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<!-- <ion-footer class="ion-no-border" color='medium'>
+  <ion-toolbar class="ion-no-border" color='medium'>
+    <p>Signup</p>
+  </ion-toolbar>
+</ion-footer> -->

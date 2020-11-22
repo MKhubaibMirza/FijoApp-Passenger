@@ -1,0 +1,91 @@
+ion-content {
+    --background: url('../../assets/bg.png') repeat center center / cover;
+}
+
+.top {
+    margin: auto;
+    display: block;
+    width: 90%;
+    margin-top: 55px;
+    text-align: center;
+    color: white;
+    padding: 0;
+    .firsttext {
+        font-size: 20px;
+
+        span {
+            font-size: 15px;
+        }
+    }
+
+    ion-row {
+        ion-col {
+            border: 3px solid #ffff00;
+            padding: 0;
+            .icons {
+                ion-grid {
+                    padding: 0;
+                }
+                .line {
+                    width: 1px;
+                    height: 45px;
+                    background-color: #ffff00;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+
+            ion-input {
+                color: black;
+                background: white;
+                text-align: left;
+                font-size: 20px;
+                height: 60px;
+                --placeholder-color: white
+            }
+        }
+    }
+
+    .sendcode {
+        font-size: 17px;
+    }
+
+    .login {
+        color: #ffff00;
+        font-size: 22px;
+        outline: none;
+    }
+}
+
+
+.bottom {
+    position: absolute;
+    width: 100%;
+    bottom: 50px;
+
+    ion-button {
+        width: 90%;
+        height: 50px;
+        font-size: 30px;
+        --background: #ffff00;
+        margin: auto;
+        display: block;
+        color: #006600;
+        font-weight: bold;
+    }
+
+    p {
+        width: 85%;
+        margin: auto;
+        display: block;
+        font-size: 15px;
+        margin-top: 20px;
+        text-align: center;
+        color: white;
+
+        span {
+            color: #ffff00;
+            outline: none;
+        }
+    }
+}

@@ -1,0 +1,49 @@
+.bg {
+    // --background: url(../../assets/bg.png) 0 0/100% 100% no-repeat;
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../assets/bg.png');
+    height: auto;
+    width: 100%;
+    background-size: cover;
+    text-align: center;
+
+    ion-grid {
+        ion-row {
+            padding: 15px 0;
+
+            img {
+                height: auto;
+                margin: auto;
+                display: block;
+            }
+
+            ion-icon {
+                margin: auto;
+                display: block;
+                font-size: 70px;
+                background: rgba(0, 0, 0, 0.2);
+                padding: 20px;
+                border-radius: 50%;
+                color: #ffff00;
+                outline: none;
+            }
+
+            p {
+                margin: 0;
+                font-size: 25px;
+                font-weight: bold;
+                color: #ffff00;
+            }
+        }
+    }
+}
+
+.list {
+    ion-item {
+        padding: 5px;
+        font-size: 20px;
+
+        ion-icon {
+            font-size: 30px;
+        }
+    }
+}

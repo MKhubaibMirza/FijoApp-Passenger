@@ -1,0 +1,56 @@
+<ion-content>
+
+  <div class="top">
+
+    <ion-grid fixed>
+      <p class="firsttext">Enter your preferred Email</p>
+
+      <ion-row>
+        <ion-input class="input" type="email" class="ion-no-margin" placeholder="Enter Email">
+        </ion-input>
+      </ion-row>
+
+      <br>
+      <p class="sendcode">We'll send you a verification code</p>
+      <br>
+      <ion-button (click)="next()">
+        NEXT
+      </ion-button>
+
+      <p class="lasttext">Continue to receive an SMS confirmation and accept FijoTaxi's <span>Privacy Policy</span> and
+        <span>Terms of
+          Use</span></p>
+    </ion-grid>
+  </div>
+
+  <div class="bottom">
+
+    <div class="center">
+      <div class="divider-line-x"><span>or</span></div>
+    </div>
+
+    <br>
+    <ion-grid>
+      <ion-row style="width: 93%; margin: auto;">
+        <ion-col size="12" style="margin-bottom: 13px;">
+          <button (click)="fblog()" class="fb ion-activatable ripple-parent">
+            <img src="assets/f.png" alt="">
+            Facebook
+            <ion-ripple-effect></ion-ripple-effect>
+          </button>
+        </ion-col>
+        <ion-col size="12" style="margin-bottom: 13px;">
+          <div>
+            <button (click)="gplog()" class="google ion-activatable ripple-parent">
+              <img src="assets/gg.png" alt="">
+              Google
+              <ion-ripple-effect></ion-ripple-effect>
+            </button>
+          </div>
+        </ion-col>
+        
+      </ion-row>
+    </ion-grid>
+    
+  </div>
+</ion-content>

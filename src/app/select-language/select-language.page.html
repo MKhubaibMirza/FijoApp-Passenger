@@ -1,0 +1,27 @@
+<ion-content style="--background: #006600;">
+
+  <ion-slides style="height: 100%;">
+    <ion-slide class="ion-no-padding">
+      <ion-card class="ion-no-border ion-no-margin">
+        <h1>Choose your language</h1>
+        <br>
+        <h3>Elige tu idioma</h3>
+        <br> <br> <br>
+        <br> <br> <br>
+
+        <ion-grid fixed class='flag'>
+          <ion-row>
+            <ion-col (click)="selectLang('en')" size="6" class="ion-activatable ripple-parent">
+              <img src="../../assets/english.png" alt="">
+              <ion-ripple-effect></ion-ripple-effect>
+            </ion-col>
+            <ion-col size="6" class="ion-activatable ripple-parent">
+              <img src="../../assets/spain.png" alt="">
+              <ion-ripple-effect></ion-ripple-effect>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
