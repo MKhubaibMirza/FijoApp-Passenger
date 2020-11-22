@@ -1,0 +1,23 @@
+<ion-header color='primary'>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Preferences</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="list">
+
+    <ion-item *ngFor='let item of items' lines="full">
+      <ion-icon [name]="item.icon" slot="start"></ion-icon>
+      <ion-label>
+        {{item.name}}
+      </ion-label>
+    </ion-item>
+  </div>
+
+
+</ion-content>

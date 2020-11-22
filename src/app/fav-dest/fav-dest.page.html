@@ -1,0 +1,41 @@
+<ion-header color='primary'>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Favorite Desctination</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="list">
+
+    <ion-item *ngFor='let item of dest' lines="full">
+      <ion-icon name="star-outline" slot="start"></ion-icon>
+      <ion-label>
+        {{item.name}}
+      </ion-label>
+    </ion-item>
+  </div>
+
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+
+    <input class="form-control destination" placeholder="Search Address" autocorrect="off" autocapitalize="off"
+      spellcheck="off" type="text">
+
+    <div class="list">
+      <ion-item lines="none" style="margin-bottom: 20px;">
+        <ion-icon name="map-outline" slot="start"></ion-icon>
+        <ion-label>
+          Use Maps
+        </ion-label>
+      </ion-item>
+    </div>
+
+  </ion-toolbar>
+</ion-footer>

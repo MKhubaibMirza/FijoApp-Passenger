@@ -1,0 +1,40 @@
+<ion-header color='primary'>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Favorites</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-slides>
+    <ion-slide>
+      <ion-card>
+
+        <ion-card routerLink='/fav-dest'>
+          <div class="ion-activatable ripple-parent">
+            <ion-icon name="location"></ion-icon>
+            <br>
+            <p>Destination</p>
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </ion-card>
+
+        <br><br>
+
+        <ion-card routerLink='/fav-drivers'>
+          <div class="ion-activatable ripple-parent">
+            <ion-icon name="speedometer"></ion-icon>
+            <br>
+            <p>Driver</p>
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </ion-card>
+
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

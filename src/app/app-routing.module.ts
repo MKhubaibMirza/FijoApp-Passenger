@@ -82,7 +82,23 @@ const routes: Routes = [
   {
     path: 'tracking',
     loadChildren: () => import('./tracking/tracking.module').then( m => m.TrackingPageModule)
+  },  {
+    path: 'my-fav',
+    loadChildren: () => import('./my-fav/my-fav.module').then( m => m.MyFavPageModule)
   },
+  {
+    path: 'fav-dest',
+    loadChildren: () => import('./fav-dest/fav-dest.module').then( m => m.FavDestPageModule)
+  },
+  {
+    path: 'fav-drivers',
+    loadChildren: () => import('./fav-drivers/fav-drivers.module').then( m => m.FavDriversPageModule)
+  },
+  {
+    path: 'my-preferences',
+    loadChildren: () => import('./my-preferences/my-preferences.module').then( m => m.MyPreferencesPageModule)
+  },
+
 ];
 
 @NgModule({

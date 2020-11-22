@@ -1,0 +1,32 @@
+<ion-header color='primary'>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Favorite Drivers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="list">
+
+    <ion-item *ngFor='let item of drivers' lines="full">
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-label>
+        {{item.name}}
+      </ion-label>
+    </ion-item>
+  </div>
+
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+
+    <input style="margin-bottom: 20px;" class="form-control destination" placeholder="Search Trip" autocorrect="off" autocapitalize="off"
+      spellcheck="off" type="text">
+
+  </ion-toolbar>
+</ion-footer>
