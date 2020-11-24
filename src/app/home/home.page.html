@@ -50,7 +50,7 @@
       </ion-row>
     </ion-grid>
     <ion-grid>
-      <ion-row *ngFor="let item of carsTypes;index as i"  [style.color]="item.condition?'yellow':'green'" [style.background]="item.condition?'green':'yellow'" style="margin-bottom: 6px;" (click)="selectCar(item,i)">
+      <ion-row *ngFor="let item of carsTypes;index as i"  [style.color]="item.condition?'yellow':'#006600'" [style.background]="item.condition?'#006600':'yellow'" style="margin-bottom: 6px;" (click)="selectCar(item,i)">
         <ion-col size="3">
           <img class="loopcar" [src]="item.image" alt="">
         </ion-col>

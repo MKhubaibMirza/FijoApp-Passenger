@@ -1,0 +1,58 @@
+ion-content {
+    --background: #006600;
+    border: 5px solid yellow;
+}
+
+.icon {
+    font-size: 99px;
+    text-align: center;
+    margin: auto;
+    display: block;
+    color: yellow;
+}
+
+.title {
+    text-align: center;
+    font-size: 17px;
+    color: yellow;
+    font-weight: bold;
+}
+
+.subtitle {
+    text-align: center;
+    color: white;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 14px;
+}
+
+.continue {
+    text-align: center;
+    color: yellow;
+    font-size: 21px;
+    font-weight: bold;
+    margin: 0;
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+.hr {
+    background: yellow;
+    height: 5px;
+    width: 90%;
+    margin: auto;
+    display: block;
+    border-radius: 3px;
+}
+
+.cancel {
+    text-align: center;
+    color: red;
+    font-size: 21px;
+    font-weight: bold;  
+    padding-top: 9px;
+    padding-bottom: 9px;
+    width: 90%;
+    margin: auto;
+    display: block;
+}

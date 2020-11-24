@@ -1,6 +1,8 @@
 import { AgmMap, MapsAPILoader } from '@agm/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ModalController } from '@ionic/angular';
+import { CancelConfirmationPage } from '../cancel-confirmation/cancel-confirmation.page';
 
 @Component({
   selector: 'app-tracking',
@@ -8,16 +10,23 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
   styleUrls: ['./tracking.page.scss'],
 })
 export class TrackingPage {
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+    public modalController: ModalController,
+    public geolocation: Geolocation
+  ) { 
+  }
   latitude: number;
   longitude: number;
   zoom = 17;
   address: string;
+  @ViewChild(AgmMap) agmMap: AgmMap;
   private geoCoder;
   public origin = JSON.parse(localStorage.getItem('trackingRoute')).origin;
   public destination = JSON.parse(localStorage.getItem('trackingRoute')).destination;
   public renderOptions = {
     suppressMarkers: true,
-    polylineOptions: { strokeColor: 'green', strokeWeight: 5 }
+    polylineOptions: { strokeColor: '#006600', strokeWeight: 5 }
   }
   currentMarkerAnimation = 'DROP';
   // animation: 'BOUNCE' | 'DROP';
@@ -53,11 +62,7 @@ export class TrackingPage {
     },
     travelMode: "DRIVING",
   }
-  @ViewChild(AgmMap) agmMap: AgmMap;
-  constructor(
-    private mapsAPILoader: MapsAPILoader,
-    public geolocation: Geolocation
-  ) { }
+
   ionViewWillEnter() {
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
@@ -106,8 +111,15 @@ export class TrackingPage {
   }
   DriverFound = false;
   isSearching = false;
-  totaltime = ''; 
-  public onResponse(event: any) { 
+  totaltime = '';
+  public onResponse(event: any) {
     this.totaltime = event.routes[0]?.legs[0].duration.text;
+  }
+  async cancelConfirmModal() {
+    const modal = await this.modalController.create({
+      component: CancelConfirmationPage,
+      cssClass: 'cancelconfirm'
+    });
+    return await modal.present();
   }
 }

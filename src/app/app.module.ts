@@ -17,10 +17,11 @@ import { AgmCoreModule } from '@agm/core';
 import { AskPaymentWayPage } from './ask-payment-way/ask-payment-way.page';
 import { WelcomeUserPage } from './welcome-user/welcome-user.page';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { CancelConfirmationPage } from './cancel-confirmation/cancel-confirmation.page';
 
 @NgModule({
-  declarations: [AppComponent,AskPaymentWayPage,WelcomeUserPage],
-  entryComponents: [AskPaymentWayPage,WelcomeUserPage],
+  declarations: [AppComponent, AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],
+  entryComponents: [AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, AgmDirectionModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDTqB69PYC2D18TqUGMd-yyyMK9a3Qg2g8',
