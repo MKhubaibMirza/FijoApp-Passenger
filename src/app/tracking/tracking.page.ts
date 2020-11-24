@@ -14,7 +14,7 @@ export class TrackingPage {
     private mapsAPILoader: MapsAPILoader,
     public modalController: ModalController,
     public geolocation: Geolocation
-  ) { 
+  ) {
   }
   latitude: number;
   longitude: number;
