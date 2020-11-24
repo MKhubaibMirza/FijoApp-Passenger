@@ -98,6 +98,10 @@ const routes: Routes = [
     path: 'my-preferences',
     loadChildren: () => import('./my-preferences/my-preferences.module').then( m => m.MyPreferencesPageModule)
   },
+  {
+    path: 'cancel-confirmation',
+    loadChildren: () => import('./cancel-confirmation/cancel-confirmation.module').then( m => m.CancelConfirmationPageModule)
+  },
 
 ];
 

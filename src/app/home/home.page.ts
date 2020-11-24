@@ -45,7 +45,7 @@ export class HomePage {
   public destination = ''
   public renderOptions = {
     suppressMarkers: true,
-    polylineOptions: { strokeColor: 'green', strokeWeight: 5 }
+    polylineOptions: { strokeColor: '#006600', strokeWeight: 5 }
   }
   currentMarkerAnimation = 'DROP';
   // animation: 'BOUNCE' | 'DROP';
