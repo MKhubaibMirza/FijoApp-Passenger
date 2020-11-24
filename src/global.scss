@@ -56,3 +56,47 @@ ion-input {
     margin: auto;
     box-shadow: none;
 }
+
+.call .modal-wrapper {
+    height: 400px;
+    width: 90%;
+    display: block;
+    background: transparent;
+    margin: auto;
+    box-shadow: none;
+    position: absolute;
+    bottom: 15px;
+}
+
+.ac .modal-wrapper {
+    height: 215px;
+    width: 90%;
+    display: block;
+    background: transparent;
+    margin: auto;
+    box-shadow: none;
+    position: absolute;
+    bottom: 15px;
+}
+
+.opendoor .modal-wrapper {
+    height: 305px;
+    width: 90%;
+    display: block;
+    background: transparent;
+    margin: auto;
+    box-shadow: none;
+    position: absolute;
+    bottom: 15px;
+}
+
+.conversation .modal-wrapper {
+    height: 210px;
+    width: 90%;
+    display: block;
+    background: transparent;
+    margin: auto;
+    box-shadow: none;
+    position: absolute;
+    bottom: 15px;
+}

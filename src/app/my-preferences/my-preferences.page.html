@@ -11,7 +11,7 @@
 
   <div class="list">
 
-    <ion-item *ngFor='let item of items' lines="full">
+    <ion-item *ngFor='let item of items' lines="full" (click)='click(item.route)'>
       <ion-icon [name]="item.icon" slot="start"></ion-icon>
       <ion-label>
         {{item.name}}

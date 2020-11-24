@@ -98,6 +98,22 @@ const routes: Routes = [
     path: 'my-preferences',
     loadChildren: () => import('./my-preferences/my-preferences.module').then( m => m.MyPreferencesPageModule)
   },
+  {
+    path: 'call-preference',
+    loadChildren: () => import('./call-preference/call-preference.module').then( m => m.CallPreferencePageModule)
+  },
+  {
+    path: 'ac-preference',
+    loadChildren: () => import('./ac-preference/ac-preference.module').then( m => m.AcPreferencePageModule)
+  },
+  {
+    path: 'open-door-preference',
+    loadChildren: () => import('./open-door-preference/open-door-preference.module').then( m => m.OpenDoorPreferencePageModule)
+  },
+  {
+    path: 'conversation-preference',
+    loadChildren: () => import('./conversation-preference/conversation-preference.module').then( m => m.ConversationPreferencePageModule)
+  },
 
 ];
 
