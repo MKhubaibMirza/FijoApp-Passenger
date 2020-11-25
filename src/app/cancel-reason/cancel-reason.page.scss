@@ -1,0 +1,25 @@
+ion-content {
+    --background: #006600;
+    border: 5px solid yellow;
+}
+
+.title {
+    text-align: center;
+    color: yellow;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
+    padding-top: 9px;
+}
+
+.subtitle {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.btn {
+    --color: yellow;
+    --box-shadow: 0;
+}

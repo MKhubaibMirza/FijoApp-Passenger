@@ -114,7 +114,11 @@ const routes: Routes = [
   {
     path: 'conversation-preference',
     loadChildren: () => import('./conversation-preference/conversation-preference.module').then( m => m.ConversationPreferencePageModule)
+  },  {
+    path: 'cancel-reason',
+    loadChildren: () => import('./cancel-reason/cancel-reason.module').then( m => m.CancelReasonPageModule)
   },
+
 
 ];
 
