@@ -14,11 +14,30 @@ export class InfoPage implements OnInit {
 
   ngOnInit() {
   }
-  getName() {
-    if(localStorage.getItem('user'))
-    return JSON.parse(localStorage.getItem('user')).pessenger.firstName + ' ' + JSON.parse(localStorage.getItem('user')).pessenger.lastName;
-  }
+
   ionViewWillEnter() {
     // this.menuControl.enable(false)
+    if (localStorage.getItem('user'))
+      this.data = JSON.parse(localStorage.getItem('user'))
+  }
+
+  data = {
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    profilePhoto: '',
+  }
+  getName() {
+    if (localStorage.getItem('user'))
+      return JSON.parse(localStorage.getItem('user')).firstName + ' ' + JSON.parse(localStorage.getItem('user')).lastName;
+  }
+  getFirstName() {
+    if (localStorage.getItem('user'))
+      return JSON.parse(localStorage.getItem('user')).firstName
+  }
+  getLastName() {
+    if (localStorage.getItem('user'))
+      return JSON.parse(localStorage.getItem('user')).lastName;
   }
 }

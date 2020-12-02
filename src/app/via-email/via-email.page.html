@@ -1,12 +1,17 @@
 <ion-content>
 
+  <ion-buttons>
+    <ion-back-button slot="start" color='medium' defaultHref='' text="Login by Phone" mode='ios'>
+      ></ion-back-button>
+  </ion-buttons>
+
   <div class="top">
 
     <ion-grid fixed>
       <p class="firsttext">Enter your preferred Email</p>
 
       <ion-row>
-        <ion-input class="input" type="email" class="ion-no-margin" placeholder="Enter Email">
+        <ion-input class="input" type="email" [(ngModel)]='data.email' class="ion-no-margin" placeholder="Enter Email">
         </ion-input>
       </ion-row>
 
@@ -48,9 +53,9 @@
             </button>
           </div>
         </ion-col>
-        
+
       </ion-row>
     </ion-grid>
-    
+
   </div>
 </ion-content>

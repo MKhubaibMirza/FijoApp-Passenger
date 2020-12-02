@@ -14,10 +14,14 @@
         </ion-col>
 
         <ion-col size='9'>
-          <ion-input class="input" type="number" class="ion-no-margin" [(ngModel)]="phone" (keyup)="getflag()"
-            placeholder="Enter mobile"></ion-input>
+          <ion-input class="input" type='number' class="ion-no-margin" [(ngModel)]="data.phoneNumber"
+            (keyup)="getflag()" placeholder="Enter mobile"></ion-input>
         </ion-col>
       </ion-row>
+      <br>
+      <div style="position:relative;z-index:10;width:100%;margin-right:auto;">
+        <div id="recaptcha-container"></div>
+      </div>
 
       <p class="sendcode">We'll send you a verification code</p>
       <br><br>

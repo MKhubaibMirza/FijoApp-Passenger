@@ -124,3 +124,14 @@ ion-input {
 }
 
 // ================
+
+.loading-class {
+    --background: #006600;
+    --spinner-color: #ffff00;
+
+    color: #ffff00;
+}
+
+.alert-class {
+    --background: #ffff00;
+}

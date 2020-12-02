@@ -17,7 +17,10 @@ import { AgmCoreModule } from '@agm/core';
 import { AskPaymentWayPage } from './ask-payment-way/ask-payment-way.page';
 import { WelcomeUserPage } from './welcome-user/welcome-user.page';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { environment } from '../environments/environment'
 import { CancelConfirmationPage } from './cancel-confirmation/cancel-confirmation.page';
+import * as firebase from 'firebase';
+firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
   declarations: [AppComponent, AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],

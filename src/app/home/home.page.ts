@@ -28,7 +28,7 @@ export class HomePage {
   }
   getName() {
     if (localStorage.getItem('user'))
-      return JSON.parse(localStorage.getItem('user')).pessenger.firstName + ' ' + JSON.parse(localStorage.getItem('user')).pessenger.lastName;
+      return JSON.parse(localStorage.getItem('user')).firstName + ' ' + JSON.parse(localStorage.getItem('user')).lastName;
   }
   openMenu() {
     this.menuControl.enable(true);
@@ -145,6 +145,7 @@ export class HomePage {
     toast.present();
   }
   ionViewWillEnter() {
+    this.presentUser();
     // uncomment below when using real device
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
@@ -261,4 +262,11 @@ export class HomePage {
     console.log(val, this.heightOfCard)
   }
 
+  async presentUser() {
+    const modal = await this.modalController.create({
+      component: WelcomeUserPage,
+      cssClass: 'welcomeUser'
+    });
+    return await modal.present();
+  }
 }

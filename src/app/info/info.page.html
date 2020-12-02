@@ -11,38 +11,38 @@
   <div class="bg">
     <br><br>
     <br><br>
-    <!-- <img src="../../assets/profile.png" alt=""> -->
-    <ion-icon name="camera"></ion-icon>
+    <!-- <img *ngIf='data.profilePhoto !== ""' src="../../assets/profile.png" alt=""> -->
+    <ion-icon *ngIf='data.profilePhoto === ""' name="camera"></ion-icon>
 
     <p>Hi {{getName()}}!</p>
   </div>
 
   <div class="data">
 
-    <ion-item class="input" lines='none'>
-      <ion-label>First Name: </ion-label>
-      <ion-input type='text'></ion-input>
+    <ion-item class="input" lines=' none'>
+      <ion-label color='primary'>First Name: </ion-label>
+      <ion-input [(ngModel)]='data.firstName' type='text'></ion-input>
     </ion-item>
 
     <ion-item class="input" lines='none'>
-      <ion-label>Last Name: </ion-label>
-      <ion-input type='text'></ion-input>
-    </ion-item>
-
-
-    <ion-item class="input" lines='none'>
-      <ion-label>Phone: </ion-label>
-      <ion-input type='number'></ion-input>
+      <ion-label color='primary'>Last Name: </ion-label>
+      <ion-input [(ngModel)]='data.lastName' type='text'></ion-input>
     </ion-item>
 
 
     <ion-item class="input" lines='none'>
-      <ion-label>Email: </ion-label>
-      <ion-input type='email'></ion-input>
+      <ion-label color='primary'>Phone: </ion-label>
+      <ion-input [(ngModel)]='data.phoneNumber' type='number'></ion-input>
+    </ion-item>
+
+
+    <ion-item class="input" lines='none'>
+      <ion-label color='primary'>Email: </ion-label>
+      <ion-input [(ngModel)]='data.email' type='email'></ion-input>
     </ion-item>
 
     <ion-item lines='none'>
-      <ion-label>Recieve Promotion</ion-label>
+      <ion-label color='primary'>Recieve Promotion</ion-label>
       <ion-checkbox slot="end"></ion-checkbox>
     </ion-item>
 

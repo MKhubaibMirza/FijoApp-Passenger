@@ -12,4 +12,21 @@ export class AcPreferencePage implements OnInit {
   ngOnInit() {
   }
 
+  data = [
+    { id: 1, text: 'ON', checked: false, },
+    { id: 2, text: 'OFF', checked: false, },
+  ]
+
+  click(item) {
+    this.data.forEach(element => {
+      if (item.id == element.id) {
+        element.checked = true
+        item.checked = true
+      } else {
+        element.checked = false
+      }
+    });
+    console.log(this.data)
+  }
+
 }

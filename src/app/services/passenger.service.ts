@@ -21,4 +21,17 @@ export class PassengerService {
   sigup(data) {
     return this.http.post(this.ApirUrl + 'passenger/signup', data)
   }
+
+  checkByPhone(data) {
+    return this.http.post(this.ApirUrl + 'passenger/find-passenger-by-phn-no', data)
+  }
+
+  checkByEmail(data) {
+    return this.http.post(this.ApirUrl + 'passenger/find-passenger-by-email', data)
+  }
+
+  forgotPassword(data) {
+    return this.http.post(this.ApirUrl + 'passenger/forgot-password', data)
+  }
+
 }

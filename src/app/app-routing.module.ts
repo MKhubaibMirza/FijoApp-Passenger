@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'home',
@@ -13,111 +13,117 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'signup',
-    loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
+    loadChildren: () => import('./signup/signup.module').then(m => m.SignupPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
     path: 'info',
-    loadChildren: () => import('./info/info.module').then( m => m.InfoPageModule)
+    loadChildren: () => import('./info/info.module').then(m => m.InfoPageModule)
   },
   {
     path: 'my-journeys',
-    loadChildren: () => import('./my-journeys/my-journeys.module').then( m => m.MyJourneysPageModule)
+    loadChildren: () => import('./my-journeys/my-journeys.module').then(m => m.MyJourneysPageModule)
   },
   {
     path: 'payment-methods',
-    loadChildren: () => import('./payment-methods/payment-methods.module').then( m => m.PaymentMethodsPageModule)
+    loadChildren: () => import('./payment-methods/payment-methods.module').then(m => m.PaymentMethodsPageModule)
   },
   {
     path: 'invite-friends',
-    loadChildren: () => import('./invite-friends/invite-friends.module').then( m => m.InviteFriendsPageModule)
+    loadChildren: () => import('./invite-friends/invite-friends.module').then(m => m.InviteFriendsPageModule)
   },
   {
     path: 'discount-codes',
-    loadChildren: () => import('./discount-codes/discount-codes.module').then( m => m.DiscountCodesPageModule)
+    loadChildren: () => import('./discount-codes/discount-codes.module').then(m => m.DiscountCodesPageModule)
   },
   {
     path: 'help',
-    loadChildren: () => import('./help/help.module').then( m => m.HelpPageModule)
+    loadChildren: () => import('./help/help.module').then(m => m.HelpPageModule)
   },
   {
-    path: '',
-    loadChildren: () => import('./select-language/select-language.module').then( m => m.SelectLanguagePageModule)
+    path: 'select-language',
+    loadChildren: () => import('./select-language/select-language.module').then(m => m.SelectLanguagePageModule)
   },
   {
     path: 'welcome-note',
-    loadChildren: () => import('./welcome-note/welcome-note.module').then( m => m.WelcomeNotePageModule)
+    loadChildren: () => import('./welcome-note/welcome-note.module').then(m => m.WelcomeNotePageModule)
   },
   {
     path: 'via-phone',
-    loadChildren: () => import('./via-phone/via-phone.module').then( m => m.ViaPhonePageModule)
+    loadChildren: () => import('./via-phone/via-phone.module').then(m => m.ViaPhonePageModule)
   },
   {
     path: 'via-email',
-    loadChildren: () => import('./via-email/via-email.module').then( m => m.ViaEmailPageModule)
+    loadChildren: () => import('./via-email/via-email.module').then(m => m.ViaEmailPageModule)
   },
   {
-    path: 'otp-verification',
-    loadChildren: () => import('./otp-verification/otp-verification.module').then( m => m.OtpVerificationPageModule)
+    path: 'otp-verification/:by/:data',
+    loadChildren: () => import('./otp-verification/otp-verification.module').then(m => m.OtpVerificationPageModule)
   },
   {
     path: 'password',
-    loadChildren: () => import('./password/password.module').then( m => m.PasswordPageModule)
+    loadChildren: () => import('./password/password.module').then(m => m.PasswordPageModule)
   },
   {
     path: 'ask-payment-way',
-    loadChildren: () => import('./ask-payment-way/ask-payment-way.module').then( m => m.AskPaymentWayPageModule)
+    loadChildren: () => import('./ask-payment-way/ask-payment-way.module').then(m => m.AskPaymentWayPageModule)
   },
   {
     path: 'welcome-user',
-    loadChildren: () => import('./welcome-user/welcome-user.module').then( m => m.WelcomeUserPageModule)
+    loadChildren: () => import('./welcome-user/welcome-user.module').then(m => m.WelcomeUserPageModule)
   },
   {
     path: 'tracking',
-    loadChildren: () => import('./tracking/tracking.module').then( m => m.TrackingPageModule)
+    loadChildren: () => import('./tracking/tracking.module').then(m => m.TrackingPageModule)
   },
   {
     path: 'my-fav',
-    loadChildren: () => import('./my-fav/my-fav.module').then( m => m.MyFavPageModule)
+    loadChildren: () => import('./my-fav/my-fav.module').then(m => m.MyFavPageModule)
   },
   {
     path: 'fav-dest',
-    loadChildren: () => import('./fav-dest/fav-dest.module').then( m => m.FavDestPageModule)
+    loadChildren: () => import('./fav-dest/fav-dest.module').then(m => m.FavDestPageModule)
   },
   {
     path: 'fav-drivers',
-    loadChildren: () => import('./fav-drivers/fav-drivers.module').then( m => m.FavDriversPageModule)
+    loadChildren: () => import('./fav-drivers/fav-drivers.module').then(m => m.FavDriversPageModule)
   },
   {
     path: 'my-preferences',
-    loadChildren: () => import('./my-preferences/my-preferences.module').then( m => m.MyPreferencesPageModule)
+    loadChildren: () => import('./my-preferences/my-preferences.module').then(m => m.MyPreferencesPageModule)
   },
   {
     path: 'call-preference',
-    loadChildren: () => import('./call-preference/call-preference.module').then( m => m.CallPreferencePageModule)
+    loadChildren: () => import('./call-preference/call-preference.module').then(m => m.CallPreferencePageModule)
   },
   {
     path: 'ac-preference',
-    loadChildren: () => import('./ac-preference/ac-preference.module').then( m => m.AcPreferencePageModule)
+    loadChildren: () => import('./ac-preference/ac-preference.module').then(m => m.AcPreferencePageModule)
   },
   {
     path: 'open-door-preference',
-    loadChildren: () => import('./open-door-preference/open-door-preference.module').then( m => m.OpenDoorPreferencePageModule)
+    loadChildren: () => import('./open-door-preference/open-door-preference.module').then(m => m.OpenDoorPreferencePageModule)
   },
   {
     path: 'conversation-preference',
-    loadChildren: () => import('./conversation-preference/conversation-preference.module').then( m => m.ConversationPreferencePageModule)
-  },  {
-    path: 'cancel-reason',
-    loadChildren: () => import('./cancel-reason/cancel-reason.module').then( m => m.CancelReasonPageModule)
+    loadChildren: () => import('./conversation-preference/conversation-preference.module').then(m => m.ConversationPreferencePageModule)
   },
+  {
+    path: 'cancel-reason',
+    loadChildren: () => import('./cancel-reason/cancel-reason.module').then(m => m.CancelReasonPageModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./splash/splash.module').then(m => m.SplashPageModule)
+  },
+
 
 
 ];

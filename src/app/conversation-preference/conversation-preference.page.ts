@@ -12,4 +12,21 @@ export class ConversationPreferencePage implements OnInit {
   ngOnInit() {
   }
 
+  data = [
+    { id: 1, text: 'I prefer silence', checked: false, },
+    { id: 2, text: 'I like to chat', checked: false, },
+  ]
+
+  click(item) {
+    this.data.forEach(element => {
+      if (item.id == element.id) {
+        element.checked = true
+        item.checked = true
+      } else {
+        element.checked = false
+      }
+    });
+    console.log(this.data)
+  }
+
 }

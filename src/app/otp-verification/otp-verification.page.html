@@ -1,13 +1,14 @@
 <ion-content>
 
-  <p>Enter the 6 digit confirmation code that we sent to your phone number</p>
+  <p>Enter the 6 digit confirmation code that we sent to {{text}}</p>
 
-  <code-input [isCodeHidden]="false" [isNonDigitsCode]="false" [codeLength]="6">
+  <code-input (codeCompleted)='onCodeCompleted($event)' [isCodeHidden]="false" [isNonDigitsCode]="false"
+    [codeLength]="6">
   </code-input>
 
 
   <div class="bottom">
-    <ion-button (click)="continue()">
+    <ion-button (click)="submitVerif()">
       Continue
     </ion-button>
   </div>

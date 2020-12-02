@@ -32,11 +32,11 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.locService.checkGPSPermission();
-      this.presentUser();
       if (this.platform.is('cordova')) {
         this.setupPush();
       }
     });
+    this.profile = JSON.parse(localStorage.getItem('user')).profilePhoto
   }
   setupPush() {
     // I recommend to put these into your environment.ts
@@ -74,13 +74,7 @@ export class AppComponent {
     })
     alert.present();
   }
-  async presentUser() {
-    const modal = await this.modalController.create({
-      component: WelcomeUserPage,
-      cssClass: 'welcomeUser'
-    });
-    return await modal.present();
-  }
+
 
   navlist = [
     { title: 'My Journeys', icon: 'car', route: '/my-journeys' },
@@ -97,13 +91,14 @@ export class AppComponent {
     this.r.navigate([r])
     this.menuController.close()
   }
+  profile = ''
   getName() {
     if (localStorage.getItem('user'))
-      return JSON.parse(localStorage.getItem('user')).pessenger.firstName + ' ' + JSON.parse(localStorage.getItem('user')).pessenger.lastName;
+      return JSON.parse(localStorage.getItem('user')).firstName + ' ' + JSON.parse(localStorage.getItem('user')).lastName;
   }
   getEmail() {
     if (localStorage.getItem('user'))
-      return JSON.parse(localStorage.getItem('user')).pessenger.email;
+      return JSON.parse(localStorage.getItem('user')).email;
   }
   logOut() {
     localStorage.clear();
