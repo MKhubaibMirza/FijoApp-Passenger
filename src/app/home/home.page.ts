@@ -172,6 +172,10 @@ export class HomePage {
       });
     });
   }
+
+  locationClick() {
+    this.setCurrentLocation();
+  }
   // Get Current Location Coordinates
   setCurrentLocation() {
     let options = {

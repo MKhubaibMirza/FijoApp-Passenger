@@ -17,7 +17,7 @@ export class ProfilePage implements OnInit {
 
   profile = ''
   ionViewWillEnter() {
-    this.menuControl.enable(false)
+    // this.menuControl.enable(false)
     this.profile = JSON.parse(localStorage.getItem('user')).profilePhoto
   }
 }

@@ -78,8 +78,9 @@ export class OtpVerificationPage implements OnInit {
           })
           .catch(err => {
             this.loadingController.dismiss(true)
-            alert('ERROR')
+            // alert('ERROR')
             alert(err)
+            
           });
       } else {
         console.log(this.code, this.verifCode)

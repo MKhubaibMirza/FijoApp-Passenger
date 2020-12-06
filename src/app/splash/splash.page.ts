@@ -6,13 +6,13 @@ import { Router } from '@angular/router';
   templateUrl: './splash.page.html',
   styleUrls: ['./splash.page.scss'],
 })
-export class SplashPage implements OnInit {
+export class SplashPage {
 
   constructor(
     public r: Router
   ) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     setTimeout(() => {
       this.r.navigate(['/select-language'])
     }, 3000);

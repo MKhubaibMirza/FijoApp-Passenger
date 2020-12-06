@@ -1,7 +1,14 @@
+<ion-header>
+  <ion-toolbar color="transparent">
+    <ion-buttons>
+      <ion-menu-button class="menu" slot="start" autoHide="false" color="primary"></ion-menu-button>
+    </ion-buttons>
+    <ion-icon slot="end" name="location" (click)="locationClick()" color="primary"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <ion-buttons class="menuBtn">
-    <ion-menu-button class="menu"></ion-menu-button>
-  </ion-buttons>
+
   <agm-map #agmmap [zoom]="zoom" [latitude]="latitude" [longitude]="longitude" [zoomControl]="false"
     [streetViewControl]="false">
     <agm-direction (onResponse)="onResponse($event)" (destinationDrag)="markerDragEnd($event)"
@@ -50,7 +57,8 @@
       </ion-row>
     </ion-grid>
     <ion-grid>
-      <ion-row *ngFor="let item of carsTypes;index as i"  [style.color]="item.condition?'yellow':'#006600'" [style.background]="item.condition?'#006600':'yellow'" style="margin-bottom: 6px;" (click)="selectCar(item,i)">
+      <ion-row *ngFor="let item of carsTypes;index as i" [style.color]="item.condition?'yellow':'#006600'"
+        [style.background]="item.condition?'#006600':'yellow'" style="margin-bottom: 6px;" (click)="selectCar(item,i)">
         <ion-col size="3">
           <img class="loopcar" [src]="item.image" alt="">
         </ion-col>

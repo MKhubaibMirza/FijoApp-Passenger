@@ -48,7 +48,7 @@ export class SignupPage implements OnInit {
     email: '',
     password: '',
     gender: '',
-    phone: '',
+    phoneNumber: '',
 
     profilePhoto: '',
 
@@ -149,7 +149,7 @@ export class SignupPage implements OnInit {
 
   // phone number 
   toSlide4() {
-    if (this.signupData.phone == '') {
+    if (this.signupData.phoneNumber == '') {
       this.presentToast('Please Enter Your Phone Number')
     } else {
       this.slide1 = false;
@@ -224,15 +224,15 @@ export class SignupPage implements OnInit {
   }
 
   getflag() {
-    console.log(this.signupData.phone)
-    if (this.signupData.phone !== null) {
+    console.log(this.signupData.phoneNumber)
+    if (this.signupData.phoneNumber !== null) {
       if (true) {
 
-        let code_with_2_digits = JSON.stringify(this.signupData.phone).substr(0, 2);
-        let code_with_3_digits = JSON.stringify(this.signupData.phone).substr(0, 3);
+        let code_with_2_digits = JSON.stringify(this.signupData.phoneNumber).substr(0, 2);
+        let code_with_3_digits = JSON.stringify(this.signupData.phoneNumber).substr(0, 3);
         console.log(code_with_2_digits);
 
-        if (JSON.stringify(this.signupData.phone).length < 2) {
+        if (JSON.stringify(this.signupData.phoneNumber).length < 2) {
           // this.presentToast("Invalid Country Code")
           this.d.show_flag(code_with_2_digits).subscribe((resp: any) => {
             console.log(resp);
@@ -242,7 +242,7 @@ export class SignupPage implements OnInit {
           }, err => {
             console.log('errrr', err);
             this.countryData = [];
-            if (JSON.stringify(this.signupData.phone).length > 1) {
+            if (JSON.stringify(this.signupData.phoneNumber).length > 1) {
               this.presentToast("Invalid Country Code")
             }
           })
