@@ -33,7 +33,7 @@ export class PasswordPage implements OnInit {
       console.log(resp)
       this.r.navigate(['/home'])
     }, err => {
-      this.presentToast('Ops! Incorrect Password!')
+      this.presentToast('Opps! Incorrect Password!')
     })
   }
 

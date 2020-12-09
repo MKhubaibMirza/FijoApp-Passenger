@@ -36,7 +36,12 @@ export class AppComponent {
         this.setupPush();
       }
     });
-    this.profile = JSON.parse(localStorage.getItem('user')).profilePhoto
+    if(localStorage.getItem('user')){
+      this.profile = JSON.parse(localStorage.getItem('user')).profilePhoto;
+      this.menuController.enable(true);
+    }else{
+      this.menuController.enable(false);
+    }
   }
   setupPush() {
     // I recommend to put these into your environment.ts
@@ -102,6 +107,8 @@ export class AppComponent {
   }
   logOut() {
     localStorage.clear();
+    this.menuController.close();
+    this.menuController.enable(false);
     this.r.navigate(['/']);
   }
 }

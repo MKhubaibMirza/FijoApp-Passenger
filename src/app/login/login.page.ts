@@ -18,8 +18,7 @@ export class LoginPage implements OnInit {
     private loading: LoadingController,
   ) { }
 
-  ngOnInit() {
-    this.menucontroller.enable(false)
+  ngOnInit() { 
   }
 
   loginData = {

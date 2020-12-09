@@ -21,5 +21,8 @@ export class AskPaymentWayPage implements OnInit {
       this.modal.dismiss();
     }, 1500);
   }
-
+  addpaymentmethod() {
+    this.r.navigate(['/add-payment-method'])
+    this.modal.dismiss();
+  }
 }

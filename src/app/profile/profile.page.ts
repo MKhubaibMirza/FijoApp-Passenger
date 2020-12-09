@@ -20,4 +20,7 @@ export class ProfilePage implements OnInit {
     // this.menuControl.enable(false)
     this.profile = JSON.parse(localStorage.getItem('user')).profilePhoto
   }
+  getName() {
+    return JSON.parse(localStorage.getItem('user')).firstName + '' + JSON.parse(localStorage.getItem('user')).lastName;
+  }
 }

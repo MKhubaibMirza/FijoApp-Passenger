@@ -59,24 +59,10 @@ export class ViaEmailPage implements OnInit {
   }
 
   gplog() {
-    let data = {
-      pessenger: {
-        name: 'Dummy Name',
-        email: 'DummyEmail@fijo.com',
-      }
-    }
-    localStorage.setItem('user', JSON.stringify(data))
-    this.r.navigate(['/home'])
+    this.presentToast('Coming soon');
   }
   fblog() {
-    let data = {
-      pessenger: {
-        name: 'Dummy Name',
-        email: 'DummyEmail@fijo.com',
-      }
-    }
-    localStorage.setItem('user', JSON.stringify(data))
-    this.r.navigate(['/home'])
+    this.presentToast('Coming soon');
   }
 
 
