@@ -9,8 +9,8 @@
 
 <ion-content>
 
-  <agm-map #agmmap [zoom]="zoom" [latitude]="latitude" [longitude]="longitude" [zoomControl]="false"
-    [streetViewControl]="false">
+  <agm-map [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom" [latitude]="latitude"
+    [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
     <agm-direction (onResponse)="onResponse($event)" (destinationDrag)="markerDragEnd($event)"
       *ngIf="directionCondition" [renderOptions]="renderOptions" [markerOptions]="markerOptions" [origin]="origin"
       [destination]="destination">

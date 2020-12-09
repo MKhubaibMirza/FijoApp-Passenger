@@ -172,9 +172,10 @@ export class HomePage {
       });
     });
   }
-
+  public getMapInstance(map: any): void { this.map = map; };
+  map: any;
   locationClick() {
-    this.setCurrentLocation();
+    this.map.setCenter({ lat: this.latitude, lng: this.longitude });
   }
   // Get Current Location Coordinates
   setCurrentLocation() {
@@ -185,8 +186,8 @@ export class HomePage {
     this.geolocation.getCurrentPosition(options).then
       ((position: any) => {
         console.log(position)
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
+        this.latitude = parseFloat(position.coords.latitude);
+        this.longitude = parseFloat(position.coords.longitude);
         // this.zoom = 18;
         this.getAddress(this.latitude, this.longitude);
       }, err => {

@@ -163,7 +163,19 @@ const routes: Routes = [
     path: 'add-payment-method',
     canActivate: [ForwordGuard],
     loadChildren: () => import('./add-payment-method/add-payment-method.module').then(m => m.AddPaymentMethodPageModule)
+  },  {
+    path: 'rating',
+    loadChildren: () => import('./rating/rating.module').then( m => m.RatingPageModule)
   },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
+    path: 'journey-details',
+    loadChildren: () => import('./journey-details/journey-details.module').then( m => m.JourneyDetailsPageModule)
+  },
+
 ];
 
 @NgModule({
