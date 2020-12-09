@@ -9,13 +9,30 @@
 
 <ion-content>
   <img class="img" src="assets/addcard.png" alt="">
-  <br>
-  <ion-item class="input" lines='none'>
-    <ion-label color='primary'>Card Number: </ion-label>
-    <ion-input [(ngModel)]='card.number' type='text'></ion-input>
+  <ion-item class="input ion-no-padding" lines='none'>
+    <ion-label position="floating" color='primary'>Card Number:</ion-label>
+    <ion-input [(ngModel)]='card.number' type='number'></ion-input>
   </ion-item>
-  <ion-item class="input" lines='none'>
-    <ion-label color='primary'>First Name: </ion-label>
-    <ion-input [(ngModel)]='card.number' type='text'></ion-input>
-  </ion-item>
+  <ion-grid class="ion-no-margin ion-no-padding">
+    <ion-row class="ion-no-margin ion-no-padding">
+      <ion-col size="7.5" class="ion-no-margin ion-no-padding">
+        <ion-item class="input ion-no-padding" lines='none'>
+          <ion-label position="floating" color='primary'>Expiry Date:</ion-label>
+          <ion-datetime max="2050" min="2020" [(ngModel)]='card.date' displayFormat="YYYY MM"></ion-datetime>
+        </ion-item>
+      </ion-col>
+      <ion-col size="4.5" class="ion-no-margin ion-no-padding">
+        <ion-item class="input ion-no-padding" lines='none'>
+          <ion-label position="floating" color='primary'>CVV:</ion-label>
+          <ion-input [(ngModel)]='card.cvv' type='number'></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+<ion-footer class="ion-no-border footer">
+  <p>Your payment information will be stored securely</p>
+  <ion-button (click)="save()">
+    SAVE
+  </ion-button>
+</ion-footer>

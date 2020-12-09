@@ -1,0 +1,44 @@
+ion-content {
+    --background: green;
+    border: 5px solid yellow;
+}
+
+ion-slides {
+    height: 100%;
+
+    ion-slide {
+        ion-card {
+            background: transparent;
+            box-shadow: none;
+
+            .title {
+                color: yellow;
+                font-size: 25px;
+                font-weight: bold;
+                margin: 0;
+                padding-top: 15px;
+            }
+
+            .subtitle {
+                color: white;
+                margin: 0;
+                font-size: 18px;
+                padding-top: 15px;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .okBtn {
+                width: 100%;
+                --box-shadow: none;
+                color: yellow;
+            }
+
+            .leaveBtn {
+                --box-shadow: none;
+                color: red;
+                width: 100%;
+            }
+        }
+    }
+}

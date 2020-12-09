@@ -1,16 +1,41 @@
-.head{
+.head {
     border-bottom: 3px solid green;
 }
-.img{
-    height: 200px;
+
+.img {
+    height: 150px;
     margin: auto;
     display: block;
     margin-top: 30px;
+    margin-bottom: 30px;
     object-fit: contain;
 }
+
 .input {
     padding: 10px;
-    border: 2px solid #006600;
+    border: 5px solid #006600;
     margin: 5px;
     border-radius: 5px;
+}
+
+.footer {
+    background: white;
+
+    p {
+        font-size: 13px;
+        text-align: center;
+        color: #565656;
+    }
+
+    ion-button {
+
+        width: 90%;
+        margin: auto;
+        display: block;
+        margin-bottom: 27px;
+        --background: yellow;
+        color: green;
+        font-weight: bold;
+        --box-shadow: none;
+    }
 }

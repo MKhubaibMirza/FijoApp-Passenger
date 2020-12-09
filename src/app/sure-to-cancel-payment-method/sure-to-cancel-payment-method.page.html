@@ -1,9 +1,20 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sureToCancelPaymentMethod</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content scrollY="false">
+  <ion-slides class="swiper-no-swiping">
+    <ion-slide>
+      <ion-card>
+        <p class="title">Are you sure?</p>
+        <p class="subtitle">You are about to exit without saving your payment method.</p>
+        <ion-grid class="ion-no-margin">
+          <ion-row class="ion-no-margin">
+            <ion-col size="6">
+              <ion-button color="transparent" class="okBtn">OK</ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button color="transparent" class="leaveBtn">Leave</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
