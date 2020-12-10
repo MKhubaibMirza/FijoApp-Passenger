@@ -1,0 +1,85 @@
+.back {
+    font-size: 30px;
+    color: green;
+    font-weight: bold;
+}
+
+.title {
+    padding-top: 6px;
+    font-size: 21px;
+    margin: 0;
+    color: green;
+    font-weight: bold;
+}
+
+.subtitle {
+    margin: 0;
+    color: green;
+    font-weight: bold;
+    padding-top: 13px;
+}
+
+.warn {
+    color: red;
+    font-size: 33px;
+    margin: 0;
+}
+
+.hr {
+    margin: auto;
+    display: block;
+    background: green;
+    height: 5px;
+    width: 90%;
+}
+
+.img {
+    margin: auto;
+    display: block;
+    object-fit: cover;
+    height: 367px;
+    width: 90%;
+    border-radius: 50px;
+    border: 7px solid green;
+}
+
+.card {
+    border: 7px solid green;
+    border-radius: 15px;
+    margin: auto;
+    display: block;
+    width: 90%;
+    margin-top: 15px;
+
+    p {
+        margin: 0;
+    }
+
+    .textUnderCard {
+        color: green;
+        font-weight: bold;
+    }
+
+    .time {
+        color: green;
+        font-weight: bold;
+        text-align: left;
+    }
+    .incardimg {
+        height: 45px;
+        margin: auto;
+        display: block;
+        border-radius: 100px;
+    }
+
+    .name {
+        padding-top: 15px;
+        color: green;
+        font-weight: bold;
+    }
+    .footerText{
+        padding-left: 21px;
+        color: green;
+        font-weight: bold;
+    }
+}
