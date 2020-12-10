@@ -1,8 +1,9 @@
 import { AgmMap, MapsAPILoader } from '@agm/core';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ModalController } from '@ionic/angular';
 import { CancelConfirmationPage } from '../cancel-confirmation/cancel-confirmation.page';
+import { RatingPage } from '../rating/rating.page';
 
 @Component({
   selector: 'app-tracking',
@@ -15,6 +16,14 @@ export class TrackingPage {
     public modalController: ModalController,
     public geolocation: Geolocation
   ) {
+    this.RatingModal();
+  }
+  async RatingModal() {
+    const modal = await this.modalController.create({
+      component: RatingPage,
+      cssClass: 'ratingModal'
+    });
+    return await modal.present();
   }
   latitude: number;
   longitude: number;

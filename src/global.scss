@@ -47,6 +47,16 @@ ion-input {
     box-shadow: none;
 }
 
+.ratingModal .modal-wrapper {
+    height: 450px;
+    width: 90%;
+    max-width: 342px;
+    display: block;
+    background: transparent;
+    margin: auto;
+    box-shadow: none;
+}
+
 .sureToCancelPaymentMethod .modal-wrapper {
     height: 215px;
     width: 90%;
