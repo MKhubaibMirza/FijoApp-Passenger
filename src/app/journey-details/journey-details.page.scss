@@ -2,6 +2,7 @@
     font-size: 30px;
     color: green;
     font-weight: bold;
+    outline: none;
 }
 
 .title {
@@ -61,10 +62,14 @@
     }
 
     .time {
+
         color: green;
         font-weight: bold;
-        text-align: left;
+        text-align: center;
+        font-size: 11px;
+
     }
+
     .incardimg {
         height: 45px;
         margin: auto;
@@ -77,9 +82,26 @@
         color: green;
         font-weight: bold;
     }
-    .footerText{
+
+    .footerText {
         padding-left: 21px;
         color: green;
         font-weight: bold;
+    }
+
+    .circle {
+        height: 13px;
+        width: 13px;
+        background: green;
+        border-radius: 9px;
+        margin-top: 7px;
+    }
+
+    .afterCircle {
+        height: 135%;
+        background: green;
+        width: 5px;
+        margin-left: 4px;
+        margin-top: -1px;
     }
 }
