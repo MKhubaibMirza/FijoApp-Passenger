@@ -20,8 +20,8 @@ export class PasswordPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    if (localStorage.getItem('user'))
-      this.data.email = JSON.parse(localStorage.getItem('user')).email
+    if (localStorage.getItem('TempUser'))
+      this.data.email = JSON.parse(localStorage.getItem('TempUser')).email
   }
   data = {
     email: '',
@@ -30,7 +30,9 @@ export class PasswordPage implements OnInit {
 
   next() {
     this.passengerService.login(this.data).subscribe((resp: any) => {
-      console.log(resp)
+      console.log(resp);
+      localStorage.setItem('user', JSON.stringify(resp.pessenger));
+      localStorage.removeItem('TempUser');
       this.r.navigate(['/home'])
     }, err => {
       this.presentToast('Opps! Incorrect Password!')

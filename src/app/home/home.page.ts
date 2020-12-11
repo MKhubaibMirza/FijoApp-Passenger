@@ -106,12 +106,19 @@ export class HomePage {
       condition: false,
       image: 'assets/taxidemo.jpg'
     }
+    ,
+    {
+      title: 'Kids',
+      seats: '6',
+      price: '17',
+      condition: false,
+      image: 'assets/taxidemo.jpg'
+    }
   ];
   selectedCar;
   selectCar(item, i) {
     this.selectedCar = item;
     this.carsTypes.forEach((element, index) => {
-      console.log(i, index);
       if (index == i) {
         this.carsTypes[index].condition = true;
       } else {

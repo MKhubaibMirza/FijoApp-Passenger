@@ -66,7 +66,7 @@ export class OtpVerificationPage implements OnInit {
             this.passengerService.checkByPhone(this.numberData).subscribe((resp: any) => {
               console.log(resp)
               if (resp.isPassengerExist) {
-                localStorage.setItem('user', JSON.stringify(resp.passenger))
+                localStorage.setItem('TempUser', JSON.stringify(resp.passenger))
                 this.loadingController.dismiss(true)
                 this.r.navigate(['/password'])
               } else {
@@ -80,7 +80,7 @@ export class OtpVerificationPage implements OnInit {
             this.loadingController.dismiss(true)
             // alert('ERROR')
             alert(err)
-            
+
           });
       } else {
         console.log(this.code, this.verifCode)
@@ -88,7 +88,7 @@ export class OtpVerificationPage implements OnInit {
           this.passengerService.checkByEmail(this.emailData).subscribe((resp: any) => {
             console.log(resp)
             if (resp.isPassengerExist) {
-              localStorage.setItem('user', JSON.stringify(resp.passenger))
+              localStorage.setItem('TempUser', JSON.stringify(resp.passenger))
               this.loadingController.dismiss(true)
               this.r.navigate(['/password'])
             } else {
@@ -110,11 +110,11 @@ export class OtpVerificationPage implements OnInit {
     let data = {
       pessenger: {
         firstName: 'Dummy',
-        lastName: 'User',
+        lastName: 'TempUser',
         email: 'DummyEmail@fijo.com',
       }
     }
-    localStorage.setItem('user', JSON.stringify(data))
+    localStorage.setItem('TempUser', JSON.stringify(data))
     this.r.navigate(['/home'])
   }
 
