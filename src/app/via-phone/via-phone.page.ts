@@ -81,10 +81,8 @@ export class ViaPhonePage implements OnInit {
   }
 
   getflag() {
-    console.log(this.data.phoneNumber)
     if (this.data.phoneNumber !== null) {
-      if (true) {
-
+      if (4! > JSON.stringify(this.data.phoneNumber).length) {
         let code_with_2_digits = JSON.stringify(this.data.phoneNumber).substr(0, 2);
         let code_with_3_digits = JSON.stringify(this.data.phoneNumber).substr(0, 3);
         console.log(code_with_2_digits);
