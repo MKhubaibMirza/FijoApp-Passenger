@@ -17,7 +17,9 @@ import { AgmCoreModule } from '@agm/core';
 import { AskPaymentWayPage } from './ask-payment-way/ask-payment-way.page';
 import { WelcomeUserPage } from './welcome-user/welcome-user.page';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
+import { Facebook } from '@ionic-native/facebook/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { CancelConfirmationPage } from './cancel-confirmation/cancel-confirmation.page';
 import * as firebase from 'firebase';
 firebase.initializeApp(environment.firebaseConfig);
@@ -35,6 +37,8 @@ firebase.initializeApp(environment.firebaseConfig);
     SplashScreen,
     Geolocation,
     AndroidPermissions,
+    Facebook,
+    GooglePlus,
     LocationAccuracy,
     OneSignal,
     NativeGeocoder,

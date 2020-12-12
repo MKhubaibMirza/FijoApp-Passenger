@@ -133,8 +133,8 @@ export class OtpVerificationPage implements OnInit {
   async presentLoadingWithOptions() {
     const loading = await this.loadingController.create({
       spinner: 'lines',
-      duration: 5000,
-      message: 'Loading Please Wait...',
+      duration: 9000,
+      message: 'Please Wait...',
       translucent: true,
       cssClass: 'loading-class',
     });

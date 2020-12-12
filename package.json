@@ -23,7 +23,9 @@
     "@capacitor/core": "2.4.2",
     "@ionic-native/android-permissions": "^5.30.0",
     "@ionic-native/core": "^5.0.0",
+    "@ionic-native/facebook": "^5.30.0",
     "@ionic-native/geolocation": "^5.29.0",
+    "@ionic-native/google-plus": "^5.30.0",
     "@ionic-native/location-accuracy": "^5.30.0",
     "@ionic-native/native-geocoder": "^5.29.0",
     "@ionic-native/onesignal": "^5.30.0",
@@ -33,7 +35,6 @@
     "agm-direction": "^0.8.8",
     "angular-code-input": "^1.2.2",
     "animate.css": "^4.1.1",
-    "cordova-plugin-firebase": "^2.0.5",
     "firebase": "^7.20.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
@@ -54,7 +55,9 @@
     "cordova-android": "^7.1.4",
     "cordova-plugin-android-permissions": "^1.1.2",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-facebook4": "^6.4.0",
     "cordova-plugin-geolocation": "^4.1.0",
+    "cordova-plugin-googleplus": "^8.5.1",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
     "cordova-plugin-request-location-accuracy": "^2.3.0",
@@ -94,7 +97,16 @@
         "GPS_REQUIRED": "true"
       },
       "onesignal-cordova-plugin": {},
-      "cordova-plugin-firebase": {}
+      "cordova-plugin-facebook4": {
+        "APP_ID": "2787607871516265",
+        "APP_NAME": "Fijo Taxi",
+        "FACEBOOK_HYBRID_APP_EVENTS": "false",
+        "FACEBOOK_ANDROID_SDK_VERSION": "5.13.0"
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "191310364390-56rtobobcuof2jsk5bgkmdteovd45usg.apps.googleusercontent.com",
+        "PLAY_SERVICES_VERSION": "15.0.1"
+      }
     },
     "platforms": [
       "android"
