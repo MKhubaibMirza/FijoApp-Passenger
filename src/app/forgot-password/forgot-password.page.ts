@@ -39,6 +39,7 @@ export class ForgotPasswordPage implements OnInit {
   async presentToast(mes) {
     const toast = await this.toastController.create({
       message: mes,
+      color: 'medium',
       duration: 2000,
     });
     toast.present();
@@ -62,17 +63,17 @@ export class ForgotPasswordPage implements OnInit {
     if (this.verifyEmail.email !== "") {
       this.passengerService.forgot(this.verifyEmail).subscribe((resp: any) => {
         console.log(resp);
-        if (resp.message === "Email exsists") {
+        if (resp.passenger) {
           this.secreatCodeVerifeir = true;
           this.EmailMilgia = true;
-          this.UserGLOBAL_DATA = resp.isAccountExist;
-          this.verifycode = resp.pa;
+          this.UserGLOBAL_DATA = resp.passenger;
+          this.verifycode = resp.verificationCode;
           this.presentAlert(
             "Check You E-Mail",
             "Please copy 8 word secret code from your email."
           );
           console.log(this.UserGLOBAL_DATA);
-        } else if (resp.message === "Email does not exsists") {
+        } else if (resp.message === "Email does not exit") {
           this.presentToast("* Email does not exists. TRY AGAIN !");
         }
       });
@@ -84,7 +85,8 @@ export class ForgotPasswordPage implements OnInit {
     if (this.secreatCode.code === "") {
       this.presentToast("Please enter code");
     } else {
-      if (this.secreatCode.code === this.verifycode) {
+      console.log(this.secreatCode.code, this.verifycode)
+      if (this.secreatCode.code == this.verifycode) {
         this.secreatCodeVerifeir = false;
         this.Change_Pass_Word = true;
       } else {
@@ -112,6 +114,7 @@ export class ForgotPasswordPage implements OnInit {
         .subscribe((respo: any) => {
           console.log(respo);
           localStorage.setItem("user", JSON.stringify(this.UserGLOBAL_DATA));
+          localStorage.removeItem('TempUser');
           this.r.navigate(["/home"]);
           this.presentAlert(
             "Successfull",

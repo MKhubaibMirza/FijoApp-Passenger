@@ -34,9 +34,9 @@ export class PassengerService {
     return this.http.post(this.ApiUrl + 'passenger/forgot-password', data)
   }
   changepass(data, id) {
-    return this.http.post(this.ApiUrl + "passenger/updatepassword/" + id, data);
+    return this.http.post(this.ApiUrl + "passenger/update-password/" + id, data);
   }
   forgot(data) {
-    return this.http.post(this.ApiUrl + "passenger/forgot", data);
+    return this.http.post(this.ApiUrl + "passenger/forgot-password", data);
   }
 }
