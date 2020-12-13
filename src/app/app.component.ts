@@ -5,7 +5,9 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { LocationService } from './services/location.service';
-import { WelcomeUserPage } from './welcome-user/welcome-user.page';
+import { Facebook } from '@ionic-native/facebook/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -22,7 +24,8 @@ export class AppComponent {
     private alertCtrl: AlertController,
     public modalController: ModalController,
     private menuController: MenuController,
-
+    private googlePlus: GooglePlus,
+    private fb: Facebook
   ) {
     this.initializeApp();
   }
@@ -36,10 +39,10 @@ export class AppComponent {
         this.setupPush();
       }
     });
-    if(localStorage.getItem('user')){
+    if (localStorage.getItem('user')) {
       this.profile = JSON.parse(localStorage.getItem('user')).profilePhoto;
       this.menuController.enable(true);
-    }else{
+    } else {
       this.menuController.enable(false);
     }
   }
@@ -106,9 +109,14 @@ export class AppComponent {
       return JSON.parse(localStorage.getItem('user')).email;
   }
   logOut() {
-    localStorage.clear();
     this.menuController.close();
     this.menuController.enable(false);
-    this.r.navigate(['/']);
+    if (localStorage.getItem('google')) {
+      this.googlePlus.logout();
+    } else if (localStorage.getItem('facebook')) {
+      this.fb.logout();
+    }
+    localStorage.clear();
+    this.r.navigate(['/via-phone']);
   }
 }

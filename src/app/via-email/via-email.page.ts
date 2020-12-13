@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { PassengerService } from '../services/passenger.service';
+import { SocialAuthService } from '../services/social-auth.service';
 
 @Component({
   selector: 'app-via-email',
@@ -16,6 +17,7 @@ export class ViaEmailPage implements OnInit {
     private passangerService: PassengerService,
     private loadingController: LoadingController,
     private alertController: AlertController,
+    private socialAuth: SocialAuthService
   ) { }
 
   ngOnInit() {
@@ -42,27 +44,14 @@ export class ViaEmailPage implements OnInit {
           this.presentAlertConfirm()
         }
       })
-      // this.passangerService.checkByEmail(this.data).subscribe((resp: any) => {
-      //   console.log(resp)
-      //   if (resp.isPassengerExist) {
-      //     console.log(resp.passenger)
-      //     this.loadingController.dismiss(true)
-
-      //     this.r.navigate(['/otp-verification/byEmail/' + this.data.email])
-      //   } else {
-      //     this.loadingController.dismiss(true)
-      //     this.presentToast("Email Doesn't Exist!")
-      //     this.presentAlertConfirm()
-      //   }
-      // })
     }
   }
 
   gplog() {
-    this.presentToast('Coming soon');
+    this.socialAuth.gplog();
   }
   fblog() {
-    this.presentToast('Coming soon');
+    this.socialAuth.fblog();
   }
 
 

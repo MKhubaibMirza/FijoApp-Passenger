@@ -27,7 +27,7 @@ export class SignupPage implements OnInit {
     private loading: LoadingController
   ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
   }
 
   ionViewWillEnter() {
@@ -48,9 +48,7 @@ export class SignupPage implements OnInit {
     password: '',
     gender: '',
     phoneNumber: '',
-
     profilePhoto: '',
-
     // from location 
     address: '',
     postalCode: '',
@@ -193,7 +191,7 @@ export class SignupPage implements OnInit {
       this.slide6 = true;
     }
   }
-  slidechnge(val){}
+  slidechnge(val) { }
   onSignupClick() {
     this.presentLoading()
     console.log(this.signupData)
@@ -201,8 +199,8 @@ export class SignupPage implements OnInit {
     this.passengerService.sigup(this.signupData).subscribe((resp: any) => {
       console.log(resp)
       this.loading.dismiss(true)
-      this.presentAlert()
-      this.r.navigate(['/'])
+      localStorage.setItem("user", JSON.stringify(resp.passenger));
+      this.r.navigate(["/home"]);
     }, err => {
       console.log(err.error)
       if (err.error) {
@@ -284,6 +282,6 @@ export class SignupPage implements OnInit {
       duration: 7000,
       spinner: 'dots',
     });
-    await loading.present(); 
+    await loading.present();
   }
 }
