@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class DataService {
 
-  ApirUrl = environment.baseUrl
+  ApiUrl = environment.baseUrl
 
   constructor(
     public http: HttpClient
@@ -16,5 +16,8 @@ export class DataService {
 
   show_flag(code) {
     return this.http.get('https://restcountries.eu/rest/v2/callingcode/' + code);
+  }
+  getExactPrice(data) {
+    return this.http.post(this.ApiUrl + "booking/calculate-estimated-price", data);
   }
 }

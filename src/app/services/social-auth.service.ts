@@ -135,18 +135,24 @@ export class SocialAuthService {
     })
   }
   getLocation() {
-    let currentlatitude = 0
-    let currentlongitute = 0
-    this.geolocation.getCurrentPosition().then((resp: any) => {
-      console.log(resp.coords.latitude, resp.coords.longitude)
+    let currentlatitude;
+    let currentlongitude;
+    this.geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((resp: any) => {
       currentlatitude = resp.coords.latitude;
-      currentlongitute = resp.coords.longitute;
-      this.nativeGeocoder.reverseGeocode(currentlongitute, currentlongitute)
+      currentlongitude = resp.coords.longitude;
+      let opt: NativeGeocoderOptions = {
+        useLocale: false,
+        maxResults: 5
+      };
+      console.log(currentlatitude, currentlongitude)
+      this.nativeGeocoder.reverseGeocode(currentlatitude, currentlongitude, opt)
         .then((result: NativeGeocoderResult[]) => {
           console.log(result[0]);
           this.signupData.city = result[0].locality;
           this.signupData.address = result[0].subLocality + ' ' + result[0].thoroughfare;
           this.signupData.postalCode = result[0].postalCode;
+        }).catch((error) => {
+          console.log('Error getting location', error);
         })
     }).catch((error) => {
       console.log('Error getting location', error);

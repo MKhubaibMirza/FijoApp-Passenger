@@ -34,7 +34,7 @@ export class ViaEmailPage implements OnInit {
     } else {
       this.presentLoadingWithOptions()
       this.passangerService.forgotPassword(this.data).subscribe((resp: any) => {
-        // console.log(resp)
+        console.log(resp)
         if (resp.passenger) {
           console.log(resp.passenger, resp.verificationCode)
           this.r.navigate(['/otp-verification/' + this.data.email + '/' + resp.verificationCode])
@@ -59,7 +59,7 @@ export class ViaEmailPage implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       duration: 2000,
-      position: 'bottom',
+      position: 'top',
       color: 'medium'
     });
     toast.present();
@@ -74,9 +74,6 @@ export class ViaEmailPage implements OnInit {
       cssClass: 'loading-class',
     });
     await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed with role:', role);
 
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
+import { PassengerService } from './passenger.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,9 +12,10 @@ export class LocationService {
     public geolocation: Geolocation,
     public androidPermissions: AndroidPermissions,
     public locationAccuracy: LocationAccuracy,
+    public passengerService: PassengerService
   ) {
 
-   }
+  }
   //Check if application having GPS access permission  
   checkGPSPermission() {
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION).then(
@@ -57,8 +59,27 @@ export class LocationService {
     this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
       () => {
         // When GPS Turned ON call method to get Accurate location coordinates
+        this.TrackPassengerLocation();
       },
       error => alert('Error requesting location permissions ' + JSON.stringify(error))
     );
+  }
+  TrackingCounter = 0;
+  TrackPassengerLocation() {
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((data: any) => {
+      this.TrackingCounter = this.TrackingCounter + 1;
+      if (this.TrackingCounter == 23) {
+        this.TrackingCounter = 0;
+        let locObj = {
+          currentLat: data.coords.latitude,
+          currentLng: data.coords.longitude,
+        };
+        if (localStorage.getItem('user')) {
+          let id = JSON.parse(localStorage.getItem('user')).id;
+          this.passengerService.updatePassengerLocation(locObj, id).subscribe((resp: any) => { })
+        }
+      }
+    });
   }
 }

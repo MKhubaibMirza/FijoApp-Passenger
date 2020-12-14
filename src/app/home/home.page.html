@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar color="transparent">
-    <ion-buttons>
-      <ion-menu-button class="menu" slot="start" autoHide="false" color="primary"></ion-menu-button>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button class="menu" autoHide="false" color="medium"></ion-menu-button>
     </ion-buttons>
-    <ion-icon slot="end" name="location" (click)="locationClick()" color="primary"></ion-icon>
+    <ion-title>Fijo Passenger</ion-title>
+    <ion-icon slot="end" name="location" (click)="locationClick()" color="medium"></ion-icon>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
 
   <agm-map [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom" [latitude]="latitude"
@@ -45,11 +45,8 @@
   <ion-card class="FooterCard" style="background:rgb(36, 123, 37, 0.8)" *ngIf="directionCondition">
     <ion-grid>
       <ion-row>
-        <ion-col size="5">
-          <p class="totaltime">{{totaltime}}</p>
-        </ion-col>
-        <ion-col size="5">
-          <p class="totaldistance">{{totaldistance}}</p>
+        <ion-col size="10">
+          <p class="totaltime">{{totaltime}} &nbsp; {{totaldistance}}</p>
         </ion-col>
         <ion-col size="2">
           <ion-icon (click)="CancelClick()" class="close" name="close-outline"></ion-icon>

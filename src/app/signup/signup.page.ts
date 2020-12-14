@@ -82,14 +82,11 @@ export class SignupPage implements OnInit {
     }).catch((error) => {
       console.log('Error getting location', error);
     })
-    // end geolocation end geolocation end geolocation end geolocation 
-
-    // reverse geolocation reverse geolocation reverse geolocation 
     let options: NativeGeocoderOptions = {
       useLocale: true,
       maxResults: 5
     };
-    this.nativeGeocoder.reverseGeocode(currentlongitute, currentlongitute)
+    this.nativeGeocoder.reverseGeocode(currentlatitude, currentlongitute)
       .then((result: NativeGeocoderResult[]) => {
         console.log(result[0]);
         this.signupData.city = result[0].locality;

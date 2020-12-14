@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import {
-  GoogleMapsAPIWrapper,
   AgmMap,
   MapsAPILoader,
 } from "@agm/core";
@@ -8,6 +7,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { MenuController, ModalController, Platform, ToastController } from '@ionic/angular';
 import { AskPaymentWayPage } from '../ask-payment-way/ask-payment-way.page';
 import { WelcomeUserPage } from '../welcome-user/welcome-user.page';
+import { DataService } from '../services/data.service';
 declare var google: any;
 
 @Component({
@@ -22,9 +22,13 @@ export class HomePage {
     public platform: Platform,
     public toastController: ToastController,
     private ngZone: NgZone,
+    public dataservice: DataService,
     public modalController: ModalController,
     private geolocation: Geolocation
   ) {
+  }
+  inRange(x, min, max) {
+    return ((x - min) * (x - max) <= 0);
   }
   getName() {
     if (localStorage.getItem('user'))
@@ -88,21 +92,21 @@ export class HomePage {
     {
       title: 'Lite',
       seats: '4',
-      price: '15',
+      price: '',
       condition: false,
       image: 'assets/taxidemo.jpg'
     },
     {
       title: 'Sedan',
       seats: '5',
-      price: '17',
+      price: '',
       condition: false,
       image: 'assets/taxidemo.jpg'
     },
     {
       title: 'Wagon',
       seats: '6',
-      price: '17',
+      price: '',
       condition: false,
       image: 'assets/taxidemo.jpg'
     }
@@ -110,7 +114,7 @@ export class HomePage {
     {
       title: 'Kids',
       seats: '6',
-      price: '17',
+      price: '',
       condition: false,
       image: 'assets/taxidemo.jpg'
     }
@@ -161,18 +165,10 @@ export class HomePage {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
-          //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-
-          //set latitude, longitude and zoom
-          // this.latitude = place.geometry.location.lat();
-          // this.longitude = place.geometry.location.lng();
-          // this.zoom = 18;
           this.destination = place.formatted_address;
           this.getDirection();
         });
@@ -195,7 +191,6 @@ export class HomePage {
         console.log(position)
         this.latitude = parseFloat(position.coords.latitude);
         this.longitude = parseFloat(position.coords.longitude);
-        // this.zoom = 18;
         this.getAddress(this.latitude, this.longitude);
       }, err => {
         console.log(err)
@@ -203,13 +198,55 @@ export class HomePage {
   }
   totaltime = '';
   totaldistance = '';
+  iAmCalled = 0;
   public onResponse(event: any) {
+    this.iAmCalled = this.iAmCalled + 1;
     if (event.status == "NOT_FOUND") {
       this.directionCondition = false;
       this.presentToast('Invalid Route. Try Again!');
     } else {
       this.totaldistance = event.routes[0]?.legs[0].distance.text;
       this.totaltime = event.routes[0]?.legs[0].duration.text;
+      let str = this.totaldistance.replace('km', '');
+      let getExactPriceObject = {
+        km: parseFloat(str.trim()),
+        isMorning: false,
+        isWeekend: false,
+        isAirport: false,
+        seatingCapacity: 4
+      }
+      if (this.inRange(19, 7, 21)) {
+        getExactPriceObject.isMorning = true;
+      } else {
+        getExactPriceObject.isMorning = false;
+      }
+      if ((new Date().getDay() == 6) || new Date().getDay() == 7) {
+        getExactPriceObject.isWeekend = true;
+      } else {
+        getExactPriceObject.isWeekend = false;
+      }
+      if ((this.destination.includes('airport')) || this.destination.includes('Airport')) {
+        getExactPriceObject.isAirport = true;
+      } else {
+        getExactPriceObject.isAirport = false;
+      }
+      if (this.iAmCalled == 1) {
+        getExactPriceObject.seatingCapacity = 4;
+        this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
+          console.log(resp);
+          this.carsTypes[0].price = resp.totalPrice;
+          getExactPriceObject.seatingCapacity = 5;
+          this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
+            console.log(resp);
+            this.carsTypes[1].price = resp.totalPrice;
+            this.carsTypes[2].price = resp.totalPrice;
+            this.carsTypes[3].price = resp.totalPrice;
+          })
+        })
+        setTimeout(() => {
+          this.iAmCalled = 0;
+        }, 3000);
+      }
     }
   }
   markerDragEnd(event: any) {
@@ -231,13 +268,14 @@ export class HomePage {
 
     });
   }
+  isAirport = false;
   getDirection() {
     console.log(this.destination, ' <== Destination')
     console.log(this.origin, ' <== origin')
     if ((this.destination !== '') && (this.origin !== '')) {
       this.directionCondition = true;
     } else {
-      this.presentToast('Please enter your destination')
+      this.presentToast('Please enter your destination');
     }
   }
   getAddress(latitude, longitude) {

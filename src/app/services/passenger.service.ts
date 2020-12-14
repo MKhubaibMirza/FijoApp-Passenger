@@ -39,4 +39,7 @@ export class PassengerService {
   forgot(data) {
     return this.http.post(this.ApiUrl + "passenger/forgot-password", data);
   }
+  updatePassengerLocation(data, id) {
+    return this.http.post(this.ApiUrl + "passenger/update-current-location/" + id, data);
+  }
 }
