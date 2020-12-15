@@ -88,37 +88,6 @@ export class HomePage {
   @ViewChild('search')
   public searchElementRef: ElementRef;
   @ViewChild(AgmMap) agmMap: AgmMap;
-  carsTypes = [
-    {
-      title: 'Lite',
-      seats: '4',
-      price: '',
-      condition: false,
-      image: 'assets/taxidemo.jpg'
-    },
-    {
-      title: 'Sedan',
-      seats: '5',
-      price: '',
-      condition: false,
-      image: 'assets/taxidemo.jpg'
-    },
-    {
-      title: 'Wagon',
-      seats: '6',
-      price: '',
-      condition: false,
-      image: 'assets/taxidemo.jpg'
-    }
-    ,
-    {
-      title: 'Kids',
-      seats: '6',
-      price: '',
-      condition: false,
-      image: 'assets/taxidemo.jpg'
-    }
-  ];
   selectedCar;
   selectCar(item, i) {
     this.selectedCar = item;
@@ -149,13 +118,13 @@ export class HomePage {
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,
-      color: 'primary',
+      color: 'medium',
       position: 'top',
       duration: 2000
     });
     toast.present();
   }
-  ionViewWillEnter() {
+  ngOnInit() {
     this.presentUser();
     // uncomment below when using real device
     //load Places Autocomplete
@@ -200,6 +169,7 @@ export class HomePage {
   totaldistance = '';
   iAmCalled = 0;
   public onResponse(event: any) {
+    this.carsTypes = [];
     this.iAmCalled = this.iAmCalled + 1;
     if (event.status == "NOT_FOUND") {
       this.directionCondition = false;
@@ -233,14 +203,41 @@ export class HomePage {
       if (this.iAmCalled == 1) {
         getExactPriceObject.seatingCapacity = 4;
         this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-          console.log(resp);
-          this.carsTypes[0].price = resp.totalPrice;
+          let For4SeaterPrice = resp.totalPrice;
+          let carTypesArray = [
+            { title: 'Lite', desc: 'Fixed Price' },
+            { title: 'Sedan', desc: 'General Purpose' },
+            { title: 'Sedan', desc: 'For Handicaps' }
+          ];
           getExactPriceObject.seatingCapacity = 5;
           this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-            console.log(resp);
-            this.carsTypes[1].price = resp.totalPrice;
-            this.carsTypes[2].price = resp.totalPrice;
-            this.carsTypes[3].price = resp.totalPrice;
+            let For5SeaterPrice = resp.totalPrice;
+            carTypesArray.forEach(element => {
+              this.carsTypes.push({
+                title: element.title,
+                desc: element.desc,
+                condition: false,
+                seats: [
+                  {
+                    numbers: 4,
+                    price: For4SeaterPrice,
+                    checked: false
+                  },
+                  {
+                    numbers: 5,
+                    price: For5SeaterPrice,
+                    checked: false
+                  },
+                  {
+                    numbers: 6,
+                    price: For5SeaterPrice,
+                    checked: false
+                  },
+                ],
+                image: 'assets/Fijo_Lite_Cab_v1.png'
+              });
+            });
+            console.log(this.carsTypes)
           })
         })
         setTimeout(() => {
@@ -248,6 +245,10 @@ export class HomePage {
         }, 3000);
       }
     }
+  }
+  carsTypes = [];
+  findDriverObject = {
+    totalseats: ''
   }
   markerDragEnd(event: any) {
     let coords = JSON.stringify(event);
@@ -273,7 +274,9 @@ export class HomePage {
     console.log(this.destination, ' <== Destination')
     console.log(this.origin, ' <== origin')
     if ((this.destination !== '') && (this.origin !== '')) {
-      this.directionCondition = true;
+      setTimeout(() => {
+        this.directionCondition = true;
+      }, 900);
     } else {
       this.presentToast('Please enter your destination');
     }
@@ -307,7 +310,12 @@ export class HomePage {
       let h = this.platform.height() / 2;
       this.heightOfCard = h.toString() + 'px';
     } else {
-      this.heightOfCard = ''
+      this.heightOfCard = '';
+      if (this.destination.length !== 0) {
+        setTimeout(() => {
+          this.getDirection();
+        }, 900);
+      }
     }
     console.log(val, this.heightOfCard)
   }

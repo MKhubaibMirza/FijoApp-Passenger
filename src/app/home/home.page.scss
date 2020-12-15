@@ -94,16 +94,21 @@ agm-map {
 }
 
 .loopcar {
-  height: 50px;
+  height: 70px;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 7px;
 }
 
 .looptitle {
-  font-size: 18px;
+  font-size: 21px;
   margin: 0;
-  padding-top: 15px;
+  font-weight: bold;
+  padding-top: 3px;
+}
+.loopdesc {
+  font-size: 15px;
+  margin: 0;
   font-weight: bold;
 }
 

@@ -26,7 +26,8 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 * {
-    font-family: 'Anonymous Pro', monospace;
+    // font-family: 'Anonymous Pro', monospace;
+    font-family: 'Andika New Basic', sans-serif;
 }
 
 ion-label {
@@ -37,18 +38,35 @@ ion-input {
     font-family: 'Anonymous Pro', monospace !important;
 }
 
-.askpayway .modal-wrapper {
-    height: 230px;
-    width: 80%;
-    max-width: 342px;
-    display: block;
-    background: transparent;
-    margin: auto;
-    box-shadow: none;
+.askpayway {
+    --height: auto;
+
+    .modal-wrapper {
+        width: 80%;
+        max-width: 342px;
+        display: block;
+        margin: auto;
+        background: #006600;
+        box-shadow: none;
+        border: 5px solid yellow;
+
+        .ion-page {
+            position: relative;
+            display: block;
+            contain: content;
+
+            .inner-content {
+                max-height: 80vh;
+                overflow: auto;
+                padding: 10px 0px;
+            }
+        }
+    }
 }
 
+
 .ratingModal .modal-wrapper {
-    height: 450px;
+    height: 550px;
     width: 90%;
     max-width: 342px;
     display: block;
@@ -64,34 +82,82 @@ ion-input {
     margin: auto;
 }
 
-.cancelconfirm .modal-wrapper {
-    height: 330px;
-    width: 80%;
-    max-width: 342px;
-    display: block;
-    background: transparent;
-    margin: auto;
-    box-shadow: none;
+.cancelconfirm {
+    --height: auto;
+
+    .modal-wrapper {
+        width: 80%;
+        max-width: 342px;
+        display: block;
+        margin: auto;
+        background: #006600;
+        box-shadow: none;
+        border: 5px solid yellow;
+
+        .ion-page {
+            position: relative;
+            display: block;
+            contain: content;
+
+            .inner-content {
+                max-height: 80vh;
+                overflow: auto;
+                padding: 10px 0px;
+            }
+        }
+    }
 }
 
-.cancelreason .modal-wrapper {
-    height: 313px;
-    width: 80%;
-    max-width: 342px;
-    display: block;
-    background: transparent;
-    margin: auto;
-    box-shadow: none;
+.cancelreason {
+    --height: auto;
+
+    .modal-wrapper {
+        width: 85%;
+        max-width: 342px;
+        display: block;
+        margin: auto;
+        background: #006600;
+        box-shadow: none;
+        border: 5px solid yellow;
+
+        .ion-page {
+            position: relative;
+            display: block;
+            contain: content;
+
+            .inner-content {
+                max-height: 80vh;
+                overflow: auto;
+                padding: 10px 0px;
+            }
+        }
+    }
 }
 
-.welcomeUser .modal-wrapper {
-    height: 207px;
-    width: 80%;
-    max-width: 342px;
-    display: block;
-    background: transparent;
-    margin: auto;
-    box-shadow: none;
+.welcomeUser {
+    --height: auto;
+
+    .modal-wrapper {
+        width: 85%;
+        max-width: 342px;
+        display: block;
+        margin: auto;
+        background: #006600;
+        box-shadow: none;
+        border: 5px solid yellow;
+
+        .ion-page {
+            position: relative;
+            display: block;
+            contain: content;
+
+            .inner-content {
+                max-height: 80vh;
+                overflow: auto;
+                padding: 10px 0px;
+            }
+        }
+    }
 }
 
 // =====================

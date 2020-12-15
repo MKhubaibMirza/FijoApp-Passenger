@@ -1,4 +1,4 @@
-<ion-content *ngIf="!IsSaving" class="ion-padding" scrollY="false">
+<div class="inner-content" *ngIf="!IsSaving" class="ion-padding" scrollY="false">
   <p class="title">
     <b>
       How would you like to pay?
@@ -30,8 +30,8 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-content>
-<ion-content *ngIf="IsSaving" class="ion-padding" scrollY="false">
+</div>
+<div class="inner-content" *ngIf="IsSaving" class="ion-padding" scrollY="false">
   <ion-spinner name="lines"></ion-spinner>
   <p class="savetitle">
     <b>
@@ -39,4 +39,4 @@
     </b>
   </p>
   <br>
-</ion-content>
+</div>
