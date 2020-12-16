@@ -85,6 +85,21 @@ export class HomePage {
     },
     travelMode: "DRIVING",
   }
+  FindDriverObj = {
+    noOfSeating: '',
+    vehicleType: '',
+    city: JSON.parse(localStorage.getItem('user')).city,
+    currentLat: 0,
+    currentLng: 0,
+    searchInKM: 7,
+    paymentVia: '',
+    passengerObj: localStorage.getItem('user'),
+    origin: '',
+    destination: '',
+    estTime: '',
+    exactPriceForDriver: 0,
+    totalKM: 0
+  }
   @ViewChild('search')
   public searchElementRef: ElementRef;
   @ViewChild(AgmMap) agmMap: AgmMap;
@@ -98,18 +113,33 @@ export class HomePage {
         this.carsTypes[index].condition = false;
       }
     });
+    if (item.desc == "Fixed Price") {
+      this.FindDriverObj.vehicleType = 'lite';
+    } else if (item.desc == "General Purpose") {
+      this.FindDriverObj.vehicleType = 'sedanN';
+    } else if (item.desc == "For Handicaps") {
+      this.FindDriverObj.vehicleType = 'sedanH';
+    }
   }
   async AskPayWay() {
     if (this.selectedCar == undefined) {
-      this.presentToast('Please select your ride');
+      this.presentToast('Please Select Your Ride');
     } else {
-      let data = {
-        origin: this.origin,
-        destination: this.destination
+      this.FindDriverObj.origin = this.origin;
+      this.FindDriverObj.destination = this.destination;
+      console.log(this.BasePrice4Seater, this.For4SeaterPrice)
+      console.log(this.BasePrice5Seater, this.For5SeaterPrice)
+      if (this.FindDriverObj.noOfSeating == '4') {
+        this.FindDriverObj.exactPriceForDriver = this.For4SeaterPrice - this.BasePrice4Seater;
+      } else {
+        this.FindDriverObj.exactPriceForDriver = this.For5SeaterPrice - this.BasePrice5Seater;
       }
-      localStorage.setItem('trackingRoute', JSON.stringify(data))
+      console.log(this.FindDriverObj);
       const modal = await this.modalController.create({
         component: AskPaymentWayPage,
+        componentProps: {
+          FindDriverObj: this.FindDriverObj
+        },
         cssClass: 'askpayway'
       });
       await modal.present();
@@ -160,6 +190,8 @@ export class HomePage {
         console.log(position)
         this.latitude = parseFloat(position.coords.latitude);
         this.longitude = parseFloat(position.coords.longitude);
+        this.FindDriverObj.currentLat = this.latitude;
+        this.FindDriverObj.currentLng = this.longitude;
         this.getAddress(this.latitude, this.longitude);
       }, err => {
         console.log(err)
@@ -168,6 +200,11 @@ export class HomePage {
   totaltime = '';
   totaldistance = '';
   iAmCalled = 0;
+  For4SeaterPrice = 0;
+  For5SeaterPrice = 0;
+  BasePrice4Seater = 0;
+  BasePrice5Seater = 0;
+  x = 0;
   public onResponse(event: any) {
     this.carsTypes = [];
     this.iAmCalled = this.iAmCalled + 1;
@@ -178,6 +215,8 @@ export class HomePage {
       this.totaldistance = event.routes[0]?.legs[0].distance.text;
       this.totaltime = event.routes[0]?.legs[0].duration.text;
       let str = this.totaldistance.replace('km', '');
+      this.FindDriverObj.totalKM = parseFloat(str.trim());
+      this.FindDriverObj.estTime = this.totaltime;
       let getExactPriceObject = {
         km: parseFloat(str.trim()),
         isMorning: false,
@@ -185,7 +224,7 @@ export class HomePage {
         isAirport: false,
         seatingCapacity: 4
       }
-      if (this.inRange(19, 7, 21)) {
+      if (this.inRange(new Date().getHours(), 7, 21)) {
         getExactPriceObject.isMorning = true;
       } else {
         getExactPriceObject.isMorning = false;
@@ -202,8 +241,11 @@ export class HomePage {
       }
       if (this.iAmCalled == 1) {
         getExactPriceObject.seatingCapacity = 4;
+        console.log(getExactPriceObject)
         this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-          let For4SeaterPrice = resp.totalPrice;
+          console.log(resp, ' 4 > seats')
+          this.For4SeaterPrice = resp.totalPrice;
+          this.BasePrice4Seater = resp.basePrice;
           let carTypesArray = [
             { title: 'Lite', desc: 'Fixed Price' },
             { title: 'Sedan', desc: 'General Purpose' },
@@ -211,7 +253,9 @@ export class HomePage {
           ];
           getExactPriceObject.seatingCapacity = 5;
           this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-            let For5SeaterPrice = resp.totalPrice;
+            console.log(resp, ' 5 > seats')
+            this.For5SeaterPrice = resp.totalPrice;
+            this.BasePrice5Seater = resp.basePrice;
             carTypesArray.forEach(element => {
               this.carsTypes.push({
                 title: element.title,
@@ -220,24 +264,23 @@ export class HomePage {
                 seats: [
                   {
                     numbers: 4,
-                    price: For4SeaterPrice,
+                    price: this.For4SeaterPrice,
                     checked: false
                   },
                   {
                     numbers: 5,
-                    price: For5SeaterPrice,
+                    price: this.For5SeaterPrice,
                     checked: false
                   },
                   {
                     numbers: 6,
-                    price: For5SeaterPrice,
+                    price: this.For5SeaterPrice,
                     checked: false
                   },
                 ],
                 image: 'assets/Fijo_Lite_Cab_v1.png'
               });
             });
-            console.log(this.carsTypes)
           })
         })
         setTimeout(() => {
@@ -247,9 +290,6 @@ export class HomePage {
     }
   }
   carsTypes = [];
-  findDriverObject = {
-    totalseats: ''
-  }
   markerDragEnd(event: any) {
     let coords = JSON.stringify(event);
     let coords3 = JSON.parse(coords);

@@ -4,19 +4,23 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { ModalController } from '@ionic/angular';
 import { CancelConfirmationPage } from '../cancel-confirmation/cancel-confirmation.page';
 import { RatingPage } from '../rating/rating.page';
-
+import { DriverService } from '../services/driver.service';
+import io from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.page.html',
   styleUrls: ['./tracking.page.scss'],
 })
 export class TrackingPage {
+  socket = io(environment.baseUrl);
   constructor(
     private mapsAPILoader: MapsAPILoader,
     public modalController: ModalController,
+    public driverService: DriverService,
     public geolocation: Geolocation
   ) {
-    this.RatingModal();
+    // this.socket.on('', '');
   }
   async RatingModal() {
     const modal = await this.modalController.create({
@@ -31,8 +35,8 @@ export class TrackingPage {
   address: string;
   @ViewChild(AgmMap) agmMap: AgmMap;
   private geoCoder;
-  public origin = JSON.parse(localStorage.getItem('trackingRoute')).origin;
-  public destination = JSON.parse(localStorage.getItem('trackingRoute')).destination;
+  public origin = JSON.parse(localStorage.getItem('findDriverObj')).origin;
+  public destination = JSON.parse(localStorage.getItem('findDriverObj')).destination;
   public renderOptions = {
     suppressMarkers: true,
     polylineOptions: { strokeColor: '#006600', strokeWeight: 5 }
@@ -83,11 +87,19 @@ export class TrackingPage {
     setTimeout(() => {
       this.DriverFound = true;
     }, 7000);
+    let findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
+    this.driverService.findDrivers(findDriverObj).subscribe((resp: any) => {
+      if (resp.length !== 0) {
+        console.log(resp);
+        this.socket.emit('send-data-to-drivers', resp);
+      }
+    }, er => {
+      //  Driver Not Found
+      console.log(er);
+    })
   }
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 17;
@@ -109,13 +121,11 @@ export class TrackingPage {
     };
     this.geolocation.getCurrentPosition(options).then
       ((position: any) => {
-        console.log(position)
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         // this.zoom = 18;
         this.getAddress(this.latitude, this.longitude);
       }, err => {
-        console.log(err)
       });
   }
   DriverFound = false;
