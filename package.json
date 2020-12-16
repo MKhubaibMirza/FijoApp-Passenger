@@ -39,6 +39,7 @@
     "animate.css": "^4.1.1",
     "firebase": "^7.20.0",
     "rxjs": "~6.5.5",
+    "socket.io-client": "^2.3.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },
