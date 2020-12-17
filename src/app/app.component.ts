@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { LocationService } from './services/location.service';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,7 @@ export class AppComponent {
   ) {
     this.initializeApp();
   }
-
+  url = environment.baseUrl;
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleLightContent();
@@ -40,7 +41,6 @@ export class AppComponent {
       }
     });
     if (localStorage.getItem('user')) {
-      this.profile = JSON.parse(localStorage.getItem('user')).profilePhoto;
       if(localStorage.getItem('tracking')){
         this.r.navigate(['/tracking'])
       }
@@ -102,7 +102,6 @@ export class AppComponent {
     this.r.navigate([r])
     this.menuController.close()
   }
-  profile = ''
   getName() {
     if (localStorage.getItem('user'))
       return JSON.parse(localStorage.getItem('user')).firstName + ' ' + JSON.parse(localStorage.getItem('user')).lastName;
@@ -110,6 +109,10 @@ export class AppComponent {
   getEmail() {
     if (localStorage.getItem('user'))
       return JSON.parse(localStorage.getItem('user')).email;
+  }
+  getMyImg(){
+    if (localStorage.getItem('user'))
+    return JSON.parse(localStorage.getItem('user')).profilePhoto;
   }
   logOut() {
     this.menuController.close();

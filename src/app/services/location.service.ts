@@ -68,7 +68,6 @@ export class LocationService {
   TrackPassengerLocation() {
     let watch = this.geolocation.watchPosition();
     watch.subscribe((data: any) => {
-      console.log(data)
       this.TrackingCounter = this.TrackingCounter + 1;
       if (this.TrackingCounter == 23) {
         this.TrackingCounter = 0;

@@ -128,21 +128,6 @@ export class TrackingPage {
 
     await alert.present();
   }
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      if (status === 'OK') {
-        if (results[0]) {
-          this.zoom = 17;
-          this.origin = results[0].formatted_address;
-        } else {
-          window.alert('No results found');
-        }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-
-    });
-  }
   // Get Current Location Coordinates
   setCurrentLocation() {
     let options = {
@@ -154,7 +139,6 @@ export class TrackingPage {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         // this.zoom = 18;
-        this.getAddress(this.latitude, this.longitude);
       }, err => {
       });
   }
