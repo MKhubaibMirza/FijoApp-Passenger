@@ -41,6 +41,9 @@ export class AppComponent {
     });
     if (localStorage.getItem('user')) {
       this.profile = JSON.parse(localStorage.getItem('user')).profilePhoto;
+      if(localStorage.getItem('tracking')){
+        this.r.navigate(['/tracking'])
+      }
       this.menuController.enable(true);
     } else {
       this.menuController.enable(false);

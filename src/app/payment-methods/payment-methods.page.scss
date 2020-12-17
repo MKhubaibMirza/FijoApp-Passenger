@@ -1,0 +1,15 @@
+ion-slides {
+    height: 100%;
+    ion-slide {
+        .card {
+            box-shadow: none;
+            background: transparent;
+            p{
+                color: yellow;
+            }
+        }
+    }
+}
+ion-content {
+    --background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../assets/bg.png') repeat center center / cover;
+}

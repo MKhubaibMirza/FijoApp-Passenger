@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ToastController } from '@ionic/angular';
+import { PaymentService } from '../services/payment.service';
 
 @Component({
   selector: 'app-payment-methods',
@@ -9,13 +10,31 @@ import { MenuController } from '@ionic/angular';
 export class PaymentMethodsPage implements OnInit {
 
   constructor(
-    private menuControl: MenuController,
+    public toastController: ToastController,
+    public paymentService: PaymentService
   ) { }
 
   ngOnInit() {
   }
+  PaymentMethodFound = false;
 
-  ionViewWillEnter() {
-    // this.menuControl.enable(false)
+  card = {
+    number: '',
+    expMonth: '',
+    expYear: '',
+    cvc: ''
   }
+  ionViewWillEnter() {
+    // Call Api that check if have payment then PaymentMethodFound == true else PaymentMethodFound == false;
+  }
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      color: 'medium',
+      position: 'top',
+      duration: 2000
+    });
+    toast.present();
+  }
+
 }

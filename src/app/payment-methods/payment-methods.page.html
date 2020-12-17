@@ -7,6 +7,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <p style="text-align: center;">This Page is in Progress</p>
+<ion-content *ngIf="PaymentMethodFound">
+
+</ion-content>
+<ion-content *ngIf="!PaymentMethodFound">
+  <ion-slides class="swiper-no-swiping">
+    <ion-slide>
+      <ion-card class="card">
+        <p>No Payment Method Saved yet!</p>
+        <ion-button color="medium">Add Payment Method</ion-button>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
