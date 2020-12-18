@@ -8,6 +8,7 @@ import { LocationService } from './services/location.service';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { environment } from 'src/environments/environment';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ export class AppComponent {
     private r: Router,
     private oneSignal: OneSignal,
     private alertCtrl: AlertController,
+    private socialSharing: SocialSharing,
     public modalController: ModalController,
     private menuController: MenuController,
     private googlePlus: GooglePlus,
@@ -41,7 +43,7 @@ export class AppComponent {
       }
     });
     if (localStorage.getItem('user')) {
-      if(localStorage.getItem('tracking')){
+      if (localStorage.getItem('tracking')) {
         this.r.navigate(['/tracking'])
       }
       this.menuController.enable(true);
@@ -88,19 +90,22 @@ export class AppComponent {
 
 
   navlist = [
-    { title: 'My Journeys', icon: 'car', route: '/my-journeys' },
-    { title: 'Payment Methods', icon: 'cash', route: '/payment-methods' },
-    { title: 'My Account', icon: 'person', route: '/profile' },
-    { title: 'Invite Friends', icon: 'person-add', route: '/invite-friends' },
-    { title: 'Discount Codes', icon: 'remove-circle', route: '/discount-codes' },
-    { title: 'Help', icon: 'help-circle', route: '/help' },
-    // { title: 'Logout', icon: 'exit' },
+    { title: 'Home', icon: 'home', route: '/home', },
+    { title: 'My Journeys', icon: 'car', route: '/my-journeys', },
+    { title: 'Payment Methods', icon: 'cash', route: '/payment-methods', },
+    { title: 'My Account', icon: 'person', route: '/profile', },
+    { title: 'Invite Friends', icon: 'person-add', route: '', },
+    { title: 'Discount Codes', icon: 'remove-circle', route: '/discount-codes', },
+    { title: 'Help', icon: 'help-circle', route: '/help', },
   ]
 
   route(r) {
-    console.log(r)
-    this.r.navigate([r])
-    this.menuController.close()
+    this.menuController.close();
+    if (r == '') {
+      this.sendInvitation();
+    } else {
+      this.r.navigate([r])
+    }
   }
   getName() {
     if (localStorage.getItem('user'))
@@ -110,9 +115,9 @@ export class AppComponent {
     if (localStorage.getItem('user'))
       return JSON.parse(localStorage.getItem('user')).email;
   }
-  getMyImg(){
+  getMyImg() {
     if (localStorage.getItem('user'))
-    return JSON.parse(localStorage.getItem('user')).profilePhoto;
+      return JSON.parse(localStorage.getItem('user')).profilePhoto;
   }
   logOut() {
     this.menuController.close();
@@ -124,5 +129,16 @@ export class AppComponent {
     }
     localStorage.clear();
     this.r.navigate(['/via-phone']);
+  }
+  sendInvitation() {
+    let url = 'https://play.google.com/store/apps/details?id=com.fijotaxi.passenger';
+    let message = this.getName() + ' has invited you to join FIJO TAXI App.';
+    console.log(url);
+    console.log(message);
+    this.socialSharing.share(message, 'Fijo Taxi', null, url).then(res => {
+      console.log(res);
+    }).catch(err => {
+      console.log(err);
+    })
   }
 }

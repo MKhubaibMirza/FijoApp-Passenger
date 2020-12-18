@@ -24,9 +24,9 @@ import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import * as firebase from 'firebase';
 import { Stripe } from '@ionic-native/stripe/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 firebase.initializeApp(environment.firebaseConfig);
-
 @NgModule({
   declarations: [AppComponent, AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],
   entryComponents: [AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],
@@ -41,6 +41,7 @@ firebase.initializeApp(environment.firebaseConfig);
     Geolocation,
     AndroidPermissions,
     Facebook,
+    SocialSharing,
     Stripe,
     GooglePlus,
     File,

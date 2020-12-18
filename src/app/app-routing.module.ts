@@ -50,11 +50,6 @@ const routes: Routes = [
     loadChildren: () => import('./payment-methods/payment-methods.module').then(m => m.PaymentMethodsPageModule)
   },
   {
-    path: 'invite-friends',
-    canActivate: [ForwordGuard],
-    loadChildren: () => import('./invite-friends/invite-friends.module').then(m => m.InviteFriendsPageModule)
-  },
-  {
     path: 'discount-codes',
     canActivate: [ForwordGuard],
     loadChildren: () => import('./discount-codes/discount-codes.module').then(m => m.DiscountCodesPageModule)

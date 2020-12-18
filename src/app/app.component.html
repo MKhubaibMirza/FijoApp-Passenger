@@ -19,7 +19,7 @@
         <hr>
 
         <ion-grid class="list ion-no-padding">
-          <ion-row *ngFor='let item of navlist' (click)='route(item.route)'>
+          <ion-row *ngFor='let item of navlist' (click)='route(item.route);'>
             <ion-col size="2.2">
               <ion-icon [name]="item.icon"></ion-icon>
             </ion-col>
