@@ -26,9 +26,7 @@ export class ChatPage implements OnInit {
       this.passengerP = this.senderName.charAt(0);
       this.driverD = this.receiverName.charAt(0);
       this.GetMessages();
-      let something = this.receiverId * this.senderId;
-      console.log(JSON.stringify(something), 'something');
-      this.socket.on(JSON.stringify(something), (data) => {
+      this.socket.on('listenchat' + this.senderId, (data) => {
         console.log('Messages Refresher', data);
         this.messagesArray.push(data);
         this.scrollToBottom();
@@ -78,6 +76,7 @@ export class ChatPage implements OnInit {
       this.msgService
         .SendMessage(data)
         .subscribe(resp => {
+          this.messagesArray.push(data);
           this.socket.emit('refresh', data);
           this.scrollToBottom()
         });
