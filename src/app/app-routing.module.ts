@@ -174,6 +174,12 @@ const routes: Routes = [
     canActivate: [ForwordGuard],
     loadChildren: () => import('./journey-details/journey-details.module').then( m => m.JourneyDetailsPageModule)
   },
+  {
+    path: 'chat/:name/:id',
+    canActivate: [ForwordGuard],
+    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
+  },
+
 
 ];
 

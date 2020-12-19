@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-profile',
@@ -14,13 +15,14 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
   }
-
-  profile = ''
+  url = environment.baseUrl;
   ionViewWillEnter() {
-    // this.menuControl.enable(false)
-    this.profile = JSON.parse(localStorage.getItem('user')).profilePhoto
   }
   getName() {
     return JSON.parse(localStorage.getItem('user')).firstName + '' + JSON.parse(localStorage.getItem('user')).lastName;
+  }
+  getMyImg() {
+    if (localStorage.getItem('user'))
+      return JSON.parse(localStorage.getItem('user')).profilePhoto;
   }
 }
