@@ -208,10 +208,15 @@ export class HomePage {
   public onResponse(event: any) {
     this.carsTypes = [];
     this.iAmCalled = this.iAmCalled + 1;
+    console.log(event)
     if (event.status == "NOT_FOUND") {
       this.directionCondition = false;
       this.presentToast('Invalid Route. Try Again!');
-    } else {
+    }else if(event.status == "ZERO_RESULTS"){
+      this.directionCondition = false;
+      this.presentToast('Invalid Route. Try Again!');
+    }
+     else {
       this.totaldistance = event.routes[0]?.legs[0].distance.text;
       this.totaltime = event.routes[0]?.legs[0].duration.text;
       let str = this.totaldistance.replace('km', '');
@@ -257,29 +262,45 @@ export class HomePage {
             this.For5SeaterPrice = resp.totalPrice;
             this.BasePrice5Seater = resp.basePrice;
             carTypesArray.forEach(element => {
-              this.carsTypes.push({
-                title: element.title,
-                desc: element.desc,
-                condition: false,
-                seats: [
-                  {
-                    numbers: 4,
-                    price: this.For4SeaterPrice,
-                    checked: false
-                  },
-                  {
-                    numbers: 5,
-                    price: this.For5SeaterPrice,
-                    checked: false
-                  },
-                  {
-                    numbers: 6,
-                    price: this.For5SeaterPrice,
-                    checked: false
-                  },
-                ],
-                image: 'assets/Fijo_Lite_Cab_v1.png'
-              });
+              if (resp.length == 0) {
+                this.carsTypes.push({
+                  title: element.title,
+                  desc: element.desc,
+                  condition: false,
+                  seats: [
+                    {
+                      numbers: 4,
+                      price: this.For4SeaterPrice,
+                      checked: false
+                    }
+                  ],
+                  image: 'assets/Fijo_Lite_Cab_v1.png'
+                });
+              } else {
+                this.carsTypes.push({
+                  title: element.title,
+                  desc: element.desc,
+                  condition: false,
+                  seats: [
+                    {
+                      numbers: 4,
+                      price: this.For4SeaterPrice,
+                      checked: false
+                    },
+                    {
+                      numbers: 5,
+                      price: this.For5SeaterPrice,
+                      checked: false
+                    },
+                    {
+                      numbers: 6,
+                      price: this.For5SeaterPrice,
+                      checked: false
+                    },
+                  ],
+                  image: 'assets/Fijo_Lite_Cab_v1.png'
+                });
+              }
             });
           })
         })

@@ -30,7 +30,8 @@ export class ChatPage implements OnInit {
       console.log(JSON.stringify(something), 'something');
       this.socket.on(JSON.stringify(something), (data) => {
         console.log('Messages Refresher', data);
-        this.GetMessages();
+        this.messagesArray.push(data);
+        this.scrollToBottom();
       });
     })
   }

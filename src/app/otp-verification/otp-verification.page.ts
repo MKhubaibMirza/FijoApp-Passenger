@@ -26,7 +26,8 @@ export class OtpVerificationPage implements OnInit {
   verifCode: any;
   onCodeCompleted(event) {
     console.log(event)
-    this.verifCode = event
+    this.verifCode = event;
+    this.submitVerif()
   }
   text = ''
   by = ''
