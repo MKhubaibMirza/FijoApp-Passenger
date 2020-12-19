@@ -155,4 +155,9 @@ export class TrackingPage {
     });
     return await modal.present();
   }
+  openChat() {
+    let driver = JSON.parse(localStorage.getItem('tracking')).driverObj;
+    let name = driver.firstName + ' ' + driver.lastName;
+    this.router.navigate(['/chat/' + name + '/' + driver.id]);
+  }
 }
