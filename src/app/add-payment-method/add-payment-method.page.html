@@ -1,30 +1,29 @@
-<ion-header class="ion-no-border head">
-  <ion-toolbar>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
     <ion-buttons (click)="backBtn()" disabled slot="start">
-      <ion-back-button color="primary" icon="chevron-back-outline" defaultHref=""></ion-back-button>
+      <ion-back-button color="medium" icon="chevron-back-outline" defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title color="primary">Add Payment Card</ion-title>
+    <ion-title color="medium">Add Payment Card</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
+<ion-content class="ion-padding">
   <img class="img" src="assets/addcard.png" alt="">
-  <ion-item class="input ion-no-padding" lines='none'>
-    <ion-label position="floating" color='primary'>Card Number:</ion-label>
-    <ion-input [(ngModel)]='card.number' type='number'></ion-input>
+  <ion-item color="transparent" class="input ion-no-padding" lines='none'>
+    <ion-label position="floating" color='medium'>Card Number:</ion-label>
+    <ion-input [(ngModel)]='card.number' maxLength="16" type='tel'></ion-input>
   </ion-item>
   <ion-grid class="ion-no-margin ion-no-padding">
     <ion-row class="ion-no-margin ion-no-padding">
       <ion-col size="7.5" class="ion-no-margin ion-no-padding">
-        <ion-item class="input ion-no-padding" lines='none'>
-          <ion-label position="floating" color='primary'>Expiry Date:</ion-label>
-          <ion-datetime max="2050" min="2020" [(ngModel)]='card.date' displayFormat="YYYY MM"></ion-datetime>
+        <ion-item color="transparent" class="input ion-no-padding" lines='none'>
+          <ion-label position="stacked" color='medium'>Expiry Date:</ion-label>
+          <ion-datetime max="2035" min="2020" [(ngModel)]='date' displayFormat="YYYY MM"></ion-datetime>
         </ion-item>
       </ion-col>
       <ion-col size="4.5" class="ion-no-margin ion-no-padding">
-        <ion-item class="input ion-no-padding" lines='none'>
-          <ion-label position="floating" color='primary'>CVV:</ion-label>
-          <ion-input [(ngModel)]='card.cvv' type='number'></ion-input>
+        <ion-item color="transparent" class="input ion-no-padding" lines='none'>
+          <ion-label position="floating" color='medium'>CVC:</ion-label>
+          <ion-input [(ngModel)]='card.cvc' maxLength="4" type='tel'></ion-input>
         </ion-item>
       </ion-col>
     </ion-row>

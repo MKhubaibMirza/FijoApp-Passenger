@@ -1,12 +1,9 @@
 <ion-content>
   <agm-map #agmmap [zoom]="zoom" [latitude]="latitude" [longitude]="longitude" [zoomControl]="false"
     [streetViewControl]="false">
-    <agm-direction (onResponse)="onResponse($event)"  [renderOptions]="renderOptions" [markerOptions]="markerOptions" [origin]="origin"
-      [destination]="destination">
-    </agm-direction> 
-    <!-- <agm-marker [animation]="currentMarkerAnimation" [iconUrl]="currentMarker"
-    [latitude]="latitude" [longitude]="longitude">
-  </agm-marker> -->
+    <agm-direction (onResponse)="onResponse($event)" [renderOptions]="renderOptions" [markerOptions]="markerOptions"
+      [origin]="origin" [destination]="destination">
+    </agm-direction>
   </agm-map>
 </ion-content>
 <ion-footer *ngIf="!DriverFound" class="ion-no-border" style="background: transparent;position: absolute;bottom: 30px;">
@@ -51,11 +48,13 @@
       <ion-grid class="ion-no-padding">
         <ion-row class="ion-no-padding">
           <ion-col size="9">
-            <p class="FooterTopTitle">Abdullah is on the way</p>
+            <p class="FooterTopTitle">{{DriverDetail.driverObj.firstName}} is on the way</p>
             <p class="FooterBottomTitle">{{totaltime}}</p>
           </ion-col>
           <ion-col size="3">
-            <img src="assets/dummyman.png" class="driverImg" alt="">
+            <ion-icon *ngIf="!DriverDetail.driverObj.driverPhoto" class="noimg" name="person"></ion-icon>
+            <img *ngIf="DriverDetail.driverObj.driverPhoto" [src]="DriverDetail.driverObj.driverPhoto" class="driverImg"
+              alt="">
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -66,7 +65,9 @@
             <img src="assets/FijoTaxi_YellowCar.png" class="smallCar" alt="">
           </ion-col>
           <ion-col size="9">
-            <p class="carDetails">Honda Civic Black FSD5959</p> 
+            <p class="carDetails">
+              {{DriverDetail.vehicleObj.brand}} {{DriverDetail.vehicleObj.vehicleNoPlate}}
+            </p>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -75,7 +76,7 @@
           <ion-col size="6">
             <div class="bottomIconAndText">
               <ion-icon name="chatbox-ellipses"></ion-icon>
-              <span>Contact</span> 
+              <span>Contact</span>
             </div>
           </ion-col>
           <ion-col size="6">

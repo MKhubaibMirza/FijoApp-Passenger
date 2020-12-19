@@ -64,7 +64,7 @@
           <p class="loopdesc">{{item.desc}}</p>
         </ion-col>
         <ion-col size="12" *ngIf="item.condition == true">
-          <ion-radio-group [(ngModel)]="findDriverObject.totalseats">
+          <ion-radio-group [(ngModel)]="FindDriverObj.noOfSeating">
             <ion-item no-lines lines="none" *ngFor="let inner of item.seats" color="transparent">
               <ion-label color="primary"> {{inner.numbers}} Seaters (€{{inner.price}})</ion-label>
               <ion-radio [value]="inner.numbers"></ion-radio>

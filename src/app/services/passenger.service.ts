@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class PassengerService {
 
-  ApiUrl = environment.baseUrl
+  ApiUrl = environment.baseUrl;
 
   constructor(
     public http: HttpClient

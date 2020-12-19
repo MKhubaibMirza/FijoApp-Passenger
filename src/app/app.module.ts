@@ -23,6 +23,8 @@ import { CancelConfirmationPage } from './cancel-confirmation/cancel-confirmatio
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import * as firebase from 'firebase';
+import { Stripe } from '@ionic-native/stripe/ngx';
+
 firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
@@ -39,6 +41,7 @@ firebase.initializeApp(environment.firebaseConfig);
     Geolocation,
     AndroidPermissions,
     Facebook,
+    Stripe,
     GooglePlus,
     File,
     FileTransfer,

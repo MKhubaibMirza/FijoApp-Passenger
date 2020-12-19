@@ -19,20 +19,23 @@ agm-map {
   position: absolute;
   bottom: 0px;
 }
-.FooterTopTitle{
+
+.FooterTopTitle {
   color: white;
   font-size: 15px;
   font-weight: bold;
   position: absolute;
   top: 0px;
 }
-.FooterBottomTitle{
+
+.FooterBottomTitle {
   color: white;
   font-size: 21px;
   font-weight: bold;
   position: absolute;
   bottom: 0px;
 }
+
 .spinner {
   --color: yellow;
   height: 67px;
@@ -52,37 +55,54 @@ agm-map {
   border-radius: 3px;
   height: 15px;
 }
-.logoImg{
+
+.logoImg {
   width: 100%;
 }
-.driverImg{
+
+.driverImg {
   height: 67px;
   width: 67px;
   object-fit: cover;
   float: right;
   border-radius: 99px;
 }
-.smallCar{
+
+.smallCar {
   height: 27px;
 }
-.carDetails{
+
+.carDetails {
   color: yellow;
   text-align: right;
   font-size: 15px;
   font-weight: bold;
 }
-.bottomIconAndText{
+
+.bottomIconAndText {
   text-align: center;
-  ion-icon{
+
+  ion-icon {
     width: 100%;
     font-size: 30px;
     color: yellow;
   }
-  span{
+
+  span {
     color: white;
     margin: 0;
     padding: 0;
     font-size: 15px;
     font-weight: bold;
   }
+}
+
+.noimg {
+  font-size: 50px;
+  color: #ffff00;
+  margin: auto;
+  display: block;
+  background: #006600;
+  padding: 13px;
+  border-radius: 50%;
 }
