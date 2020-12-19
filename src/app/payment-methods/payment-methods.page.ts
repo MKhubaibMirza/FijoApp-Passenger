@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, MenuController, ToastController } from '@ionic/angular';
+import { AlertController, MenuController, Platform, ToastController } from '@ionic/angular';
 import { PaymentService } from '../services/payment.service';
 
 @Component({
@@ -13,7 +13,8 @@ export class PaymentMethodsPage implements OnInit {
     public toastController: ToastController,
     public alertController: AlertController,
     public paymentService: PaymentService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }
@@ -68,7 +69,7 @@ export class PaymentMethodsPage implements OnInit {
         }, {
           text: 'Delete',
           handler: () => {
-            this.paymentService.deletePaymentMethod(item.id).subscribe((resp:any)=>{
+            this.paymentService.deletePaymentMethod(item.id).subscribe((resp: any) => {
               console.log(resp);
               this.presentToast('Deleted Successfully');
               this.ionViewWillEnter();

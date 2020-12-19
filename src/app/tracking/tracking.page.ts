@@ -31,7 +31,9 @@ export class TrackingPage {
     });
     setTimeout(() => {
       if (!localStorage.getItem('tracking')) {
-        this.presentAlert();
+        if (this.DriverFound == false) {
+          this.presentAlert();
+        }
       }
     }, 60000);
   }

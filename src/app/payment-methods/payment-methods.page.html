@@ -13,7 +13,8 @@
       <ion-row>
         <ion-col size="10">
           <p class="title">
-            <ion-icon name="card-outline" class="icon"></ion-icon> VISA Credit Card
+            <ion-icon name="card-outline" class="icon"></ion-icon> {{item.brand | titlecase}}
+            {{item.funding | titlecase}} Card
           </p>
         </ion-col>
         <ion-col size="2">
@@ -33,7 +34,7 @@
           <p class="name">{{getMyName()}}</p>
         </ion-col>
         <ion-col size="4">
-          <p class="brand">VISA</p>
+          <p class="brand">{{item.brand}}</p>
         </ion-col>
       </ion-row>
     </ion-grid>

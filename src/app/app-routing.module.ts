@@ -178,7 +178,11 @@ const routes: Routes = [
     path: 'chat/:name/:id',
     canActivate: [ForwordGuard],
     loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
+  },  {
+    path: 'change-password',
+    loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   },
+
 
 
 ];

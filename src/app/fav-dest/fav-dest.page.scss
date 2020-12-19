@@ -14,10 +14,38 @@
     height: 57px;
     padding-left: 17px;
     padding-right: 17px;
-    width: 90%;
+    width: 100%;
     margin: auto;
+    border-radius: 5px;
     display: block;
     outline: none;
     color: black;
     font-size: 17px;
+}
+
+.title {
+    color: #006600;
+    font-weight: bold;
+    margin: 0;
+    padding-top: 5px;
+    font-size: 18px;
+
+    ion-icon {
+        font-size: 21px !important;
+        position: relative;
+        top: 3px;
+    }
+}
+
+.subtitle {
+    color: #006600;
+    margin: 0;
+    padding-top: 5px;
+    font-size: 15px;
+    padding-left: 3px;
+}
+
+.trash {
+    color: red;
+    outline: none;
 }

@@ -14,7 +14,6 @@ export class LocationService {
     public locationAccuracy: LocationAccuracy,
     public passengerService: PassengerService
   ) {
-
   }
   //Check if application having GPS access permission  
   checkGPSPermission() {
@@ -31,7 +30,6 @@ export class LocationService {
         }
       },
       err => {
-        alert(err);
       }
     );
   }
@@ -77,7 +75,7 @@ export class LocationService {
         };
         if (localStorage.getItem('user')) {
           let id = JSON.parse(localStorage.getItem('user')).id;
-          this.passengerService.updatePassengerLocation(locObj, id).subscribe((resp: any) => { })
+          this.passengerService.updatePassengerLocation(locObj, id).subscribe((resp: any) => {})
         }
       }
     });

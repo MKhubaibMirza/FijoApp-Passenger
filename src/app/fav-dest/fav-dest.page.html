@@ -3,31 +3,35 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Favorite Desctination</ion-title>
+    <ion-title>Favorite Destinations</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding">
+  <input type="text" [(ngModel)]="destination" class="form-control destination"
+    (keydown.enter)="$event.preventDefault()" placeholder="Search Address" autocorrect="off" autocapitalize="off"
+    spellcheck="off" type="text" #search>
+  <br>
   <div class="list">
-
-    <ion-item *ngFor='let item of dest' lines="full">
-      <ion-icon name="star-outline" slot="start"></ion-icon>
-      <ion-label>
-        {{item.name}}
-      </ion-label>
+    <ion-item *ngFor='let item of dest' class="ion-no-padding" lines="none">
+      <div clot="start">
+        <p class="title">
+          <ion-icon name="bookmark" class="icon"></ion-icon> {{item.routeTitle}}
+        </p>
+        <p class="subtitle">
+          {{item.routePath}}
+        </p>
+      </div>
+      <ion-icon (click)="removeLocation(item)" name="trash-outline" class="trash" slot="end"></ion-icon>
     </ion-item>
   </div>
-
-
 </ion-content>
 
-<ion-footer class="ion-no-border">
+<!-- <ion-footer class="ion-no-border">
   <ion-toolbar>
-
-    <input class="form-control destination" placeholder="Search Address" autocorrect="off" autocapitalize="off"
-      spellcheck="off" type="text">
-
+    <input (focus)="consoleer('focus')" (blur)="consoleer('blur')" type="text" [(ngModel)]="destination"
+      class="form-control destination" (keydown.enter)="$event.preventDefault()" placeholder="Search Address"
+      autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
     <div class="list">
       <ion-item lines="none" style="margin-bottom: 20px;">
         <ion-icon name="map-outline" slot="start"></ion-icon>
@@ -36,6 +40,5 @@
         </ion-label>
       </ion-item>
     </div>
-
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->

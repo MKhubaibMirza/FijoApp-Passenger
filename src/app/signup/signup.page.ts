@@ -77,8 +77,8 @@ export class SignupPage implements OnInit {
     // geolocation geolocation geolocation geolocation 
     this.geolocation.getCurrentPosition().then((resp: any) => {
       console.log(resp.coords.latitude, resp.coords.longitude)
-      currentlatitude = resp.coords.latitude
-      currentlongitute = resp.coords.longitute
+      currentlatitude = resp.coords.latitude;
+      currentlongitute = resp.coords.longitute;
     }).catch((error) => {
       console.log('Error getting location', error);
     })

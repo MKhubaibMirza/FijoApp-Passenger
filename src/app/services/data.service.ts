@@ -20,4 +20,13 @@ export class DataService {
   getExactPrice(data) {
     return this.http.post(this.ApiUrl + "booking/calculate-estimated-price", data);
   }
+  saved_location_create(data) {
+    return this.http.post(this.ApiUrl + 'saved-location/create', data);
+  }
+  saved_location_get() {
+    return this.http.get(this.ApiUrl + 'passenger/getall-saved-locations/' + JSON.parse(localStorage.getItem('user')).id);
+  }
+  saved_location_delete(id) {
+    return this.http.post(this.ApiUrl + 'saved-location/delete/' + id, {});
+  }
 }

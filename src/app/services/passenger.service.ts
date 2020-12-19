@@ -42,4 +42,23 @@ export class PassengerService {
   updatePassengerLocation(data, id) {
     return this.http.post(this.ApiUrl + "passenger/update-current-location/" + id, data);
   }
+  changePasswrod(id, data) {
+    return this.http.post(this.ApiUrl + 'passenger/resetpassword/' + id, data)
+  }
+  // Passenger Preferences
+  update_opendoor(data, id) {
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + id, data);
+  }
+  update_aircondition(data, id) {
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + id, data);
+  }
+  update_conversation(data, id) {
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + id, data);
+  }
+  update_passenger_preference_call(data, id) {
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + id, data);
+  }
+  getMyPreferences() {
+    return this.http.get(this.ApiUrl + 'passenger-prefrence/get-by-passenger/' + JSON.parse(localStorage.getItem('user')).id);
+  }
 }
