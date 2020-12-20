@@ -25,6 +25,7 @@ import { File } from '@ionic-native/file/ngx';
 import * as firebase from 'firebase';
 import { Stripe } from '@ionic-native/stripe/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { CallNumber } from '@ionic-native/call-number/ngx';
 
 firebase.initializeApp(environment.firebaseConfig);
 @NgModule({
@@ -41,6 +42,7 @@ firebase.initializeApp(environment.firebaseConfig);
     Geolocation,
     AndroidPermissions,
     Facebook,
+    CallNumber,
     SocialSharing,
     Stripe,
     GooglePlus,

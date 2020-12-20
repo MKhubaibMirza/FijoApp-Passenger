@@ -22,6 +22,7 @@
     "@angular/router": "~10.0.0",
     "@capacitor/core": "2.4.2",
     "@ionic-native/android-permissions": "^5.30.0",
+    "@ionic-native/call-number": "^5.30.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/facebook": "^5.30.0",
     "@ionic-native/file": "^5.30.0",
@@ -56,6 +57,7 @@
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
+    "call-number": "^1.0.1",
     "codelyzer": "^6.0.0",
     "cordova-android": "^7.1.4",
     "cordova-plugin-add-swift-support": "^2.0.2",
@@ -123,7 +125,8 @@
       "cordova-plugin-file": {},
       "cordova-plugin-nativegeocoder": {},
       "cordova-plugin-stripe": {},
-      "cordova-plugin-x-socialsharing": {}
+      "cordova-plugin-x-socialsharing": {},
+      "mx.ferreyra.callnumber": {}
     },
     "platforms": [
       "android"

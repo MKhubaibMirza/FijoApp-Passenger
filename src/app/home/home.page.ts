@@ -98,6 +98,7 @@ export class HomePage {
     destination: '',
     estTime: '',
     exactPriceForDriver: 0,
+    exactPriceForPassenger: 0,
     totalKM: 0
   }
   @ViewChild('search')
@@ -131,8 +132,10 @@ export class HomePage {
       console.log(this.BasePrice5Seater, this.For5SeaterPrice)
       if (this.FindDriverObj.noOfSeating == '4') {
         this.FindDriverObj.exactPriceForDriver = this.For4SeaterPrice - this.BasePrice4Seater;
+        this.FindDriverObj.exactPriceForPassenger = this.For4SeaterPrice;
       } else {
         this.FindDriverObj.exactPriceForDriver = this.For5SeaterPrice - this.BasePrice5Seater;
+        this.FindDriverObj.exactPriceForPassenger = this.For5SeaterPrice;
       }
       console.log(this.FindDriverObj);
       const modal = await this.modalController.create({
@@ -212,18 +215,20 @@ export class HomePage {
     if (event.status == "NOT_FOUND") {
       this.directionCondition = false;
       this.presentToast('Invalid Route. Try Again!');
-    }else if(event.status == "ZERO_RESULTS"){
+    } else if (event.status == "ZERO_RESULTS") {
       this.directionCondition = false;
       this.presentToast('Invalid Route. Try Again!');
     }
-     else {
+    else {
       this.totaldistance = event.routes[0]?.legs[0].distance.text;
       this.totaltime = event.routes[0]?.legs[0].duration.text;
-      let str = this.totaldistance.replace('km', '');
-      this.FindDriverObj.totalKM = parseFloat(str.trim());
+      // let str = this.totaldistance.replace('km', '');
+      // this.FindDriverObj.totalKM = parseFloat(str.trim());
+      let totalKm = event.routes[0]?.legs[0].distance.value;
+      this.FindDriverObj.totalKM = totalKm / 1000;
       this.FindDriverObj.estTime = this.totaltime;
       let getExactPriceObject = {
-        km: parseFloat(str.trim()),
+        km: totalKm / 1000,
         isMorning: false,
         isWeekend: false,
         isAirport: false,
@@ -387,5 +392,25 @@ export class HomePage {
       cssClass: 'welcomeUser'
     });
     return await modal.present();
+  }
+  ionViewWillLeave() {
+    this.directionCondition = false;
+    this.FindDriverObj = {
+      noOfSeating: '',
+      vehicleType: '',
+      city: JSON.parse(localStorage.getItem('user')).city,
+      currentLat: 0,
+      currentLng: 0,
+      searchInKM: 7,
+      paymentVia: '',
+      passengerObj: localStorage.getItem('user'),
+      origin: '',
+      destination: '',
+      estTime: '',
+      exactPriceForDriver: 0,
+      exactPriceForPassenger: 0,
+      totalKM: 0
+    }
+    this.destination = '';
   }
 }

@@ -9,6 +9,7 @@ import { Facebook } from '@ionic-native/facebook/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { environment } from 'src/environments/environment';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { PassengerService } from './services/passenger.service';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent {
     private socialSharing: SocialSharing,
     public modalController: ModalController,
     private menuController: MenuController,
+    public passengerService: PassengerService,
     private googlePlus: GooglePlus,
     private fb: Facebook
   ) {
@@ -43,9 +45,14 @@ export class AppComponent {
       }
     });
     if (localStorage.getItem('user')) {
-      if (localStorage.getItem('tracking')) {
-        this.r.navigate(['/tracking'])
-      }
+      this.passengerService.getAvailabilityStatus().subscribe((resp: any) => {
+        if (resp.isPassengerAvailable) {
+        } else {
+          if (localStorage.getItem('tracking')) {
+            this.r.navigate(['/tracking']);
+          }
+        }
+      })
       this.menuController.enable(true);
     } else {
       this.menuController.enable(false);

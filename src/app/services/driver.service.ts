@@ -12,4 +12,8 @@ export class DriverService {
     findDrivers(data) {
         return this.http.post(this.ApiUrl + 'booking/find-nearby-drivers', data)
     }
+    driverAvailablity(id, data) {
+        return this.http.post(this.ApiUrl + 'driver/change-driver-availabiliy-status/' + id, data)
+    }
+
 }

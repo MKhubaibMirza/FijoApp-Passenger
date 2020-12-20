@@ -35,7 +35,7 @@ export class PasswordPage implements OnInit {
       localStorage.removeItem('TempUser');
       this.r.navigate(['/home'])
     }, err => {
-      this.presentToast('Opps! Incorrect Password!')
+      this.presentToast('Oops! Incorrect Password!')
     })
   }
 

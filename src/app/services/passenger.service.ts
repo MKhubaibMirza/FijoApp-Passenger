@@ -8,7 +8,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class PassengerService {
 
   ApiUrl = environment.baseUrl;
-
   constructor(
     public http: HttpClient
   ) { }
@@ -46,19 +45,26 @@ export class PassengerService {
     return this.http.post(this.ApiUrl + 'passenger/resetpassword/' + id, data)
   }
   // Passenger Preferences
-  update_opendoor(data, id) {
-    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + id, data);
+  update_opendoor(data) {
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + JSON.parse(localStorage.getItem('user')).id, data);
   }
-  update_aircondition(data, id) {
-    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + id, data);
+  update_aircondition(data) {
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + JSON.parse(localStorage.getItem('user')).id, data);
   }
-  update_conversation(data, id) {
-    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + id, data);
+  update_conversation(data) {
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + JSON.parse(localStorage.getItem('user')).id, data);
   }
-  update_passenger_preference_call(data, id) {
-    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + id, data);
+  update_passenger_preference_call(data) {
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + JSON.parse(localStorage.getItem('user')).id, data);
   }
   getMyPreferences() {
     return this.http.get(this.ApiUrl + 'passenger-prefrence/get-by-passenger/' + JSON.parse(localStorage.getItem('user')).id);
+  }
+  // ----------------
+  getAvailabilityStatus() {
+    return this.http.get(this.ApiUrl + 'passenger/get-availability-status/' + JSON.parse(localStorage.getItem('user')).id)
+  }
+  passengerAvailablity(id, data) {
+    return this.http.post(this.ApiUrl + 'passenger/change-passenger-availabiliy-status/' + id, data)
   }
 }

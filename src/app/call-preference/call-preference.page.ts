@@ -25,17 +25,18 @@ export class CallPreferencePage implements OnInit {
         if (element.text == resp.call) {
           console.log(element, '....');
           this.data[i].checked = true;
+          this.selectedItem = element;
         }
       });
     })
   }
-  preferenceId = 0;
-  selectedItem = { id: 1, text: 'Do not call under any circumstances', checked: false, };
+  selectedItem = { id: 1, text: '', checked: false, };
   click(item) {
     this.data.forEach(element => {
       if (item.id == element.id) {
         element.checked = true
         item.checked = true
+        this.selectedItem = element;
       } else {
         element.checked = false
       }
@@ -47,9 +48,10 @@ export class CallPreferencePage implements OnInit {
       call: this.selectedItem.text
     }
     console.log(data);
-    // this.passengerService.update_passenger_preference_call(data, this.preferenceId).subscribe((resp: any) => {
-    //   console.log(resp);
-    // })
+    this.passengerService.update_passenger_preference_call(data).subscribe((resp: any) => {
+      console.log(resp);
+      this.modalController.dismiss();
+    })
   }
 
   async changePassword() {

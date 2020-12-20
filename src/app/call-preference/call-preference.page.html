@@ -1,6 +1,6 @@
 <ion-content scrollY="false" class="ion-padding-horizontal">
   <p class="title">Do you want the driver to call you?</p>
-  <ion-radio-group>
+  <ion-radio-group [value]="selectedItem.text">
     <ion-item *ngFor='let item of data'>
       <ion-radio slot="end" [value]="item.text" (click)='click(item)' color="medium"></ion-radio>
       <ion-label class="ion-text-wrap">{{item.text}}</ion-label>

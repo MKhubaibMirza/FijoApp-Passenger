@@ -1,13 +1,15 @@
 import { AgmMap, MapsAPILoader } from '@agm/core';
 import { Component, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController } from '@ionic/angular';
 import { CancelConfirmationPage } from '../cancel-confirmation/cancel-confirmation.page';
 import { RatingPage } from '../rating/rating.page';
 import { DriverService } from '../services/driver.service';
 import io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.page.html',
@@ -21,7 +23,9 @@ export class TrackingPage {
     public modalController: ModalController,
     public alertController: AlertController,
     public driverService: DriverService,
+    private callNumber: CallNumber,
     public router: Router,
+    public toastController: ToastController,
     public geolocation: Geolocation
   ) {
     this.socket.on('receive-driver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
@@ -117,7 +121,7 @@ export class TrackingPage {
   async presentAlert() {
     const alert = await this.alertController.create({
       backdropDismiss: false,
-      header: 'Opps! Not Found',
+      header: 'Oops! Not Found',
       message: 'Sorry we did not found any driver under 7KM. Try Later',
       buttons: [{
         text: 'Okay',
@@ -127,8 +131,16 @@ export class TrackingPage {
         }
       }]
     });
-
     await alert.present();
+  }
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      position: 'top',
+      color: 'medium',
+      duration: 2000
+    });
+    toast.present();
   }
   // Get Current Location Coordinates
   setCurrentLocation() {
@@ -161,5 +173,20 @@ export class TrackingPage {
     let driver = JSON.parse(localStorage.getItem('tracking')).driverObj;
     let name = driver.firstName + ' ' + driver.lastName;
     this.router.navigate(['/chat/' + name + '/' + driver.id]);
+  }
+  call() {
+    let driver = JSON.parse(localStorage.getItem('tracking')).driverObj;
+    let Phone = driver.phoneNumber.toString();
+    let name = driver.firstName + ' ' + driver.lastName;
+    console.log(Phone, name)
+    if (Phone) {
+      this.callNumber.callNumber(Phone, true)
+        .then(res => console.log('Launched dialer!', res))
+        .catch(err => {
+          this.presentToast('Oops! Something wents wrong');
+        });
+    } else {
+      this.presentToast('Sorry ' + name + ' has no phone option');
+    }
   }
 }

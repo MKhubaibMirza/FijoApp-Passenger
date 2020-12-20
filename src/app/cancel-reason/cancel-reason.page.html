@@ -1,9 +1,9 @@
 <div class="inner-content" scrollY="false">
   <p class="title">Journey Cancelled</p>
   <p class="subtitle">Why did you cancel?</p>
-  <ion-button expand="full" class="btn">It's taking too long</ion-button>
-  <ion-button expand="full" class="btn">I changed my mind</ion-button>
-  <ion-button expand="full" class="btn">The driver requested me to cancel</ion-button>
-  <ion-button expand="full" class="btn">Mistake in my jurney details</ion-button>
+  <ion-button expand="full" class="btn" (click)="cancel(1)">It's taking too long</ion-button>
+  <ion-button expand="full" class="btn" (click)="cancel(2)">I changed my mind</ion-button>
+  <ion-button expand="full" class="btn" (click)="cancel(3)">The driver requested me to cancel</ion-button>
+  <ion-button expand="full" class="btn" (click)="cancel(4)">Mistake in my journey details</ion-button>
   <ion-button expand="full" class="btn">Close</ion-button>
 </div>
