@@ -13,8 +13,8 @@
     <ion-grid fixed>
       <ion-row>
         <ion-col size="3">
-          <ion-icon *ngIf='getMyImg()' name="person"></ion-icon>
-          <img *ngIf='!getMyImg()' [src]="url+getMyImg()" alt="">
+          <ion-icon *ngIf='!getMyImg()' name="person"></ion-icon>
+          <img *ngIf='getMyImg()' [src]="url+getMyImg()" alt="">
         </ion-col>
         <ion-col size="9" style="align-self: center;">
           <p>Hi {{getName()}}!</p>

@@ -66,9 +66,9 @@ ion-input {
 
 
 .ratingModal .modal-wrapper {
-    height: 550px;
-    width: 90%;
-    max-width: 342px;
+    height: 570px;
+    width: 100%;
+    max-width: 372px;
     display: block;
     background: transparent;
     margin: auto;
@@ -225,4 +225,9 @@ ion-input {
 
 .alert-class {
     --background: #ffff00;
+}
+.tripStarted{
+    .alert-message.sc-ion-alert-md{
+        max-height: none !important;
+    }
 }

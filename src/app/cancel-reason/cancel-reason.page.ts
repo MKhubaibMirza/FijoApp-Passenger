@@ -23,6 +23,9 @@ export class CancelReasonPage implements OnInit {
 
   ngOnInit() {
   }
+  close() {
+    this.m.dismiss();
+  }
   cancel(val) {
     let data = {
       reason: '',

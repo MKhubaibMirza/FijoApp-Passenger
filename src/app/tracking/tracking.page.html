@@ -48,7 +48,7 @@
       <ion-grid class="ion-no-padding">
         <ion-row class="ion-no-padding">
           <ion-col size="9">
-            <p class="FooterTopTitle">{{DriverDetail.driverObj.firstName}} is on the way</p>
+            <p class="FooterTopTitle">{{DriverDetail.driverObj.firstName | titlecase}} is on the way</p>
             <p class="FooterBottomTitle">{{totaltime}}</p>
           </ion-col>
           <ion-col size="3">
@@ -72,7 +72,7 @@
         </ion-row>
       </ion-grid>
       <ion-grid>
-        <ion-row>
+        <ion-row *ngIf="!isTripStarted">
           <ion-col size="4">
             <div (click)="openChat()" class="bottomIconAndText">
               <ion-icon name="chatbox-ellipses"></ion-icon>
@@ -89,6 +89,20 @@
             <div (click)="cancelConfirmModal()" class="bottomIconAndText">
               <ion-icon name="close-circle"></ion-icon>
               <span>Cancel </span>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="isTripStarted">
+          <ion-col size="6">
+            <div (click)="openChat()" class="bottomIconAndText">
+              <ion-icon name="chatbox-ellipses"></ion-icon>
+              <span>Contact</span>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div (click)="call()" class="bottomIconAndText">
+              <ion-icon name="call"></ion-icon>
+              <span>Call</span>
             </div>
           </ion-col>
         </ion-row>

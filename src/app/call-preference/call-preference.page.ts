@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ChangePasswordPage } from '../change-password/change-password.page';
 import { PassengerService } from '../services/passenger.service';
 
 @Component({
@@ -52,13 +51,5 @@ export class CallPreferencePage implements OnInit {
       console.log(resp);
       this.modalController.dismiss();
     })
-  }
-
-  async changePassword() {
-    const modal = await this.modalController.create({
-      component: ChangePasswordPage,
-      cssClass: 'changepassword',
-    });
-    await modal.present();
   }
 }

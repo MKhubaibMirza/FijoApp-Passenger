@@ -17,7 +17,16 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 })
 export class TrackingPage {
   socket = io(environment.baseUrl);
-  DriverDetail = {}
+  DriverDetail = {};
+  latitude: number;
+  longitude: number;
+  zoom = 17;
+  address: string;
+  @ViewChild(AgmMap) agmMap: AgmMap;
+  DriverFound = false;
+  isSearching = false;
+  isTripStarted = false;
+  totaltime = '';
   constructor(
     private mapsAPILoader: MapsAPILoader,
     public modalController: ModalController,
@@ -33,6 +42,16 @@ export class TrackingPage {
       this.DriverDetail = object;
       localStorage.setItem('tracking', JSON.stringify(object));
     });
+    this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      console.log('Trip Is Started Now', object);
+      this.isTripStarted = true;
+      this.tripStarted();
+    });
+    this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      console.log('Trip Is Ended Now and show rating modal', object);
+      localStorage.setItem('tripEnded', 'true');
+      this.RatingModal();
+    });
     setTimeout(() => {
       if (!localStorage.getItem('tracking')) {
         if (this.DriverFound == false) {
@@ -40,19 +59,23 @@ export class TrackingPage {
         }
       }
     }, 60000);
+    if (localStorage.getItem('tripStarted')) {
+      this.isTripStarted = true;
+    } else {
+      this.isTripStarted = false;
+    }
+    if (localStorage.getItem('tripEnded')) {
+      this.RatingModal();
+    }
   }
   async RatingModal() {
     const modal = await this.modalController.create({
       component: RatingPage,
+      backdropDismiss: false,
       cssClass: 'ratingModal'
     });
     return await modal.present();
   }
-  latitude: number;
-  longitude: number;
-  zoom = 17;
-  address: string;
-  @ViewChild(AgmMap) agmMap: AgmMap;
   private geoCoder;
   public origin = JSON.parse(localStorage.getItem('findDriverObj')).origin;
   public destination = JSON.parse(localStorage.getItem('findDriverObj')).destination;
@@ -133,6 +156,30 @@ export class TrackingPage {
     });
     await alert.present();
   }
+  async tripStarted() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    localStorage.setItem('tripStarted', 'true');
+    let name = user.firstName + ' ' + user.lastName;
+    const alert = await this.alertController.create({
+      backdropDismiss: false,
+      cssClass: 'tripStarted',
+      header: 'Dear ' + name,
+      message: `
+    Your trip is started. Please read <b>COVID-19</b> SOPs carefully. <br> 
+    <p> 
+    ⦿ Keep your distance from other people when you travel, where possible. <br>
+    ⦿ Avoid making unnecessary stops during your journey. <br>
+    ⦿ Plan ahead, check for disruption before you leave, and avoid the busiest routes, as well as busy times. <br>
+    ⦿ Wash or sanitise your hands regularly.
+    </p>`,
+      buttons: [{
+        text: 'Continue',
+        handler: () => {
+        }
+      }]
+    });
+    await alert.present();
+  }
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,
@@ -156,9 +203,6 @@ export class TrackingPage {
       }, err => {
       });
   }
-  DriverFound = false;
-  isSearching = false;
-  totaltime = '';
   public onResponse(event: any) {
     this.totaltime = event.routes[0]?.legs[0].duration.text;
   }

@@ -21,7 +21,7 @@ export class MyPreferencesPage implements OnInit {
 
 
   items = [
-    { name: "call", icon: "call-outline", route: 'call' },
+    { name: "Call", icon: "call-outline", route: 'call' },
     { name: "Air conditioning", icon: "thermometer", route: 'ac' },
     { name: "Open Door", icon: "car", route: 'open-door' },
     { name: "Conversation", icon: "chatbox-ellipses", route: 'conversation' },

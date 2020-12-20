@@ -23,4 +23,7 @@ export class CancelConfirmationPage implements OnInit {
     });
     return await modal.present();
   }
+  close(){
+    this.modalController.dismiss();
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ModalController } from '@ionic/angular';
+import { ChangePasswordPage } from '../change-password/change-password.page';
 
 @Component({
   selector: 'app-info',
@@ -10,6 +11,7 @@ export class InfoPage implements OnInit {
 
   constructor(
     private menuControl: MenuController,
+    public modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -39,5 +41,13 @@ export class InfoPage implements OnInit {
   getLastName() {
     if (localStorage.getItem('user'))
       return JSON.parse(localStorage.getItem('user')).lastName;
+  }
+
+  async changePassword() {
+    const modal = await this.modalController.create({
+      component: ChangePasswordPage,
+      cssClass: 'changepassword',
+    });
+    await modal.present();
   }
 }

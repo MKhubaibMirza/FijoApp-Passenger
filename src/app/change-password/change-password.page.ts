@@ -31,7 +31,7 @@ export class ChangePasswordPage implements OnInit {
     } else {
       if (this.password.new == this.password.confirm) {
         console.log(this.password)
-        let id = JSON.parse(localStorage.getItem('driver')).id
+        let id = JSON.parse(localStorage.getItem('user')).id
         let data = {
           oldpassword: this.password.old,
           newpassword: this.password.new
@@ -39,11 +39,12 @@ export class ChangePasswordPage implements OnInit {
         console.log(id, data)
         this.presentLoading()
         this.passengerService.changePasswrod(id, data).subscribe((resp: any) => {
-          console.log(resp)
           this.loading.dismiss()
-          this.presentToast(resp.message)
           if (resp.message == 'Password updated successfully') {
+            this.presentToast(resp.message)
             this.modal.dismiss()
+          } else if (resp.message == "Oops Password not updated") {
+            this.presentToast('You current password does not matched');
           }
         })
       } else {
@@ -65,10 +66,12 @@ export class ChangePasswordPage implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       duration: 2000,
-      position: 'bottom',
+      position: 'top',
       color: 'medium'
     });
     toast.present();
   }
-
+  closeModal() {
+    this.modal.dismiss()
+  }
 }
