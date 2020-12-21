@@ -3,7 +3,7 @@
     <ion-slide>
       <ion-card>
         <p class="title">Journey is completed!</p>
-        <p class="price">€{{price}}</p>
+        <p class="price">€ {{price}}</p>
         <p class="text">
           <span *ngIf="paymentVia == 'card'">Will be charged on your card</span>
           <span *ngIf="paymentVia == 'cash'">Please pay to your driver</span>
@@ -16,16 +16,16 @@
         <ion-item class="ion-no-padding" color="transparent" lines="none">
           <ion-label class="ion-text-nowrap" style="text-align: right;" color="medium">Add in your favourite drivers
           </ion-label>
-          <ion-checkbox color="medium" slot="end"></ion-checkbox>
+          <ion-checkbox [(ngModel)]="favrouiteDriver" color="medium" slot="end"></ion-checkbox>
         </ion-item>
         <p class="stars">
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star"></ion-icon>
+          <ion-icon (click)="func('1')" [name]="condi1? 'star' : 'star-outline'"></ion-icon>&nbsp;
+          <ion-icon (click)="func('2')" [name]="condi2? 'star' : 'star-outline'"></ion-icon>&nbsp;
+          <ion-icon (click)="func('3')" [name]="condi3? 'star' : 'star-outline'"></ion-icon>&nbsp;
+          <ion-icon (click)="func('4')" [name]="condi4? 'star' : 'star-outline'"></ion-icon>&nbsp;
+          <ion-icon (click)="func('5')" [name]="condi5? 'star' : 'star-outline'"></ion-icon>
         </p>
-        <ion-button color="medium">
+        <ion-button expand="block" (click)="onSubmitClick()" color="medium">
           Submit
         </ion-button>
       </ion-card>

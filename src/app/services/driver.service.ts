@@ -13,7 +13,12 @@ export class DriverService {
         return this.http.post(this.ApiUrl + 'booking/find-nearby-drivers', data)
     }
     driverAvailablity(id, data) {
-        return this.http.post(this.ApiUrl + 'driver/change-driver-availabiliy-status/' + id, data)
+        return this.http.post(this.ApiUrl + 'driver/change-driver-availabiliy-status/' + id, data);
     }
-
+    rateDriver(id, data) {
+        return this.http.post(this.ApiUrl + 'driver/rating/' + id, data);
+    }
+    addtoFavourites(data) {
+        return this.http.post(this.ApiUrl + 'favorite-driver/create/', data);
+    }
 }

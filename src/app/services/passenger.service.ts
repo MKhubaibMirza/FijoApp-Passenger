@@ -49,13 +49,13 @@ export class PassengerService {
     return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + JSON.parse(localStorage.getItem('user')).id, data);
   }
   update_aircondition(data) {
-    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + JSON.parse(localStorage.getItem('user')).id, data);
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-aircondition/" + JSON.parse(localStorage.getItem('user')).id, data);
   }
   update_conversation(data) {
-    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + JSON.parse(localStorage.getItem('user')).id, data);
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-conversation/" + JSON.parse(localStorage.getItem('user')).id, data);
   }
   update_passenger_preference_call(data) {
-    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-opendoor/" + JSON.parse(localStorage.getItem('user')).id, data);
+    return this.http.post(this.ApiUrl + "passenger-prefrence/update-passengerpreference-call/" + JSON.parse(localStorage.getItem('user')).id, data);
   }
   getMyPreferences() {
     return this.http.get(this.ApiUrl + 'passenger-prefrence/get-by-passenger/' + JSON.parse(localStorage.getItem('user')).id);

@@ -1,27 +1,12 @@
 <ion-content scrollY="false" class="ion-padding-horizontal">
   <p class="title">How do you like the A/C?</p>
-
-
-  <ion-radio-group>
+  <ion-radio-group [value]="selectedItem.text">
     <ion-item *ngFor='let item of data'>
       <ion-radio slot="end" [value]="item.text" (click)='click(item)' color="medium"></ion-radio>
-
-      <!-- <ion-checkbox mode='ios' slot="end" (click)='click(item)' [checked]='item.checked'></ion-checkbox> -->
       <ion-label class="ion-text-wrap">{{item.text}}</ion-label>
     </ion-item>
   </ion-radio-group>
-
-  <!-- <ion-item>
-    <ion-checkbox mode='ios' slot="end"></ion-checkbox>
-    <ion-label class="ion-text-wrap">ON</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-checkbox mode='ios' slot="end"></ion-checkbox>
-    <ion-label class="ion-text-wrap">OFF</ion-label>
-  </ion-item> -->
-
-  <ion-button>
+  <ion-button (click)="save()">
     Save
   </ion-button>
-
 </ion-content>

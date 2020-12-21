@@ -42,24 +42,6 @@ export class CancelReasonPage implements OnInit {
     }
     this.socket.emit('cancelRide', data);
     this.m.dismiss();
-    // Make status true for both driver and passenger
-    // driver availableity false 
-    let driverId = JSON.parse(localStorage.getItem('tracking')).driverObj.id;
-    let driverData = {
-      isAvailable: true
-    };
-    this.driverService.driverAvailablity(driverId, driverData).subscribe((resp: any) => {
-      console.log(resp)
-    });
-
-    // passenger availbality false
-    let passengerId = JSON.parse(localStorage.getItem('user')).id;
-    let passengerData = {
-      isAvailable: true
-    };
-    this.passengerService.passengerAvailablity(passengerId, passengerData).subscribe((resp: any) => {
-      console.log(resp)
-    });
     this.presentAlert(data.reason);
     this.r.navigate(['/home']);
   }
@@ -68,6 +50,8 @@ export class CancelReasonPage implements OnInit {
     let name = user.firstName + ' ' + user.lastName;
     localStorage.removeItem('findDriverObj');
     localStorage.removeItem('tracking');
+    localStorage.removeItem('tripEnded');
+    localStorage.removeItem('tripStarted');
     const alert = await this.alertController.create({
       header: 'Ride Cancelled',
       message: 'Dear ' + name + ' your ride is cancelled due to <br>"' + reason + '"',
