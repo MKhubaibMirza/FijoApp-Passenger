@@ -14,14 +14,15 @@ ion-card {
         width: 60px;
         margin: auto;
         display: block;
-        margin-top: 8px;
+        margin-top: 13px;
         margin-right: 15px;
     }
 
     .title {
-        font-size: 22px;
+        font-size: 17px;
         text-align: left;
         padding-left: 13px;
+        padding-right: 13px;
         font-weight: bold;
         margin-top: 0;
         color: #006600;
@@ -37,7 +38,7 @@ ion-card {
         text-align: right;
         padding-right: 10px;
         font-size: 15px;
-        color: #ffff00;
+        color: black;
         text-decoration-line: underline;
     }
 }

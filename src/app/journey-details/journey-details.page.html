@@ -5,22 +5,25 @@
         <ion-icon (click)="back()" class="back" name="chevron-back-outline"></ion-icon>
       </ion-col>
       <ion-col size="10">
-        <p class="title">Friday 20 Nov 2020</p>
+        <p class="title">{{journeyObject.createdAt | date:'fullDate'}}</p>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="2"></ion-col>
       <ion-col size="8.5">
-        <p class="subtitle">This journey was cancelled</p>
+        <p class="subtitle_cancelled" *ngIf="journeyObject.status == 'cancelled'">This journey was cancelled</p>
+        <p class="subtitle_completed" *ngIf="journeyObject.status == 'completed'">This journey was completed</p>
       </ion-col>
       <ion-col size="1.5">
-        <ion-icon class="warn" name="warning"></ion-icon>
+        <ion-icon class="warn" *ngIf="journeyObject.status == 'cancelled'" name="warning"></ion-icon>
+        <ion-icon class="checked" *ngIf="journeyObject.status == 'completed'" name="checkmark-done-circle-outline">
+        </ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>
   <hr class="hr">
   <br>
-  <img src="assets/dumymap.PNG" class="img" alt="">
+  <img *ngIf="journeyObject.screenShot" [src]="url+journeyObject.screenShot" class="img" alt="">
   <ion-card class="card">
     <br>
     <ion-grid>
@@ -29,26 +32,24 @@
           <div class="circle"></div>
           <div class="afterCircle"></div>
         </ion-col>
-        <ion-col size="9">
-          <p class="textUnderCard">Pick Up Point</p>
-          <p class="textUnderCard">Nisar Colony Faisalabad</p>
-        </ion-col>
-        <ion-col size="2">
-          <p class="time">11:29</p>
+        <ion-col size="11">
+          <p class="textUnderCard">
+            <ion-icon name="locate-outline"></ion-icon> <b> Pick Up Point</b>
+          </p>
+          <p class="textUnderCard">{{journeyObject.pickup}}</p>
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-grid>
       <ion-row>
         <ion-col size="1">
-          <div class="circle"></div> 
+          <div class="circle"></div>
         </ion-col>
-        <ion-col size="9">
-          <p class="textUnderCard">Destination</p>
-          <p class="textUnderCard">Nisar Colony Faisalabad</p>
-        </ion-col>
-        <ion-col size="2">
-          <p class="time">11:29</p>
+        <ion-col size="11">
+          <p class="textUnderCard">
+            <ion-icon name="navigate-outline"></ion-icon> <b> Destination</b>
+          </p>
+          <p class="textUnderCard">{{journeyObject.pickup}}</p>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -58,12 +59,14 @@
           <img class="incardimg" src="assets/profile.png" alt="">
         </ion-col>
         <ion-col size="8.5">
-          <p class="name">Chand Abdullah</p>
-          <p class="email">candabdl021@gmail.com</p>
+          <p class="name">Dummy Driver</p>
+          <p class="email">dumydriver@gmail.com</p>
         </ion-col>
       </ion-row>
     </ion-grid>
-    <p class="footerText">This journey has no cost</p>
+    <p class="footerText_cancelled" *ngIf="journeyObject.status == 'cancelled'">This journey has no cost</p>
+    <p class="footerText_completed" *ngIf="journeyObject.status == 'completed'">The cost of this journey was
+      {{journeyObject.exactPriceForPassenger}}&euro;</p>
     <br>
   </ion-card>
 </ion-content>

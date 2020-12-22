@@ -4,6 +4,7 @@
     <agm-direction (onResponse)="onResponse($event)" [renderOptions]="renderOptions" [markerOptions]="markerOptions"
       [origin]="origin" [destination]="destination">
     </agm-direction>
+    <agm-marker *ngIf="isTripStarted" [latitude]="driverLat" [longitude]="driverLng" [iconUrl]="driverMarker"></agm-marker>
   </agm-map>
 </ion-content>
 <ion-footer *ngIf="!DriverFound" class="ion-no-border" style="background: transparent;position: absolute;bottom: 30px;">

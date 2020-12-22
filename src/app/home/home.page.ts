@@ -4,10 +4,11 @@ import {
   MapsAPILoader,
 } from "@agm/core";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { MenuController, ModalController, Platform, ToastController } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController, Platform, ToastController } from '@ionic/angular';
 import { AskPaymentWayPage } from '../ask-payment-way/ask-payment-way.page';
 import { WelcomeUserPage } from '../welcome-user/welcome-user.page';
 import { DataService } from '../services/data.service';
+
 declare var google: any;
 
 @Component({
@@ -17,6 +18,7 @@ declare var google: any;
 })
 export class HomePage {
   constructor(
+    public loadingController: LoadingController,
     private mapsAPILoader: MapsAPILoader,
     private menuControl: MenuController,
     public platform: Platform,
@@ -38,12 +40,21 @@ export class HomePage {
   openMenu() {
     this.menuControl.open();
   }
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait',
+      duration: 7000,
+      spinner: 'dots',
+    });
+    await loading.present();
+  }
   latitude: number;
   longitude: number;
   currntLAT = 750;
   currntLONG = 700;
-  zoom = 17;
+  zoom = 18;
   address: string;
+  SavedLocations = [];
   private geoCoder;
   public origin = ''
   public destination = ''
@@ -157,10 +168,8 @@ export class HomePage {
     });
     toast.present();
   }
-  ngOnInit() {
+  ionViewWillEnter() {
     this.presentUser();
-    // uncomment below when using real device
-    //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       this.setCurrentLocation();
@@ -176,11 +185,28 @@ export class HomePage {
         });
       });
     });
+    this.dataservice.saved_location_get().subscribe((resp: any) => {
+      console.log(resp);
+      this.SavedLocations = resp;
+    })
+  }
+  ShowDestinationCondition = false;
+  ShowDestinationClick() {
+    this.ShowDestinationCondition = true;
+  }
+  HideDestinationClick() {
+    this.ShowDestinationCondition = false;
+  }
+  OnRouteItemClick(item) {
+    console.log(item);
+    this.destination = item.routePath;
+    this.getDirection();
   }
   public getMapInstance(map: any): void { this.map = map; };
   map: any;
   locationClick() {
     this.map.setCenter({ lat: this.latitude, lng: this.longitude });
+    this.zoom = 18;
   }
   // Get Current Location Coordinates
   setCurrentLocation() {
@@ -214,9 +240,11 @@ export class HomePage {
     console.log(event)
     if (event.status == "NOT_FOUND") {
       this.directionCondition = false;
+      this.loadingController.dismiss();
       this.presentToast('Invalid Route. Try Again!');
     } else if (event.status == "ZERO_RESULTS") {
       this.directionCondition = false;
+      this.loadingController.dismiss();
       this.presentToast('Invalid Route. Try Again!');
     }
     else {
@@ -307,6 +335,7 @@ export class HomePage {
                 });
               }
             });
+            this.loadingController.dismiss();
           })
         })
         setTimeout(() => {
@@ -341,6 +370,7 @@ export class HomePage {
     console.log(this.origin, ' <== origin')
     if ((this.destination !== '') && (this.origin !== '')) {
       setTimeout(() => {
+        this.presentLoading();
         this.directionCondition = true;
       }, 900);
     } else {
@@ -353,7 +383,7 @@ export class HomePage {
       console.log(status);
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 17;
+          this.zoom = 18;
           this.origin = results[0].formatted_address;
         } else {
           window.alert('No results found');
@@ -367,6 +397,9 @@ export class HomePage {
   directionCondition = false;
   CancelClick() {
     this.directionCondition = false;
+    this.ShowDestinationCondition = false;
+    this.destination = '';
+    this.locationClick()
   }
   heightOfCard = '';
   toUp = ''
@@ -412,5 +445,6 @@ export class HomePage {
       totalKM: 0
     }
     this.destination = '';
+    this.ShowDestinationCondition = false;
   }
 }

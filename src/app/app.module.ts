@@ -8,7 +8,6 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { AgmDirectionModule } from 'agm-direction';
@@ -26,12 +25,30 @@ import * as firebase from 'firebase';
 import { Stripe } from '@ionic-native/stripe/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { CallNumber } from '@ionic-native/call-number/ngx';
-
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateConfigService } from './services/translate-config.service';
+export function LanguageLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
 firebase.initializeApp(environment.firebaseConfig);
 @NgModule({
   declarations: [AppComponent, AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],
   entryComponents: [AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, AgmDirectionModule,
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (LanguageLoader),
+        deps: [HttpClient]
+      }
+    }),
+    AgmDirectionModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDTqB69PYC2D18TqUGMd-yyyMK9a3Qg2g8',
       libraries: ['places']
@@ -51,6 +68,7 @@ firebase.initializeApp(environment.firebaseConfig);
     LocationAccuracy,
     OneSignal,
     NativeGeocoder,
+    TranslateConfigService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

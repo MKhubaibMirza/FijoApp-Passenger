@@ -12,7 +12,14 @@
     font-weight: bold;
 }
 
-.subtitle {
+.subtitle_cancelled {
+    margin: 0;
+    color: red;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.subtitle_completed {
     margin: 0;
     color: green;
     font-weight: bold;
@@ -21,6 +28,12 @@
 
 .warn {
     color: red;
+    font-size: 33px;
+    margin: 0;
+}
+
+.checked {
+    color: green;
     font-size: 33px;
     margin: 0;
 }
@@ -57,7 +70,11 @@
 
     .textUnderCard {
         color: green;
-        font-weight: bold;
+
+        ion-icon {
+            position: relative;
+            top: 3px;
+        }
     }
 
     .time {
@@ -85,9 +102,15 @@
         color: green;
     }
 
-    .footerText {
+    .footerText_cancelled {
         padding-left: 21px;
         color: red;
+        font-weight: bold;
+    }
+
+    .footerText_completed {
+        padding-left: 21px;
+        color: green;
         font-weight: bold;
     }
 
@@ -100,7 +123,7 @@
     }
 
     .afterCircle {
-        height: 135%;
+        height: 117%;
         background: green;
         width: 5px;
         margin-left: 4px;

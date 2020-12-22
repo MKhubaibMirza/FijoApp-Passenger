@@ -1,0 +1,28 @@
+{
+    "welcomeNotePage": {
+        "text": "Libertad a precio fijo desde cualquier lugar de tu ciudad"
+    },
+    "viaPhonePage": {
+        "enterMobileNumber": "Ingrese su numero celular",
+        "withCountryCode": "Con código de país",
+        "verificationCode": "Te enviaremos un código de verificación",
+        "orLoginWithEmail": "O inicie sesión con su correo electrónico",
+        "next": "Próxima",
+        "continueText": "Continúe recibiendo una confirmación por SMS y acepte FijoTaxi's",
+        "terms": "Términos de Uso",
+        "privacy": "Política de privacidad",
+        "and": "y"
+    },
+    "viaEmail": {
+        "loginViaPhone": "Iniciar sesión por teléfono",
+        "preferedEmail": "Ingrese su correo electrónico preferido",
+        "enterEmail": "Ingrese correo electrónico",
+        "verificationCode": "We'll send you a verification code",
+        "next": "Próxima",
+        "continueText": "Continúe recibiendo una confirmación por SMS y acepte FijoTaxi's",
+        "terms": "Términos de Uso",
+        "privacy": "Política de privacidad",
+        "and": "y",
+        "or": "o"
+    }
+}

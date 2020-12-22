@@ -3,19 +3,20 @@
   <div class="top">
 
     <ion-grid fixed>
-      <p class="firsttext">Enter your Mobile Number <br><span>(with country code)</span></p>
+      <p class="firsttext">
+        {{'viaPhonePage.enterMobileNumber' | translate:params}}<br><span>({{'viaPhonePage.withCountryCode' | translate:params}})</span>
+      </p>
 
       <ion-row>
         <ion-col size="3">
           <div class="icons">
-            <!-- flag img -->
             <img [src]="countryData.flag" *ngIf="countryData" alt="">
           </div>
         </ion-col>
 
         <ion-col size='9'>
           <ion-input class="input" type='number' class="ion-no-margin" [(ngModel)]="data.phoneNumber"
-            (keyup)="getflag()" placeholder="Enter mobile"></ion-input>
+            (keyup)="getflag()" [placeholder]="'viaPhonePage.enterMobileNumber' | translate:params"></ion-input>
         </ion-col>
       </ion-row>
       <br>
@@ -23,18 +24,20 @@
         <div id="recaptcha-container"></div>
       </div>
 
-      <p class="sendcode">We'll send you a verification code</p>
+      <p class="sendcode">{{'viaPhonePage.verificationCode' | translate:params}}</p>
       <br><br>
-      <p class="login" (click)="viaEmail()">Or Login with your Email</p>
+      <p class="login" (click)="viaEmail()">{{'viaPhonePage.orLoginWithEmail' | translate:params}}</p>
     </ion-grid>
   </div>
 
   <div class="bottom">
     <ion-button (click)="next()">
-      NEXT
+      {{'viaPhonePage.next' | translate:params}}
     </ion-button>
 
-    <p>Continue to receive an SMS confirmation and accept FijoTaxi's <span>Privacy Policy</span> and <span>Terms of
-        Use</span></p>
+    <p>{{'viaPhonePage.continueText' | translate:params}}
+      <span>{{'viaPhonePage.privacy' | translate:params}}</span>
+      {{'viaPhonePage.and' | translate:params}}
+      <span>{{'viaPhonePage.terms' | translate:params}}</span></p>
   </div>
 </ion-content>

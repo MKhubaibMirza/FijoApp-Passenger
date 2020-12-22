@@ -23,7 +23,7 @@
 <ion-footer class="ion-no-border" style="background: transparent;position: absolute;bottom: 30px;">
   <ion-card *ngIf="!directionCondition" [class]='toUp' [style.height]="heightOfCard"
     [style.background]="heightOfCard == ''? 'rgb(36, 123, 37, 0.8)':'rgb(36, 123, 37, 1)'" class="FooterCard">
-    <ion-card-content>
+    <ion-card-content *ngIf="!ShowDestinationCondition">
       <p class="cardTitle">Hello {{getName()}}!</p>
       <p class="subTitle">Where do you want to go?</p>
       <br>
@@ -39,7 +39,16 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <p class="bottomTitle">Search Without Destination</p>
+      <p *ngIf="SavedLocations.length !== 0" (click)="ShowDestinationClick()" class="bottomTitle">Search Without
+        Destination</p>
+    </ion-card-content>
+    <ion-card-content *ngIf="ShowDestinationCondition">
+      <ul class="ul">
+        <li class="li" *ngFor="let item of SavedLocations" (click)="OnRouteItemClick(item)">{{item.routeTitle}}</li>
+        <li class="li" routerLink="/fav-dest">Add More</li>
+      </ul>
+      <p (click)="HideDestinationClick()" class="bottomTitle">Search With
+        Destination</p>
     </ion-card-content>
   </ion-card>
   <ion-card *ngIf="directionCondition" class="FooterCard" style="background:rgb(36, 123, 37, 0.8)">

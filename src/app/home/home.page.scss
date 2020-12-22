@@ -1,6 +1,7 @@
 ion-header {
   ion-toolbar {
     position: absolute;
+
     ion-icon {
       font-size: 30px;
       margin-right: 13px;
@@ -106,6 +107,7 @@ agm-map {
   font-weight: bold;
   padding-top: 3px;
 }
+
 .loopdesc {
   font-size: 15px;
   margin: 0;
@@ -159,4 +161,15 @@ agm-map {
   width: 100%;
   --background: yellow;
   --color: #006600;
+}
+
+.ul {
+  overflow: scroll;
+  max-height: 350px;
+}
+
+.li {
+  color: yellow;
+  font-size: 20px;
+  outline: none;
 }

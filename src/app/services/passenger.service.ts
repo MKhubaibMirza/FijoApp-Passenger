@@ -67,4 +67,8 @@ export class PassengerService {
   passengerAvailablity(id, data) {
     return this.http.post(this.ApiUrl + 'passenger/change-passenger-availabiliy-status/' + id, data)
   }
+  // ----------------
+  getAllBookings() {
+    return this.http.get(this.ApiUrl + 'booking/getall-customer-bookings/' + JSON.parse(localStorage.getItem('user')).id);
+  }
 }

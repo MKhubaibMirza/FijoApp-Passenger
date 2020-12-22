@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateConfigService } from '../services/translate-config.service';
 
 @Component({
   selector: 'app-select-language',
@@ -8,11 +9,16 @@ import { Router } from '@angular/router';
 })
 export class SelectLanguagePage implements OnInit {
 
-  constructor(public r:Router) { }
+  constructor(
+    public r: Router,
+    private translateConfigService: TranslateConfigService
+  ) { }
 
   ngOnInit() {
   }
-  selectLang(val){ 
+  selectLang(val) {
+    this.translateConfigService.setLanguage(val);
+    console.log(this.translateConfigService.selectedLanguage())
     this.r.navigate(['/welcome-note'])
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { PassengerService } from '../services/passenger.service';
 
 @Component({
   selector: 'app-my-journeys',
@@ -9,13 +10,20 @@ import { MenuController } from '@ionic/angular';
 export class MyJourneysPage implements OnInit {
 
   constructor(
-    private menuControl: MenuController,
+    public passengerService: PassengerService,
+    public r: Router
   ) { }
 
   ngOnInit() {
   }
-
+  myJourneys = [];
   ionViewWillEnter() {
-    // this.menuControl.enable(false)
+    this.passengerService.getAllBookings().subscribe((resp: any) => {
+      console.log(resp);
+      this.myJourneys = resp.reverse();
+    })
+  }
+  openJourney(item) {
+    localStorage.setItem('myJourneyObject', JSON.stringify(item))
   }
 }

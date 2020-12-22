@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { PaymentService } from '../services/payment.service';
 
 @Component({
   selector: 'app-ask-payment-way',
@@ -22,14 +23,39 @@ export class AskPaymentWayPage implements OnInit {
     estTime: '',
     totalKM: 0
   }
-  constructor(public modal: ModalController, public r: Router) { }
+  constructor(
+    public modal: ModalController,
+    public toastController: ToastController,
+    public r: Router,
+    public paymentService: PaymentService
+  ) { }
 
   ngOnInit() {
+    this.paymentService.GetPaymentMethodOfPassenger().subscribe((resp: any) => {
+      this.paymentMethodsLength = resp.length;
+      this.paymentMethods = JSON.stringify(resp);
+    })
   }
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      color: 'medium',
+      position: 'top',
+      duration: 2000
+    });
+    toast.present();
+  }
+  paymentMethodsLength = 0;
+  paymentMethods = '';
   IsSaving = false;
   onSelect(i) {
     if (i == 1) {
       this.FindDriverObj.paymentVia = 'card';
+      if (this.paymentMethodsLength == 0) {
+        this.presentToast("Opps! You don't have any payment method yet.");
+      }else{
+        localStorage.setItem('paymentMethods', this.paymentMethods);
+      }
     } else {
       this.FindDriverObj.paymentVia = 'cash';
     }

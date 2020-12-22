@@ -2,6 +2,11 @@ ion-content {
     --background: url('../../assets/bg.png') repeat center center / cover;
 }
 
+.ionbtns {
+    padding: 15px;
+    padding-bottom: 0;
+}
+
 .top {
     margin: auto;
     display: block;

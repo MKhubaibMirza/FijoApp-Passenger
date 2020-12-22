@@ -8,54 +8,22 @@
 </ion-header>
 
 <ion-content>
-  <ion-card mode="ios" routerLink="/journey-details">
+  <ion-card *ngFor="let item of myJourneys" mode="ios" (click)="openJourney(item)" routerLink="/journey-details">
     <ion-grid class="ion-no-padding">
       <ion-row class="ion-no-padding">
         <ion-col size="9">
-          <p class="date">Friday, 20 November, 11:29</p>
-
+          <p class="date">{{item.createdAt | date:'fullDate'}}</p>
         </ion-col>
         <ion-col size="3">
           <img src="../../assets/FijoTaxi_YellowCar.png" alt="">
-
         </ion-col>
       </ion-row>
     </ion-grid>
-
-    <p class="title">Journey to Mom´s House</p>
-
+    <p class="title">Journey to {{item.destination}}</p>
     <ion-grid>
       <ion-row>
         <ion-col size="6">
-          <p class="status">Cancelled</p>
-        </ion-col>
-        <ion-col size="6">
-          <p class="detail">See Details</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
-
-  <ion-card mode="ios" routerLink="/journey-details">
-    <ion-grid class="ion-no-padding">
-      <ion-row class="ion-no-padding">
-        <ion-col size="9">
-          <p class="date">Friday, 15 November, 07:29</p>
-
-        </ion-col>
-        <ion-col size="3">
-          <img src="../../assets/FijoTaxi_YellowCar.png" alt="">
-
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-    <p class="title">Journey to Valencia Airport</p>
-
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6">
-          <p class="status">Completed</p>
+          <p class="status" [style.color]="item.status == 'completed'?'green':'red'">{{item.status | titlecase}}</p>
         </ion-col>
         <ion-col size="6">
           <p class="detail">See Details</p>

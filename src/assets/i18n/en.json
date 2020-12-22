@@ -1,0 +1,28 @@
+{
+    "welcomeNotePage": {
+        "text": "Freedom at a fixed price from anywhere in your city"
+    },
+    "viaPhonePage": {
+        "enterMobileNumber": "Enter your Mobile Number",
+        "withCountryCode": "with country code",
+        "verificationCode": "We'll send you a verification code",
+        "orLoginWithEmail": "Or Login with your Email",
+        "next": "Next",
+        "continueText": "Continue to receive an SMS confirmation and accept FijoTaxi's",
+        "terms": "Terms of Use",
+        "privacy": "Privacy Policy",
+        "and": "and"
+    },
+    "viaEmail": {
+        "loginViaPhone": "Login by Phone",
+        "preferedEmail": "Enter your preferred Email",
+        "enterEmail": "Enter Email",
+        "verificationCode": "We'll send you a verification code",
+        "next": "Next",
+        "continueText": "Continue to receive an SMS confirmation and accept FijoTaxi's",
+        "terms": "Terms of Use",
+        "privacy": "Privacy Policy",
+        "and": "and",
+        "or": "or"
+    }
+}

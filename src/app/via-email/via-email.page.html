@@ -1,37 +1,41 @@
 <ion-content>
 
-  <ion-buttons>
-    <ion-back-button slot="start" color='medium' defaultHref='' text="Login by Phone" mode='ios'>
-      ></ion-back-button>
+  <ion-buttons class="ionbtns">
+    <ion-back-button slot="start" color='medium' defaultHref='' [text]="'viaEmail.loginViaPhone' | translate:params"
+      mode='ios'>
+    </ion-back-button>
   </ion-buttons>
 
   <div class="top">
 
     <ion-grid fixed>
-      <p class="firsttext">Enter your preferred Email</p>
+      <p class="firsttext">{{'viaEmail.preferedEmail' | translate:params}}</p>
 
       <ion-row>
-        <ion-input class="input" type="email" [(ngModel)]='data.email' class="ion-no-margin" placeholder="Enter Email">
+        <ion-input class="input" type="email" [(ngModel)]='data.email' class="ion-no-margin"
+          placeholder="{{'viaEmail.enterEmail' | translate:params}}">
         </ion-input>
       </ion-row>
 
       <br>
-      <p class="sendcode">We'll send you a verification code</p>
+      <p class="sendcode">{{'viaEmail.verificationCode' | translate:params}}</p>
       <br>
       <ion-button (click)="next()">
-        NEXT
+        {{'viaEmail.next' | translate:params}}
       </ion-button>
-
-      <p class="lasttext">Continue to receive an SMS confirmation and accept FijoTaxi's <span>Privacy Policy</span> and
-        <span>Terms of
-          Use</span></p>
+      <p class="lasttext">{{'viaPhonePage.continueText' | translate:params}}
+        <span>{{'viaPhonePage.privacy' | translate:params}}</span>
+        {{'viaPhonePage.and' | translate:params}}
+        <span>{{'viaPhonePage.terms' | translate:params}}</span></p>
     </ion-grid>
   </div>
 
   <div class="bottom">
 
     <div class="center">
-      <div class="divider-line-x"><span>or</span></div>
+      <div class="divider-line-x"><span>
+          {{'viaEmail.or' | translate:params}}
+        </span></div>
     </div>
 
     <br>

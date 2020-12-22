@@ -93,6 +93,8 @@ export class RatingPage implements OnInit {
         localStorage.removeItem('tracking');
         localStorage.removeItem('tripEnded');
         localStorage.removeItem('tripStarted');
+        localStorage.removeItem('paymentMethods');
+        localStorage.removeItem('paid');
         this.m.dismiss();
         this.r.navigate(['/home']);
       } else {
@@ -100,6 +102,8 @@ export class RatingPage implements OnInit {
         localStorage.removeItem('tracking');
         localStorage.removeItem('tripEnded');
         localStorage.removeItem('tripStarted');
+        localStorage.removeItem('paymentMethods');
+        localStorage.removeItem('paid');
         this.m.dismiss();
         this.r.navigate(['/home']);
       }

@@ -68,14 +68,13 @@ export class AddPaymentMethodPage implements OnInit {
       this.presentLoading();
       this.paymentService.checkCard(this.card)
         .then(token => {
-          console.log(token);
+          console.log(token,this.card);
           let fname = JSON.parse(localStorage.getItem('user')).firstName;
           let lname = JSON.parse(localStorage.getItem('user')).lastName;
           this.card.brand = token.card.brand;
           this.card.funding = token.card.funding;
           this.paymentService.addPaymentMethodOfPassenger(this.card).subscribe((resp: any) => {
             this.presentAlert('Successfully Saved', 'Dear ' + fname + ' ' + lname + ' ' + 'Your ' + token.card.brand + ' ' + token.card.funding + ' ' + token.type + ' stored securely.')
-            localStorage.setItem('PassengerCardInfo', JSON.stringify(resp));
             this.loadingController.dismiss();
           })
         })

@@ -52,6 +52,8 @@ export class CancelReasonPage implements OnInit {
     localStorage.removeItem('tracking');
     localStorage.removeItem('tripEnded');
     localStorage.removeItem('tripStarted');
+    localStorage.removeItem('paymentMethods');
+    localStorage.removeItem('paid');
     const alert = await this.alertController.create({
       header: 'Ride Cancelled',
       message: 'Dear ' + name + ' your ride is cancelled due to <br>"' + reason + '"',

@@ -29,4 +29,7 @@ export class PaymentService {
   deletePaymentMethod(id) {
     return this.http.post(this.ApiUrl + 'passenger-payment/delete/' + id, {});
   }
+  charge(data) {
+    return this.http.post(this.ApiUrl + 'charge', data);
+  }
 }

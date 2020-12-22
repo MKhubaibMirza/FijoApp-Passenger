@@ -1,7 +1,7 @@
 import { AgmMap, MapsAPILoader } from '@agm/core';
 import { Component, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { AlertController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { CancelConfirmationPage } from '../cancel-confirmation/cancel-confirmation.page';
 import { RatingPage } from '../rating/rating.page';
 import { DriverService } from '../services/driver.service';
@@ -9,6 +9,7 @@ import io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
+import { PaymentService } from '../services/payment.service';
 
 @Component({
   selector: 'app-tracking',
@@ -27,16 +28,35 @@ export class TrackingPage {
   isSearching = false;
   isTripStarted = false;
   totaltime = '';
+  endTripCounter = 0;
+  startTripCounter = 0;
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait',
+      duration: 7000,
+      spinner: 'dots',
+    });
+    await loading.present();
+  }
   constructor(
     private mapsAPILoader: MapsAPILoader,
     public modalController: ModalController,
+    public loadingController: LoadingController,
     public alertController: AlertController,
     public driverService: DriverService,
+    public paymentService: PaymentService,
     private callNumber: CallNumber,
     public router: Router,
     public toastController: ToastController,
     public geolocation: Geolocation
   ) {
+    this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.driverLat = object.driverLat;
+      this.driverLng = object.driverLng;
+      if (localStorage.getItem('tripStarted')) {
+        this.isTripStarted = true;
+      }
+    });
     this.socket.on('receive-driver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
       this.DriverFound = true;
       this.DriverDetail = object;
@@ -45,12 +65,18 @@ export class TrackingPage {
     this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
       console.log('Trip Is Started Now', object);
       this.isTripStarted = true;
-      this.tripStarted();
+      if (this.startTripCounter == 0) {
+        this.tripStarted();
+        this.startTripCounter = this.startTripCounter + 1;
+      }
     });
     this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
       console.log('Trip Is Ended Now and show rating modal', object);
       localStorage.setItem('tripEnded', 'true');
-      this.RatingModal();
+      if (this.endTripCounter == 0) {
+        this.RatingModal();
+        this.endTripCounter = this.endTripCounter + 1;
+      }
     });
     setTimeout(() => {
       if (!localStorage.getItem('tracking')) {
@@ -68,6 +94,40 @@ export class TrackingPage {
       this.RatingModal();
     }
   }
+  async presentAlertRadio(inputsArray) {
+    console.log(inputsArray);
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      backdropDismiss: false,
+      header: 'Please confirm your payment.',
+      inputs: inputsArray,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (val) => {
+            console.log(val);
+            this.presentLoading();
+            this.paymentService.checkCard(val).then((resp: any) => {
+              console.log(resp);
+              let data = {
+                token: resp.id,
+                amount: JSON.parse(localStorage.getItem('findDriverObj')).exactPriceForPassenger
+              }
+              console.log(data);
+              this.paymentService.charge(data).subscribe((resp: any) => {
+                console.log(resp);
+                localStorage.setItem('paid', 'true');
+                this.loadingController.dismiss();
+              })
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   async RatingModal() {
     const modal = await this.modalController.create({
       component: RatingPage,
@@ -76,6 +136,8 @@ export class TrackingPage {
     });
     return await modal.present();
   }
+  driverLat = 0;
+  driverLng = 0;
   private geoCoder;
   public origin = JSON.parse(localStorage.getItem('findDriverObj')).origin;
   public destination = JSON.parse(localStorage.getItem('findDriverObj')).destination;
@@ -86,6 +148,13 @@ export class TrackingPage {
   currentMarkerAnimation = 'DROP';
   // animation: 'BOUNCE' | 'DROP';
   public currentMarker = {
+    url: 'assets/man.png',
+    scaledSize: {
+      width: 70,
+      height: 70
+    }
+  }
+  public driverMarker = {
     url: 'assets/man.png',
     scaledSize: {
       width: 70,
@@ -175,6 +244,24 @@ export class TrackingPage {
       buttons: [{
         text: 'Continue',
         handler: () => {
+          if (!localStorage.getItem('paid')) {
+            let PayVia = JSON.parse(localStorage.getItem('findDriverObj')).paymentVia;
+            if (PayVia == 'card') {
+              console.log(PayVia);
+              // choose Payment methode and show all paymentMethods
+              let paymentMethods = JSON.parse(localStorage.getItem('paymentMethods'));
+              let inputArray = [];
+              paymentMethods.forEach((element, i) => {
+                inputArray.push({
+                  name: 'radio' + i,
+                  type: 'radio',
+                  label: '**** **** **** ' + element.number.toString().substr(12, 16),
+                  value: element
+                })
+              });
+              this.presentAlertRadio(inputArray);
+            }
+          }
         }
       }]
     });
@@ -232,5 +319,13 @@ export class TrackingPage {
     } else {
       this.presentToast('Sorry ' + name + ' has no phone option');
     }
+  }
+  ionViewWillLeave() {
+    this.DriverFound = false;
+    this.isSearching = false;
+    this.isTripStarted = false;
+    this.totaltime = '';
+    this.endTripCounter = 0;
+    this.startTripCounter = 0;
   }
 }
