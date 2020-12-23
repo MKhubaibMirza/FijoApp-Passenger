@@ -1,8 +1,9 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
-    <ion-buttons (click)="backBtn()" disabled slot="start">
-      <ion-back-button color="medium" icon="chevron-back-outline" defaultHref="add-payment-method"></ion-back-button>
-    </ion-buttons>
+    <!-- <ion-buttons (click)="backBtn()" disabled slot="start">
+      <ion-back-button color="medium" icon="chevron-back-outline" defaultHref="/add-payment-method"></ion-back-button>
+    </ion-buttons> -->
+    <ion-icon color="medium" (click)="backBtn()" name="chevron-back-outline" class="backBtn" slot="start"></ion-icon>
     <ion-title color="medium">Add Payment Card</ion-title>
   </ion-toolbar>
 </ion-header>

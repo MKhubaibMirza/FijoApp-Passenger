@@ -97,7 +97,7 @@ export class HomePage {
     travelMode: "DRIVING",
   }
   FindDriverObj = {
-    noOfSeating: '',
+    noOfSeating: 0,
     vehicleType: '',
     city: JSON.parse(localStorage.getItem('user')).city,
     currentLat: 0,
@@ -136,12 +136,14 @@ export class HomePage {
   async AskPayWay() {
     if (this.selectedCar == undefined) {
       this.presentToast('Please Select Your Ride');
+    } else if (this.FindDriverObj.noOfSeating == 0) {
+      this.presentToast('Please Select Seating Capacity');
     } else {
       this.FindDriverObj.origin = this.origin;
       this.FindDriverObj.destination = this.destination;
       console.log(this.BasePrice4Seater, this.For4SeaterPrice)
       console.log(this.BasePrice5Seater, this.For5SeaterPrice)
-      if (this.FindDriverObj.noOfSeating == '4') {
+      if (this.FindDriverObj.noOfSeating == 4) {
         this.FindDriverObj.exactPriceForDriver = this.For4SeaterPrice - this.BasePrice4Seater;
         this.FindDriverObj.exactPriceForPassenger = this.For4SeaterPrice;
       } else {
@@ -169,7 +171,7 @@ export class HomePage {
     toast.present();
   }
   ionViewWillEnter() {
-    this.presentUser();
+    // this.presentUser();
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       this.setCurrentLocation();
@@ -429,7 +431,7 @@ export class HomePage {
   ionViewWillLeave() {
     this.directionCondition = false;
     this.FindDriverObj = {
-      noOfSeating: '',
+      noOfSeating: 0,
       vehicleType: '',
       city: JSON.parse(localStorage.getItem('user')).city,
       currentLat: 0,

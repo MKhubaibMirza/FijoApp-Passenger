@@ -1,15 +1,15 @@
 import { AgmMap, MapsAPILoader } from '@agm/core';
 import { Component, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController, ModalController, ToastController } from '@ionic/angular';
 import { CancelConfirmationPage } from '../cancel-confirmation/cancel-confirmation.page';
 import { RatingPage } from '../rating/rating.page';
 import { DriverService } from '../services/driver.service';
 import io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { PaymentService } from '../services/payment.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tracking',
@@ -48,8 +48,10 @@ export class TrackingPage {
     private callNumber: CallNumber,
     public router: Router,
     public toastController: ToastController,
-    public geolocation: Geolocation
+    public geolocation: Geolocation,
+    public menuControl: MenuController
   ) {
+    this.menuControl.enable(false);
     this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
       this.driverLat = object.driverLat;
       this.driverLng = object.driverLng;
@@ -66,7 +68,13 @@ export class TrackingPage {
       console.log('Trip Is Started Now', object);
       this.isTripStarted = true;
       if (this.startTripCounter == 0) {
-        this.tripStarted();
+        this.tripStart_Or_PaymentRepeater_Or_AlertShower(`Your trip is started. Please read <b>COVID-19</b> SOPs carefully. <br> 
+    <p> 
+    ⦿ Keep your distance from other people when you travel, where possible. <br>
+    ⦿ Avoid making unnecessary stops during your journey. <br>
+    ⦿ Plan ahead, check for disruption before you leave, and avoid the busiest routes, as well as busy times. <br>
+    ⦿ Wash or sanitise your hands regularly.
+    </p>`);
         this.startTripCounter = this.startTripCounter + 1;
       }
     });
@@ -81,7 +89,9 @@ export class TrackingPage {
     setTimeout(() => {
       if (!localStorage.getItem('tracking')) {
         if (this.DriverFound == false) {
-          this.presentAlert();
+          if (this.router.url == '/tracking') {
+            this.presentAlert();
+          }
         }
       }
     }, 60000);
@@ -116,7 +126,14 @@ export class TrackingPage {
               console.log(data);
               this.paymentService.charge(data).subscribe((resp: any) => {
                 console.log(resp);
-                localStorage.setItem('paid', 'true');
+                if (resp.data !== null) {
+                  localStorage.setItem('paid', 'true');
+                  let price = JSON.parse(localStorage.getItem('FindDriverObj')).exactPriceForPassenger;
+                  this.tripStart_Or_PaymentRepeater_Or_AlertShower(price +'&euro; is successfully charged from your card.');
+                } else {
+                  // repeat payment procedure ------------
+                  this.tripStart_Or_PaymentRepeater_Or_AlertShower('Something went wrong with your payment method. Plase choose a different card to continue');
+                }
                 this.loadingController.dismiss();
               })
             });
@@ -225,7 +242,7 @@ export class TrackingPage {
     });
     await alert.present();
   }
-  async tripStarted() {
+  async tripStart_Or_PaymentRepeater_Or_AlertShower(mes) {
     let user = JSON.parse(localStorage.getItem('user'));
     localStorage.setItem('tripStarted', 'true');
     let name = user.firstName + ' ' + user.lastName;
@@ -233,14 +250,7 @@ export class TrackingPage {
       backdropDismiss: false,
       cssClass: 'tripStarted',
       header: 'Dear ' + name,
-      message: `
-    Your trip is started. Please read <b>COVID-19</b> SOPs carefully. <br> 
-    <p> 
-    ⦿ Keep your distance from other people when you travel, where possible. <br>
-    ⦿ Avoid making unnecessary stops during your journey. <br>
-    ⦿ Plan ahead, check for disruption before you leave, and avoid the busiest routes, as well as busy times. <br>
-    ⦿ Wash or sanitise your hands regularly.
-    </p>`,
+      message: mes,
       buttons: [{
         text: 'Continue',
         handler: () => {
@@ -327,5 +337,6 @@ export class TrackingPage {
     this.totaltime = '';
     this.endTripCounter = 0;
     this.startTripCounter = 0;
+    this.menuControl.enable(true);
   }
 }

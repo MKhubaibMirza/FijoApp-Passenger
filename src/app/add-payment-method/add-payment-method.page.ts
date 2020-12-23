@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
 import { PaymentService } from '../services/payment.service';
 import { SureToCancelPaymentMethodPage } from '../sure-to-cancel-payment-method/sure-to-cancel-payment-method.page';
@@ -17,10 +18,14 @@ export class AddPaymentMethodPage implements OnInit {
     public alertController: AlertController,
     public paymentService: PaymentService,
     public nav: NavController,
-    public platform: Platform
+    public platform: Platform,
+    public r: Router
   ) {
-    platform.backButton.subscribeWithPriority(10000, () => {
-    })
+    if (this.r.url == '/add-payment-method') {
+      platform.backButton.subscribeWithPriority(10000, () => {
+        console.log('BTN Pressed');
+      })
+    }
   }
   async presentLoading() {
     const loading = await this.loadingController.create({
@@ -68,7 +73,7 @@ export class AddPaymentMethodPage implements OnInit {
       this.presentLoading();
       this.paymentService.checkCard(this.card)
         .then(token => {
-          console.log(token,this.card);
+          console.log(token, this.card);
           let fname = JSON.parse(localStorage.getItem('user')).firstName;
           let lname = JSON.parse(localStorage.getItem('user')).lastName;
           this.card.brand = token.card.brand;

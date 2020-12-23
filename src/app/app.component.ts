@@ -102,7 +102,7 @@ export class AppComponent {
     { title: 'Payment Methods', icon: 'cash', route: '/payment-methods', },
     { title: 'My Account', icon: 'person', route: '/profile', },
     { title: 'Invite Friends', icon: 'person-add', route: '', },
-    { title: 'Discount Codes', icon: 'remove-circle', route: '/discount-codes', },
+    // { title: 'Discount Codes', icon: 'remove-circle', route: '/discount-codes', },
     { title: 'Help', icon: 'help-circle', route: '/help', },
   ]
 

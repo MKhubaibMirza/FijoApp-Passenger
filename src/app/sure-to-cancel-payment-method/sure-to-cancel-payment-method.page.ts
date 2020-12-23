@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sure-to-cancel-payment-method',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SureToCancelPaymentMethodPage implements OnInit {
 
-  constructor() { }
+  constructor(public modal: ModalController, public nav: NavController) { }
 
   ngOnInit() {
   }
-
+  leave() {
+    this.modal.dismiss();
+    this.nav.back();
+  }
+  cancel() {
+    this.modal.dismiss();
+  }
 }
