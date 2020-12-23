@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { DiscountCodesPageRoutingModule } from './discount-codes-routing.module';
 
 import { DiscountCodesPage } from './discount-codes.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
     DiscountCodesPageRoutingModule
   ],
   declarations: [DiscountCodesPage]

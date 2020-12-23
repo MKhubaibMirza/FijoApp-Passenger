@@ -9,12 +9,14 @@ import { TrackingPageRoutingModule } from './tracking-routing.module';
 import { TrackingPage } from './tracking.page';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
     AgmCoreModule,
     AgmDirectionModule,
     TrackingPageRoutingModule

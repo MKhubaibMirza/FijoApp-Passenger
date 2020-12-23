@@ -1,6 +1,8 @@
 <ion-content>
 
-  <p>Enter the 6 digit confirmation code that we sent to {{text}}</p>
+  <p>
+    {{'otpPage.text' | translate:params}} {{text}}
+  </p>
 
   <code-input (codeCompleted)='onCodeCompleted($event)' [isCodeHidden]="false" [isNonDigitsCode]="false"
     [codeLength]="6">
@@ -9,7 +11,7 @@
 
   <div class="bottom">
     <ion-button (click)="submitVerif()">
-      Continue
+      {{'otpPage.btn' | translate:params}}
     </ion-button>
   </div>
 </ion-content>

@@ -7,14 +7,15 @@ export class TranslateConfigService {
 
   constructor(
     private translate: TranslateService
-  ) { }
+  ) {
+  }
 
   getDefaultLanguage() {
     let language = this.translate.getBrowserLang();
     this.translate.setDefaultLang(language);
     return language;
   }
-  selectedLanguage(){
+  selectedLanguage() {
     return this.translate.currentLang;
   }
   setLanguage(setLang) {

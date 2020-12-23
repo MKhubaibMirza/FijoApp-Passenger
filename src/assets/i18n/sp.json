@@ -24,5 +24,9 @@
         "privacy": "Política de privacidad",
         "and": "y",
         "or": "o"
+    },
+    "otpPage": {
+        "text": "Ingrese el código de confirmación de 6 dígitos que enviamos a",
+        "btn": "Seguir"
     }
 }

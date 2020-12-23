@@ -7,10 +7,12 @@ import { IonicModule } from '@ionic/angular';
 import { CallPreferencePageRoutingModule } from './call-preference-routing.module';
 
 import { CallPreferencePage } from './call-preference.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
+    TranslateModule,
     FormsModule,
     IonicModule,
     CallPreferencePageRoutingModule

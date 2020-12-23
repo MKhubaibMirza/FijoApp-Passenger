@@ -10,6 +10,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { environment } from 'src/environments/environment';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PassengerService } from './services/passenger.service';
+import { TranslateConfigService } from './services/translate-config.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ export class AppComponent {
     public modalController: ModalController,
     private menuController: MenuController,
     public passengerService: PassengerService,
+    public translateService: TranslateConfigService,
     private googlePlus: GooglePlus,
     private fb: Facebook
   ) {
@@ -40,6 +42,9 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.locService.checkGPSPermission();
+      if (this.translateService.selectedLanguage() == undefined) {
+        this.translateService.setLanguage('en');
+      }
       if (this.platform.is('cordova')) {
         this.setupPush();
       }
@@ -101,18 +106,69 @@ export class AppComponent {
     { title: 'My Journeys', icon: 'car', route: '/my-journeys', },
     { title: 'Payment Methods', icon: 'cash', route: '/payment-methods', },
     { title: 'My Account', icon: 'person', route: '/profile', },
-    { title: 'Invite Friends', icon: 'person-add', route: '', },
+    { title: 'Invite Friends', icon: 'person-add', route: '/inviteFakePath', },
     // { title: 'Discount Codes', icon: 'remove-circle', route: '/discount-codes', },
     { title: 'Help', icon: 'help-circle', route: '/help', },
+    { title: 'Change Language', icon: 'language', route: '/lang', },
   ]
 
   route(r) {
     this.menuController.close();
-    if (r == '') {
+    console.log(r)
+    if (r == '/inviteFakePath') {
       this.sendInvitation();
+    } else if (r == '/lang') {
+      this.changeLanguage();
     } else {
       this.r.navigate([r])
     }
+  }
+  async changeLanguage() {
+    let selectedLang = this.translateService.selectedLanguage();
+    let isEn = false;
+    let isSp = false;
+    if (selectedLang == 'en') {
+      isEn = true;
+    } else {
+      isSp = true;
+    }
+    const alert = await this.alertCtrl.create({
+      header: 'Change Language',
+      inputs: [
+        {
+          name: 'english',
+          type: 'radio',
+          label: 'English',
+          value: 'en',
+          checked: isEn
+        },
+        {
+          name: 'spanish',
+          type: 'radio',
+          label: 'Spanish',
+          value: 'sp',
+          checked: isSp
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (val) => {
+            this.translateService.setLanguage(val);
+            console.log(val, 'Confirm Ok');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
   getName() {
     if (localStorage.getItem('user'))

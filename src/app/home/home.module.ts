@@ -7,12 +7,14 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { AgmDirectionModule } from 'agm-direction';
 import { AgmCoreModule } from '@agm/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     AgmCoreModule,
+    TranslateModule,
     AgmDirectionModule,
     IonicModule,
     HomePageRoutingModule

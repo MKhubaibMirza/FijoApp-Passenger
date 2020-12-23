@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { MyJourneysPageRoutingModule } from './my-journeys-routing.module';
 
 import { MyJourneysPage } from './my-journeys.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
     MyJourneysPageRoutingModule
   ],
   declarations: [MyJourneysPage]

@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { OpenDoorPreferencePageRoutingModule } from './open-door-preference-routing.module';
 
 import { OpenDoorPreferencePage } from './open-door-preference.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
     OpenDoorPreferencePageRoutingModule
   ],
   declarations: [OpenDoorPreferencePage]

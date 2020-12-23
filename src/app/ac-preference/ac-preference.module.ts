@@ -7,11 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { AcPreferencePageRoutingModule } from './ac-preference-routing.module';
 
 import { AcPreferencePage } from './ac-preference.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    TranslateModule,
     IonicModule,
     AcPreferencePageRoutingModule
   ],

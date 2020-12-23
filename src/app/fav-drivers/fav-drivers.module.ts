@@ -7,11 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { FavDriversPageRoutingModule } from './fav-drivers-routing.module';
 
 import { FavDriversPage } from './fav-drivers.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    TranslateModule,
     IonicModule,
     FavDriversPageRoutingModule
   ],

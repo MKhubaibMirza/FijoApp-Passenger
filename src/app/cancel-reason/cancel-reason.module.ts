@@ -7,11 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { CancelReasonPageRoutingModule } from './cancel-reason-routing.module';
 
 import { CancelReasonPage } from './cancel-reason.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    TranslateModule,
     IonicModule,
     CancelReasonPageRoutingModule
   ],

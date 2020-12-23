@@ -7,12 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { FavDestPageRoutingModule } from './fav-dest-routing.module';
 
 import { FavDestPage } from './fav-dest.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
     FavDestPageRoutingModule
   ],
   declarations: [FavDestPage]

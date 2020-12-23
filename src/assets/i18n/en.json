@@ -24,5 +24,9 @@
         "privacy": "Privacy Policy",
         "and": "and",
         "or": "or"
+    },
+    "otpPage": {
+        "text": "Enter the 6 digit confirmation code that we sent to",
+        "btn": "Continue"
     }
 }

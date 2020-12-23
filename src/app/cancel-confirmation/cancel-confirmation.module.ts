@@ -6,12 +6,13 @@ import { IonicModule } from '@ionic/angular';
 
 import { CancelConfirmationPageRoutingModule } from './cancel-confirmation-routing.module';
 
-import { CancelConfirmationPage } from './cancel-confirmation.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    TranslateModule,
     IonicModule,
     CancelConfirmationPageRoutingModule
   ],

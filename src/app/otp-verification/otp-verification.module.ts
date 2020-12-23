@@ -8,11 +8,13 @@ import { OtpVerificationPageRoutingModule } from './otp-verification-routing.mod
 
 import { OtpVerificationPage } from './otp-verification.page';
 import { CodeInputModule } from 'angular-code-input';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     CodeInputModule,
+    TranslateModule,
     FormsModule,
     IonicModule,
     OtpVerificationPageRoutingModule
