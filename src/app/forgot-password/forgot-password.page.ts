@@ -115,11 +115,11 @@ export class ForgotPasswordPage implements OnInit {
           console.log(respo);
           localStorage.setItem("user", JSON.stringify(this.UserGLOBAL_DATA));
           localStorage.removeItem('TempUser');
-          this.r.navigate(["/home"]);
           this.presentAlert(
             "Successfull",
             "Your password has been successfully updated."
           );
+          this.r.navigate(["/home"]);
         });
     }
   }

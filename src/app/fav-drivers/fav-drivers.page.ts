@@ -1,20 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { CallNumber } from '@ionic-native/call-number/ngx';
+import { DriverService } from '../services/driver.service';
 
 @Component({
   selector: 'app-fav-drivers',
   templateUrl: './fav-drivers.page.html',
   styleUrls: ['./fav-drivers.page.scss'],
 })
-export class FavDriversPage implements OnInit {
+export class FavDriversPage {
 
-  constructor() { }
+  constructor(
+    public driverService: DriverService,
+    private callNumber: CallNumber,
+  ) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.driverService.getAllFavouriteDrivers().subscribe((resp: any) => {
+      console.log(resp);
+      this.drivers = resp;
+    })
   }
-
-  drivers = [
-    { name: "John King", },
-    { name: "King George", },
-    { name: "Juan Carlos", },
-  ]
+  drivers = [];
+  call(phoneNumber) {
+    if (phoneNumber) {
+      this.callNumber.callNumber(phoneNumber, true)
+        .then(res => console.log('Launched dialer!', res))
+        .catch(err => {
+        });
+    }
+  }
 }

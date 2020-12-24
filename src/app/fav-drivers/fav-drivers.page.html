@@ -8,25 +8,23 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-slides *ngIf="drivers.length === 0" class="swiper-no-swiping" style="height: 100%;">
+    <ion-slide>
+      <p class="notfound">No Favorite Drivers Yet!!</p>
+    </ion-slide>
+  </ion-slides>
   <div class="list">
 
     <ion-item *ngFor='let item of drivers' lines="full">
       <ion-icon name="person-outline" slot="start"></ion-icon>
       <ion-label>
-        {{item.name}}
+        {{item.driver?.firstName}} {{item.driver?.lastName}}
+        <br>
+        {{item.driver?.email}}
       </ion-label>
+      <ion-icon name="call" slot="end" (click)="call(item.driver?.phoneNumber)"></ion-icon>
     </ion-item>
   </div>
 
 
 </ion-content>
-
-<ion-footer class="ion-no-border">
-  <ion-toolbar>
-
-    <input style="margin-bottom: 20px;" class="form-control destination" placeholder="Search Trip" autocorrect="off" autocapitalize="off"
-      spellcheck="off" type="text">
-
-  </ion-toolbar>
-</ion-footer>

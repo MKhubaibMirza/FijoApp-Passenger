@@ -31,6 +31,11 @@ export class JourneyDetailsPage implements OnInit {
     status: "",
     totalCost: "",
     updatedAt: "",
+    driver: {
+      email: "",
+      firstName: "",
+      lastName: ""
+    }
   }
   back() {
     this.nav.back();

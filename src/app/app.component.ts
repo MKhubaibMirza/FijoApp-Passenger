@@ -106,10 +106,10 @@ export class AppComponent {
     { title: 'My Journeys', icon: 'car', route: '/my-journeys', },
     { title: 'Payment Methods', icon: 'cash', route: '/payment-methods', },
     { title: 'My Account', icon: 'person', route: '/profile', },
+    { title: 'Change Language', icon: 'language', route: '/lang', },
     { title: 'Invite Friends', icon: 'person-add', route: '/inviteFakePath', },
     // { title: 'Discount Codes', icon: 'remove-circle', route: '/discount-codes', },
     { title: 'Help', icon: 'help-circle', route: '/help', },
-    { title: 'Change Language', icon: 'language', route: '/lang', },
   ]
 
   route(r) {

@@ -12,6 +12,11 @@
     (keydown.enter)="$event.preventDefault()" placeholder="Search Address" autocorrect="off" autocapitalize="off"
     spellcheck="off" type="text" #search>
   <br>
+  <ion-slides *ngIf="dest.length === 0" class="swiper-no-swiping" style="height: 85%;">
+    <ion-slide>
+      <p class="notfound">No Favorite Routes Yet!</p>
+    </ion-slide>
+  </ion-slides>
   <div class="list">
     <ion-item *ngFor='let item of dest' class="ion-no-padding" lines="none">
       <div clot="start">

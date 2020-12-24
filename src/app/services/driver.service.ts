@@ -21,4 +21,7 @@ export class DriverService {
     addtoFavourites(data) {
         return this.http.post(this.ApiUrl + 'favorite-driver/create/', data);
     }
+    getAllFavouriteDrivers() {
+        return this.http.get(this.ApiUrl + 'favorite-driver/getall/' + JSON.parse(localStorage.getItem('user')).id);
+    }
 }

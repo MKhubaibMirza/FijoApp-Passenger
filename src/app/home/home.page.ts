@@ -28,7 +28,6 @@ export class HomePage {
     public modalController: ModalController,
     private geolocation: Geolocation
   ) {
-    this.menuControl.enable(true);
   }
   inRange(x, min, max) {
     return ((x - min) * (x - max) <= 0);
@@ -38,6 +37,7 @@ export class HomePage {
       return JSON.parse(localStorage.getItem('user')).firstName + ' ' + JSON.parse(localStorage.getItem('user')).lastName;
   }
   openMenu() {
+    this.menuControl.enable(true);
     this.menuControl.open();
   }
   async presentLoading() {

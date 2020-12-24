@@ -8,6 +8,11 @@
 </ion-header>
 
 <ion-content>
+  <ion-slides *ngIf="myJourneys.length === 0" class="swiper-no-swiping" style="height: 100%;">
+    <ion-slide>
+      <p class="noJourney">You have No Journey Yet!</p>
+    </ion-slide>
+  </ion-slides>
   <ion-card *ngFor="let item of myJourneys" mode="ios" (click)="openJourney(item)" routerLink="/journey-details">
     <ion-grid class="ion-no-padding">
       <ion-row class="ion-no-padding">
