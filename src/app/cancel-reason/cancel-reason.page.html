@@ -1,9 +1,21 @@
 <div class="inner-content" scrollY="false">
-  <p class="title">Journey Cancelled</p>
-  <p class="subtitle">Why did you cancel?</p>
-  <ion-button expand="full" class="btn" (click)="cancel(1)">It's taking too long</ion-button>
-  <ion-button expand="full" class="btn" (click)="cancel(2)">I changed my mind</ion-button>
-  <ion-button expand="full" class="btn" (click)="cancel(3)">The driver requested me to cancel</ion-button>
-  <ion-button expand="full" class="btn" (click)="cancel(4)">Mistake in my journey details</ion-button>
-  <ion-button expand="full" class="btn" (click)="close()">Close</ion-button>
+  <p class="title">
+    {{'cancelReasonPage.title' | translate:params}}
+  </p>
+  <p class="subtitle">
+    {{'cancelReasonPage.subtitle' | translate:params}}
+  </p>
+  <ion-button expand="full" class="btn" (click)="cancel(1)">
+    {{'cancelReasonPage.r1' | translate:params}}
+  </ion-button>
+  <ion-button expand="full" class="btn" (click)="cancel(2)">
+    {{'cancelReasonPage.r2' | translate:params}}
+  </ion-button>
+  <ion-button expand="full" class="btn" (click)="cancel(3)">
+    {{'cancelReasonPage.r3' | translate:params}}
+  </ion-button>
+  <ion-button expand="full" class="btn" (click)="cancel(4)">
+    {{'cancelReasonPage.r4' | translate:params}}
+  </ion-button>
+  <ion-button expand="full" class="btn" (click)="close()">{{'cancelReasonPage.close' | translate:params}}</ion-button>
 </div>

@@ -28,5 +28,197 @@
     "otpPage": {
         "text": "Enter the 6 digit confirmation code that we sent to",
         "btn": "Continue"
+    },
+    "passwordPage": {
+        "enterPassword": "Enter your Password",
+        "text": "You'll need it to access your account securely",
+        "forgotPassword": "I forgot my password",
+        "next": "Next"
+    },
+    "forgotPasswordPage": {
+        "forgotPassword": "Forgot Password",
+        "changePassword": "Change Password",
+        "enterEmail": "Enter Email",
+        "code": "Enter Code",
+        "confirmPassword": "Confirm Password",
+        "newPassword": "New Password",
+        "passwordMatched": "Password matched",
+        "next": "Next",
+        "checkEmail": "Check Your E-Mail",
+        "copy": "Please copy the 6 words secret code from your email",
+        "ok": "OKAY",
+        "btn": "Continue"
+    },
+    "sideMenu": {
+        "home": "Home",
+        "myJourney": "My Journeys",
+        "paymentMethods": "Payment Methods",
+        "myAccount": "My Account",
+        "changeLanguage": "Change Language",
+        "inviteFriends": "Invite Friends",
+        "Help": "Help",
+        "logout": "Logout"
+    },
+    "homePage": {
+        "title": "Fijo Passenger",
+        "hello": "Hello",
+        "whereToGo": "Where do you want to go",
+        "enterDestination": "Enter Destination",
+        "searchWithoutDestination": "Search Without Destination",
+        "searchWithDestination": "Search With Destination",
+        "addMore": "Add More",
+        "seaters": "Seaters",
+        "fixedPrice": "Fixed Price",
+        "generalPurpose": "General Purpose",
+        "forHandicaps": "For Handicaps",
+        "orderNow": "Order Now"
+    },
+    "askPayWay": {
+        "howLikeToPay": "How would you like to pay?",
+        "addPay": "Add a payment method",
+        "viaCard": "Pay via Credit Card",
+        "viaCash": "Pay via Cash",
+        "savingMethod": "Saving your payment method"
+    },
+    "trackingPage": {
+        "confirming": "Confirming ...",
+        "preparingRide": "Preparing your ride",
+        "searching": "Searching ...",
+        "findingDrivers": "Finding drivers near you",
+        "onWay": "is on the way",
+        "contact": "Contact",
+        "call": "Call",
+        "cancel": "Cancel"
+    },
+    "myJourneysPage": {
+        "noRide": "You have No Journey Yet",
+        "complete": "Completed",
+        "cancelled": "Cancelled",
+        "seeDetails": "See Details",
+        "journeyTo": "Journey to"
+    },
+    "JourneyDetailsPage": {
+        "pickUp": "Pick Up Point",
+        "destination": "Destination",
+        "journeyCompleted": "This journey was completed",
+        "journeyCancelled": "This journey was cancelled",
+        "noCost": "This journey has no cost",
+        "withCost": "The cost of this journey was"
+    },
+    "paymentMethodPage": {
+        "title": "Payment Methods",
+        "card": "Card",
+        "addPaymentMethod": "Add Payment Method",
+        "storedSecurely": "Your payment information will be stored securely",
+        "noPayMethod": "No Payment Method Saved yet!",
+        "btn": "Add Another Payment Method"
+    },
+    "addPaymentCardPage": {
+        "title": "Add Payment Card",
+        "cardNumber": "Card Number",
+        "expDate": "Expiry Date",
+        "storedSecurely": "Your payment information will be stored securely",
+        "save": "SAVE"
+    },
+    "profilePage": {
+        "title": "My Profile",
+        "hi": "Hi",
+        "myInfo": "My Info",
+        "myFav": "My favorites",
+        "myPreferences": "My Preferences"
+    },
+    "infoPage": {
+        "myInfo": "My Info",
+        "hi": "Hi",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phone": "Phone",
+        "saveChanges": "Save Changes",
+        "editPassword": "Edit Password"
+    },
+    "myFavsPage": {
+        "title": "My Favorites",
+        "destination": "Destination",
+        "driver": "Driver"
+    },
+    "myFavDestinationPage": {
+        "title": "Favorite Destinations",
+        "search": "Search Address",
+        "nofavdest": "No Favorite Routes Yet!"
+    },
+    "myFavDriverPage": {
+        "title": "Favorite Drivers",
+        "noFav": "No Favorite Drivers Yet!"
+    },
+    "myPreferencesPage": {
+        "title": "My Preferences"
+    },
+    "callPreference": {
+        "title": "Do you want the driver to call you?",
+        "btn": "SAVE"
+    },
+    "airPreference": {
+        "title": "How do you like the A/C?",
+        "btn": "SAVE"
+    },
+    "openDoorPreference": {
+        "title": "Should the driver open the door?",
+        "btn": "SAVE"
+    },
+    "conversationPreference": {
+        "title": "Conversation or Silence?",
+        "btn": "SAVE"
+    },
+    "helpPage": {
+        "title": "Help",
+        "contact": "I want to contact Fijo",
+        "terms": "Terms & Conditions",
+        "privacy": "Privacy Policy"
+    },
+    "ratingPage": {
+        "title": "The journey is completed!",
+        "card": "Will be charged on your card",
+        "cash": "Please pay your driver",
+        "text": "Thank you for riding with FijoTaxi. See you soon!",
+        "rate": "Rate",
+        "addFav": "Add in your favorite drivers",
+        "submit": "Submit"
+    },
+    "contactUsPage": {
+        "title": "Contact Us",
+        "subject": "Subject",
+        "message": "Message",
+        "submit": "Submit"
+    },
+    "sureToCancelModal": {
+        "title": "Are you sure?",
+        "text": "You are about to exit without saving your payment method",
+        "cancel": "Cancel",
+        "leave": "Leave"
+    },
+    "sureToCancelPage": {
+        "title": "Are you sure you want to cancel?",
+        "cost": "Cancelling now may incur a cost",
+        "continue": "CONTINUE JOURNEY",
+        "cancel": "CANCEL JOURNEY"
+    },
+    "cancelReasonPage": {
+        "title": "Journey Cancelled",
+        "subtitle": "Why did you cancel?",
+        "r1": "It's taking too long",
+        "r2": "I changed my mind",
+        "r3": "The driver requested me to cancel",
+        "r4": "A mistake in my journey details",
+        "close": "Close"
+    },
+    "changePasswordModal": {
+        "title": "Change Password",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm Password",
+        "changePassword": "Change Password"
+    },
+    "chatPage":{
+        "text":"Type your message"
     }
 }

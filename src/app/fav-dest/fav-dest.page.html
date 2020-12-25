@@ -3,18 +3,20 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Favorite Destinations</ion-title>
+    <ion-title>
+      {{'myFavDestinationPage.title' | translate:params}}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <input type="text" [(ngModel)]="destination" class="form-control destination"
-    (keydown.enter)="$event.preventDefault()" placeholder="Search Address" autocorrect="off" autocapitalize="off"
+    (keydown.enter)="$event.preventDefault()" placeholder="{{'myFavDestinationPage.search' | translate:params}}" autocorrect="off" autocapitalize="off"
     spellcheck="off" type="text" #search>
   <br>
   <ion-slides *ngIf="dest.length === 0" class="swiper-no-swiping" style="height: 85%;">
     <ion-slide>
-      <p class="notfound">No Favorite Routes Yet!</p>
+      <p class="notfound">{{'myFavDestinationPage.nofavdest' | translate:params}}</p>
     </ion-slide>
   </ion-slides>
   <div class="list">
@@ -31,19 +33,3 @@
     </ion-item>
   </div>
 </ion-content>
-
-<!-- <ion-footer class="ion-no-border">
-  <ion-toolbar>
-    <input (focus)="consoleer('focus')" (blur)="consoleer('blur')" type="text" [(ngModel)]="destination"
-      class="form-control destination" (keydown.enter)="$event.preventDefault()" placeholder="Search Address"
-      autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-    <div class="list">
-      <ion-item lines="none" style="margin-bottom: 20px;">
-        <ion-icon name="map-outline" slot="start"></ion-icon>
-        <ion-label>
-          Use Maps
-        </ion-label>
-      </ion-item>
-    </div>
-  </ion-toolbar>
-</ion-footer> -->

@@ -1,0 +1,21 @@
+ion-card {
+    background: transparent;
+    border: 5px solid #006600;
+    box-shadow: none;
+    border-radius: 20px;
+    padding: 10px;
+
+    ion-item {
+        border: 2px solid #006600;
+        --box-shadow: none;
+        border-radius: 10px;
+        font-size: 20px;
+    }
+
+    ion-button {
+        border: 3px solid;
+        font-size: 22px;
+        height: 55px;
+        border-radius: 20px;
+    }
+}

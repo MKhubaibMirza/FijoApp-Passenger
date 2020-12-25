@@ -4,7 +4,8 @@
     <agm-direction (onResponse)="onResponse($event)" [renderOptions]="renderOptions" [markerOptions]="markerOptions"
       [origin]="origin" [destination]="destination">
     </agm-direction>
-    <agm-marker *ngIf="isTripStarted" [latitude]="driverLat" [longitude]="driverLng" [iconUrl]="driverMarker"></agm-marker>
+    <agm-marker *ngIf="isTripStarted" [latitude]="driverLat" [longitude]="driverLng" [iconUrl]="driverMarker">
+    </agm-marker>
   </agm-map>
 </ion-content>
 <ion-footer *ngIf="!DriverFound" class="ion-no-border" style="background: transparent;position: absolute;bottom: 30px;">
@@ -13,7 +14,9 @@
       <ion-grid *ngIf="!isSearching" class="ion-no-padding">
         <ion-row class="ion-no-padding">
           <ion-col size="9">
-            <p class="FooterTitle">Confirming..</p>
+            <p class="FooterTitle">
+              {{'trackingPage.confirming' | translate:params}}
+            </p>
           </ion-col>
           <ion-col size="3">
             <img src="assets/logo.png" class="logoImg" alt="">
@@ -21,7 +24,7 @@
         </ion-row>
       </ion-grid>
       <br>
-      <p class="bottomtext">Preparing your ride</p>
+      <p class="bottomtext">{{'trackingPage.preparingRide' | translate:params}}</p>
       <ion-progress-bar class="progress" color="medium" value="0.5"></ion-progress-bar>
     </ion-card-content>
   </ion-card>
@@ -30,7 +33,7 @@
       <ion-grid class="ion-no-padding">
         <ion-row class="ion-no-padding">
           <ion-col size="9">
-            <p class="FooterTitle">Searching..</p>
+            <p class="FooterTitle">{{'trackingPage.searching' | translate:params}}</p>
           </ion-col>
           <ion-col size="3">
             <ion-spinner class="spinner"></ion-spinner>
@@ -38,7 +41,7 @@
         </ion-row>
       </ion-grid>
       <br>
-      <p class="bottomtext">Finding drivers near you</p>
+      <p class="bottomtext">{{'trackingPage.findingDrivers' | translate:params}}</p>
       <ion-progress-bar class="progress" color="medium" value="0.9"></ion-progress-bar>
     </ion-card-content>
   </ion-card>
@@ -49,13 +52,13 @@
       <ion-grid class="ion-no-padding">
         <ion-row class="ion-no-padding">
           <ion-col size="9">
-            <p class="FooterTopTitle">{{DriverDetail.driverObj.firstName | titlecase}} is on the way</p>
+            <p class="FooterTopTitle">{{DriverDetail.driverObj.firstName | titlecase}} {{'trackingPage.onWay' | translate:params}}</p>
             <p class="FooterBottomTitle">{{totaltime}}</p>
           </ion-col>
           <ion-col size="3">
             <ion-icon *ngIf="!DriverDetail.driverObj.driverPhoto" class="noimg" name="person"></ion-icon>
-            <img *ngIf="DriverDetail.driverObj.driverPhoto" [src]="DriverDetail.driverObj.driverPhoto" class="driverImg"
-              alt="">
+            <img *ngIf="DriverDetail.driverObj.driverPhoto" [src]="url+DriverDetail.driverObj.driverPhoto"
+              class="driverImg" alt="">
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -77,19 +80,19 @@
           <ion-col size="4">
             <div (click)="openChat()" class="bottomIconAndText">
               <ion-icon name="chatbox-ellipses"></ion-icon>
-              <span>Contact</span>
+              <span>{{'trackingPage.contact' | translate:params}}</span>
             </div>
           </ion-col>
           <ion-col size="4">
             <div (click)="call()" class="bottomIconAndText">
               <ion-icon name="call"></ion-icon>
-              <span>Call</span>
+              <span>{{'trackingPage.call' | translate:params}}</span>
             </div>
           </ion-col>
           <ion-col size="4">
             <div (click)="cancelConfirmModal()" class="bottomIconAndText">
               <ion-icon name="close-circle"></ion-icon>
-              <span>Cancel </span>
+              <span>{{'trackingPage.cancel' | translate:params}}</span>
             </div>
           </ion-col>
         </ion-row>
@@ -97,13 +100,13 @@
           <ion-col size="6">
             <div (click)="openChat()" class="bottomIconAndText">
               <ion-icon name="chatbox-ellipses"></ion-icon>
-              <span>Contact</span>
+              <span>{{'trackingPage.contact' | translate:params}}</span>
             </div>
           </ion-col>
           <ion-col size="6">
             <div (click)="call()" class="bottomIconAndText">
               <ion-icon name="call"></ion-icon>
-              <span>Call</span>
+              <span>{{'trackingPage.call' | translate:params}}</span>
             </div>
           </ion-col>
         </ion-row>

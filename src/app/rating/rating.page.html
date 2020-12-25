@@ -2,19 +2,24 @@
   <ion-slides class="swiper-no-swiping">
     <ion-slide>
       <ion-card>
-        <p class="title">Journey is completed!</p>
+        <p class="title">
+          {{'ratingPage.title' | translate:params}}
+        </p>
         <p class="price">€ {{price}}</p>
         <p class="text">
-          <span *ngIf="paymentVia == 'card'">Will be charged on your card</span>
-          <span *ngIf="paymentVia == 'cash'">Please pay to your driver</span>
+          <span *ngIf="paymentVia == 'card'">
+            {{'ratingPage.card' | translate:params}}
+          </span>
+          <span *ngIf="paymentVia == 'cash'">{{'ratingPage.cash' | translate:params}}</span>
         </p>
-        <p class="text">Thank you for riding with FijoTaxi. See you soon!</p>
+        <p class="text">{{'ratingPage.text' | translate:params}}</p>
         <hr class="hr">
         <img class="img" *ngIf="driverImg" [src]="url+driverImg" alt="">
         <img class="img" *ngIf="!driverImg" src="assets/profile.png" alt="">
-        <p class="text">Rate {{driverName}}</p>
+        <p class="text">{{'ratingPage.rate' | translate:params}} {{driverName}}</p>
         <ion-item class="ion-no-padding" color="transparent" lines="none">
-          <ion-label class="ion-text-nowrap" style="text-align: right;" color="medium">Add in your favourite drivers
+          <ion-label class="ion-text-nowrap" style="text-align: right;" color="medium">
+            {{'ratingPage.addFav' | translate:params}}
           </ion-label>
           <ion-checkbox [(ngModel)]="favrouiteDriver" color="medium" slot="end"></ion-checkbox>
         </ion-item>
@@ -26,7 +31,7 @@
           <ion-icon (click)="func(5)" [name]="condi5? 'star' : 'star-outline'"></ion-icon>
         </p>
         <ion-button expand="block" (click)="onSubmitClick()" color="medium">
-          Submit
+          {{'ratingPage.submit' | translate:params}}
         </ion-button>
       </ion-card>
     </ion-slide>

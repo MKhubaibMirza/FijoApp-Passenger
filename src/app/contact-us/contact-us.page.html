@@ -1,0 +1,30 @@
+<ion-header color='primary'>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{'contactUsPage.title' | translate:params}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card>
+    <ion-item lines="none">
+      <ion-label color="primary" position="floating">{{'contactUsPage.subject' | translate:params}}</ion-label>
+      <ion-input [(ngModel)]="contact.subject"></ion-input>
+    </ion-item>
+    <br>
+    <ion-item lines="none">
+      <ion-label color="primary" position="floating">{{'contactUsPage.message' | translate:params}}</ion-label>
+      <ion-textarea [(ngModel)]="contact.message" rows="6" cols="20"></ion-textarea>
+    </ion-item>
+    <br>
+
+    <ion-button expand="block" color="primary" (click)="submit()">
+      {{'contactUsPage.submit' | translate:params}}
+    </ion-button>
+  </ion-card>
+</ion-content>

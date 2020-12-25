@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { DocumentViewer, DocumentViewerOptions } from '@ionic-native/document-viewer/ngx';
 
 @Component({
   selector: 'app-help',
@@ -9,13 +9,25 @@ import { MenuController } from '@ionic/angular';
 export class HelpPage implements OnInit {
 
   constructor(
-    private menuControl: MenuController,
+    private document: DocumentViewer,
+
   ) { }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-    // this.menuControl.enable(false)
+  }
+  openPrivacyPolicy() {
+    const options: DocumentViewerOptions = {
+      title: 'Privacy Policy'
+    }
+    this.document.viewDocument('assets/Fijotaxi_PassengerPrivacyPolicy_English.pdf', 'application/pdf', options)
+  }
+  openTermsAndCondition() {
+    const options: DocumentViewerOptions = {
+      title: 'Terms And Condition'
+    }
+    this.document.viewDocument('assets/Fijotaxi_PassengerPrivacyPolicy_English.pdf', 'application/pdf', options)
   }
 }

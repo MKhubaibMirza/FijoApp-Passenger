@@ -7,11 +7,12 @@
     text-align: center;
 
     img {
-        height: 100px;
-        width: 100px;
-        border-radius: 100px;
+        height: 109px;
         margin: auto;
+        width: 109px;
         display: block;
+        border: 5px solid #ffff00;
+        border-radius: 50%;
     }
 
     ion-icon {
@@ -25,22 +26,45 @@
         outline: none;
     }
 
+    .camera {
+        font-size: 20px;
+        padding: 8px;
+        position: relative;
+        left: 35px;
+        bottom: 39px;
+        color: #006600;
+        background: #ffff00;
+    }
+
     p {
         margin: 0;
         font-size: 25px;
         font-weight: bold;
         color: #ffff00;
-        padding-top: 15px;
-        padding-bottom: 50px;
+        // padding-top: 15px;
+        padding-bottom: 35px;
     }
 }
 
 .data {
+    .title {
+        color: #006600;
+        font-size: 20px;
+        padding-left: 3%;
+        font-weight: bold;
+    }
+
     .input {
         padding: 10px;
         border: 2px solid #006600;
         margin: 5px;
         border-radius: 5px;
+        text-align: right;
+    }
+
+    .save {
+        height: 40px;
+        font-size: 18px;
     }
 }
 
@@ -49,4 +73,5 @@
     margin: 20px auto;
     display: block;
     color: #006600;
+    outline: none;
 }

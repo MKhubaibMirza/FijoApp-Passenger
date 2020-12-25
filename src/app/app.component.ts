@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
-import { AlertController, MenuController, ModalController, Platform } from '@ionic/angular';
+import { AlertController, MenuController, ModalController, NavController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { LocationService } from './services/location.service';
-import { Facebook } from '@ionic-native/facebook/ngx';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { environment } from 'src/environments/environment';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PassengerService } from './services/passenger.service';
 import { TranslateConfigService } from './services/translate-config.service';
+import { SocialAuthService } from './services/social-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -31,9 +30,10 @@ export class AppComponent {
     private menuController: MenuController,
     public passengerService: PassengerService,
     public translateService: TranslateConfigService,
-    private googlePlus: GooglePlus,
-    private fb: Facebook
+    public socialService: SocialAuthService,
+    public nav: NavController
   ) {
+    this.closeApp();
     this.initializeApp();
   }
   url = environment.baseUrl;
@@ -52,6 +52,12 @@ export class AppComponent {
     if (localStorage.getItem('user')) {
       this.passengerService.getAvailabilityStatus().subscribe((resp: any) => {
         if (resp.isPassengerAvailable) {
+          localStorage.removeItem('findDriverObj');
+          localStorage.removeItem('tracking');
+          localStorage.removeItem('tripEnded');
+          localStorage.removeItem('tripStarted');
+          localStorage.removeItem('paymentMethods');
+          localStorage.removeItem('paid');
         } else {
           if (localStorage.getItem('tracking')) {
             this.r.navigate(['/tracking']);
@@ -60,8 +66,23 @@ export class AppComponent {
       })
       this.menuController.enable(true);
     } else {
+      console.log('enable  == false')
       this.menuController.enable(false);
     }
+  }
+  closeApp() {
+    this.platform.backButton.subscribeWithPriority(999999, () => {
+      if (this.r.url == '/home') {
+        navigator['app'].exitApp();
+      } else if (this.r.url == '/tracking') {
+        // Nothing to do here
+      } else if (this.r.url == '/add-payment-method') {
+        // Nothing to do here
+      } else {
+        this.nav.back();
+      }
+    })
+    console.log('back btn pressed', this.r.url);
   }
   setupPush() {
     // I recommend to put these into your environment.ts
@@ -99,8 +120,9 @@ export class AppComponent {
     })
     alert.present();
   }
-
-
+  getCurrentLanguage(){
+    return this.translateService.selectedLanguage();
+  }
   navlist = [
     { title: 'Home', icon: 'home', route: '/home', },
     { title: 'My Journeys', icon: 'car', route: '/my-journeys', },
@@ -108,7 +130,6 @@ export class AppComponent {
     { title: 'My Account', icon: 'person', route: '/profile', },
     { title: 'Change Language', icon: 'language', route: '/lang', },
     { title: 'Invite Friends', icon: 'person-add', route: '/inviteFakePath', },
-    // { title: 'Discount Codes', icon: 'remove-circle', route: '/discount-codes', },
     { title: 'Help', icon: 'help-circle', route: '/help', },
   ]
 
@@ -183,15 +204,7 @@ export class AppComponent {
       return JSON.parse(localStorage.getItem('user')).profilePhoto;
   }
   logOut() {
-    this.menuController.close();
-    this.menuController.enable(false);
-    if (localStorage.getItem('google')) {
-      this.googlePlus.logout();
-    } else if (localStorage.getItem('facebook')) {
-      this.fb.logout();
-    }
-    localStorage.clear();
-    this.r.navigate(['/via-phone']);
+    this.socialService.logOut();
   }
   sendInvitation() {
     let url = 'https://play.google.com/store/apps/details?id=com.fijotaxi.passenger';

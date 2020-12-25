@@ -71,4 +71,9 @@ export class PassengerService {
   getAllBookings() {
     return this.http.get(this.ApiUrl + 'booking/getall-customer-bookings/' + JSON.parse(localStorage.getItem('user')).id);
   }
+  // ----------------
+  updateInfo(data) {
+    return this.http.post(this.ApiUrl + 'passenger/update/' + JSON.parse(localStorage.getItem('user')).id, data);
+  }
+  updateProfile
 }

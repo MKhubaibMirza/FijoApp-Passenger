@@ -29,4 +29,7 @@ export class DataService {
   saved_location_delete(id) {
     return this.http.post(this.ApiUrl + 'saved-location/delete/' + id, {});
   }
+  createContactUs(data) {
+    return this.http.post(this.ApiUrl + 'contact-us/create', data);
+  }
 }

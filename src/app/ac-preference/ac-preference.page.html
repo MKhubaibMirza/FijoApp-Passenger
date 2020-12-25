@@ -1,5 +1,7 @@
 <ion-content scrollY="false" class="ion-padding-horizontal">
-  <p class="title">How do you like the A/C?</p>
+  <p class="title">
+    {{'airPreference.title' | translate:params}}
+  </p>
   <ion-radio-group [value]="selectedItem.text">
     <ion-item *ngFor='let item of data'>
       <ion-radio slot="end" [value]="item.text" (click)='click(item)' color="medium"></ion-radio>
@@ -7,6 +9,6 @@
     </ion-item>
   </ion-radio-group>
   <ion-button (click)="save()">
-    Save
+    {{'airPreference.btn' | translate:params}}
   </ion-button>
 </ion-content>

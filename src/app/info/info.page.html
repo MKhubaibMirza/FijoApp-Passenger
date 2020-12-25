@@ -1,62 +1,51 @@
 <ion-header color='primary'>
   <ion-toolbar color='primary'>
-    <ion-buttons slot="start">
+    <ion-buttons color="medium" slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>My Info</ion-title>
+    <ion-title color="medium">
+      {{'infoPage.myInfo' | translate:params}}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="bg">
     <br><br>
-    <br><br>
-    <!-- <img *ngIf='data.profilePhoto !== ""' src="../../assets/profile.png" alt=""> -->
-    <ion-icon *ngIf='data.profilePhoto === ""' name="camera"></ion-icon>
-
-    <p>Hi {{getName()}}!</p>
+    <img (click)="openGalery()" *ngIf='getPhoto()' [src]="url + getPhoto()" alt="">
+    <ion-icon (click)="openGalery()" *ngIf='!getPhoto()' name="camera"></ion-icon>
+    <ion-icon class="camera" *ngIf='getPhoto()' name="camera"></ion-icon>
+    <p>{{'infoPage.hi' | translate:params}} {{getName()}}!</p>
   </div>
 
-  <div class="data">
 
+  <div class="data">
     <ion-item class="input" lines='none'>
-      <ion-label color='primary'>First Name: </ion-label>
+      <ion-label color='primary'>{{'infoPage.firstName' | translate:params}}: </ion-label>
       <ion-input [(ngModel)]='data.firstName' type='text'></ion-input>
     </ion-item>
-
     <ion-item class="input" lines='none'>
-      <ion-label color='primary'>Last Name: </ion-label>
+      <ion-label color='primary'>{{'infoPage.lastName' | translate:params}}: </ion-label>
       <ion-input [(ngModel)]='data.lastName' type='text'></ion-input>
     </ion-item>
-
-
     <ion-item class="input" lines='none'>
-      <ion-label color='primary'>Phone: </ion-label>
+      <ion-label color='primary'>{{'infoPage.phone' | translate:params}}: </ion-label>
       <ion-input [(ngModel)]='data.phoneNumber' type='number'></ion-input>
     </ion-item>
-
-
-    <ion-item class="input" lines='none'>
-      <ion-label color='primary'>Email: </ion-label>
-      <ion-input [(ngModel)]='data.email' type='email'></ion-input>
-    </ion-item>
-
-    <ion-item lines='none'>
-      <ion-label color='primary'>Recieve Promotion</ion-label>
-      <ion-checkbox slot="end"></ion-checkbox>
-    </ion-item>
-
     <br>
-    <ion-button expand="full" fill="solid">
-      Save Changes
+    <ion-button class="save" expand="full" fill="solid" (click)="saveChanges()">
+      <ion-icon slot="start" name="save"></ion-icon>
+      {{'infoPage.saveChanges' | translate:params}}
     </ion-button>
     <br>
 
-    <ion-button expand="block" (click)="changePassword()" fill="outline" shape="round">
-      Edit Password
+    <ion-button expand="block" fill="outline" shape="round" (click)='changePassword()'>
+      <ion-icon slot="start" name="lock-closed"></ion-icon>
+      {{'infoPage.editPassword' | translate:params}}
     </ion-button>
-
-    <ion-icon name="power" class="logout"></ion-icon>
+    <ion-icon (click)="logout()" name="power" class="logout"></ion-icon>
+    <br>
+    <br>
   </div>
 
 </ion-content>

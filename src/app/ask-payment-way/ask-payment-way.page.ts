@@ -53,19 +53,26 @@ export class AskPaymentWayPage implements OnInit {
       this.FindDriverObj.paymentVia = 'card';
       if (this.paymentMethodsLength == 0) {
         this.presentToast("Opps! You don't have any payment method yet.");
-      }else{
+      } else {
         localStorage.setItem('paymentMethods', this.paymentMethods);
+        console.log(i, this.FindDriverObj);
+        this.IsSaving = true;
+        localStorage.setItem('findDriverObj', JSON.stringify(this.FindDriverObj));
+        setTimeout(() => {
+          this.r.navigate(['/tracking'])
+          this.modal.dismiss();
+        }, 1500);
       }
     } else {
       this.FindDriverObj.paymentVia = 'cash';
+      console.log(i, this.FindDriverObj);
+      this.IsSaving = true;
+      localStorage.setItem('findDriverObj', JSON.stringify(this.FindDriverObj));
+      setTimeout(() => {
+        this.r.navigate(['/tracking'])
+        this.modal.dismiss();
+      }, 1500);
     }
-    console.log(i, this.FindDriverObj);
-    this.IsSaving = true;
-    localStorage.setItem('findDriverObj', JSON.stringify(this.FindDriverObj));
-    setTimeout(() => {
-      this.r.navigate(['/tracking'])
-      this.modal.dismiss();
-    }, 1500);
   }
   addpaymentmethod(i) {
     this.r.navigate(['/add-payment-method'])

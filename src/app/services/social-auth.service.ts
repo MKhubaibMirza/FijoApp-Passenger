@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { environment } from 'src/environments/environment';
 import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer/ngx';
@@ -34,6 +34,7 @@ export class SocialAuthService {
     private googlePlus: GooglePlus,
     public transfer: FileTransfer,
     public toastController: ToastController,
+    public menuController: MenuController,
     public geolocation: Geolocation,
     public nativeGeocoder: NativeGeocoder,
     public file: File,
@@ -217,5 +218,16 @@ export class SocialAuthService {
       duration: 9000
     });
     await loading.present();
+  }
+  logOut() {
+    this.menuController.close();
+    this.menuController.enable(false);
+    if (localStorage.getItem('google')) {
+      this.googlePlus.logout();
+    } else if (localStorage.getItem('facebook')) {
+      this.fb.logout();
+    }
+    localStorage.clear();
+    this.r.navigate(['/via-phone']);
   }
 }

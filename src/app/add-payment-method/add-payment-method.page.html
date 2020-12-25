@@ -1,23 +1,22 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
-    <!-- <ion-buttons (click)="backBtn()" disabled slot="start">
-      <ion-back-button color="medium" icon="chevron-back-outline" defaultHref="/add-payment-method"></ion-back-button>
-    </ion-buttons> -->
     <ion-icon color="medium" (click)="backBtn()" name="chevron-back-outline" class="backBtn" slot="start"></ion-icon>
-    <ion-title color="medium">Add Payment Card</ion-title>
+    <ion-title color="medium">
+      {{'addPaymentCardPage.title' | translate:params}}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
   <img class="img" src="assets/addcard.png" alt="">
   <ion-item color="transparent" class="input ion-no-padding" lines='none'>
-    <ion-label position="floating" color='medium'>Card Number:</ion-label>
+    <ion-label position="floating" color='medium'>{{'addPaymentCardPage.cardNumber' | translate:params}}:</ion-label>
     <ion-input [(ngModel)]='card.number' maxLength="16" type='tel'></ion-input>
   </ion-item>
   <ion-grid class="ion-no-margin ion-no-padding">
     <ion-row class="ion-no-margin ion-no-padding">
       <ion-col size="7.5" class="ion-no-margin ion-no-padding">
         <ion-item color="transparent" class="input ion-no-padding" lines='none'>
-          <ion-label position="stacked" color='medium'>Expiry Date:</ion-label>
+          <ion-label position="stacked" color='medium'>{{'addPaymentCardPage.expDate' | translate:params}}:</ion-label>
           <ion-datetime max="2035" min="2020" [(ngModel)]='date' displayFormat="YYYY MM"></ion-datetime>
         </ion-item>
       </ion-col>
@@ -31,8 +30,8 @@
   </ion-grid>
 </ion-content>
 <ion-footer class="ion-no-border footer">
-  <p>Your payment information will be stored securely</p>
+  <p>{{'addPaymentCardPage.storedSecurely' | translate:params}}</p>
   <ion-button (click)="save()">
-    SAVE
+    {{'addPaymentCardPage.save' | translate:params}}
   </ion-button>
 </ion-footer>

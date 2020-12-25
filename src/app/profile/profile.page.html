@@ -3,7 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>My Profile</ion-title>
+    <ion-title>
+      {{'profilePage.title' | translate:params}}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +19,7 @@
           <img *ngIf='getMyImg()' [src]="url+getMyImg()" alt="">
         </ion-col>
         <ion-col size="9" style="align-self: center;">
-          <p>Hi {{getName()}}!</p>
+          <p> {{'profilePage.hi' | translate:params}} {{getName()}}!</p>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -29,33 +31,20 @@
     <ion-item lines="full" routerLink='/info'>
       <ion-icon name="information-circle" slot="start"></ion-icon>
       <ion-label>
-        My Info
+        {{'profilePage.myInfo' | translate:params}}
       </ion-label>
     </ion-item>
     <ion-item lines="full" routerLink='/my-fav'>
       <ion-icon name="heart" slot="start"></ion-icon>
       <ion-label>
-        My favorites
+        {{'profilePage.myFav' | translate:params}}
       </ion-label>
     </ion-item>
     <ion-item lines="full" routerLink='/my-preferences'>
       <ion-icon name="settings" slot="start"></ion-icon>
       <ion-label>
-        My Preferences
+        {{'profilePage.myPreferences' | translate:params}}
       </ion-label>
     </ion-item>
-    <!-- <ion-item lines="full">
-      <ion-icon name="body" slot="start"></ion-icon>
-      <ion-label>
-        Ride Accessibility
-      </ion-label>
-    </ion-item>
-    <ion-item lines="full">
-      <ion-icon name="checkbox" slot="start"></ion-icon>
-      <ion-label>
-        Trusted Contact
-      </ion-label>
-    </ion-item> -->
-
   </div>
 </ion-content>

@@ -2,15 +2,17 @@
   <ion-slides class="swiper-no-swiping">
     <ion-slide>
       <ion-card>
-        <p class="title">Are you sure?</p>
-        <p class="subtitle">You are about to exit without saving your payment method.</p>
+        <p class="title">
+          {{'sureToCancelModal.title' | translate:params}}
+        </p>
+        <p class="subtitle">{{'sureToCancelModal.text' | translate:params}}</p>
         <ion-grid class="ion-no-margin">
           <ion-row class="ion-no-margin">
             <ion-col size="6">
-              <ion-button color="transparent" (click)="cancel()" class="okBtn">Cancel</ion-button>
+              <ion-button color="transparent" (click)="cancel()" class="okBtn">{{'sureToCancelModal.cancel' | translate:params}}</ion-button>
             </ion-col>
             <ion-col size="6">
-              <ion-button color="transparent" (click)="leave()" class="leaveBtn">Leave</ion-button>
+              <ion-button color="transparent" (click)="leave()" class="leaveBtn">{{'sureToCancelModal.leave' | translate:params}}</ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>

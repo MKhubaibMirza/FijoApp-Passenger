@@ -4,10 +4,11 @@ import {
   MapsAPILoader,
 } from "@agm/core";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { LoadingController, MenuController, ModalController, Platform, ToastController } from '@ionic/angular';
+import { LoadingController, MenuController, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
 import { AskPaymentWayPage } from '../ask-payment-way/ask-payment-way.page';
 import { WelcomeUserPage } from '../welcome-user/welcome-user.page';
 import { DataService } from '../services/data.service';
+import { Router } from '@angular/router';
 
 declare var google: any;
 
@@ -26,7 +27,8 @@ export class HomePage {
     private ngZone: NgZone,
     public dataservice: DataService,
     public modalController: ModalController,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    public r: Router,
   ) {
   }
   inRange(x, min, max) {

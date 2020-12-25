@@ -29,6 +29,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateConfigService } from './services/translate-config.service';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { DocumentViewer } from '@ionic-native/document-viewer/ngx';
+
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
@@ -57,7 +60,9 @@ firebase.initializeApp(environment.firebaseConfig);
     StatusBar,
     SplashScreen,
     Geolocation,
+    ImagePicker,
     AndroidPermissions,
+    DocumentViewer,
     Facebook,
     CallNumber,
     SocialSharing,

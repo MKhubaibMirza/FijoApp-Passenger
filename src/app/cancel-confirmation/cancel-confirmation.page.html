@@ -1,9 +1,11 @@
 <div scrollY="false" class="inner-content">
   <ion-icon class="icon" name="warning-outline"></ion-icon>
-  <p class="title">Abdullah is on the way. Are you sure you want to cancel?</p>
-  <p class="subtitle">Cancelling now may incur a cost.</p>
+  <p class="title">
+    {{'sureToCancelPage.title' | translate:params}}
+  </p>
+  <p class="subtitle">{{'sureToCancelPage.cost' | translate:params}}</p>
   <hr class="hr">
-  <p class="continue" (click)="close()">CONTINUE JOURNEY</p>
+  <p class="continue" (click)="close()">{{'sureToCancelPage.continue' | translate:params}}</p>
   <hr class="hr">
-  <p class="cancel" (click)="cancelReasonModal()">CANCEL JOURNEY</p>
+  <p class="cancel" (click)="cancelReasonModal()">{{'sureToCancelPage.cancel' | translate:params}}</p>
 </div>

@@ -30,6 +30,7 @@ export class TrackingPage {
   totaltime = '';
   endTripCounter = 0;
   startTripCounter = 0;
+  url = environment.baseUrl;
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'Please wait',
@@ -97,11 +98,33 @@ export class TrackingPage {
     }, 60000);
     if (localStorage.getItem('tripStarted')) {
       this.isTripStarted = true;
+      this.afterTripStart();
     } else {
       this.isTripStarted = false;
     }
     if (localStorage.getItem('tripEnded')) {
       this.RatingModal();
+    }
+  }
+  afterTripStart() {
+    if (!localStorage.getItem('paid')) {
+      let PayVia = JSON.parse(localStorage.getItem('findDriverObj')).paymentVia;
+      if (PayVia == 'card') {
+        console.log(PayVia);
+        // choose Payment methode and show all paymentMethods
+        let paymentMethods = JSON.parse(localStorage.getItem('paymentMethods'));
+        let inputArray = [];
+        paymentMethods.forEach((element, i) => {
+          inputArray.push({
+            name: 'radio' + i,
+            type: 'radio',
+            label: '**** **** **** ' + element.number.toString().substr(12, 16),
+            value: element,
+            checked: i == 0 ? true : false
+          })
+        });
+        this.presentAlertRadio(inputArray);
+      }
     }
   }
   async presentAlertRadio(inputsArray) {
@@ -113,7 +136,19 @@ export class TrackingPage {
       inputs: inputsArray,
       buttons: [
         {
-          text: 'Ok',
+          text: 'Continue Via Cash',
+          handler: (val) => {
+            // Socket emit to change payment Via
+            this.paymentMethodChange();
+            let driverId = JSON.parse(localStorage.getItem('tracking')).driverObj.id;
+            let obj = {
+              receiverId: driverId
+            }
+            this.socket.emit('changePaymentMethod', obj);
+          }
+        },
+        {
+          text: 'Continue Via Card',
           handler: (val) => {
             console.log(val);
             this.presentLoading();
@@ -129,13 +164,16 @@ export class TrackingPage {
                 if (resp.data !== null) {
                   localStorage.setItem('paid', 'true');
                   let price = JSON.parse(localStorage.getItem('FindDriverObj')).exactPriceForPassenger;
-                  this.tripStart_Or_PaymentRepeater_Or_AlertShower(price +'&euro; is successfully charged from your card.');
+                  this.tripStart_Or_PaymentRepeater_Or_AlertShower(price + '&euro; is successfully charged from your card.');
                 } else {
                   // repeat payment procedure ------------
                   this.tripStart_Or_PaymentRepeater_Or_AlertShower('Something went wrong with your payment method. Plase choose a different card to continue');
                 }
                 this.loadingController.dismiss();
               })
+            }).catch(err => {
+              this.tripStart_Or_PaymentRepeater_Or_AlertShower(err + ' Plase choose a different card or pay via cash.');
+              return false;
             });
           }
         }
@@ -144,7 +182,23 @@ export class TrackingPage {
 
     await alert.present();
   }
+  async paymentMethodChange() {
+    const alert = await this.alertController.create({
+      header: 'Payment Method Changed!',
+      message: 'You have changed your payment method from card to cash.',
+      buttons: [{
+        text: 'Continue',
+        handler: () => {
+          let localObjectOf_findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
+          localObjectOf_findDriverObj.paymentVia = 'cash';
+          localStorage.setItem('findDriverObj', JSON.stringify(localObjectOf_findDriverObj));
+        }
+      }],
+      backdropDismiss: false,
+    });
 
+    await alert.present();
+  }
   async RatingModal() {
     const modal = await this.modalController.create({
       component: RatingPage,
@@ -172,7 +226,7 @@ export class TrackingPage {
     }
   }
   public driverMarker = {
-    url: 'assets/man.png',
+    url: 'assets/driver.png',
     scaledSize: {
       width: 70,
       height: 70
@@ -254,24 +308,7 @@ export class TrackingPage {
       buttons: [{
         text: 'Continue',
         handler: () => {
-          if (!localStorage.getItem('paid')) {
-            let PayVia = JSON.parse(localStorage.getItem('findDriverObj')).paymentVia;
-            if (PayVia == 'card') {
-              console.log(PayVia);
-              // choose Payment methode and show all paymentMethods
-              let paymentMethods = JSON.parse(localStorage.getItem('paymentMethods'));
-              let inputArray = [];
-              paymentMethods.forEach((element, i) => {
-                inputArray.push({
-                  name: 'radio' + i,
-                  type: 'radio',
-                  label: '**** **** **** ' + element.number.toString().substr(12, 16),
-                  value: element
-                })
-              });
-              this.presentAlertRadio(inputArray);
-            }
-          }
+          this.afterTripStart();
         }
       }]
     });

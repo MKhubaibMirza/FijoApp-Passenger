@@ -3,14 +3,16 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Favorite Drivers</ion-title>
+    <ion-title>
+      {{'myFavDriverPage.title' | translate:params}}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-slides *ngIf="drivers.length === 0" class="swiper-no-swiping" style="height: 100%;">
     <ion-slide>
-      <p class="notfound">No Favorite Drivers Yet!!</p>
+      <p class="notfound">{{'myFavDriverPage.noFav' | translate:params}}</p>
     </ion-slide>
   </ion-slides>
   <div class="list">
@@ -18,13 +20,11 @@
     <ion-item *ngFor='let item of drivers' lines="full">
       <ion-icon name="person-outline" slot="start"></ion-icon>
       <ion-label>
-        {{item.driver?.firstName}} {{item.driver?.lastName}}
+        <span style="color: green;">{{item.driver?.firstName}} {{item.driver?.lastName}}</span>
         <br>
         {{item.driver?.email}}
       </ion-label>
-      <ion-icon name="call" slot="end" (click)="call(item.driver?.phoneNumber)"></ion-icon>
+      <ion-icon name="call" color="primary" slot="end" (click)="call(item.driver?.phoneNumber)"></ion-icon>
     </ion-item>
   </div>
-
-
 </ion-content>

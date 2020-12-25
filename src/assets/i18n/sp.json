@@ -17,7 +17,7 @@
         "loginViaPhone": "Iniciar sesión por teléfono",
         "preferedEmail": "Ingrese su correo electrónico preferido",
         "enterEmail": "Ingrese correo electrónico",
-        "verificationCode": "We'll send you a verification code",
+        "verificationCode": "Te enviaremos un código de verificación",
         "next": "Próxima",
         "continueText": "Continúe recibiendo una confirmación por SMS y acepte FijoTaxi's",
         "terms": "Términos de Uso",
@@ -28,5 +28,198 @@
     "otpPage": {
         "text": "Ingrese el código de confirmación de 6 dígitos que enviamos a",
         "btn": "Seguir"
+    },
+    "passwordPage": {
+        "enterPassword": "Ingresa tu contraseña",
+        "text": "Lo necesitará para acceder a su cuenta de forma segura",
+        "forgotPassword": "Olvidé mi contraseña",
+        "next": "Próxima"
+    },
+    "forgotPasswordPage": {
+        "forgotPassword": "Se te olvidó tu contraseña",
+        "changePassword": "Cambia la contraseña",
+        "enterEmail": "Ingrese correo electrónico",
+        "code": "Introduzca el código",
+        "confirmPassword": "Confirmar contraseña",
+        "newPassword": "Nueva contraseña",
+        "passwordMatched": "Contraseña coincidente",
+        "next": "Próxima",
+        "checkEmail": "Consultar su correo electrónico",
+        "copy": "Copie el código secreto de 6 palabras de su correo electrónico",
+        "ok": "BUENO",
+        "btn": "Seguir"
+    },
+    "sideMenu": {
+        "home": "pantalla de inicio",
+        "myJourney": "Mis viajes",
+        "paymentMethods": "Métodos de pago",
+        "myAccount": "Mi cuenta",
+        "changeLanguage": "Cambiar idioma",
+        "inviteFriends": "Invitar a amigas",
+        "Help": "Ayuda",
+        "logout": "Cerrar sesión"
+    },
+    "homePage": {
+        "title": "Fijo Pasajera",
+        "hello": "Hola",
+        "whereToGo": "A donde quieres ir",
+        "enterDestination": "Ingrese Destino",
+        "searchWithoutDestination": "Buscar sin destino",
+        "searchWithDestination": "Buscar con destino",
+        "addMore": "Añadir más",
+        "seaters": "Asientos",
+        "fixedPrice": "Precio fijo",
+        "generalPurpose": "Propósito general",
+        "forHandicaps": "Para discapacitados",
+        "orderNow": "Ordenar ahora"
+    },
+    "askPayWay": {
+        "howLikeToPay": "¿Cómo le gustaría pagar?",
+        "addPay": "Añade un metodo de pago",
+        "viaCard": "Pagar con tarjeta de crédito",
+        "viaCash": "Pagar en efectivo",
+        "savingMethod": "Guardando su método de pago"
+    },
+    "trackingPage": {
+        "confirming": "Confirmando ...",
+        "preparingRide": "Preparando tu viaje",
+        "searching": "Buscando ...",
+        "findingDrivers": "Encontrar conductores cerca de usted",
+        "onWay": "Está en el camino",
+        "contact": "Contacto",
+        "call": "Llamada",
+        "cancel": "Cancelar"
+    },
+    "myJourneysPage": {
+        "title": "",
+        "noRide": "Todavía no tienes viaje",
+        "complete": "Terminada",
+        "cancelled": "Cancelada",
+        "seeDetails": "Ver detalles",
+        "journeyTo": "Viaje a"
+    },
+    "JourneyDetailsPage": {
+        "pickUp": "Punto de recogida",
+        "destination": "Destino",
+        "journeyCompleted": "Este viaje se completó",
+        "journeyCancelled": "Este viaje fue cancelado",
+        "noCost": "Este viaje no tiene costo",
+        "withCost": "El costo de este viaje fue"
+    },
+    "paymentMethodPage": {
+        "title": "Métodos de pago",
+        "card": "Tarjeta",
+        "addPaymentMethod": "Añadir método de pago",
+        "storedSecurely": "Su información de pago se almacenará de forma segura",
+        "noPayMethod": "¡Aún no se ha guardado ningún método de pago!",
+        "btn": "Agregar otro método de pago"
+    },
+    "addPaymentCardPage": {
+        "title": "Agregar tarjeta de pago",
+        "cardNumber": "Número de tarjeta",
+        "expDate": "Fecha de caducidad",
+        "storedSecurely": "Su información de pago se almacenará de forma segura",
+        "save": "SALVAR"
+    },
+    "profilePage": {
+        "title": "Mi perfil",
+        "hi": "Hola",
+        "myInfo": "Mi información",
+        "myFav": "Mis favoritas",
+        "myPreferences": "Mis preferencias"
+    },
+    "infoPage": {
+        "myInfo": "Mi información",
+        "hi": "Hola",
+        "firstName": "Primer nombre",
+        "lastName": "Apellido",
+        "phone": "Teléfono",
+        "saveChanges": "Guardar cambios",
+        "editPassword": "Editar contraseña"
+    },
+    "myFavsPage": {
+        "title": "Mis favoritas",
+        "destination": "Destino",
+        "driver": "Conductor"
+    },
+    "myFavDestinationPage": {
+        "title": "Destinos favoritos",
+        "search": "Dirección de búsqueda",
+        "nofavdest": "¡Aún no hay rutas favoritas!"
+    },
+    "myFavDriverPage": {
+        "title": "Conductores favoritos",
+        "noFav": "¡Aún no hay controladores favoritos!"
+    },
+    "myPreferencesPage": {
+        "title": "Mis preferencias"
+    },
+    "callPreference": {
+        "title": "¿Quieres que el conductor te llame?",
+        "btn": "SALVAR"
+    },
+    "airPreference": {
+        "title": "¿Quieres que el conductor te llame?",
+        "btn": "SALVAR"
+    },
+    "openDoorPreference": {
+        "title": "¿Debe el conductor abrir la puerta?",
+        "btn": "SALVAR"
+    },
+    "conversationPreference": {
+        "title": "¿Conversación o silencio?",
+        "btn": "SALVAR"
+    },
+    "helpPage": {
+        "title": "Ayuda",
+        "contact": "Quiero contactar a fijo",
+        "terms": "Términos y condiciones",
+        "privacy": "Política de privacidad"
+    },
+    "ratingPage": {
+        "title": "¡El viaje está terminado!",
+        "card": "Se cargará en su tarjeta",
+        "cash": "Por favor pague a su conductor",
+        "text": "Gracias por viajar con FijoTaxi. ¡Te veo pronto!",
+        "rate": "Velocidad",
+        "addFav": "Agregue sus controladores favoritos",
+        "submit": "Enviar"
+    },
+    "contactUsPage": {
+        "title": "Contacta con nosotros",
+        "subject": "Sujeto",
+        "message": "Mensaje",
+        "submit": "Enviar"
+    },
+    "sureToCancelModal": {
+        "title": "Estas seguro",
+        "text": "Está a punto de salir sin guardar su método de pago",
+        "cancel": "Cancelar",
+        "leave": "Salir"
+    },
+    "sureToCancelPage": {
+        "title": "¿Estás seguro de que quieres cancelar?",
+        "cost": "Cancelar ahora puede tener un costo",
+        "continue": "CONTINUAR VIAJE",
+        "cancel": "CANCELAR VIAJE"
+    },
+    "cancelReasonPage": {
+        "title": "Viaje cancelado",
+        "subtitle": "¿Por qué cancelaste?",
+        "r1": "Esta tardando demasiado",
+        "r2": "Cambié de opinión",
+        "r3": "El conductor me pidió que cancelara",
+        "r4": "Un error en los detalles de mi viaje",
+        "close": "Cerca"
+    },
+    "changePasswordModal": {
+        "title": "Cambia la contraseña",
+        "currentPassword": "Contraseña actual",
+        "newPassword": "Nueva contraseña",
+        "confirmPassword": "Confirmar contraseña",
+        "changePassword": "Cambia la contraseña"
+    },
+    "chatPage":{
+        "text":"Escribe tu mensaje"
     }
 }

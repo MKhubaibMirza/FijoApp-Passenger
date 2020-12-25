@@ -3,7 +3,9 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Payment Methods</ion-title>
+    <ion-title>
+      {{'paymentMethodPage.title' | translate:params}}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +16,7 @@
         <ion-col size="10">
           <p class="title">
             <ion-icon name="card-outline" class="icon"></ion-icon> {{item.brand | titlecase}}
-            {{item.funding | titlecase}} Card
+            {{item.funding | titlecase}} {{'paymentMethodPage.card' | translate:params}}
           </p>
         </ion-col>
         <ion-col size="2">
@@ -44,15 +46,21 @@
   <ion-slides class="swiper-no-swiping">
     <ion-slide>
       <ion-card class="card">
-        <p>No Payment Method Saved yet!</p>
-        <ion-button color="medium" routerLink="/add-payment-method">Add Payment Method</ion-button>
+        <p>
+          {{'paymentMethodPage.noPayMethod' | translate:params}}
+        </p>
+        <ion-button color="medium" routerLink="/add-payment-method">
+          {{'paymentMethodPage.addPaymentMethod' | translate:params}}
+        </ion-button>
       </ion-card>
     </ion-slide>
   </ion-slides>
 </ion-content>
 <ion-footer *ngIf="PaymentMethodFound" class="ion-no-border footer">
-  <p>Your payment information will be stored securely</p>
+  <p>
+    {{'paymentMethodPage.storedSecurely' | translate:params}}
+  </p>
   <ion-button routerLink="/add-payment-method">
-    Add Another Payment Method
+    {{'paymentMethodPage.btn' | translate:params}}
   </ion-button>
 </ion-footer>

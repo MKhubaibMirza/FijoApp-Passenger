@@ -4,7 +4,7 @@
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title>
-      Chat
+      {{receiverName}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -49,7 +49,8 @@
     <ion-grid>
       <ion-row>
         <ion-col size="12">
-          <input type="text" [(ngModel)]="message" class="messageField" placeholder="Type your message">
+          <input type="text" [(ngModel)]="message" class="messageField"
+            placeholder="{{'chatPage.text' | translate:params}}">
           <div>
             <ion-icon (click)="SendMessage()" name="send"></ion-icon>
           </div>

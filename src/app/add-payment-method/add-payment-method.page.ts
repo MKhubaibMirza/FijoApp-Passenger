@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AlertController, LoadingController, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
 import { PaymentService } from '../services/payment.service';
 import { SureToCancelPaymentMethodPage } from '../sure-to-cancel-payment-method/sure-to-cancel-payment-method.page';
 
@@ -18,14 +17,7 @@ export class AddPaymentMethodPage implements OnInit {
     public alertController: AlertController,
     public paymentService: PaymentService,
     public nav: NavController,
-    public platform: Platform,
-    public r: Router
   ) {
-    if (this.r.url == '/add-payment-method') {
-      platform.backButton.subscribeWithPriority(10000, () => {
-        console.log('BTN Pressed');
-      })
-    }
   }
   async presentLoading() {
     const loading = await this.loadingController.create({

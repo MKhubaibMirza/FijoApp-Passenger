@@ -1,5 +1,5 @@
 <ion-content scrollY="false" class="ion-padding-horizontal">
-  <p class="title">Conversation or Silence?</p>
+  <p class="title"> {{'conversationPreference.title' | translate:params}}</p>
   <ion-radio-group [value]="selectedItem.text">
     <ion-item *ngFor='let item of data'>
       <ion-radio slot="end" [value]="item.text" (click)='click(item)' color="medium"></ion-radio>
@@ -7,6 +7,6 @@
     </ion-item>
   </ion-radio-group>
   <ion-button (click)="save()">
-    Save
+    {{'conversationPreference.btn' | translate:params}}
   </ion-button>
 </ion-content>
