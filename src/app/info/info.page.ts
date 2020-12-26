@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, ToastController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { ChangePasswordPage } from '../change-password/change-password.page';
 import { PassengerService } from '../services/passenger.service';
 import { SocialAuthService } from '../services/social-auth.service';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 @Component({
   selector: 'app-info',
   templateUrl: './info.page.html',
@@ -17,11 +18,13 @@ export class InfoPage implements OnInit {
   constructor(
     public passengerService: PassengerService,
     public modalController: ModalController,
+    public alertCatrl: AlertController,
     private toastController: ToastController,
     private loadingController: LoadingController,
     private transfer: FileTransfer,
     public imagePicker: ImagePicker,
     private r: Router,
+    public camera: Camera,
     public socialService: SocialAuthService
   ) { }
 
@@ -69,7 +72,6 @@ export class InfoPage implements OnInit {
     } else {
       this.presentLoading()
       this.passengerService.updateInfo(this.data).subscribe((resp: any) => {
-        console.log(resp)
         localStorage.setItem('user', JSON.stringify(resp.passengerObj))
         this.loadingController.dismiss()
         this.ionViewWillEnter()
@@ -82,55 +84,89 @@ export class InfoPage implements OnInit {
   }
   url = environment.baseUrl;
   IMAGEGALEERY: any;
-  maxImg = 1;
+  // maxImg = 1;
+  // async openGalery() {
+  //   this.imagePicker.requestReadPermission().then(result => {
+  //     if (result == 'OK') {
+  //       let options = {
+  //         maximumImagesCount: 1,
+  //       }
+  //       this.imagePicker.getPictures(options).then((results) => {
+  //         for (var i = 0; i < results.length; i++) {
+  //           this.IMAGEGALEERY = results[i];
+  //         }
+  //       }).then(() => {
+  //         if (this.IMAGEGALEERY) {
+  //           this.presentLoading()
+  //           this.uploadFile()
+  //         }
+  //       }, err => {
+  //       })
+  //     }
+  //   }, err => {
+  //     alert(err)
+  //   });
+  // }
   async openGalery() {
-    this.imagePicker.requestReadPermission().then(result => {
-      console.log('requestReadPermission: ', result);
-      if (result == 'OK') {
-        let options = {
-          maximumImagesCount: 1,
+    const alert = await this.alertCatrl.create({
+      header: "Confirm",
+      buttons: [
+        {
+          text: 'Gallery',
+          handler: (blah) => {
+            this.openCameraOrGalary(false);
+          }
+        }, {
+          text: "Camera",
+          handler: () => {
+            this.openCameraOrGalary(true);
+          }
         }
-        this.imagePicker.getPictures(options).then((results) => {
-          console.log(result)
-          for (var i = 0; i < results.length; i++) {
-            console.log('Image URI: ' + results[i]);
-            this.IMAGEGALEERY = results[i];
-          }
-        }).then(() => {
-          console.log(this.IMAGEGALEERY)
-          if (this.IMAGEGALEERY) {
-            this.presentLoading()
-            this.uploadFile()
-          }
-        }, err => {
-          console.log(err)
-        })
-      }
-    }, err => {
-      alert(err)
+      ]
+    });
+    await alert.present();
+  }
+  openCameraOrGalary(byCamera) {
+    let options: CameraOptions;
+    if (byCamera) {
+      options = {
+        quality: 10,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.CAMERA
+      };
+    } else {
+      options = {
+        quality: 10,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+      };
+    }
+    this.camera.getPicture(options).then((imageData) => {
+      let image = 'data:image/jpeg;base64,' + imageData;
+      this.presentLoading();
+      this.uploadFile(image);
     });
   }
-  uploadFile() {
-    console.log()
+  uploadFile(image) {
     const fileTransfer: FileTransferObject = this.transfer.create();
     const options: FileUploadOptions = {
       fileKey: 'file',
       httpMethod: 'POST'
     };
 
-    fileTransfer.upload(this.IMAGEGALEERY, this.url + 'imageUpload', options)
+    fileTransfer.upload(image, this.url + 'imageUpload', options)
       .then((data) => {
-        console.log('success:' + JSON.stringify(data));
         let fileName = data.response.replace('"', '');
         fileName = fileName.replace('"', '');
         this.loadingController.dismiss();
-        this.data.profilePhoto = fileName
-
+        this.data.profilePhoto = fileName;
         let localData = JSON.parse(localStorage.getItem('user'))
-        fileName = localData.profilePhoto
-        localStorage.setItem('user', JSON.stringify(localData))
+        localData.profilePhoto = fileName;
+        localStorage.setItem('user', JSON.stringify(localData));
+        this.saveChanges();
       }, (err) => {
-        console.log('error', err);
         this.loadingController.dismiss();
       });
   }

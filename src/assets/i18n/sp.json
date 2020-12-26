@@ -11,7 +11,16 @@
         "continueText": "Continúe recibiendo una confirmación por SMS y acepte FijoTaxi's",
         "terms": "Términos de Uso",
         "privacy": "Política de privacidad",
-        "and": "y"
+        "and": "y",
+
+        "enterPhone": "Ingrese el número de teléfono",
+        "somethingWrong": "¡Algo salió mal! Inténtelo de nuevo más tarde",
+        "noExist": "¡El número de teléfono no existe!",
+        "loading": "Cargando por favor espere...",
+        "noFound": "¡Extraviado!",
+        "noReg": "¡Aún no tienes Registro en Fijo Taxi!",
+        "cancel": "Cancelar",
+        "regNow": "Regístrate ahora"
     },
     "viaEmail": {
         "loginViaPhone": "Iniciar sesión por teléfono",
@@ -23,17 +32,31 @@
         "terms": "Términos de Uso",
         "privacy": "Política de privacidad",
         "and": "y",
-        "or": "o"
+        "or": "o",
+
+        "enterEmailAddress": "Ingrese la dirección de correo electrónico",
+        "emailNoFound": "El correo electrónico no existe",
+        "loading": "Cargando por favor espere...",
+        "noFound": "¡Extraviado!",
+        "noReg": "¡Aún no tienes Registro en Fijo Taxi!",
+        "cancel": "Cancelar",
+        "regNow": "Regístrate ahora"
     },
     "otpPage": {
         "text": "Ingrese el código de confirmación de 6 dígitos que enviamos a",
-        "btn": "Seguir"
+        "btn": "Seguir",
+
+        "noCorrect": "¡El código dado no es correcto!",
+        "loading": "Cargando por favor espere..."
+
     },
     "passwordPage": {
         "enterPassword": "Ingresa tu contraseña",
         "text": "Lo necesitará para acceder a su cuenta de forma segura",
         "forgotPassword": "Olvidé mi contraseña",
-        "next": "Próxima"
+        "next": "Próxima",
+
+        "inCorrect": "¡Ups! ¡Contraseña incorrecta!"
     },
     "forgotPasswordPage": {
         "forgotPassword": "Se te olvidó tu contraseña",
@@ -44,10 +67,19 @@
         "newPassword": "Nueva contraseña",
         "passwordMatched": "Contraseña coincidente",
         "next": "Próxima",
+        "ok": "BUENO",
+        "btn": "Seguir",
+
         "checkEmail": "Consultar su correo electrónico",
         "copy": "Copie el código secreto de 6 palabras de su correo electrónico",
-        "ok": "BUENO",
-        "btn": "Seguir"
+        "noExist": "El correo electrónico no existe. ¡INTÉNTALO DE NUEVO!",
+        "enterEmailPlz": "Ingrese su correo electrónico",
+        "enterCodePlz": "Por favor ingrese el código",
+        "codeNoMatch": "El código no coincide",
+        "fillPlz": "Por favor llene todos los campos",
+        "wrongPass": "La contraseña no coincide entre sí",
+        "successfull": "Exitosa",
+        "successfullChange": "Su contraseña ha sido actualizada satisfactoriamente"
     },
     "sideMenu": {
         "home": "pantalla de inicio",
@@ -219,7 +251,7 @@
         "confirmPassword": "Confirmar contraseña",
         "changePassword": "Cambia la contraseña"
     },
-    "chatPage":{
-        "text":"Escribe tu mensaje"
+    "chatPage": {
+        "text": "Escribe tu mensaje"
     }
 }

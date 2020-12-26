@@ -55,7 +55,6 @@ export class AskPaymentWayPage implements OnInit {
         this.presentToast("Opps! You don't have any payment method yet.");
       } else {
         localStorage.setItem('paymentMethods', this.paymentMethods);
-        console.log(i, this.FindDriverObj);
         this.IsSaving = true;
         localStorage.setItem('findDriverObj', JSON.stringify(this.FindDriverObj));
         setTimeout(() => {
@@ -65,7 +64,6 @@ export class AskPaymentWayPage implements OnInit {
       }
     } else {
       this.FindDriverObj.paymentVia = 'cash';
-      console.log(i, this.FindDriverObj);
       this.IsSaving = true;
       localStorage.setItem('findDriverObj', JSON.stringify(this.FindDriverObj));
       setTimeout(() => {
@@ -74,7 +72,7 @@ export class AskPaymentWayPage implements OnInit {
       }, 1500);
     }
   }
-  addpaymentmethod(i) {
+  addpaymentmethod() {
     this.r.navigate(['/add-payment-method'])
     this.modal.dismiss();
   }

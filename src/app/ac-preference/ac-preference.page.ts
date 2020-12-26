@@ -13,10 +13,8 @@ export class AcPreferencePage implements OnInit {
 
   ngOnInit() {
     this.passengerService.getMyPreferences().subscribe((resp: any) => {
-      console.log(resp);
       this.data.forEach((element, i) => {
         if (element.text == resp.airCondition) {
-          console.log(element, '....');
           this.data[i].checked = true;
           this.selectedItem = element;
         }
@@ -40,15 +38,12 @@ export class AcPreferencePage implements OnInit {
         element.checked = false
       }
     });
-    console.log(this.data)
   }
   save() {
     let data = {
       airCondition: this.selectedItem.text
     }
-    console.log(data);
     this.passengerService.update_aircondition(data).subscribe((resp: any) => {
-      console.log(resp);
       this.modalController.dismiss();
     })
   }

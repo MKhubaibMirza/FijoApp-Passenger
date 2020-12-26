@@ -3,7 +3,7 @@
     <ion-buttons slot="start" (click)="openMenu()">
       <ion-menu-button class="menu" autoHide="false" color="medium"></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{'homePage.title' | translate:params}}</ion-title>
+    <ion-title>{{'homePage.title' | translate}}</ion-title>
     <ion-icon slot="end" name="location" (click)="locationClick()" color="medium"></ion-icon>
   </ion-toolbar>
 </ion-header>
@@ -24,15 +24,15 @@
   <ion-card *ngIf="!directionCondition" [class]='toUp' [style.height]="heightOfCard"
     [style.background]="heightOfCard == ''? 'rgb(36, 123, 37, 0.8)':'rgb(36, 123, 37, 1)'" class="FooterCard">
     <ion-card-content *ngIf="!ShowDestinationCondition">
-      <p class="cardTitle">{{'homePage.hello' | translate:params}} {{getName()}}!</p>
-      <p class="subTitle">{{'homePage.whereToGo' | translate:params}}?</p>
+      <p class="cardTitle">{{'homePage.hello' | translate}} {{getName()}}!</p>
+      <p class="subTitle">{{'homePage.whereToGo' | translate}}?</p>
       <br>
       <ion-grid class="ion-no-padding">
         <ion-row class="ion-no-padding">
           <ion-col size="10">
             <input (focus)="consoleer('focus')" (blur)="consoleer('blur')" type="text" [(ngModel)]="destination"
               class="form-control destination" (keydown.enter)="$event.preventDefault()"
-              placeholder="{{'homePage.enterDestination' | translate:params}}" autocorrect="off" autocapitalize="off"
+              placeholder="{{'homePage.enterDestination' | translate}}" autocorrect="off" autocapitalize="off"
               spellcheck="off" type="text" #search>
           </ion-col>
           <ion-col size="2">
@@ -41,14 +41,14 @@
         </ion-row>
       </ion-grid>
       <p *ngIf="SavedLocations.length !== 0" (click)="ShowDestinationClick()" class="bottomTitle">
-        {{'homePage.searchWithoutDestination' | translate:params}}</p>
+        {{'homePage.searchWithoutDestination' | translate}}</p>
     </ion-card-content>
     <ion-card-content *ngIf="ShowDestinationCondition">
       <ul class="ul">
         <li class="li" *ngFor="let item of SavedLocations" (click)="OnRouteItemClick(item)">{{item.routeTitle}}</li>
-        <li class="li" routerLink="/fav-dest">{{'homePage.addMore' | translate:params}}</li>
+        <li class="li" routerLink="/fav-dest">{{'homePage.addMore' | translate}}</li>
       </ul>
-      <p (click)="HideDestinationClick()" class="bottomTitle">{{'homePage.searchWithDestination' | translate:params}}
+      <p (click)="HideDestinationClick()" class="bottomTitle">{{'homePage.searchWithDestination' | translate}}
       </p>
     </ion-card-content>
   </ion-card>
@@ -76,7 +76,7 @@
         <ion-col size="12" *ngIf="item.condition == true">
           <ion-radio-group [(ngModel)]="FindDriverObj.noOfSeating">
             <ion-item no-lines lines="none" *ngFor="let inner of item.seats" color="transparent">
-              <ion-label color="primary"> {{inner.numbers}} {{'homePage.seaters' | translate:params}}
+              <ion-label color="primary"> {{inner.numbers}} {{'homePage.seaters' | translate}}
                 (€{{inner.price}})</ion-label>
               <ion-radio [value]="inner.numbers"></ion-radio>
             </ion-item>
@@ -84,7 +84,7 @@
         </ion-col>
       </ion-row>
       <ion-button class="order" (click)="AskPayWay()">
-        {{'homePage.orderNow' | translate:params}}
+        {{'homePage.orderNow' | translate}}
       </ion-button>
     </ion-grid>
   </ion-card>

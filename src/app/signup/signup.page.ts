@@ -76,11 +76,9 @@ export class SignupPage implements OnInit {
 
     // geolocation geolocation geolocation geolocation 
     this.geolocation.getCurrentPosition().then((resp: any) => {
-      console.log(resp.coords.latitude, resp.coords.longitude)
       currentlatitude = resp.coords.latitude;
       currentlongitute = resp.coords.longitute;
     }).catch((error) => {
-      console.log('Error getting location', error);
     })
     let options: NativeGeocoderOptions = {
       useLocale: true,
@@ -88,19 +86,10 @@ export class SignupPage implements OnInit {
     };
     this.nativeGeocoder.reverseGeocode(currentlatitude, currentlongitute)
       .then((result: NativeGeocoderResult[]) => {
-        console.log(result[0]);
         this.signupData.city = result[0].locality;
         this.signupData.address = result[0].subLocality + ' ' + result[0].thoroughfare;
         this.signupData.postalCode = result[0].postalCode;
       })
-    // end reverse geolocation end reverse geolocation end reverse geolocation 
-
-
-    // forword geolocation forword geolocation forword geolocation 
-    this.nativeGeocoder.forwardGeocode('Berlin', options)
-      .then((result: NativeGeocoderResult[]) => console.log('The coordinates are latitude=' + result[0].latitude + ' and longitude=' + result[0].longitude))
-      .catch((error: any) => console.log(error));
-    // end forword geolocation end forword geolocation end forword geolocation 
   }
 
   toSlide1() {
@@ -191,15 +180,12 @@ export class SignupPage implements OnInit {
   slidechnge(val) { }
   onSignupClick() {
     this.presentLoading()
-    console.log(this.signupData)
 
     this.passengerService.sigup(this.signupData).subscribe((resp: any) => {
-      console.log(resp)
       this.loading.dismiss(true)
       localStorage.setItem("user", JSON.stringify(resp.passenger));
       this.r.navigate(["/home"]);
     }, err => {
-      console.log(err.error)
       if (err.error) {
         this.loading.dismiss(true)
         this.presentToast(err.error)
@@ -218,30 +204,25 @@ export class SignupPage implements OnInit {
   }
 
   getflag() {
-    console.log(this.signupData.phoneNumber)
     if (this.signupData.phoneNumber !== null) {
       if (true) {
 
         let code_with_2_digits = JSON.stringify(this.signupData.phoneNumber).substr(0, 2);
         let code_with_3_digits = JSON.stringify(this.signupData.phoneNumber).substr(0, 3);
-        console.log(code_with_2_digits);
 
         if (JSON.stringify(this.signupData.phoneNumber).length < 2) {
           // this.presentToast("Invalid Country Code")
           this.d.show_flag(code_with_2_digits).subscribe((resp: any) => {
-            console.log(resp);
             if (resp.length > 0) {
               this.countryData = resp[0]
             }
           }, err => {
-            console.log('errrr', err);
             this.countryData = [];
             if (JSON.stringify(this.signupData.phoneNumber).length > 1) {
               this.presentToast("Invalid Country Code")
             }
           })
         } else {
-          console.log(code_with_3_digits, '=================')
           this.d.show_flag(code_with_3_digits).subscribe((resp: any) => {
             if (resp.length > 0) {
               resp.forEach(element => {

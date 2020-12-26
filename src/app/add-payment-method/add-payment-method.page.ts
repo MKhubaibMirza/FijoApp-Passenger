@@ -61,11 +61,9 @@ export class AddPaymentMethodPage implements OnInit {
       this.card.expMonth = this.date.substr(5, 2);
     }
     if ((this.card.number && this.card.expMonth && this.card.expYear && this.card.cvc) !== '') {
-      console.log(this.card)
       this.presentLoading();
       this.paymentService.checkCard(this.card)
         .then(token => {
-          console.log(token, this.card);
           let fname = JSON.parse(localStorage.getItem('user')).firstName;
           let lname = JSON.parse(localStorage.getItem('user')).lastName;
           this.card.brand = token.card.brand;

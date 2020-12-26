@@ -2,21 +2,21 @@
   <ion-toolbar color="primary">
     <ion-icon color="medium" (click)="backBtn()" name="chevron-back-outline" class="backBtn" slot="start"></ion-icon>
     <ion-title color="medium">
-      {{'addPaymentCardPage.title' | translate:params}}
+      {{'addPaymentCardPage.title' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
   <img class="img" src="assets/addcard.png" alt="">
   <ion-item color="transparent" class="input ion-no-padding" lines='none'>
-    <ion-label position="floating" color='medium'>{{'addPaymentCardPage.cardNumber' | translate:params}}:</ion-label>
+    <ion-label position="floating" color='medium'>{{'addPaymentCardPage.cardNumber' | translate}}:</ion-label>
     <ion-input [(ngModel)]='card.number' maxLength="16" type='tel'></ion-input>
   </ion-item>
   <ion-grid class="ion-no-margin ion-no-padding">
     <ion-row class="ion-no-margin ion-no-padding">
       <ion-col size="7.5" class="ion-no-margin ion-no-padding">
         <ion-item color="transparent" class="input ion-no-padding" lines='none'>
-          <ion-label position="stacked" color='medium'>{{'addPaymentCardPage.expDate' | translate:params}}:</ion-label>
+          <ion-label position="stacked" color='medium'>{{'addPaymentCardPage.expDate' | translate}}:</ion-label>
           <ion-datetime max="2035" min="2020" [(ngModel)]='date' displayFormat="YYYY MM"></ion-datetime>
         </ion-item>
       </ion-col>
@@ -30,8 +30,8 @@
   </ion-grid>
 </ion-content>
 <ion-footer class="ion-no-border footer">
-  <p>{{'addPaymentCardPage.storedSecurely' | translate:params}}</p>
+  <p>{{'addPaymentCardPage.storedSecurely' | translate}}</p>
   <ion-button (click)="save()">
-    {{'addPaymentCardPage.save' | translate:params}}
+    {{'addPaymentCardPage.save' | translate}}
   </ion-button>
 </ion-footer>

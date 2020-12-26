@@ -24,7 +24,7 @@
               <ion-icon [name]="item.icon"></ion-icon>
             </ion-col>
             <ion-col size="9.8">
-              <p>{{item.title}}</p>
+              <p>{{'sideMenu.'+item.title | translate}}</p>
             </ion-col>
           </ion-row>
 
@@ -35,7 +35,7 @@
               <ion-icon name="exit"></ion-icon>
             </ion-col>
             <ion-col size="9.8">
-              <p>Logout</p>
+              <p>{{'sideMenu.logout' | translate}}</p>
             </ion-col>
           </ion-row>
         </ion-grid>

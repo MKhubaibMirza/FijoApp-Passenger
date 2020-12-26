@@ -18,7 +18,17 @@ import { Router } from '@angular/router';
 })
 export class TrackingPage {
   socket = io(environment.baseUrl);
-  DriverDetail = {};
+  DriverDetail = {
+    driverObj: {
+      firstName: '',
+      lastName: '',
+      driverPhoto: ''
+    },
+    vehicleObj: {
+      brand: "",
+      vehicleNoPlate: ""
+    }
+  };
   latitude: number;
   longitude: number;
   zoom = 17;
@@ -52,65 +62,11 @@ export class TrackingPage {
     public geolocation: Geolocation,
     public menuControl: MenuController
   ) {
-    this.menuControl.enable(false);
-    this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.driverLat = object.driverLat;
-      this.driverLng = object.driverLng;
-      if (localStorage.getItem('tripStarted')) {
-        this.isTripStarted = true;
-      }
-    });
-    this.socket.on('receive-driver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.DriverFound = true;
-      this.DriverDetail = object;
-      localStorage.setItem('tracking', JSON.stringify(object));
-    });
-    this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      console.log('Trip Is Started Now', object);
-      this.isTripStarted = true;
-      if (this.startTripCounter == 0) {
-        this.tripStart_Or_PaymentRepeater_Or_AlertShower(`Your trip is started. Please read <b>COVID-19</b> SOPs carefully. <br> 
-    <p> 
-    ⦿ Keep your distance from other people when you travel, where possible. <br>
-    ⦿ Avoid making unnecessary stops during your journey. <br>
-    ⦿ Plan ahead, check for disruption before you leave, and avoid the busiest routes, as well as busy times. <br>
-    ⦿ Wash or sanitise your hands regularly.
-    </p>`);
-        this.startTripCounter = this.startTripCounter + 1;
-      }
-    });
-    this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      console.log('Trip Is Ended Now and show rating modal', object);
-      localStorage.setItem('tripEnded', 'true');
-      if (this.endTripCounter == 0) {
-        this.RatingModal();
-        this.endTripCounter = this.endTripCounter + 1;
-      }
-    });
-    setTimeout(() => {
-      if (!localStorage.getItem('tracking')) {
-        if (this.DriverFound == false) {
-          if (this.router.url == '/tracking') {
-            this.presentAlert();
-          }
-        }
-      }
-    }, 60000);
-    if (localStorage.getItem('tripStarted')) {
-      this.isTripStarted = true;
-      this.afterTripStart();
-    } else {
-      this.isTripStarted = false;
-    }
-    if (localStorage.getItem('tripEnded')) {
-      this.RatingModal();
-    }
   }
   afterTripStart() {
     if (!localStorage.getItem('paid')) {
       let PayVia = JSON.parse(localStorage.getItem('findDriverObj')).paymentVia;
       if (PayVia == 'card') {
-        console.log(PayVia);
         // choose Payment methode and show all paymentMethods
         let paymentMethods = JSON.parse(localStorage.getItem('paymentMethods'));
         let inputArray = [];
@@ -128,7 +84,6 @@ export class TrackingPage {
     }
   }
   async presentAlertRadio(inputsArray) {
-    console.log(inputsArray);
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       backdropDismiss: false,
@@ -150,17 +105,13 @@ export class TrackingPage {
         {
           text: 'Continue Via Card',
           handler: (val) => {
-            console.log(val);
             this.presentLoading();
             this.paymentService.checkCard(val).then((resp: any) => {
-              console.log(resp);
               let data = {
                 token: resp.id,
                 amount: JSON.parse(localStorage.getItem('findDriverObj')).exactPriceForPassenger
               }
-              console.log(data);
               this.paymentService.charge(data).subscribe((resp: any) => {
-                console.log(resp);
                 if (resp.data !== null) {
                   localStorage.setItem('paid', 'true');
                   let price = JSON.parse(localStorage.getItem('FindDriverObj')).exactPriceForPassenger;
@@ -228,7 +179,7 @@ export class TrackingPage {
   public driverMarker = {
     url: 'assets/driver.png',
     scaledSize: {
-      width: 70,
+      width: 45,
       height: 70
     }
   }
@@ -273,12 +224,62 @@ export class TrackingPage {
       let findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
       this.driverService.findDrivers(findDriverObj).subscribe((resp: any) => {
         if (resp.length !== 0) {
-          console.log(resp);
           this.socket.emit('send-data-to-drivers', resp);
         }
       }, er => {
         this.presentAlert();
       })
+    }
+    this.menuControl.enable(false);
+    this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.driverLat = object.driverLat;
+      this.driverLng = object.driverLng;
+      if (localStorage.getItem('tripStarted')) {
+        this.isTripStarted = true;
+      }
+    });
+    this.socket.on('receive-driver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.DriverFound = true;
+      this.DriverDetail = object;
+      localStorage.setItem('tracking', JSON.stringify(object));
+    });
+    this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.isTripStarted = true;
+      if (this.startTripCounter == 0) {
+        this.startTripCounter = 1;
+        this.tripStart_Or_PaymentRepeater_Or_AlertShower(`Your trip is started. Please read <b>COVID-19</b> SOPs carefully. <br> 
+    <p> 
+    ⦿ Keep your distance from other people when you travel, where possible. <br>
+    ⦿ Avoid making unnecessary stops during your journey. <br>
+    ⦿ Plan ahead, check for disruption before you leave, and avoid the busiest routes, as well as busy times. <br>
+    ⦿ Wash or sanitise your hands regularly.
+    </p>`);
+      }
+    });
+    this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      localStorage.setItem('tripEnded', 'true');
+      if (this.endTripCounter == 0) {
+        this.endTripCounter = 1;
+        this.RatingModal();
+      }
+    });
+    setTimeout(() => {
+      if (!localStorage.getItem('tracking')) {
+        if (this.DriverFound == false) {
+          if (this.router.url == '/tracking') {
+            this.presentAlert();
+          }
+        }
+      }
+    }, 60000);
+    if (localStorage.getItem('tripStarted')) {
+      this.isTripStarted = true;
+      this.afterTripStart();
+    } else {
+      this.isTripStarted = false;
+    }
+    if (localStorage.getItem('tripEnded')) {
+      this.RatingModal();
     }
   }
   async presentAlert() {
@@ -356,10 +357,9 @@ export class TrackingPage {
     let driver = JSON.parse(localStorage.getItem('tracking')).driverObj;
     let Phone = driver.phoneNumber.toString();
     let name = driver.firstName + ' ' + driver.lastName;
-    console.log(Phone, name)
     if (Phone) {
       this.callNumber.callNumber(Phone, true)
-        .then(res => console.log('Launched dialer!', res))
+        .then(res => { })
         .catch(err => {
           this.presentToast('Oops! Something wents wrong');
         });

@@ -11,7 +11,16 @@
         "continueText": "Continue to receive an SMS confirmation and accept FijoTaxi's",
         "terms": "Terms of Use",
         "privacy": "Privacy Policy",
-        "and": "and"
+        "and": "and",
+
+        "enterPhone": "Please Enter Phone Number",
+        "somethingWrong": "Something Went Wrong! Try Again Later",
+        "noExist": "Phone Number Doesn't Exist!",
+        "loading": "Loading Please Wait...",
+        "noFound": "Not Found!",
+        "noReg": "You have no Register in Fijo Taxi yet!",
+        "cancel": "Cancel",
+        "regNow": "Register Now"
     },
     "viaEmail": {
         "loginViaPhone": "Login by Phone",
@@ -23,17 +32,30 @@
         "terms": "Terms of Use",
         "privacy": "Privacy Policy",
         "and": "and",
-        "or": "or"
+        "or": "or",
+
+        "enterEmailAddress": "Please Enter Email Address",
+        "emailNoFound": "Email does not exist",
+        "loading": "Loading Please Wait...",
+        "noFound": "Not Found!",
+        "noReg": "You have no Register in Fijo Taxi yet!",
+        "cancel": "Cancel",
+        "regNow": "Register Now"
     },
     "otpPage": {
         "text": "Enter the 6 digit confirmation code that we sent to",
-        "btn": "Continue"
+        "btn": "Continue",
+
+        "noCorrect":"The Given code is not Correct!",
+        "loading": "Loading Please Wait..."
     },
     "passwordPage": {
         "enterPassword": "Enter your Password",
         "text": "You'll need it to access your account securely",
         "forgotPassword": "I forgot my password",
-        "next": "Next"
+        "next": "Next",
+
+        "inCorrect":"Oops! Incorrect Password!"
     },
     "forgotPasswordPage": {
         "forgotPassword": "Forgot Password",
@@ -44,10 +66,19 @@
         "newPassword": "New Password",
         "passwordMatched": "Password matched",
         "next": "Next",
+        "ok": "OKAY",
+        "btn": "Continue",
+
         "checkEmail": "Check Your E-Mail",
         "copy": "Please copy the 6 words secret code from your email",
-        "ok": "OKAY",
-        "btn": "Continue"
+        "noExist":"Email does not exist. TRY AGAIN!",
+        "enterEmailPlz":"Please Enter Your Email",
+        "enterCodePlz":"Please enter code",
+        "codeNoMatch":"Code Does Not Match",
+        "fillPlz":"Please fill all the fields",
+        "wrongPass":"Password does not match with each other",
+        "successfull":"Successful",
+        "successfullChange":"Your password has been successfully updated"
     },
     "sideMenu": {
         "home": "Home",
@@ -218,7 +249,7 @@
         "confirmPassword": "Confirm Password",
         "changePassword": "Change Password"
     },
-    "chatPage":{
-        "text":"Type your message"
+    "chatPage": {
+        "text": "Type your message"
     }
 }

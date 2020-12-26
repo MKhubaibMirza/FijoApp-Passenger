@@ -78,16 +78,13 @@ export class RatingPage implements OnInit {
   }
   favrouiteDriver = true;
   onSubmitClick() {
-    console.log("rating = ", this.data.rating);
     this.driverService.rateDriver(this.driverId, this.data).subscribe((resp: any) => {
-      console.log(resp);
       if (this.favrouiteDriver) {
         let favrouiteDriverData = {
           driverId: this.driverId,
           passengerId: JSON.parse(localStorage.getItem('user')).id
         }
         this.driverService.addtoFavourites(favrouiteDriverData).subscribe((innerResp: any) => {
-          console.log(innerResp);
         })
         localStorage.removeItem('findDriverObj');
         localStorage.removeItem('tracking');

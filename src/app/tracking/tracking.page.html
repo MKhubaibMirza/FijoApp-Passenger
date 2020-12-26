@@ -15,7 +15,7 @@
         <ion-row class="ion-no-padding">
           <ion-col size="9">
             <p class="FooterTitle">
-              {{'trackingPage.confirming' | translate:params}}
+              {{'trackingPage.confirming' | translate}}
             </p>
           </ion-col>
           <ion-col size="3">
@@ -24,7 +24,7 @@
         </ion-row>
       </ion-grid>
       <br>
-      <p class="bottomtext">{{'trackingPage.preparingRide' | translate:params}}</p>
+      <p class="bottomtext">{{'trackingPage.preparingRide' | translate}}</p>
       <ion-progress-bar class="progress" color="medium" value="0.5"></ion-progress-bar>
     </ion-card-content>
   </ion-card>
@@ -33,7 +33,7 @@
       <ion-grid class="ion-no-padding">
         <ion-row class="ion-no-padding">
           <ion-col size="9">
-            <p class="FooterTitle">{{'trackingPage.searching' | translate:params}}</p>
+            <p class="FooterTitle">{{'trackingPage.searching' | translate}}</p>
           </ion-col>
           <ion-col size="3">
             <ion-spinner class="spinner"></ion-spinner>
@@ -41,7 +41,7 @@
         </ion-row>
       </ion-grid>
       <br>
-      <p class="bottomtext">{{'trackingPage.findingDrivers' | translate:params}}</p>
+      <p class="bottomtext">{{'trackingPage.findingDrivers' | translate}}</p>
       <ion-progress-bar class="progress" color="medium" value="0.9"></ion-progress-bar>
     </ion-card-content>
   </ion-card>
@@ -52,7 +52,7 @@
       <ion-grid class="ion-no-padding">
         <ion-row class="ion-no-padding">
           <ion-col size="9">
-            <p class="FooterTopTitle">{{DriverDetail.driverObj.firstName | titlecase}} {{'trackingPage.onWay' | translate:params}}</p>
+            <p class="FooterTopTitle">{{DriverDetail.driverObj.firstName | titlecase}} {{'trackingPage.onWay' | translate}}</p>
             <p class="FooterBottomTitle">{{totaltime}}</p>
           </ion-col>
           <ion-col size="3">
@@ -80,19 +80,19 @@
           <ion-col size="4">
             <div (click)="openChat()" class="bottomIconAndText">
               <ion-icon name="chatbox-ellipses"></ion-icon>
-              <span>{{'trackingPage.contact' | translate:params}}</span>
+              <span>{{'trackingPage.contact' | translate}}</span>
             </div>
           </ion-col>
           <ion-col size="4">
             <div (click)="call()" class="bottomIconAndText">
               <ion-icon name="call"></ion-icon>
-              <span>{{'trackingPage.call' | translate:params}}</span>
+              <span>{{'trackingPage.call' | translate}}</span>
             </div>
           </ion-col>
           <ion-col size="4">
             <div (click)="cancelConfirmModal()" class="bottomIconAndText">
               <ion-icon name="close-circle"></ion-icon>
-              <span>{{'trackingPage.cancel' | translate:params}}</span>
+              <span>{{'trackingPage.cancel' | translate}}</span>
             </div>
           </ion-col>
         </ion-row>
@@ -100,13 +100,13 @@
           <ion-col size="6">
             <div (click)="openChat()" class="bottomIconAndText">
               <ion-icon name="chatbox-ellipses"></ion-icon>
-              <span>{{'trackingPage.contact' | translate:params}}</span>
+              <span>{{'trackingPage.contact' | translate}}</span>
             </div>
           </ion-col>
           <ion-col size="6">
             <div (click)="call()" class="bottomIconAndText">
               <ion-icon name="call"></ion-icon>
-              <span>{{'trackingPage.call' | translate:params}}</span>
+              <span>{{'trackingPage.call' | translate}}</span>
             </div>
           </ion-col>
         </ion-row>

@@ -46,14 +46,12 @@ export class SocialAuthService {
   ) {
     fb.getLoginStatus()
       .then(res => {
-        console.log(res.status);
         if (res.status === "connect") {
           this.isLoggedIn = true;
         } else {
           this.isLoggedIn = false;
         }
       })
-      .catch(e => console.log(e));
     this.getLocation();
   }
   // facebook login
@@ -82,7 +80,7 @@ export class SocialAuthService {
           this.isLoggedIn = false;
         }
       })
-      .catch(e => console.log('Error logging into Facebook', e));
+      .catch(e => {});
     return 0;
   }
 
@@ -114,24 +112,20 @@ export class SocialAuthService {
   }
   // Upload Code
   uploadFile(link) {
-    console.log('Upload Testing');
     const fileTransfer: FileTransferObject = this.transfer.create();
     const options: FileUploadOptions = {
       fileKey: 'file',
       httpMethod: 'POST'
     };
     fileTransfer.download(link, this.file.dataDirectory + 'mandalMaksal.png').then((entry: any) => {
-      console.log('download complete: ' + entry.toURL());
       fileTransfer.upload(entry.toURL(), this.url + 'imageUpload', options)
         .then((data) => {
-          console.log('success:' + JSON.stringify(data));
           let fileName = data.response.replace('"', '');
           fileName = fileName.replace('"', '');
           this.signupData.profilePhoto = fileName;
           this.loadingController.dismiss();
           this.registerNow();
         }, (err) => {
-          console.log('error', err);
         });
     })
   }
@@ -145,18 +139,14 @@ export class SocialAuthService {
         useLocale: false,
         maxResults: 5
       };
-      console.log(currentlatitude, currentlongitude)
       this.nativeGeocoder.reverseGeocode(currentlatitude, currentlongitude, opt)
         .then((result: NativeGeocoderResult[]) => {
-          console.log(result[0]);
           this.signupData.city = result[0].locality;
           this.signupData.address = result[0].subLocality + ' ' + result[0].thoroughfare;
           this.signupData.postalCode = result[0].postalCode;
         }).catch((error) => {
-          console.log('Error getting location', error);
         })
     }).catch((error) => {
-      console.log('Error getting location', error);
     })
   }
   async registerNow() {

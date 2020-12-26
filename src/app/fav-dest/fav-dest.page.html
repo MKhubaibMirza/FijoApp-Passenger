@@ -4,19 +4,19 @@
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title>
-      {{'myFavDestinationPage.title' | translate:params}}
+      {{'myFavDestinationPage.title' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <input type="text" [(ngModel)]="destination" class="form-control destination"
-    (keydown.enter)="$event.preventDefault()" placeholder="{{'myFavDestinationPage.search' | translate:params}}" autocorrect="off" autocapitalize="off"
+    (keydown.enter)="$event.preventDefault()" placeholder="{{'myFavDestinationPage.search' | translate}}" autocorrect="off" autocapitalize="off"
     spellcheck="off" type="text" #search>
   <br>
   <ion-slides *ngIf="dest.length === 0" class="swiper-no-swiping" style="height: 85%;">
     <ion-slide>
-      <p class="notfound">{{'myFavDestinationPage.nofavdest' | translate:params}}</p>
+      <p class="notfound">{{'myFavDestinationPage.nofavdest' | translate}}</p>
     </ion-slide>
   </ion-slides>
   <div class="list">

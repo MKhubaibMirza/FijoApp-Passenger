@@ -16,7 +16,6 @@ export class FavDriversPage {
 
   ionViewWillEnter() {
     this.driverService.getAllFavouriteDrivers().subscribe((resp: any) => {
-      console.log(resp);
       this.drivers = resp;
     })
   }
@@ -24,7 +23,7 @@ export class FavDriversPage {
   call(phoneNumber) {
     if (phoneNumber) {
       this.callNumber.callNumber(phoneNumber, true)
-        .then(res => console.log('Launched dialer!', res))
+        .then(res =>{})
         .catch(err => {
         });
     }

@@ -1,7 +1,7 @@
 <ion-content>
 
   <p>
-    {{'otpPage.text' | translate:params}} {{text}}
+    {{'otpPage.text' | translate}} {{text}}
   </p>
 
   <code-input (codeCompleted)='onCodeCompleted($event)' [isCodeHidden]="false" [isNonDigitsCode]="false"
@@ -11,7 +11,7 @@
 
   <div class="bottom">
     <ion-button (click)="submitVerif()">
-      {{'otpPage.btn' | translate:params}}
+      {{'otpPage.btn' | translate}}
     </ion-button>
   </div>
 </ion-content>

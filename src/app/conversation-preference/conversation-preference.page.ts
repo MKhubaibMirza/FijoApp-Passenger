@@ -13,10 +13,8 @@ export class ConversationPreferencePage implements OnInit {
 
   ngOnInit() {
     this.passengerService.getMyPreferences().subscribe((resp: any) => {
-      console.log(resp);
       this.data.forEach((element, i) => {
         if (element.text == resp.conversation) {
-          console.log(element, '....');
           this.data[i].checked = true;
           this.selectedItem = element;
         }
@@ -39,15 +37,12 @@ export class ConversationPreferencePage implements OnInit {
         element.checked = false
       }
     });
-    console.log(this.data)
   }
   save() {
     let data = {
       conversation: this.selectedItem.text
     }
-    console.log(data);
     this.passengerService.update_conversation(data).subscribe((resp: any) => {
-      console.log(resp);
       this.modalController.dismiss();
     })
   }

@@ -31,7 +31,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateConfigService } from './services/translate-config.service';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { DocumentViewer } from '@ionic-native/document-viewer/ngx';
-
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { Camera } from '@ionic-native/camera/ngx';
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
@@ -40,6 +41,7 @@ firebase.initializeApp(environment.firebaseConfig);
   declarations: [AppComponent, AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],
   entryComponents: [AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],
   imports: [
+    PdfViewerModule,
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
@@ -62,6 +64,7 @@ firebase.initializeApp(environment.firebaseConfig);
     Geolocation,
     ImagePicker,
     AndroidPermissions,
+    Camera,
     DocumentViewer,
     Facebook,
     CallNumber,

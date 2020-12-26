@@ -35,7 +35,6 @@ export class FavDestPage implements OnInit {
   }
   ionViewWillEnter() {
     this.d.saved_location_get().subscribe((resp: any) => {
-      console.log(resp);
       this.dest = resp;
     })
   }
@@ -55,7 +54,6 @@ export class FavDestPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
           text: 'Okay',
@@ -68,9 +66,7 @@ export class FavDestPage implements OnInit {
                 routeTitle: value.title,
                 passengerId: JSON.parse(localStorage.getItem('user')).id
               }
-              console.log(data);
               this.d.saved_location_create(data).subscribe((resp: any) => {
-                console.log(resp);
                 this.destination = '';
                 this.ionViewWillEnter();
               })
@@ -82,9 +78,7 @@ export class FavDestPage implements OnInit {
     await alert.present();
   }
   removeLocation(item) {
-    console.log(item);
     this.d.saved_location_delete(item.id).subscribe((resp: any) => {
-      console.log(resp);
       this.ionViewWillEnter();
     })
   }

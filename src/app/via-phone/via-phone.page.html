@@ -4,7 +4,7 @@
 
     <ion-grid fixed>
       <p class="firsttext">
-        {{'viaPhonePage.enterMobileNumber' | translate:params}}<br><span>({{'viaPhonePage.withCountryCode' | translate:params}})</span>
+        {{'viaPhonePage.enterMobileNumber' | translate}}<br><span>({{'viaPhonePage.withCountryCode' | translate}})</span>
       </p>
 
       <ion-row>
@@ -16,7 +16,7 @@
 
         <ion-col size='9'>
           <ion-input class="input" type='number' class="ion-no-margin" [(ngModel)]="data.phoneNumber"
-            (keyup)="getflag()" [placeholder]="'viaPhonePage.enterMobileNumber' | translate:params"></ion-input>
+            (keyup)="getflag()" [placeholder]="'viaPhonePage.enterMobileNumber' | translate"></ion-input>
         </ion-col>
       </ion-row>
       <br>
@@ -24,20 +24,20 @@
         <div id="recaptcha-container"></div>
       </div>
 
-      <p class="sendcode">{{'viaPhonePage.verificationCode' | translate:params}}</p>
+      <p class="sendcode">{{'viaPhonePage.verificationCode' | translate}}</p>
       <br><br>
-      <p class="login" (click)="viaEmail()">{{'viaPhonePage.orLoginWithEmail' | translate:params}}</p>
+      <p class="login" (click)="viaEmail()">{{'viaPhonePage.orLoginWithEmail' | translate}}</p>
     </ion-grid>
   </div>
 
   <div class="bottom">
     <ion-button (click)="next()">
-      {{'viaPhonePage.next' | translate:params}}
+      {{'viaPhonePage.next' | translate}}
     </ion-button>
 
-    <p>{{'viaPhonePage.continueText' | translate:params}}
-      <span>{{'viaPhonePage.privacy' | translate:params}}</span>
-      {{'viaPhonePage.and' | translate:params}}
-      <span>{{'viaPhonePage.terms' | translate:params}}</span></p>
+    <p>{{'viaPhonePage.continueText' | translate}}
+      <span>{{'viaPhonePage.privacy' | translate}}</span>
+      {{'viaPhonePage.and' | translate}}
+      <span>{{'viaPhonePage.terms' | translate}}</span></p>
   </div>
 </ion-content>

@@ -36,7 +36,6 @@ export class LocationService {
   requestGPSPermission() {
     this.locationAccuracy.canRequest().then((canRequest: boolean) => {
       if (canRequest) {
-        console.log("4");
       } else {
         //Show 'GPS Permission Request' dialogue
         this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.ACCESS_COARSE_LOCATION)
@@ -47,7 +46,6 @@ export class LocationService {
             },
             error => {
               //Show alert if user click on 'No Thanks'
-              alert('requestPermission Error requesting location permissions ' + error)
             }
           );
       }
@@ -59,7 +57,7 @@ export class LocationService {
         // When GPS Turned ON call method to get Accurate location coordinates
         this.TrackPassengerLocation();
       },
-      error => alert('Error requesting location permissions ' + JSON.stringify(error))
+      error => {}
     );
   }
   TrackingCounter = 0;

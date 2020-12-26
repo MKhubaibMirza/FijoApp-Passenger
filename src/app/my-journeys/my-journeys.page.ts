@@ -19,7 +19,6 @@ export class MyJourneysPage implements OnInit {
   myJourneys = [];
   ionViewWillEnter() {
     this.passengerService.getAllBookings().subscribe((resp: any) => {
-      console.log(resp);
       this.myJourneys = resp.reverse();
     })
   }

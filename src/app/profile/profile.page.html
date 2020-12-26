@@ -4,7 +4,7 @@
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title>
-      {{'profilePage.title' | translate:params}}
+      {{'profilePage.title' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,7 +19,7 @@
           <img *ngIf='getMyImg()' [src]="url+getMyImg()" alt="">
         </ion-col>
         <ion-col size="9" style="align-self: center;">
-          <p> {{'profilePage.hi' | translate:params}} {{getName()}}!</p>
+          <p> {{'profilePage.hi' | translate}} {{getName()}}!</p>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -31,19 +31,19 @@
     <ion-item lines="full" routerLink='/info'>
       <ion-icon name="information-circle" slot="start"></ion-icon>
       <ion-label>
-        {{'profilePage.myInfo' | translate:params}}
+        {{'profilePage.myInfo' | translate}}
       </ion-label>
     </ion-item>
     <ion-item lines="full" routerLink='/my-fav'>
       <ion-icon name="heart" slot="start"></ion-icon>
       <ion-label>
-        {{'profilePage.myFav' | translate:params}}
+        {{'profilePage.myFav' | translate}}
       </ion-label>
     </ion-item>
     <ion-item lines="full" routerLink='/my-preferences'>
       <ion-icon name="settings" slot="start"></ion-icon>
       <ion-label>
-        {{'profilePage.myPreferences' | translate:params}}
+        {{'profilePage.myPreferences' | translate}}
       </ion-label>
     </ion-item>
   </div>

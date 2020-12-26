@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { TranslateConfigService } from '../services/translate-config.service';
 
 @Component({
@@ -11,14 +12,15 @@ export class SelectLanguagePage implements OnInit {
 
   constructor(
     public r: Router,
+    private menuController: MenuController,
     private translateConfigService: TranslateConfigService
   ) { }
 
   ngOnInit() {
+    this.menuController.enable(false);
   }
   selectLang(val) {
     this.translateConfigService.setLanguage(val);
-    console.log(this.translateConfigService.selectedLanguage())
     this.r.navigate(['/welcome-note'])
   }
 }

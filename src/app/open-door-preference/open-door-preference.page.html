@@ -1,6 +1,6 @@
 <ion-content scrollY="false" class="ion-padding-horizontal">
   <p class="title">
-    {{'openDoorPreference.title' | translate:params}}
+    {{'openDoorPreference.title' | translate}}
   </p>
   <ion-radio-group [value]="selectedItem.text">
     <ion-item *ngFor='let item of data'>
@@ -9,6 +9,6 @@
     </ion-item>
   </ion-radio-group>
   <ion-button (click)="save()">
-    {{'openDoorPreference.btn' | translate:params}}
+    {{'openDoorPreference.btn' | translate}}
   </ion-button>
 </ion-content>

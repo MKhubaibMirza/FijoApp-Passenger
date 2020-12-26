@@ -12,9 +12,9 @@
       <ion-col size="2"></ion-col>
       <ion-col size="8.5">
         <p class="subtitle_cancelled" *ngIf="journeyObject.status == 'cancelled'">
-          {{'JourneyDetailsPage.journeyCancelled' | translate:params}}</p>
+          {{'JourneyDetailsPage.journeyCancelled' | translate}}</p>
         <p class="subtitle_completed" *ngIf="journeyObject.status == 'completed'">
-          {{'JourneyDetailsPage.journeyCompleted' | translate:params}}</p>
+          {{'JourneyDetailsPage.journeyCompleted' | translate}}</p>
       </ion-col>
       <ion-col size="1.5">
         <ion-icon class="warn" *ngIf="journeyObject.status == 'cancelled'" name="warning"></ion-icon>
@@ -36,7 +36,7 @@
         </ion-col>
         <ion-col size="11">
           <p class="textUnderCard">
-            <ion-icon name="locate-outline"></ion-icon> <b> {{'JourneyDetailsPage.pickUp' | translate:params}}</b>
+            <ion-icon name="locate-outline"></ion-icon> <b> {{'JourneyDetailsPage.pickUp' | translate}}</b>
           </p>
           <p class="textUnderCard">{{journeyObject.pickup}}</p>
         </ion-col>
@@ -49,7 +49,7 @@
         </ion-col>
         <ion-col size="11">
           <p class="textUnderCard">
-            <ion-icon name="navigate-outline"></ion-icon> <b> {{'JourneyDetailsPage.destination' | translate:params}}</b>
+            <ion-icon name="navigate-outline"></ion-icon> <b> {{'JourneyDetailsPage.destination' | translate}}</b>
           </p>
           <p class="textUnderCard">{{journeyObject.pickup}}</p>
         </ion-col>
@@ -68,8 +68,8 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <p class="footerText_cancelled" *ngIf="journeyObject.status == 'cancelled'">{{'JourneyDetailsPage.noCost' | translate:params}}</p>
-    <p class="footerText_completed" *ngIf="journeyObject.status == 'completed'">{{'JourneyDetailsPage.withCost' | translate:params}}
+    <p class="footerText_cancelled" *ngIf="journeyObject.status == 'cancelled'">{{'JourneyDetailsPage.noCost' | translate}}</p>
+    <p class="footerText_completed" *ngIf="journeyObject.status == 'completed'">{{'JourneyDetailsPage.withCost' | translate}}
       {{journeyObject.exactPriceForPassenger}}&euro;</p>
     <br>
   </ion-card>

@@ -28,15 +28,12 @@ export class LoginPage implements OnInit {
 
   loginClick() {
     this.presentLoading()
-    console.log(this.loginData)
     if ((this.loginData.email && this.loginData.password) !== '') {
       this.passengerService.login(this.loginData).subscribe((resp: any) => {
-        console.log(resp)
         this.loading.dismiss(true)
         localStorage.setItem('user', JSON.stringify(resp))
         this.router.navigate(['/home'])
       }, err => {
-        console.log(err.error)
         if (err.error) {
           this.loading.dismiss(true)
           this.presentToast('Email or Password may be wrong')
@@ -57,7 +54,6 @@ export class LoginPage implements OnInit {
     await loading.present();
 
     const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
   }
 
   // toast 

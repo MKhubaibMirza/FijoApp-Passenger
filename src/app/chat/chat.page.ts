@@ -27,7 +27,6 @@ export class ChatPage implements OnInit {
       this.driverD = this.receiverName.charAt(0);
       this.GetMessages();
       this.socket.on('listenchat' + this.senderId, (data) => {
-        console.log('Messages Refresher', data);
         this.messagesArray.push(data);
         this.scrollToBottom();
       });
@@ -58,7 +57,6 @@ export class ChatPage implements OnInit {
     this.msgService.GetAllMessages(this.senderId, this.receiverId).subscribe(data => {
       if (data !== 'No conversation is started yet!') {
         this.messagesArray = data;
-        console.log(this.messagesArray);
         this.scrollToBottom()
       }
     });

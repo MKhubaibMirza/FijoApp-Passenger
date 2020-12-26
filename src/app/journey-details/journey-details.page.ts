@@ -13,7 +13,6 @@ export class JourneyDetailsPage implements OnInit {
 
   ngOnInit() {
     this.journeyObject = JSON.parse(localStorage.getItem('myJourneyObject'));
-    console.log(this.journeyObject)
   }
   journeyObject = {
     amount: null,
@@ -34,6 +33,7 @@ export class JourneyDetailsPage implements OnInit {
     driver: {
       email: "",
       firstName: "",
+      driverPhoto:"",
       lastName: ""
     }
   }

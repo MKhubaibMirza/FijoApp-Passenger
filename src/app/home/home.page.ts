@@ -143,8 +143,6 @@ export class HomePage {
     } else {
       this.FindDriverObj.origin = this.origin;
       this.FindDriverObj.destination = this.destination;
-      console.log(this.BasePrice4Seater, this.For4SeaterPrice)
-      console.log(this.BasePrice5Seater, this.For5SeaterPrice)
       if (this.FindDriverObj.noOfSeating == 4) {
         this.FindDriverObj.exactPriceForDriver = this.For4SeaterPrice - this.BasePrice4Seater;
         this.FindDriverObj.exactPriceForPassenger = this.For4SeaterPrice;
@@ -152,7 +150,6 @@ export class HomePage {
         this.FindDriverObj.exactPriceForDriver = this.For5SeaterPrice - this.BasePrice5Seater;
         this.FindDriverObj.exactPriceForPassenger = this.For5SeaterPrice;
       }
-      console.log(this.FindDriverObj);
       const modal = await this.modalController.create({
         component: AskPaymentWayPage,
         componentProps: {
@@ -190,7 +187,6 @@ export class HomePage {
       });
     });
     this.dataservice.saved_location_get().subscribe((resp: any) => {
-      console.log(resp);
       this.SavedLocations = resp;
     })
   }
@@ -202,7 +198,6 @@ export class HomePage {
     this.ShowDestinationCondition = false;
   }
   OnRouteItemClick(item) {
-    console.log(item);
     this.destination = item.routePath;
     this.getDirection();
   }
@@ -220,14 +215,12 @@ export class HomePage {
     };
     this.geolocation.getCurrentPosition(options).then
       ((position: any) => {
-        console.log(position)
         this.latitude = parseFloat(position.coords.latitude);
         this.longitude = parseFloat(position.coords.longitude);
         this.FindDriverObj.currentLat = this.latitude;
         this.FindDriverObj.currentLng = this.longitude;
         this.getAddress(this.latitude, this.longitude);
       }, err => {
-        console.log(err)
       });
   }
   totaltime = '';
@@ -241,7 +234,6 @@ export class HomePage {
   public onResponse(event: any) {
     this.carsTypes = [];
     this.iAmCalled = this.iAmCalled + 1;
-    console.log(event)
     if (event.status == "NOT_FOUND") {
       this.directionCondition = false;
       this.loadingController.dismiss();
@@ -283,9 +275,7 @@ export class HomePage {
       }
       if (this.iAmCalled == 1) {
         getExactPriceObject.seatingCapacity = 4;
-        console.log(getExactPriceObject)
         this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-          console.log(resp, ' 4 > seats')
           this.For4SeaterPrice = resp.totalPrice;
           this.BasePrice4Seater = resp.basePrice;
           let carTypesArray = [
@@ -295,7 +285,6 @@ export class HomePage {
           ];
           getExactPriceObject.seatingCapacity = 5;
           this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-            console.log(resp, ' 5 > seats')
             this.For5SeaterPrice = resp.totalPrice;
             this.BasePrice5Seater = resp.basePrice;
             carTypesArray.forEach(element => {
@@ -353,8 +342,6 @@ export class HomePage {
     let coords = JSON.stringify(event);
     let coords3 = JSON.parse(coords);
     this.geoCoder.geocode({ 'location': { lat: coords3.lat, lng: coords3.lng } }, (results, status) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
@@ -370,8 +357,6 @@ export class HomePage {
   }
   isAirport = false;
   getDirection() {
-    console.log(this.destination, ' <== Destination')
-    console.log(this.origin, ' <== origin')
     if ((this.destination !== '') && (this.origin !== '')) {
       setTimeout(() => {
         this.presentLoading();
@@ -383,8 +368,6 @@ export class HomePage {
   }
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 18;
@@ -403,6 +386,7 @@ export class HomePage {
     this.directionCondition = false;
     this.ShowDestinationCondition = false;
     this.destination = '';
+    this.carsTypes = [];
     this.locationClick()
   }
   heightOfCard = '';
@@ -420,7 +404,6 @@ export class HomePage {
         }, 900);
       }
     }
-    console.log(val, this.heightOfCard)
   }
 
   async presentUser() {
@@ -450,5 +433,6 @@ export class HomePage {
     }
     this.destination = '';
     this.ShowDestinationCondition = false;
+    this.carsTypes = [];
   }
 }

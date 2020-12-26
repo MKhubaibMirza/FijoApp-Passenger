@@ -15,7 +15,7 @@ export class SplashPage {
   ionViewWillEnter() {
     setTimeout(() => {
       this.r.navigate(['/select-language'])
-    }, 3000);
+    }, 3500);
   }
 
 }

@@ -189,6 +189,12 @@ const routes: Routes = [
     canActivate: [ForwordGuard],
     loadChildren: () => import('./contact-us/contact-us.module').then( m => m.ContactUsPageModule)
   },
+  {
+    path: 'privacy-policy',
+    canActivate: [ForwordGuard],
+    loadChildren: () => import('./privacy-policy/privacy-policy.module').then( m => m.PrivacyPolicyPageModule)
+  },
+
 
 
 

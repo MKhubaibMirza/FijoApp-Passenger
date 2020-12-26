@@ -4,7 +4,7 @@
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title color="medium">
-      {{'infoPage.myInfo' | translate:params}}
+      {{'infoPage.myInfo' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,34 +14,34 @@
     <br><br>
     <img (click)="openGalery()" *ngIf='getPhoto()' [src]="url + getPhoto()" alt="">
     <ion-icon (click)="openGalery()" *ngIf='!getPhoto()' name="camera"></ion-icon>
-    <ion-icon class="camera" *ngIf='getPhoto()' name="camera"></ion-icon>
-    <p>{{'infoPage.hi' | translate:params}} {{getName()}}!</p>
+    <ion-icon (click)="openGalery()" class="camera" *ngIf='getPhoto()' name="camera"></ion-icon>
+    <p>{{'infoPage.hi' | translate}} {{getName()}}!</p>
   </div>
 
 
   <div class="data">
     <ion-item class="input" lines='none'>
-      <ion-label color='primary'>{{'infoPage.firstName' | translate:params}}: </ion-label>
+      <ion-label color='primary'>{{'infoPage.firstName' | translate}}: </ion-label>
       <ion-input [(ngModel)]='data.firstName' type='text'></ion-input>
     </ion-item>
     <ion-item class="input" lines='none'>
-      <ion-label color='primary'>{{'infoPage.lastName' | translate:params}}: </ion-label>
+      <ion-label color='primary'>{{'infoPage.lastName' | translate}}: </ion-label>
       <ion-input [(ngModel)]='data.lastName' type='text'></ion-input>
     </ion-item>
     <ion-item class="input" lines='none'>
-      <ion-label color='primary'>{{'infoPage.phone' | translate:params}}: </ion-label>
+      <ion-label color='primary'>{{'infoPage.phone' | translate}}: </ion-label>
       <ion-input [(ngModel)]='data.phoneNumber' type='number'></ion-input>
     </ion-item>
     <br>
     <ion-button class="save" expand="full" fill="solid" (click)="saveChanges()">
       <ion-icon slot="start" name="save"></ion-icon>
-      {{'infoPage.saveChanges' | translate:params}}
+      {{'infoPage.saveChanges' | translate}}
     </ion-button>
     <br>
 
     <ion-button expand="block" fill="outline" shape="round" (click)='changePassword()'>
       <ion-icon slot="start" name="lock-closed"></ion-icon>
-      {{'infoPage.editPassword' | translate:params}}
+      {{'infoPage.editPassword' | translate}}
     </ion-button>
     <ion-icon (click)="logout()" name="power" class="logout"></ion-icon>
     <br>

@@ -4,7 +4,7 @@
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title>
-      {{'paymentMethodPage.title' | translate:params}}
+      {{'paymentMethodPage.title' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -16,7 +16,7 @@
         <ion-col size="10">
           <p class="title">
             <ion-icon name="card-outline" class="icon"></ion-icon> {{item.brand | titlecase}}
-            {{item.funding | titlecase}} {{'paymentMethodPage.card' | translate:params}}
+            {{item.funding | titlecase}} {{'paymentMethodPage.card' | translate}}
           </p>
         </ion-col>
         <ion-col size="2">
@@ -47,10 +47,10 @@
     <ion-slide>
       <ion-card class="card">
         <p>
-          {{'paymentMethodPage.noPayMethod' | translate:params}}
+          {{'paymentMethodPage.noPayMethod' | translate}}
         </p>
         <ion-button color="medium" routerLink="/add-payment-method">
-          {{'paymentMethodPage.addPaymentMethod' | translate:params}}
+          {{'paymentMethodPage.addPaymentMethod' | translate}}
         </ion-button>
       </ion-card>
     </ion-slide>
@@ -58,9 +58,9 @@
 </ion-content>
 <ion-footer *ngIf="PaymentMethodFound" class="ion-no-border footer">
   <p>
-    {{'paymentMethodPage.storedSecurely' | translate:params}}
+    {{'paymentMethodPage.storedSecurely' | translate}}
   </p>
   <ion-button routerLink="/add-payment-method">
-    {{'paymentMethodPage.btn' | translate:params}}
+    {{'paymentMethodPage.btn' | translate}}
   </ion-button>
 </ion-footer>

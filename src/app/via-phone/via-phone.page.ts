@@ -4,6 +4,7 @@ import { AlertController, LoadingController, ToastController } from '@ionic/angu
 import { DataService } from '../services/data.service';
 import { PassengerService } from '../services/passenger.service';
 import * as firebase from 'firebase';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-via-phone',
@@ -19,8 +20,14 @@ export class ViaPhonePage implements OnInit {
     private passangerService: PassengerService,
     private loadingController: LoadingController,
     private alertController: AlertController,
-  ) { }
-
+    public t: TranslateService
+  ) {
+    t.get("viaPhonePage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+  }
+  respFromLanguage: any;
   ngOnInit() {
   }
 
@@ -44,11 +51,10 @@ export class ViaPhonePage implements OnInit {
 
   next() {
     if ((this.data.phoneNumber) == '') {
-      this.presentToast('Please Enter Phone Number')
+      this.presentToast(this.respFromLanguage.enterPhone)
     } else {
       this.presentLoadingWithOptions()
       this.passangerService.checkByPhone(this.data).subscribe((resp: any) => {
-        console.log(resp)
         if (resp.isPassengerExist) {
 
           // send code 
@@ -58,7 +64,6 @@ export class ViaPhonePage implements OnInit {
           } else {
             a = '+' + this.data.phoneNumber
           }
-          console.log(a)
           const appVerifier = this.windowRef.recaptchaVerifier;
           firebase.auth().signInWithPhoneNumber(a, appVerifier)
             .then(result => {
@@ -67,13 +72,12 @@ export class ViaPhonePage implements OnInit {
               this.r.navigate(['/otp-verification/byPhone/' + this.data.phoneNumber])
             }).catch(err => {
               this.loadingController.dismiss(true)
-              console.log('err1', err)
-              this.presentToast('Something Wents Wrong! Try Again Later')
+              this.presentToast(this.respFromLanguage.somethingWrong)
             })
           // send code finish 
         } else {
           this.loadingController.dismiss(true)
-          this.presentToast("Phone Number Doesn't Exist!")
+          this.presentToast(this.respFromLanguage.noExist)
           this.presentAlertConfirm()
         }
       })
@@ -85,32 +89,24 @@ export class ViaPhonePage implements OnInit {
       if (4! > JSON.stringify(this.data.phoneNumber).length) {
         let code_with_2_digits = JSON.stringify(this.data.phoneNumber).substr(0, 2);
         let code_with_3_digits = JSON.stringify(this.data.phoneNumber).substr(0, 3);
-        console.log(code_with_2_digits);
 
         if (JSON.stringify(this.data.phoneNumber).length < 2) {
           // this.presentToast("Invalid Country Code")
           this.d.show_flag(code_with_2_digits).subscribe((resp: any) => {
-            console.log(resp);
             if (resp.length > 0) {
               this.countryData = resp[0]
             }
           }, err => {
-            console.log('errrr', err);
             this.countryData = [];
             if (JSON.stringify(this.data.phoneNumber).length > 1) {
-              // this.presentToast("Invalid Country Code")
             }
           })
         } else {
-          console.log(code_with_3_digits, '=================')
           this.d.show_flag(code_with_3_digits).subscribe((resp: any) => {
             if (resp.length > 0) {
               resp.forEach(element => {
                 this.countryData = element;
               });
-            } else {
-              // this.presentToast("Invalid Country Code")
-              // its mean no country exsists for country code of 2 or 3 letters you can show error here
             }
           })
         }
@@ -129,7 +125,7 @@ export class ViaPhonePage implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       duration: 2000,
-      position: 'bottom',
+      position: 'top',
       color: 'medium'
     });
     toast.present();
@@ -140,34 +136,29 @@ export class ViaPhonePage implements OnInit {
     const loading = await this.loadingController.create({
       spinner: 'lines',
       duration: 5000,
-      message: 'Loading Please Wait...',
+      message: this.respFromLanguage.loading,
       translucent: true,
       cssClass: 'loading-class',
     });
     await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed with role:', role);
   }
 
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
       cssClass: 'alert-class',
-      header: 'Not Found!',
-      message: 'You have no Register in Fijo Taxi yet!',
+      header: this.respFromLanguage.noFound,
+      message: this.respFromLanguage.noReg,
       buttons: [
         {
-          text: 'Cancel',
+          text: this.respFromLanguage.cancel,
           role: 'cancel',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
-          text: 'Register Now',
+          text: this.respFromLanguage.regNow,
           cssClass: 'primary',
           handler: () => {
             this.r.navigate(['/signup'])
-            console.log('Confirm Okay');
           }
         }
       ]

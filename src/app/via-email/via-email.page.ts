@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { PassengerService } from '../services/passenger.service';
 import { SocialAuthService } from '../services/social-auth.service';
 
@@ -17,9 +18,15 @@ export class ViaEmailPage implements OnInit {
     private passangerService: PassengerService,
     private loadingController: LoadingController,
     private alertController: AlertController,
+    public t: TranslateService,
     private socialAuth: SocialAuthService
-  ) { }
-
+  ) {
+    t.get("viaEmail").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+  }
+  respFromLanguage: any;
   ngOnInit() {
   }
 
@@ -29,16 +36,14 @@ export class ViaEmailPage implements OnInit {
 
   next() {
     if ((this.data.email) == '') {
-      this.presentToast('Please Enter Email Address')
+      this.presentToast(this.respFromLanguage.enterEmailAddress)
       this.loadingController.dismiss(true)
     } else {
       this.presentLoadingWithOptions()
       this.passangerService.forgotPassword(this.data).subscribe((resp: any) => {
-        console.log(resp)
+        this.loadingController.dismiss();
         if (resp.passenger) {
-          console.log(resp.passenger, resp.verificationCode)
           this.r.navigate(['/otp-verification/' + this.data.email + '/' + resp.verificationCode])
-          this.loadingController.dismiss(true)
         }
         if (resp.message == 'Email does not exit') {
           this.presentAlertConfirm()
@@ -69,8 +74,7 @@ export class ViaEmailPage implements OnInit {
     const loading = await this.loadingController.create({
       spinner: 'lines',
       duration: 5000,
-      message: 'Loading Please Wait...',
-      translucent: true,
+      message: this.respFromLanguage.loading,
       cssClass: 'loading-class',
     });
     await loading.present();
@@ -80,21 +84,19 @@ export class ViaEmailPage implements OnInit {
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
       cssClass: 'alert-class',
-      header: 'Not Found!',
-      message: 'You have no Register in Fijo Taxi yet!',
+      header: this.respFromLanguage.noFound,
+      message: this.respFromLanguage.noReg,
       buttons: [
         {
-          text: 'Cancel',
+          text: this.respFromLanguage.cancel,
           role: 'cancel',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
           }
         }, {
-          text: 'Register Now',
+          text: this.respFromLanguage.regNow,
           cssClass: 'primary',
           handler: () => {
             this.r.navigate(['/signup'])
-            console.log('Confirm Okay');
           }
         }
       ]

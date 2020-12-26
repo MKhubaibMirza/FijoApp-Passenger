@@ -28,7 +28,6 @@ export class MyPreferencesPage implements OnInit {
   ]
 
   click(item) {
-    console.log(item)
     if (item == 'call') {
       this.callPreference()
     } else if (item == 'ac') {

@@ -4,7 +4,7 @@
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title>
-      {{'helpPage.title' | translate:params}}
+      {{'helpPage.title' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,7 +13,7 @@
   <ion-item lines='none' routerLink="/contact-us">
     <ion-icon color="primary" name="mail" slot="start"></ion-icon>
     <ion-label color="primary">
-      {{'helpPage.contact' | translate:params}}
+      {{'helpPage.contact' | translate}}
     </ion-label>
     <ion-icon color="primary" name="chevron-forward" slot="end"></ion-icon>
   </ion-item>
@@ -21,15 +21,15 @@
   <ion-item lines='none' (click)="openTermsAndCondition()">
     <ion-icon color="primary" name="reader" slot="start"></ion-icon>
     <ion-label color="primary">
-      {{'helpPage.terms' | translate:params}}
+      {{'helpPage.terms' | translate}}
     </ion-label>
     <ion-icon color="primary" name="chevron-forward" slot="end"></ion-icon>
   </ion-item>
 
-  <ion-item (click)="openPrivacyPolicy()" lines='none'>
+  <ion-item routerLink="/privacy-policy" lines='none'>
     <ion-icon color="primary" name="warning" slot="start"></ion-icon>
     <ion-label color="primary">
-      {{'helpPage.privacy' | translate:params}}
+      {{'helpPage.privacy' | translate}}
     </ion-label>
     <ion-icon color="primary" name="chevron-forward" slot="end"></ion-icon>
   </ion-item>

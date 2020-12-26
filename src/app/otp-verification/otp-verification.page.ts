@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import * as firebase from 'firebase';
 import { PassengerService } from '../services/passenger.service';
 
@@ -17,15 +18,20 @@ export class OtpVerificationPage implements OnInit {
     public passengerService: PassengerService,
     public toastController: ToastController,
     public loadingController: LoadingController,
-  ) { }
-
+    public t: TranslateService
+  ) {
+    t.get("otpPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+  }
+  respFromLanguage: any;
   ngOnInit() {
   }
 
   windowRef: any;
   verifCode: any;
   onCodeCompleted(event) {
-    console.log(event)
     this.verifCode = event;
     this.submitVerif()
   }
@@ -40,7 +46,6 @@ export class OtpVerificationPage implements OnInit {
   }
   async ionViewWillEnter() {
     this.activerouter.params.subscribe((resp: any) => {
-      console.log(resp)
       this.by = resp.by
       if (resp.by == 'byPhone') {
         this.numberData.phoneNumber = resp.data
@@ -65,7 +70,6 @@ export class OtpVerificationPage implements OnInit {
         this.windowRef.confirmationResult.confirm(this.verifCode)
           .then(async result => {
             this.passengerService.checkByPhone(this.numberData).subscribe((resp: any) => {
-              console.log(resp)
               if (resp.isPassengerExist) {
                 localStorage.setItem('TempUser', JSON.stringify(resp.passenger))
                 this.loadingController.dismiss(true)
@@ -84,10 +88,8 @@ export class OtpVerificationPage implements OnInit {
 
           });
       } else {
-        console.log(this.code, this.verifCode)
         if (this.code == this.verifCode) {
           this.passengerService.checkByEmail(this.emailData).subscribe((resp: any) => {
-            console.log(resp)
             if (resp.isPassengerExist) {
               localStorage.setItem('TempUser', JSON.stringify(resp.passenger))
               this.loadingController.dismiss(true)
@@ -99,26 +101,12 @@ export class OtpVerificationPage implements OnInit {
           })
         } else {
           this.loadingController.dismiss(true)
-          this.presentToast('The Given code is not Correct!')
+          this.presentToast(this.respFromLanguage.noCorrect)
         }
 
       }
     }
-    //If the result is successful...
   }
-
-  continue() {
-    let data = {
-      pessenger: {
-        firstName: 'Dummy',
-        lastName: 'TempUser',
-        email: 'DummyEmail@fijo.com',
-      }
-    }
-    localStorage.setItem('TempUser', JSON.stringify(data))
-    this.r.navigate(['/home'])
-  }
-
 
   async presentToast(msg) {
     const toast = await this.toastController.create({
@@ -135,15 +123,11 @@ export class OtpVerificationPage implements OnInit {
     const loading = await this.loadingController.create({
       spinner: 'lines',
       duration: 9000,
-      message: 'Please Wait...',
+      message: this.respFromLanguage.loading,
       translucent: true,
       cssClass: 'loading-class',
     });
     await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed with role:', role);
-
   }
 
 }

@@ -3,23 +3,23 @@
     <ion-slide>
       <ion-card>
         <p class="title">
-          {{'ratingPage.title' | translate:params}}
+          {{'ratingPage.title' | translate}}
         </p>
         <p class="price">€ {{price}}</p>
         <p class="text">
           <span *ngIf="paymentVia == 'card'">
-            {{'ratingPage.card' | translate:params}}
+            {{'ratingPage.card' | translate}}
           </span>
-          <span *ngIf="paymentVia == 'cash'">{{'ratingPage.cash' | translate:params}}</span>
+          <span *ngIf="paymentVia == 'cash'">{{'ratingPage.cash' | translate}}</span>
         </p>
-        <p class="text">{{'ratingPage.text' | translate:params}}</p>
+        <p class="text">{{'ratingPage.text' | translate}}</p>
         <hr class="hr">
         <img class="img" *ngIf="driverImg" [src]="url+driverImg" alt="">
         <img class="img" *ngIf="!driverImg" src="assets/profile.png" alt="">
-        <p class="text">{{'ratingPage.rate' | translate:params}} {{driverName}}</p>
+        <p class="text">{{'ratingPage.rate' | translate}} {{driverName}}</p>
         <ion-item class="ion-no-padding" color="transparent" lines="none">
           <ion-label class="ion-text-nowrap" style="text-align: right;" color="medium">
-            {{'ratingPage.addFav' | translate:params}}
+            {{'ratingPage.addFav' | translate}}
           </ion-label>
           <ion-checkbox [(ngModel)]="favrouiteDriver" color="medium" slot="end"></ion-checkbox>
         </ion-item>
@@ -31,7 +31,7 @@
           <ion-icon (click)="func(5)" [name]="condi5? 'star' : 'star-outline'"></ion-icon>
         </p>
         <ion-button expand="block" (click)="onSubmitClick()" color="medium">
-          {{'ratingPage.submit' | translate:params}}
+          {{'ratingPage.submit' | translate}}
         </ion-button>
       </ion-card>
     </ion-slide>

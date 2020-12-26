@@ -10,7 +10,7 @@
 <ion-content>
   <ion-slides *ngIf="myJourneys.length === 0" class="swiper-no-swiping" style="height: 100%;">
     <ion-slide>
-      <p class="noJourney">{{'myJourneysPage.noRide' | translate:params}}</p>
+      <p class="noJourney">{{'myJourneysPage.noRide' | translate}}</p>
     </ion-slide>
   </ion-slides>
   <ion-card *ngFor="let item of myJourneys" mode="ios" (click)="openJourney(item)" routerLink="/journey-details">
@@ -24,15 +24,15 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <p class="title">{{'myJourneysPage.journeyTo' | translate:params}} {{item.destination}}</p>
+    <p class="title">{{'myJourneysPage.journeyTo' | translate}} {{item.destination}}</p>
     <ion-grid>
       <ion-row>
         <ion-col size="6">
-          <p class="status" *ngIf="item.status == 'completed'" [style.color]="item.status == 'completed'?'green':'red'">{{'myJourneysPage.complete' | translate:params}}</p>
-          <p class="status" *ngIf="item.status !== 'completed'" [style.color]="item.status !== 'completed'?'red':'green'">{{'myJourneysPage.cancelled' | translate:params}}</p>
+          <p class="status" *ngIf="item.status == 'completed'" [style.color]="item.status == 'completed'?'green':'red'">{{'myJourneysPage.complete' | translate}}</p>
+          <p class="status" *ngIf="item.status !== 'completed'" [style.color]="item.status !== 'completed'?'red':'green'">{{'myJourneysPage.cancelled' | translate}}</p>
         </ion-col>
         <ion-col size="6">
-          <p class="detail">{{'myJourneysPage.seeDetails' | translate:params}} </p>
+          <p class="detail">{{'myJourneysPage.seeDetails' | translate}} </p>
         </ion-col>
       </ion-row>
     </ion-grid>

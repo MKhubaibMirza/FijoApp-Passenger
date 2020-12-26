@@ -30,7 +30,6 @@ export class PaymentMethodsPage implements OnInit {
   savedcards = [];
   ionViewWillEnter() {
     this.paymentService.GetPaymentMethodOfPassenger().subscribe((resp: any) => {
-      console.log(resp);
       if (resp.length == 0) {
         this.PaymentMethodFound = false;
       } else {
@@ -70,7 +69,6 @@ export class PaymentMethodsPage implements OnInit {
           text: 'Delete',
           handler: () => {
             this.paymentService.deletePaymentMethod(item.id).subscribe((resp: any) => {
-              console.log(resp);
               this.presentToast('Deleted Successfully');
               this.ionViewWillEnter();
             })

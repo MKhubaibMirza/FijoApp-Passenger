@@ -19,15 +19,15 @@ export class HelpPage implements OnInit {
   ionViewWillEnter() {
   }
   openPrivacyPolicy() {
-    const options: DocumentViewerOptions = {
-      title: 'Privacy Policy'
-    }
-    this.document.viewDocument('assets/Fijotaxi_PassengerPrivacyPolicy_English.pdf', 'application/pdf', options)
+    // const options: DocumentViewerOptions = {
+    //   title: 'Privacy Policy'
+    // }
+    // this.document.viewDocument('assets/Fijotaxi_PassengerPrivacyPolicy_English.pdf', 'application/pdf', options)
   }
   openTermsAndCondition() {
-    const options: DocumentViewerOptions = {
-      title: 'Terms And Condition'
-    }
-    this.document.viewDocument('assets/Fijotaxi_PassengerPrivacyPolicy_English.pdf', 'application/pdf', options)
+    // const options: DocumentViewerOptions = {
+    //   title: 'Terms And Condition'
+    // }
+    // this.document.viewDocument('assets/Fijotaxi_PassengerPrivacyPolicy_English.pdf', 'application/pdf', options)
   }
 }

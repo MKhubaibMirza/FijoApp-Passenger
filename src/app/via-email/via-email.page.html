@@ -1,7 +1,7 @@
 <ion-content>
 
   <ion-buttons class="ionbtns">
-    <ion-back-button slot="start" color='medium' defaultHref='' [text]="'viaEmail.loginViaPhone' | translate:params"
+    <ion-back-button slot="start" color='medium' defaultHref='' [text]="'viaEmail.loginViaPhone' | translate"
       mode='ios'>
     </ion-back-button>
   </ion-buttons>
@@ -9,24 +9,24 @@
   <div class="top">
 
     <ion-grid fixed>
-      <p class="firsttext">{{'viaEmail.preferedEmail' | translate:params}}</p>
+      <p class="firsttext">{{'viaEmail.preferedEmail' | translate}}</p>
 
       <ion-row>
         <ion-input class="input" type="email" [(ngModel)]='data.email' class="ion-no-margin"
-          placeholder="{{'viaEmail.enterEmail' | translate:params}}">
+          placeholder="{{'viaEmail.enterEmail' | translate}}">
         </ion-input>
       </ion-row>
 
       <br>
-      <p class="sendcode">{{'viaEmail.verificationCode' | translate:params}}</p>
+      <p class="sendcode">{{'viaEmail.verificationCode' | translate}}</p>
       <br>
       <ion-button (click)="next()">
-        {{'viaEmail.next' | translate:params}}
+        {{'viaEmail.next' | translate}}
       </ion-button>
-      <p class="lasttext">{{'viaPhonePage.continueText' | translate:params}}
-        <span>{{'viaPhonePage.privacy' | translate:params}}</span>
-        {{'viaPhonePage.and' | translate:params}}
-        <span>{{'viaPhonePage.terms' | translate:params}}</span></p>
+      <p class="lasttext">{{'viaPhonePage.continueText' | translate}}
+        <span>{{'viaPhonePage.privacy' | translate}}</span>
+        {{'viaPhonePage.and' | translate}}
+        <span>{{'viaPhonePage.terms' | translate}}</span></p>
     </ion-grid>
   </div>
 
@@ -34,7 +34,7 @@
 
     <div class="center">
       <div class="divider-line-x"><span>
-          {{'viaEmail.or' | translate:params}}
+          {{'viaEmail.or' | translate}}
         </span></div>
     </div>
 

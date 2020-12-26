@@ -29,7 +29,7 @@ export class AppComponent {
     public modalController: ModalController,
     private menuController: MenuController,
     public passengerService: PassengerService,
-    public translateService: TranslateConfigService,
+    public translateConfigService: TranslateConfigService,
     public socialService: SocialAuthService,
     public nav: NavController
   ) {
@@ -42,8 +42,8 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
       this.locService.checkGPSPermission();
-      if (this.translateService.selectedLanguage() == undefined) {
-        this.translateService.setLanguage('en');
+      if (this.translateConfigService.selectedLanguage() == undefined) {
+        this.translateConfigService.setLanguage('en');
       }
       if (this.platform.is('cordova')) {
         this.setupPush();
@@ -64,10 +64,6 @@ export class AppComponent {
           }
         }
       })
-      this.menuController.enable(true);
-    } else {
-      console.log('enable  == false')
-      this.menuController.enable(false);
     }
   }
   closeApp() {
@@ -120,17 +116,17 @@ export class AppComponent {
     })
     alert.present();
   }
-  getCurrentLanguage(){
-    return this.translateService.selectedLanguage();
+  getCurrentLanguage() {
+    return this.translateConfigService.selectedLanguage();
   }
   navlist = [
-    { title: 'Home', icon: 'home', route: '/home', },
-    { title: 'My Journeys', icon: 'car', route: '/my-journeys', },
-    { title: 'Payment Methods', icon: 'cash', route: '/payment-methods', },
-    { title: 'My Account', icon: 'person', route: '/profile', },
-    { title: 'Change Language', icon: 'language', route: '/lang', },
-    { title: 'Invite Friends', icon: 'person-add', route: '/inviteFakePath', },
-    { title: 'Help', icon: 'help-circle', route: '/help', },
+    { title: 'home', icon: 'home', route: '/home', },
+    { title: 'myJourney', icon: 'car', route: '/my-journeys', },
+    { title: 'paymentMethods', icon: 'cash', route: '/payment-methods', },
+    { title: 'myAccount', icon: 'person', route: '/profile', },
+    { title: 'changeLanguage', icon: 'language', route: '/lang', },
+    { title: 'inviteFriends', icon: 'person-add', route: '/inviteFakePath', },
+    { title: 'Help', icon: 'help-circle', route: '/help', }
   ]
 
   route(r) {
@@ -145,7 +141,7 @@ export class AppComponent {
     }
   }
   async changeLanguage() {
-    let selectedLang = this.translateService.selectedLanguage();
+    let selectedLang = this.translateConfigService.selectedLanguage();
     let isEn = false;
     let isSp = false;
     if (selectedLang == 'en') {
@@ -182,7 +178,7 @@ export class AppComponent {
         }, {
           text: 'Ok',
           handler: (val) => {
-            this.translateService.setLanguage(val);
+            this.translateConfigService.setLanguage(val);
             console.log(val, 'Confirm Ok');
           }
         }

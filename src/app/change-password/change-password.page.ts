@@ -30,13 +30,11 @@ export class ChangePasswordPage implements OnInit {
       this.presentToast('Please Fill all the Fields!')
     } else {
       if (this.password.new == this.password.confirm) {
-        console.log(this.password)
         let id = JSON.parse(localStorage.getItem('user')).id
         let data = {
           oldpassword: this.password.old,
           newpassword: this.password.new
         }
-        console.log(id, data)
         this.presentLoading()
         this.passengerService.changePasswrod(id, data).subscribe((resp: any) => {
           this.loading.dismiss()

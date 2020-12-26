@@ -1,10 +1,10 @@
 <div class="inner-content" *ngIf="!IsSaving" class="ion-padding" scrollY="false">
   <p class="title">
     <b>
-      {{'askPayWay.howLikeToPay' | translate:params}}
+      {{'askPayWay.howLikeToPay' | translate}}
     </b>
   </p>
-  <p class="subtitle" (click)="addpaymentmethod()">{{'askPayWay.addPay' | translate:params}}</p>
+  <p class="subtitle" (click)="addpaymentmethod()">{{'askPayWay.addPay' | translate}}</p>
   <br>
   <ion-grid class="ion-no-padding">
     <ion-row (click)="onSelect('1')" class="row ion-no-padding">
@@ -12,7 +12,7 @@
         <ion-icon class="icon" name="card-outline"></ion-icon>
       </ion-col>
       <ion-col size="8">
-        <p class="text">{{'askPayWay.viaCard' | translate:params}}</p>
+        <p class="text">{{'askPayWay.viaCard' | translate}}</p>
       </ion-col>
       <ion-col size="2">
         <ion-icon class="chevron" name="chevron-forward-outline"></ion-icon>
@@ -23,7 +23,7 @@
         <ion-icon class="icon" name="cash-outline"></ion-icon>
       </ion-col>
       <ion-col size="8">
-        <p class="text">{{'askPayWay.viaCash' | translate:params}}</p>
+        <p class="text">{{'askPayWay.viaCash' | translate}}</p>
       </ion-col>
       <ion-col size="2">
         <ion-icon class="chevron" name="chevron-forward-outline"></ion-icon>
@@ -35,7 +35,7 @@
   <ion-spinner name="lines"></ion-spinner>
   <p class="savetitle">
     <b>
-      {{'askPayWay.savingMethod' | translate:params}}
+      {{'askPayWay.savingMethod' | translate}}
     </b>
   </p>
   <br>

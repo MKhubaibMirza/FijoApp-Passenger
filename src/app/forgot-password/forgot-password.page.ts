@@ -3,6 +3,7 @@ import { ToastController, MenuController } from "@ionic/angular";
 import { AlertController } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { PassengerService } from '../services/passenger.service';
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.page.html',
@@ -14,10 +15,15 @@ export class ForgotPasswordPage implements OnInit {
     public passengerService: PassengerService,
     public r: Router,
     public alertController: AlertController,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public t: TranslateService
   ) {
+    t.get("forgotPasswordPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
   }
-
+  respFromLanguage: any;
   ngOnInit() { }
   ionViewWillEnter() {
     this.EmailMilgia = false;
@@ -62,35 +68,32 @@ export class ForgotPasswordPage implements OnInit {
   EmailCheker() {
     if (this.verifyEmail.email !== "") {
       this.passengerService.forgot(this.verifyEmail).subscribe((resp: any) => {
-        console.log(resp);
         if (resp.passenger) {
           this.secreatCodeVerifeir = true;
           this.EmailMilgia = true;
           this.UserGLOBAL_DATA = resp.passenger;
           this.verifycode = resp.verificationCode;
           this.presentAlert(
-            "Check You E-Mail",
-            "Please copy 8 word secret code from your email."
+            this.respFromLanguage.checkEmail,
+            this.respFromLanguage.copy
           );
-          console.log(this.UserGLOBAL_DATA);
         } else if (resp.message === "Email does not exit") {
-          this.presentToast("* Email does not exists. TRY AGAIN !");
+          this.presentToast(this.respFromLanguage.noExist);
         }
       });
     } else {
-      this.presentToast("Please Enter You Email");
+      this.presentToast(this.respFromLanguage.enterEmailPlz);
     }
   }
   verifierCodeOfpass() {
     if (this.secreatCode.code === "") {
-      this.presentToast("Please enter code");
+      this.presentToast(this.respFromLanguage.enterCodePlz);
     } else {
-      console.log(this.secreatCode.code, this.verifycode)
       if (this.secreatCode.code == this.verifycode) {
         this.secreatCodeVerifeir = false;
         this.Change_Pass_Word = true;
       } else {
-        this.presentToast("Code Does Not Match.");
+        this.presentToast(this.respFromLanguage.codeNoMatch);
       }
     }
   }
@@ -105,19 +108,18 @@ export class ForgotPasswordPage implements OnInit {
 
   ChangePassword() {
     if ((this.ChangePass.confPass && this.ChangePass.password) === "") {
-      this.presentToast("Please fill all the fields.");
+      this.presentToast(this.respFromLanguage.fillPlz);
     } else if (this.ChangePass.confPass !== this.ChangePass.password) {
-      this.presentToast("Password does not match with each other.");
+      this.presentToast(this.respFromLanguage.wrongPass);
     } else {
       this.passengerService
         .changepass(this.ChangePass, this.UserGLOBAL_DATA.id)
         .subscribe((respo: any) => {
-          console.log(respo);
           localStorage.setItem("user", JSON.stringify(this.UserGLOBAL_DATA));
           localStorage.removeItem('TempUser');
           this.presentAlert(
-            "Successfull",
-            "Your password has been successfully updated."
+            this.respFromLanguage.successfull,
+            this.respFromLanguage.successfullChange
           );
           this.r.navigate(["/home"]);
         });

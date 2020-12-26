@@ -28,13 +28,11 @@ export class ContactUsPage implements OnInit {
   }
 
   submit() {
-    console.log(this.contact)
     if ((this.contact.subject && this.contact.message) == '') {
       this.presentToast('Please fill both the fields')
     } else {
       this.presentLoading()
       this.service.createContactUs(this.contact).subscribe((resp: any) => {
-        console.log(resp)
         this.loadingController.dismiss()
         if (resp) {
           this.presentToast('Message Recieved! Thank you for using FIJO');
