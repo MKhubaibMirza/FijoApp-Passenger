@@ -3,6 +3,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { PassengerService } from './passenger.service';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,8 @@ export class LocationService {
     public geolocation: Geolocation,
     public androidPermissions: AndroidPermissions,
     public locationAccuracy: LocationAccuracy,
-    public passengerService: PassengerService
+    public passengerService: PassengerService,
+    public r: Router
   ) {
   }
   //Check if application having GPS access permission  
@@ -46,6 +48,7 @@ export class LocationService {
             },
             error => {
               //Show alert if user click on 'No Thanks'
+              navigator['app'].exitApp();
             }
           );
       }
@@ -56,8 +59,12 @@ export class LocationService {
       () => {
         // When GPS Turned ON call method to get Accurate location coordinates
         this.TrackPassengerLocation();
-      },
-      error => {}
+        if (localStorage.getItem('user')) {
+          this.r.navigate(['/home']);
+        } else {
+          this.r.navigate(['/select-language']);
+        }
+      }
     );
   }
   TrackingCounter = 0;
@@ -73,7 +80,7 @@ export class LocationService {
         };
         if (localStorage.getItem('user')) {
           let id = JSON.parse(localStorage.getItem('user')).id;
-          this.passengerService.updatePassengerLocation(locObj, id).subscribe((resp: any) => {})
+          this.passengerService.updatePassengerLocation(locObj, id).subscribe((resp: any) => { })
         }
       }
     });

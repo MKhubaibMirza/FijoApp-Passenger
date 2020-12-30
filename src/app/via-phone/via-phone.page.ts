@@ -5,6 +5,8 @@ import { DataService } from '../services/data.service';
 import { PassengerService } from '../services/passenger.service';
 import * as firebase from 'firebase';
 import { TranslateService } from '@ngx-translate/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 
 @Component({
   selector: 'app-via-phone',
@@ -20,26 +22,46 @@ export class ViaPhonePage implements OnInit {
     private passangerService: PassengerService,
     private loadingController: LoadingController,
     private alertController: AlertController,
+    public geolocation: Geolocation,
+    public nativeGeocoder: NativeGeocoder,
     public t: TranslateService
   ) {
     t.get("viaPhonePage").subscribe((resp: any) => {
       console.log(resp);
       this.respFromLanguage = resp;
     });
+
   }
   respFromLanguage: any;
-  ngOnInit() {
+  private geoCoder;
+
+  async ngOnInit() {
+    this.windowRef = await window;
+    this.windowRef.recaptchaVerifier = await new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      'size': 'invisible',
+      'callback': (response) => {
+      }
+    });
+    await this.windowRef.recaptchaVerifier.render();
   }
 
   windowRef: any;
   verifCode: any;
   async ionViewWillEnter() {
-    this.windowRef = await window;
-    this.windowRef.recaptchaVerifier = await new firebase.auth.RecaptchaVerifier('recaptcha-container');
-    await this.windowRef.recaptchaVerifier.render()
+    this.geolocation.getCurrentPosition().then((resp: any) => {
+      this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
+        .then((result: NativeGeocoderResult[]) => {
+          this.d.getContryCodeAndFlag(result[0].countryName).subscribe((resp: any) => {
+            console.log(resp[0].flag);
+            this.data.phoneNumber = resp[0].callingCodes[0];
+            this.countryData.flag = resp[0].flag;
+          })
+        })
+    })
+
   }
 
-  countryData: any;
+  countryData = { flag: '' };
 
   data = {
     phoneNumber: ''
@@ -97,7 +119,7 @@ export class ViaPhonePage implements OnInit {
               this.countryData = resp[0]
             }
           }, err => {
-            this.countryData = [];
+            this.countryData = { flag: '' };
             if (JSON.stringify(this.data.phoneNumber).length > 1) {
             }
           })
@@ -112,7 +134,7 @@ export class ViaPhonePage implements OnInit {
         }
       }
     } else {
-      this.countryData = [];
+      this.countryData = { flag: '' };
     }
   }
 

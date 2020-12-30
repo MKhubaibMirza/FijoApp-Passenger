@@ -72,19 +72,19 @@ export class SignupPage implements OnInit {
 
   getLocation() {
     let currentlatitude = 0
-    let currentlongitute = 0
+    let currentlongitude = 0
 
     // geolocation geolocation geolocation geolocation 
     this.geolocation.getCurrentPosition().then((resp: any) => {
       currentlatitude = resp.coords.latitude;
-      currentlongitute = resp.coords.longitute;
+      currentlongitude = resp.coords.longitude;
     }).catch((error) => {
     })
     let options: NativeGeocoderOptions = {
       useLocale: true,
       maxResults: 5
     };
-    this.nativeGeocoder.reverseGeocode(currentlatitude, currentlongitute)
+    this.nativeGeocoder.reverseGeocode(currentlatitude, currentlongitude)
       .then((result: NativeGeocoderResult[]) => {
         this.signupData.city = result[0].locality;
         this.signupData.address = result[0].subLocality + ' ' + result[0].thoroughfare;

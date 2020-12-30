@@ -1,6 +1,7 @@
 import { MapsAPILoader } from '@agm/core';
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -15,7 +16,14 @@ export class FavDestPage implements OnInit {
     public alertController: AlertController,
     public d: DataService,
     private ngZone: NgZone,
-  ) { }
+    public t: TranslateService
+  ) {
+    t.get("myFavDestinationPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+  }
+  respFromLanguage: any;
   @ViewChild('search')
   public searchElementRef: ElementRef;
   destination = '';
@@ -41,22 +49,22 @@ export class FavDestPage implements OnInit {
   dest = [];
   async presentAlertConfirm(destination) {
     const alert = await this.alertController.create({
-      header: 'Favourite Destinations',
-      message: 'Are you sure you want to add this location into your favourite destinations?',
+      header: this.respFromLanguage.favouriteDestinations,
+      message: this.respFromLanguage.sure,
       inputs: [{
         name: 'title',
         type: 'text',
-        placeholder: 'Title'
+        placeholder: this.respFromLanguage.AlrtTitle
       }],
       buttons: [
         {
-          text: 'Cancel',
+          text: this.respFromLanguage.cancel,
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
           }
         }, {
-          text: 'Okay',
+          text: this.respFromLanguage.okay,
           handler: (value) => {
             if (value.title == '') {
               return false;

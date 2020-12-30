@@ -10,6 +10,7 @@ ion-content {
     text-align: center;
     color: white;
     padding: 0;
+
     .firsttext {
         font-size: 20px;
 
@@ -22,16 +23,26 @@ ion-content {
         ion-col {
             border: 3px solid #ffff00;
             padding: 0;
+
             .icons {
                 ion-grid {
                     padding: 0;
                 }
+
                 .line {
                     width: 1px;
                     height: 45px;
                     background-color: #ffff00;
                     margin-left: auto;
                     margin-right: auto;
+                }
+
+                img {
+                    width: 100px;
+                    height: 57px;
+                    position: relative;
+                    top: 3px;
+                    object-fit: cover;
                 }
             }
 
@@ -40,7 +51,7 @@ ion-content {
                 background: white;
                 text-align: left;
                 font-size: 20px;
-                height: 60px;
+                height: 63px;
                 --placeholder-color: white
             }
         }
@@ -61,7 +72,7 @@ ion-content {
 .bottom {
     position: absolute;
     width: 100%;
-    bottom: 50px;
+    bottom: 100px;
 
     ion-button {
         width: 90%;

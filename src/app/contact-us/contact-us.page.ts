@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -14,9 +15,15 @@ export class ContactUsPage implements OnInit {
     private toastController: ToastController,
     public r: Router,
     private service: DataService,
+    public t: TranslateService,
     private loadingController: LoadingController,
-  ) { }
-
+  ) {
+    t.get("contactUsPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+  }
+  respFromLanguage: any;
   ngOnInit() {
   }
 
@@ -29,13 +36,13 @@ export class ContactUsPage implements OnInit {
 
   submit() {
     if ((this.contact.subject && this.contact.message) == '') {
-      this.presentToast('Please fill both the fields')
+      this.presentToast(this.respFromLanguage.fillPlz)
     } else {
       this.presentLoading()
       this.service.createContactUs(this.contact).subscribe((resp: any) => {
         this.loadingController.dismiss()
         if (resp) {
-          this.presentToast('Message Recieved! Thank you for using FIJO');
+          this.presentToast(this.respFromLanguage.received);
           this.r.navigate(['/home']);
           this.contact = {
             message: '',
@@ -50,7 +57,7 @@ export class ContactUsPage implements OnInit {
 
   async presentLoading() {
     const loading = await this.loadingController.create({
-      message: 'Please wait...',
+      message: this.respFromLanguage.loading,
       duration: 2000,
       spinner: 'dots'
     });

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, MenuController, Platform, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { PaymentService } from '../services/payment.service';
 
 @Component({
@@ -12,10 +13,11 @@ export class PaymentMethodsPage implements OnInit {
   constructor(
     public toastController: ToastController,
     public alertController: AlertController,
-    public paymentService: PaymentService
+    public paymentService: PaymentService,
+    public t: TranslateService
   ) {
   }
-
+  respFromLanguage: any;
   ngOnInit() {
   }
   PaymentMethodFound = false;
@@ -55,21 +57,25 @@ export class PaymentMethodsPage implements OnInit {
     return number.toString().replace(/\d{4}(?=.)/g, '$& ');
   }
   async deleteCard(item) {
+    this.t.get("paymentMethodPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Delete Payment Method',
-      message: 'Are you sure you want to delete it?',
+      header: this.respFromLanguage.deletePaymentMethod,
+      message: this.respFromLanguage.sure,
       buttons: [
         {
-          text: 'Cancel',
+          text: this.respFromLanguage.cancel,
           role: 'cancel',
           handler: (blah) => {
           }
         }, {
-          text: 'Delete',
+          text: this.respFromLanguage.delete,
           handler: () => {
             this.paymentService.deletePaymentMethod(item.id).subscribe((resp: any) => {
-              this.presentToast('Deleted Successfully');
+              this.presentToast(this.respFromLanguage.deletedSuccessfully);
               this.ionViewWillEnter();
             })
           }

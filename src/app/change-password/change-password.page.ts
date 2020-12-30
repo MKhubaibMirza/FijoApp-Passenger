@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, MenuController, ModalController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { PassengerService } from '../services/passenger.service';
 
 @Component({
@@ -13,9 +14,15 @@ export class ChangePasswordPage implements OnInit {
     private passengerService: PassengerService,
     private modal: ModalController,
     private loading: LoadingController,
+    public t: TranslateService,
     private toastController: ToastController,
-  ) { }
-
+  ) {
+    t.get("changePasswordModal").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+  }
+  respFromLanguage: any;
   ngOnInit() {
   }
 
@@ -27,7 +34,7 @@ export class ChangePasswordPage implements OnInit {
 
   onChangePasswordClick() {
     if ((this.password.new && this.password.old && this.password.confirm) == '') {
-      this.presentToast('Please Fill all the Fields!')
+      this.presentToast(this.respFromLanguage.fillPlz)
     } else {
       if (this.password.new == this.password.confirm) {
         let id = JSON.parse(localStorage.getItem('user')).id
@@ -39,14 +46,14 @@ export class ChangePasswordPage implements OnInit {
         this.passengerService.changePasswrod(id, data).subscribe((resp: any) => {
           this.loading.dismiss()
           if (resp.message == 'Password updated successfully') {
-            this.presentToast(resp.message)
+            this.presentToast(this.respFromLanguage.updatedSuccessfully)
             this.modal.dismiss()
           } else if (resp.message == "Oops Password not updated") {
-            this.presentToast('You current password does not matched');
+            this.presentToast(this.respFromLanguage.noMatchedCurrent);
           }
         })
       } else {
-        this.presentToast('Both Password not Match!')
+        this.presentToast(this.respFromLanguage.noMatched)
       }
     }
   }
@@ -55,7 +62,7 @@ export class ChangePasswordPage implements OnInit {
   async presentLoading() {
     const loading = await this.loading.create({
       duration: 8000,
-      message: 'Please wait...',
+      message: this.respFromLanguage.loading,
     });
     await loading.present();
   }

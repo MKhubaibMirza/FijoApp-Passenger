@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import io from 'socket.io-client';
 import { environment } from 'src/environments/environment.prod';
 import { DriverService } from '../services/driver.service';
@@ -18,9 +19,15 @@ export class CancelReasonPage implements OnInit {
     public alertController: AlertController,
     public driverService: DriverService,
     public passengerService: PassengerService,
-    public r: Router
-  ) { }
-
+    public r: Router,
+    public t: TranslateService
+  ) {
+    t.get("cancelReasonPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+  }
+  respFromLanguage: any;
   ngOnInit() {
   }
   close() {
@@ -55,10 +62,10 @@ export class CancelReasonPage implements OnInit {
     localStorage.removeItem('paymentMethods');
     localStorage.removeItem('paid');
     const alert = await this.alertController.create({
-      header: 'Ride Cancelled',
-      message: 'Dear ' + name + ' your ride is cancelled due to <br>"' + reason + '"',
+      header: this.respFromLanguage.rideCancelTitle,
+      message: this.respFromLanguage.dear + ' ' + name + ' ' + this.respFromLanguage.rideCancelMessage + '<br>"' + reason + '"',
       buttons: [{
-        text: 'Okay',
+        text: this.respFromLanguage.Okay,
         handler: () => {
         }
       }]

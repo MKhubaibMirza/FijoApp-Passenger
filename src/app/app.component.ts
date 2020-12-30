@@ -10,6 +10,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { PassengerService } from './services/passenger.service';
 import { TranslateConfigService } from './services/translate-config.service';
 import { SocialAuthService } from './services/social-auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ export class AppComponent {
     public passengerService: PassengerService,
     public translateConfigService: TranslateConfigService,
     public socialService: SocialAuthService,
+    public t: TranslateService,
     public nav: NavController
   ) {
     this.closeApp();
@@ -41,7 +43,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
-      this.locService.checkGPSPermission();
       if (this.translateConfigService.selectedLanguage() == undefined) {
         this.translateConfigService.setLanguage('en');
       }
@@ -73,6 +74,8 @@ export class AppComponent {
       } else if (this.r.url == '/tracking') {
         // Nothing to do here
       } else if (this.r.url == '/add-payment-method') {
+        // Nothing to do here
+      } else if (this.r.url == '/') {
         // Nothing to do here
       } else {
         this.nav.back();
@@ -120,7 +123,7 @@ export class AppComponent {
     return this.translateConfigService.selectedLanguage();
   }
   navlist = [
-    { title: 'home', icon: 'home', route: '/home', },
+    // { title: 'home', icon: 'home', route: '/home', },
     { title: 'myJourney', icon: 'car', route: '/my-journeys', },
     { title: 'paymentMethods', icon: 'cash', route: '/payment-methods', },
     { title: 'myAccount', icon: 'person', route: '/profile', },
@@ -141,7 +144,12 @@ export class AppComponent {
     }
   }
   async changeLanguage() {
+    let respFromLanguage;
     let selectedLang = this.translateConfigService.selectedLanguage();
+    this.t.get("sideMenu").subscribe((resp: any) => {
+      console.log(resp);
+      respFromLanguage = resp;
+    });
     let isEn = false;
     let isSp = false;
     if (selectedLang == 'en') {
@@ -150,7 +158,7 @@ export class AppComponent {
       isSp = true;
     }
     const alert = await this.alertCtrl.create({
-      header: 'Change Language',
+      header: respFromLanguage.changeLanguage,
       inputs: [
         {
           name: 'english',
@@ -169,14 +177,14 @@ export class AppComponent {
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: respFromLanguage.cancel,
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
             console.log('Confirm Cancel');
           }
         }, {
-          text: 'Ok',
+          text: respFromLanguage.okay,
           handler: (val) => {
             this.translateConfigService.setLanguage(val);
             console.log(val, 'Confirm Ok');
@@ -203,8 +211,13 @@ export class AppComponent {
     this.socialService.logOut();
   }
   sendInvitation() {
+    let respFromLanguage;
+    this.t.get("sideMenu").subscribe((resp: any) => {
+      console.log(resp);
+      respFromLanguage = resp;
+    });
     let url = 'https://play.google.com/store/apps/details?id=com.fijotaxi.passenger';
-    let message = this.getName() + ' has invited you to join FIJO TAXI App.';
+    let message = this.getName() + respFromLanguage.invite;
     console.log(url);
     console.log(message);
     this.socialSharing.share(message, 'Fijo Taxi', null, url).then(res => {

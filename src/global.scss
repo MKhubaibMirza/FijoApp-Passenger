@@ -26,16 +26,19 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 * {
-    // font-family: 'Anonymous Pro', monospace;
     font-family: 'Andika New Basic', sans-serif;
 }
 
+.grecaptcha-badge {
+    display: none !important;
+}
+
 ion-label {
-    font-family: 'Anonymous Pro', monospace !important;
+    font-family: 'Andika New Basic', sans-serif !important;
 }
 
 ion-input {
-    font-family: 'Anonymous Pro', monospace !important;
+    font-family: 'Andika New Basic', sans-serif !important;
 }
 
 .askpayway {
@@ -207,7 +210,7 @@ ion-input {
 }
 
 .changepassword .modal-wrapper {
-    height: 390px;
+    height: 450px;
     background: #006600;
     position: absolute;
     bottom: 10px;
@@ -226,8 +229,9 @@ ion-input {
 .alert-class {
     --background: #ffff00;
 }
-.tripStarted{
-    .alert-message.sc-ion-alert-md{
+
+.tripStarted {
+    .alert-message.sc-ion-alert-md {
         max-height: none !important;
     }
 }

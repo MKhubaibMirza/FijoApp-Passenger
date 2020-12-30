@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { PaymentService } from '../services/payment.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-tracking',
@@ -38,8 +39,8 @@ export class TrackingPage {
   isSearching = false;
   isTripStarted = false;
   totaltime = '';
-  endTripCounter = 0;
-  startTripCounter = 0;
+  endTripCounter = false;
+  startTripCounter = false;
   url = environment.baseUrl;
   async presentLoading() {
     const loading = await this.loadingController.create({
@@ -60,9 +61,15 @@ export class TrackingPage {
     public router: Router,
     public toastController: ToastController,
     public geolocation: Geolocation,
-    public menuControl: MenuController
+    public menuControl: MenuController,
+    public t: TranslateService
   ) {
+    t.get("trackingPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
   }
+  respFromLanguage: any;
   afterTripStart() {
     if (!localStorage.getItem('paid')) {
       let PayVia = JSON.parse(localStorage.getItem('findDriverObj')).paymentVia;
@@ -87,11 +94,11 @@ export class TrackingPage {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       backdropDismiss: false,
-      header: 'Please confirm your payment.',
+      header: this.respFromLanguage.pleaseconfirmyourpayment,
       inputs: inputsArray,
       buttons: [
         {
-          text: 'Continue Via Cash',
+          text: this.respFromLanguage.continueViaCash,
           handler: (val) => {
             // Socket emit to change payment Via
             this.paymentMethodChange();
@@ -103,7 +110,7 @@ export class TrackingPage {
           }
         },
         {
-          text: 'Continue Via Card',
+          text: this.respFromLanguage.continueViaCard,
           handler: (val) => {
             this.presentLoading();
             this.paymentService.checkCard(val).then((resp: any) => {
@@ -115,15 +122,15 @@ export class TrackingPage {
                 if (resp.data !== null) {
                   localStorage.setItem('paid', 'true');
                   let price = JSON.parse(localStorage.getItem('FindDriverObj')).exactPriceForPassenger;
-                  this.tripStart_Or_PaymentRepeater_Or_AlertShower(price + '&euro; is successfully charged from your card.');
+                  this.tripStart_Or_PaymentRepeater_Or_AlertShower(price + '&euro; ' + this.respFromLanguage.successfullycharged);
                 } else {
                   // repeat payment procedure ------------
-                  this.tripStart_Or_PaymentRepeater_Or_AlertShower('Something went wrong with your payment method. Plase choose a different card to continue');
+                  this.tripStart_Or_PaymentRepeater_Or_AlertShower(this.respFromLanguage.somethingWrong);
                 }
                 this.loadingController.dismiss();
               })
             }).catch(err => {
-              this.tripStart_Or_PaymentRepeater_Or_AlertShower(err + ' Plase choose a different card or pay via cash.');
+              this.tripStart_Or_PaymentRepeater_Or_AlertShower(err + ' ' + this.respFromLanguage.useDiffCard);
               return false;
             });
           }
@@ -135,10 +142,10 @@ export class TrackingPage {
   }
   async paymentMethodChange() {
     const alert = await this.alertController.create({
-      header: 'Payment Method Changed!',
-      message: 'You have changed your payment method from card to cash.',
+      header: this.respFromLanguage.payChanged,
+      message: this.respFromLanguage.changedSubtitle,
       buttons: [{
-        text: 'Continue',
+        text: this.respFromLanguage.Continue,
         handler: () => {
           let localObjectOf_findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
           localObjectOf_findDriverObj.paymentVia = 'cash';
@@ -245,9 +252,10 @@ export class TrackingPage {
     });
     this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
       this.isTripStarted = true;
-      if (this.startTripCounter == 0) {
-        this.startTripCounter = 1;
-        this.tripStart_Or_PaymentRepeater_Or_AlertShower(`Your trip is started. Please read <b>COVID-19</b> SOPs carefully. <br> 
+      if (this.startTripCounter == false) {
+        this.startTripCounter = true;
+        this.tripStart_Or_PaymentRepeater_Or_AlertShower(
+          `Your trip is started. Please read <b>COVID-19</b> SOPs carefully. <br> 
     <p> 
     ⦿ Keep your distance from other people when you travel, where possible. <br>
     ⦿ Avoid making unnecessary stops during your journey. <br>
@@ -258,8 +266,8 @@ export class TrackingPage {
     });
     this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
       localStorage.setItem('tripEnded', 'true');
-      if (this.endTripCounter == 0) {
-        this.endTripCounter = 1;
+      if (this.endTripCounter == false) {
+        this.endTripCounter = true;
         this.RatingModal();
       }
     });
@@ -285,10 +293,10 @@ export class TrackingPage {
   async presentAlert() {
     const alert = await this.alertController.create({
       backdropDismiss: false,
-      header: 'Oops! Not Found',
-      message: 'Sorry we did not found any driver under 7KM. Try Later',
+      header: this.respFromLanguage.Nodriver,
+      message: this.respFromLanguage.sorryText,
       buttons: [{
-        text: 'Okay',
+        text: this.respFromLanguage.okay,
         handler: () => {
           localStorage.removeItem('findDriverObj');
           this.router.navigate(['/home']);
@@ -304,10 +312,10 @@ export class TrackingPage {
     const alert = await this.alertController.create({
       backdropDismiss: false,
       cssClass: 'tripStarted',
-      header: 'Dear ' + name,
+      header: this.respFromLanguage.Dear + ' ' + name,
       message: mes,
       buttons: [{
-        text: 'Continue',
+        text: this.respFromLanguage.Continue,
         handler: () => {
           this.afterTripStart();
         }
@@ -361,10 +369,10 @@ export class TrackingPage {
       this.callNumber.callNumber(Phone, true)
         .then(res => { })
         .catch(err => {
-          this.presentToast('Oops! Something wents wrong');
+          this.presentToast(this.respFromLanguage.opps);
         });
     } else {
-      this.presentToast('Sorry ' + name + ' has no phone option');
+      this.presentToast(this.respFromLanguage.sorry + ' ' + name + ' ' + this.respFromLanguage.noPhone);
     }
   }
   ionViewWillLeave() {
@@ -372,8 +380,8 @@ export class TrackingPage {
     this.isSearching = false;
     this.isTripStarted = false;
     this.totaltime = '';
-    this.endTripCounter = 0;
-    this.startTripCounter = 0;
+    this.endTripCounter = false;
+    this.startTripCounter = false;
     this.menuControl.enable(true);
   }
 }

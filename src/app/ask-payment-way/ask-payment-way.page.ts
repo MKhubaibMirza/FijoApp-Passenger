@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
+import { AddPaymentMethodPage } from '../add-payment-method/add-payment-method.page';
 import { PaymentService } from '../services/payment.service';
 
 @Component({
@@ -62,6 +63,9 @@ export class AskPaymentWayPage implements OnInit {
           this.modal.dismiss();
         }, 1500);
       }
+    }else if(i == 3){
+      this.r.navigate(['/add-payment-method'])
+      this.modal.dismiss();
     } else {
       this.FindDriverObj.paymentVia = 'cash';
       this.IsSaving = true;
@@ -71,9 +75,5 @@ export class AskPaymentWayPage implements OnInit {
         this.modal.dismiss();
       }, 1500);
     }
-  }
-  addpaymentmethod() {
-    this.r.navigate(['/add-payment-method'])
-    this.modal.dismiss();
   }
 }

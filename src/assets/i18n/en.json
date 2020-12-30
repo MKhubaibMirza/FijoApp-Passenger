@@ -17,8 +17,8 @@
         "somethingWrong": "Something Went Wrong! Try Again Later",
         "noExist": "Phone Number Doesn't Exist!",
         "loading": "Loading Please Wait...",
-        "noFound": "Not Found!",
-        "noReg": "You have no Register in Fijo Taxi yet!",
+        "noFound": "User not found!",
+        "noReg": "You have not registered in Fijotaxi yet!",
         "cancel": "Cancel",
         "regNow": "Register Now"
     },
@@ -37,8 +37,8 @@
         "enterEmailAddress": "Please Enter Email Address",
         "emailNoFound": "Email does not exist",
         "loading": "Loading Please Wait...",
-        "noFound": "Not Found!",
-        "noReg": "You have no Register in Fijo Taxi yet!",
+        "noFound": "User not found!",
+        "noReg": "¡Aún no te has registrado en Fijotaxi!",
         "cancel": "Cancel",
         "regNow": "Register Now"
     },
@@ -46,16 +46,16 @@
         "text": "Enter the 6 digit confirmation code that we sent to",
         "btn": "Continue",
 
-        "noCorrect":"The Given code is not Correct!",
+        "noCorrect": "The Given code is not Correct!",
         "loading": "Loading Please Wait..."
     },
     "passwordPage": {
-        "enterPassword": "Enter your Password",
+        "enterPassword": "Enter your password",
         "text": "You'll need it to access your account securely",
         "forgotPassword": "I forgot my password",
         "next": "Next",
 
-        "inCorrect":"Oops! Incorrect Password!"
+        "inCorrect": "Oops! Incorrect Password!"
     },
     "forgotPasswordPage": {
         "forgotPassword": "Forgot Password",
@@ -71,14 +71,14 @@
 
         "checkEmail": "Check Your E-Mail",
         "copy": "Please copy the 6 words secret code from your email",
-        "noExist":"Email does not exist. TRY AGAIN!",
-        "enterEmailPlz":"Please Enter Your Email",
-        "enterCodePlz":"Please enter code",
-        "codeNoMatch":"Code Does Not Match",
-        "fillPlz":"Please fill all the fields",
-        "wrongPass":"Password does not match with each other",
-        "successfull":"Successful",
-        "successfullChange":"Your password has been successfully updated"
+        "noExist": "Email does not exist. TRY AGAIN!",
+        "enterEmailPlz": "Please Enter Your Email",
+        "enterCodePlz": "Please enter code",
+        "codeNoMatch": "Code Does Not Match",
+        "fillPlz": "Please fill all the fields",
+        "wrongPass": "Password does not match with each other",
+        "successfull": "Successful",
+        "successfullChange": "Your password has been successfully updated"
     },
     "sideMenu": {
         "home": "Home",
@@ -88,7 +88,10 @@
         "changeLanguage": "Change Language",
         "inviteFriends": "Invite Friends",
         "Help": "Help",
-        "logout": "Logout"
+        "logout": "Logout",
+        "invite": " has invited you to join FIJO TAXI App.",
+        "okay": "OK",
+        "cancel": "Cancel"
     },
     "homePage": {
         "title": "Fijo Passenger",
@@ -102,7 +105,16 @@
         "fixedPrice": "Fixed Price",
         "generalPurpose": "General Purpose",
         "forHandicaps": "For Handicaps",
-        "orderNow": "Order Now"
+        "orderNow": "Order Now",
+
+        "loading": "Please wait",
+        "selectRide": "Please Select Your Ride",
+        "selectSeats": "Please Select Seating Capacity",
+        "invalidRoute": "Invalid Route. Try Again!",
+        "fixed": "Fixed Price",
+        "sedanN": "General Purpose",
+        "sedanH": "For Handicaps",
+        "enterDestinationPlz": "Please enter your destination"
     },
     "askPayWay": {
         "howLikeToPay": "How would you like to pay?",
@@ -119,9 +131,27 @@
         "onWay": "is on the way",
         "contact": "Contact",
         "call": "Call",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+
+        "pleaseconfirmyourpayment": "Please confirm your payment",
+        "continueViaCash": "Continue Via Cash",
+        "continueViaCard": "Continue Via Card",
+        "successfullycharged": "is successfully charged from your card.",
+        "somethingWrong": "Something went wrong with your payment method. Please choose a different card to continue",
+        "useDiffCard": "Please choose a different card or pay via cash.",
+        "payChanged": "Payment Method Changed!",
+        "changedSubtitle": "You have changed your payment method from card to cash.",
+        "Nodriver": "Oops! Not Found",
+        "sorryText": "Sorry, we did not found any driver under 7KM. Try Later",
+        "okay": "Ok",
+        "Continue": "Continue",
+        "Dear": "Dear",
+        "opps": "Oops! Something wents wrong",
+        "sorry": "Sorry",
+        "noPhone": "has no phone option"
     },
     "myJourneysPage": {
+        "title": "My Journeys",
         "noRide": "You have No Journey Yet",
         "complete": "Completed",
         "cancelled": "Cancelled",
@@ -142,20 +172,35 @@
         "addPaymentMethod": "Add Payment Method",
         "storedSecurely": "Your payment information will be stored securely",
         "noPayMethod": "No Payment Method Saved yet!",
-        "btn": "Add Another Payment Method"
+        "btn": "Add Another Payment Method",
+
+        "deletePaymentMethod": "Delete Payment Method",
+        "sure": "Are you sure you want to delete it?",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "deletedSuccessfully": "Deleted Successfully"
     },
     "addPaymentCardPage": {
         "title": "Add Payment Card",
         "cardNumber": "Card Number",
         "expDate": "Expiry Date",
         "storedSecurely": "Your payment information will be stored securely",
-        "save": "SAVE"
+        "save": "SAVE",
+
+        "loading": "Please wait...",
+        "ok": "OK",
+        "successfullySaved": "Successfully Saved",
+        "dear": "Dear",
+        "your": "Your",
+        "storedsecurely": "stored securely",
+        "error": "Error",
+        "fillPlz": "Please Fill All The Fields"
     },
     "profilePage": {
         "title": "My Profile",
         "hi": "Hi",
         "myInfo": "My Info",
-        "myFav": "My favorites",
+        "myFav": "My Favourites",
         "myPreferences": "My Preferences"
     },
     "infoPage": {
@@ -165,21 +210,31 @@
         "lastName": "Last Name",
         "phone": "Phone",
         "saveChanges": "Save Changes",
-        "editPassword": "Edit Password"
+        "editPassword": "Edit Password",
+
+        "fillPlz": "Please Fill all the Fields",
+        "loading": "Please wait...",
+        "updtedSuccessfully": "Updated Successfully"
     },
     "myFavsPage": {
-        "title": "My Favorites",
+        "title": "My Favourites",
         "destination": "Destination",
         "driver": "Driver"
     },
     "myFavDestinationPage": {
-        "title": "Favorite Destinations",
+        "title": "Favourite Destinations",
         "search": "Search Address",
-        "nofavdest": "No Favorite Routes Yet!"
+        "nofavdest": "No Favourite Routes Yet!",
+
+        "favouriteDestinations": "Favourite Destinations",
+        "sure": "Are you sure you want to add this location into your favourite destinations?",
+        "AlrtTitle": "Title",
+        "cancel": "Cancel",
+        "okay": "Okay"
     },
     "myFavDriverPage": {
-        "title": "Favorite Drivers",
-        "noFav": "No Favorite Drivers Yet!"
+        "title": "Favourite Drivers",
+        "noFav": "No Favourite Drivers Yet!"
     },
     "myPreferencesPage": {
         "title": "My Preferences"
@@ -212,14 +267,18 @@
         "cash": "Please pay your driver",
         "text": "Thank you for riding with FijoTaxi. See you soon!",
         "rate": "Rate",
-        "addFav": "Add in your favorite drivers",
+        "addFav": "Add in your Favourite drivers",
         "submit": "Submit"
     },
     "contactUsPage": {
         "title": "Contact Us",
         "subject": "Subject",
         "message": "Message",
-        "submit": "Submit"
+        "submit": "Submit",
+
+        "fillPlz": "Please fill both the fields",
+        "received": "Message Received! Thank you for using FIJO",
+        "loading": "Please wait..."
     },
     "sureToCancelModal": {
         "title": "Are you sure?",
@@ -240,14 +299,25 @@
         "r2": "I changed my mind",
         "r3": "The driver requested me to cancel",
         "r4": "A mistake in my journey details",
-        "close": "Close"
+        "close": "Close",
+
+        "rideCancelTitle": "Ride Cancelled",
+        "dear": "Dear",
+        "rideCancelMessage": "your ride is Cancelled due to",
+        "Okay": "Okay"
     },
     "changePasswordModal": {
         "title": "Change Password",
         "currentPassword": "Current Password",
         "newPassword": "New Password",
         "confirmPassword": "Confirm Password",
-        "changePassword": "Change Password"
+        "changePassword": "Change Password",
+
+        "fillPlz": "Please Fill all the Fields!",
+        "updatedSuccessfully": "Password updated successfully",
+        "noMatchedCurrent": "Your current password does not match",
+        "noMatched": "Both Password not Match!",
+        "loading": "Please wait..."
     },
     "chatPage": {
         "text": "Type your message"

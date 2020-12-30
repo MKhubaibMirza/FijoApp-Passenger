@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocationService } from '../services/location.service';
 
 @Component({
   selector: 'app-splash',
@@ -9,13 +10,14 @@ import { Router } from '@angular/router';
 export class SplashPage {
 
   constructor(
-    public r: Router
+    public r: Router,
+    public locService: LocationService
   ) { }
 
   ionViewWillEnter() {
     setTimeout(() => {
-      this.r.navigate(['/select-language'])
-    }, 3500);
+      this.locService.checkGPSPermission();
+    }, 3000);
   }
 
 }

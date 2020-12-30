@@ -15,13 +15,13 @@
   <ion-grid class="ion-no-margin ion-no-padding">
     <ion-row class="ion-no-margin ion-no-padding">
       <ion-col size="7.5" class="ion-no-margin ion-no-padding">
-        <ion-item color="transparent" class="input ion-no-padding" lines='none'>
-          <ion-label position="stacked" color='medium'>{{'addPaymentCardPage.expDate' | translate}}:</ion-label>
+        <ion-item color="transparent" class="input3 ion-no-padding" lines='none'>
+          <ion-label position="inline" color='medium'>{{'addPaymentCardPage.expDate' | translate}}:</ion-label>
           <ion-datetime max="2035" min="2020" [(ngModel)]='date' displayFormat="YYYY MM"></ion-datetime>
         </ion-item>
       </ion-col>
       <ion-col size="4.5" class="ion-no-margin ion-no-padding">
-        <ion-item color="transparent" class="input ion-no-padding" lines='none'>
+        <ion-item color="transparent" class="input2 ion-no-padding" lines='none'>
           <ion-label position="floating" color='medium'>CVC:</ion-label>
           <ion-input [(ngModel)]='card.cvc' maxLength="4" type='tel'></ion-input>
         </ion-item>

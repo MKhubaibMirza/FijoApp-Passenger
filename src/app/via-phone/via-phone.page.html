@@ -4,13 +4,14 @@
 
     <ion-grid fixed>
       <p class="firsttext">
-        {{'viaPhonePage.enterMobileNumber' | translate}}<br><span>({{'viaPhonePage.withCountryCode' | translate}})</span>
+        {{'viaPhonePage.enterMobileNumber' | translate}}
+        <!-- <span>({{'viaPhonePage.withCountryCode' | translate}})</span> -->
       </p>
 
       <ion-row>
         <ion-col size="3">
           <div class="icons">
-            <img [src]="countryData.flag" *ngIf="countryData" alt="">
+            <img [src]="countryData.flag" *ngIf="countryData.flag" alt="">
           </div>
         </ion-col>
 
@@ -23,7 +24,6 @@
       <div style="position:relative;z-index:10;width:100%;margin-right:auto;">
         <div id="recaptcha-container"></div>
       </div>
-
       <p class="sendcode">{{'viaPhonePage.verificationCode' | translate}}</p>
       <br><br>
       <p class="login" (click)="viaEmail()">{{'viaPhonePage.orLoginWithEmail' | translate}}</p>

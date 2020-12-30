@@ -9,6 +9,7 @@ import { AskPaymentWayPage } from '../ask-payment-way/ask-payment-way.page';
 import { WelcomeUserPage } from '../welcome-user/welcome-user.page';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var google: any;
 
@@ -28,9 +29,18 @@ export class HomePage {
     public dataservice: DataService,
     public modalController: ModalController,
     private geolocation: Geolocation,
+    public t: TranslateService,
     public r: Router,
   ) {
+    this.getLangData();
   }
+  getLangData(){
+    this.t.get("homePage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+  }
+  respFromLanguage: any;
   inRange(x, min, max) {
     return ((x - min) * (x - max) <= 0);
   }
@@ -44,7 +54,7 @@ export class HomePage {
   }
   async presentLoading() {
     const loading = await this.loadingController.create({
-      message: 'Please wait',
+      message: this.respFromLanguage.loading,
       duration: 7000,
       spinner: 'dots',
     });
@@ -129,6 +139,7 @@ export class HomePage {
     });
     if (item.desc == "Fixed Price") {
       this.FindDriverObj.vehicleType = 'lite';
+      this.FindDriverObj.noOfSeating = 0;
     } else if (item.desc == "General Purpose") {
       this.FindDriverObj.vehicleType = 'sedanN';
     } else if (item.desc == "For Handicaps") {
@@ -137,27 +148,40 @@ export class HomePage {
   }
   async AskPayWay() {
     if (this.selectedCar == undefined) {
-      this.presentToast('Please Select Your Ride');
-    } else if (this.FindDriverObj.noOfSeating == 0) {
-      this.presentToast('Please Select Seating Capacity');
+      this.presentToast(this.respFromLanguage.selectRide);
+    } else if (this.FindDriverObj.noOfSeating == 0 && this.FindDriverObj.vehicleType !== 'lite') {
+      this.presentToast(this.respFromLanguage.selectSeats);
     } else {
       this.FindDriverObj.origin = this.origin;
       this.FindDriverObj.destination = this.destination;
-      if (this.FindDriverObj.noOfSeating == 4) {
-        this.FindDriverObj.exactPriceForDriver = this.For4SeaterPrice - this.BasePrice4Seater;
-        this.FindDriverObj.exactPriceForPassenger = this.For4SeaterPrice;
+      if (this.FindDriverObj.vehicleType == 'lite') {
+        this.FindDriverObj.exactPriceForDriver = this.totalPriceForLite - this.basePriceForLite;
+        this.FindDriverObj.exactPriceForPassenger = this.totalPriceForLite;
+        const modal = await this.modalController.create({
+          component: AskPaymentWayPage,
+          componentProps: {
+            FindDriverObj: this.FindDriverObj
+          },
+          cssClass: 'askpayway'
+        });
+        await modal.present();
       } else {
-        this.FindDriverObj.exactPriceForDriver = this.For5SeaterPrice - this.BasePrice5Seater;
-        this.FindDriverObj.exactPriceForPassenger = this.For5SeaterPrice;
+        if (this.FindDriverObj.noOfSeating == 4) {
+          this.FindDriverObj.exactPriceForDriver = this.For4SeaterPrice - this.BasePrice4Seater;
+          this.FindDriverObj.exactPriceForPassenger = this.For4SeaterPrice;
+        } else {
+          this.FindDriverObj.exactPriceForDriver = this.For5SeaterPrice - this.BasePrice5Seater;
+          this.FindDriverObj.exactPriceForPassenger = this.For5SeaterPrice;
+        }
+        const modal = await this.modalController.create({
+          component: AskPaymentWayPage,
+          componentProps: {
+            FindDriverObj: this.FindDriverObj
+          },
+          cssClass: 'askpayway'
+        });
+        await modal.present();
       }
-      const modal = await this.modalController.create({
-        component: AskPaymentWayPage,
-        componentProps: {
-          FindDriverObj: this.FindDriverObj
-        },
-        cssClass: 'askpayway'
-      });
-      await modal.present();
     }
   }
   async presentToast(message) {
@@ -226,115 +250,174 @@ export class HomePage {
   totaltime = '';
   totaldistance = '';
   iAmCalled = 0;
+  iAmCalledForLite = 0;
   For4SeaterPrice = 0;
   For5SeaterPrice = 0;
   BasePrice4Seater = 0;
   BasePrice5Seater = 0;
   x = 0;
   public onResponse(event: any) {
-    this.carsTypes = [];
-    this.iAmCalled = this.iAmCalled + 1;
     if (event.status == "NOT_FOUND") {
       this.directionCondition = false;
       this.loadingController.dismiss();
-      this.presentToast('Invalid Route. Try Again!');
+      this.presentToast(this.respFromLanguage.invalidRoute);
     } else if (event.status == "ZERO_RESULTS") {
       this.directionCondition = false;
       this.loadingController.dismiss();
-      this.presentToast('Invalid Route. Try Again!');
+      this.presentToast(this.respFromLanguage.invalidRoute);
     }
     else {
       this.totaldistance = event.routes[0]?.legs[0].distance.text;
       this.totaltime = event.routes[0]?.legs[0].duration.text;
-      // let str = this.totaldistance.replace('km', '');
-      // this.FindDriverObj.totalKM = parseFloat(str.trim());
       let totalKm = event.routes[0]?.legs[0].distance.value;
       this.FindDriverObj.totalKM = totalKm / 1000;
       this.FindDriverObj.estTime = this.totaltime;
-      let getExactPriceObject = {
-        km: totalKm / 1000,
-        isMorning: false,
-        isWeekend: false,
-        isAirport: false,
-        seatingCapacity: 4
-      }
-      if (this.inRange(new Date().getHours(), 7, 21)) {
-        getExactPriceObject.isMorning = true;
-      } else {
-        getExactPriceObject.isMorning = false;
-      }
-      if ((new Date().getDay() == 6) || new Date().getDay() == 7) {
-        getExactPriceObject.isWeekend = true;
-      } else {
-        getExactPriceObject.isWeekend = false;
-      }
-      if ((this.destination.includes('airport')) || this.destination.includes('Airport')) {
-        getExactPriceObject.isAirport = true;
-      } else {
-        getExactPriceObject.isAirport = false;
-      }
-      if (this.iAmCalled == 1) {
-        getExactPriceObject.seatingCapacity = 4;
-        this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-          this.For4SeaterPrice = resp.totalPrice;
-          this.BasePrice4Seater = resp.basePrice;
-          let carTypesArray = [
-            { title: 'Lite', desc: 'Fixed Price' },
-            { title: 'Sedan', desc: 'General Purpose' },
-            { title: 'Sedan', desc: 'For Handicaps' }
-          ];
-          getExactPriceObject.seatingCapacity = 5;
-          this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-            this.For5SeaterPrice = resp.totalPrice;
-            this.BasePrice5Seater = resp.basePrice;
-            carTypesArray.forEach(element => {
-              if (resp.length == 0) {
-                this.carsTypes.push({
-                  title: element.title,
-                  desc: element.desc,
-                  condition: false,
-                  seats: [
-                    {
-                      numbers: 4,
-                      price: this.For4SeaterPrice,
-                      checked: false
-                    }
-                  ],
-                  image: 'assets/Fijo_Lite_Cab_v1.png'
-                });
-              } else {
-                this.carsTypes.push({
-                  title: element.title,
-                  desc: element.desc,
-                  condition: false,
-                  seats: [
-                    {
-                      numbers: 4,
-                      price: this.For4SeaterPrice,
-                      checked: false
-                    },
-                    {
-                      numbers: 5,
-                      price: this.For5SeaterPrice,
-                      checked: false
-                    },
-                    {
-                      numbers: 6,
-                      price: this.For5SeaterPrice,
-                      checked: false
-                    },
-                  ],
-                  image: 'assets/Fijo_Lite_Cab_v1.png'
-                });
-              }
-            });
-            this.loadingController.dismiss();
-          })
+      this.getLitePriceThenSedan();
+    }
+  }
+  basePriceForLite = 0;
+  totalPriceForLite = 0;
+  getLitePriceThenSedan() {
+    this.carsTypes = [];
+    this.iAmCalledForLite = this.iAmCalledForLite + 1;
+    let getExactPriceObjectFor_Lite = {
+      km: this.FindDriverObj.totalKM,
+      isMorning: false,
+      isWeekend: false,
+      isAirport: false,
+      isLite: true,
+      seatingCapacity: 4
+    }
+    if (this.inRange(new Date().getHours(), 7, 21)) {
+      getExactPriceObjectFor_Lite.isMorning = true;
+    } else {
+      getExactPriceObjectFor_Lite.isMorning = false;
+    }
+    if ((new Date().getDay() == 6) || new Date().getDay() == 7) {
+      getExactPriceObjectFor_Lite.isWeekend = true;
+    } else {
+      getExactPriceObjectFor_Lite.isWeekend = false;
+    }
+    if ((this.destination.includes('airport')) || this.destination.includes('Airport')) {
+      getExactPriceObjectFor_Lite.isAirport = true;
+    } else {
+      getExactPriceObjectFor_Lite.isAirport = false;
+    }
+    if (this.iAmCalledForLite == 1) {
+      this.dataservice.getExactPrice(getExactPriceObjectFor_Lite).subscribe((resp: any) => {
+        console.log(resp);
+        this.totalPriceForLite = resp.totalPrice;
+        this.basePriceForLite = resp.basePrice;
+        this.carsTypes.push({
+          title: 'Lite',
+          desc: 'Fixed Price',
+          condition: false,
+          description: this.respFromLanguage.fixed,
+          seats: [
+            {
+              numbers: 0,
+              price: this.totalPriceForLite,
+              checked: false
+            }
+          ],
+          image: 'assets/Fijo_Lite_Cab_v1.png'
         })
-        setTimeout(() => {
-          this.iAmCalled = 0;
-        }, 3000);
-      }
+        this.getSedanPrice();
+      })
+      setTimeout(() => {
+        this.iAmCalledForLite = 0;
+      }, 3000);
+    }
+  }
+  getSedanPrice() {
+    this.iAmCalled = this.iAmCalled + 1;
+    let getExactPriceObject = {
+      km: this.FindDriverObj.totalKM,
+      isMorning: false,
+      isWeekend: false,
+      isAirport: false,
+      isLite: false,
+      seatingCapacity: 4
+    }
+    if (this.inRange(new Date().getHours(), 7, 21)) {
+      getExactPriceObject.isMorning = true;
+    } else {
+      getExactPriceObject.isMorning = false;
+    }
+    if ((new Date().getDay() == 6) || new Date().getDay() == 7) {
+      getExactPriceObject.isWeekend = true;
+    } else {
+      getExactPriceObject.isWeekend = false;
+    }
+    if ((this.destination.includes('airport')) || this.destination.includes('Airport')) {
+      getExactPriceObject.isAirport = true;
+    } else {
+      getExactPriceObject.isAirport = false;
+    }
+    if (this.iAmCalled == 1) {
+      getExactPriceObject.seatingCapacity = 4;
+      this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
+        console.log(resp, getExactPriceObject, '----- 4 -----');
+        this.For4SeaterPrice = resp.totalPrice;
+        this.BasePrice4Seater = resp.basePrice;
+        let carTypesArray = [
+          { title: 'Sedan', desc: 'General Purpose', description: this.respFromLanguage.sedanN },
+          { title: 'Sedan', desc: 'For Handicaps', description: this.respFromLanguage.sedanH }
+        ];
+        getExactPriceObject.seatingCapacity = 5;
+        this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
+          console.log(resp, getExactPriceObject, '----- 5 -----');
+          this.For5SeaterPrice = resp.totalPrice;
+          this.BasePrice5Seater = resp.basePrice;
+          carTypesArray.forEach(element => {
+            if (resp.length == 0) {
+              this.carsTypes.push({
+                title: element.title,
+                desc: element.desc,
+                description: element.description,
+                condition: false,
+                seats: [
+                  {
+                    numbers: 4,
+                    price: this.For4SeaterPrice,
+                    checked: false
+                  }
+                ],
+                image: 'assets/Fijo_Lite_Cab_v1.png'
+              });
+            } else {
+              this.carsTypes.push({
+                title: element.title,
+                desc: element.desc,
+                description: element.description,
+                condition: false,
+                seats: [
+                  {
+                    numbers: 4,
+                    price: this.For4SeaterPrice,
+                    checked: false
+                  },
+                  {
+                    numbers: 5,
+                    price: this.For5SeaterPrice,
+                    checked: false
+                  },
+                  {
+                    numbers: 6,
+                    price: this.For5SeaterPrice,
+                    checked: false
+                  },
+                ],
+                image: 'assets/Fijo_Lite_Cab_v1.png'
+              });
+            }
+          });
+          this.loadingController.dismiss();
+        })
+      })
+      setTimeout(() => {
+        this.iAmCalled = 0;
+      }, 3000);
     }
   }
   carsTypes = [];
@@ -347,23 +430,22 @@ export class HomePage {
           this.zoom = 12;
           this.destination = results[0].formatted_address;
         } else {
-          window.alert('No results found');
         }
       } else {
-        window.alert('Geocoder failed due to: ' + status);
       }
 
     });
   }
   isAirport = false;
   getDirection() {
+    this.getLangData();
     if ((this.destination !== '') && (this.origin !== '')) {
       setTimeout(() => {
         this.presentLoading();
         this.directionCondition = true;
       }, 900);
     } else {
-      this.presentToast('Please enter your destination');
+      this.presentToast(this.respFromLanguage.enterDestinationPlz);
     }
   }
   getAddress(latitude, longitude) {
@@ -373,10 +455,8 @@ export class HomePage {
           this.zoom = 18;
           this.origin = results[0].formatted_address;
         } else {
-          window.alert('No results found');
         }
       } else {
-        window.alert('Geocoder failed due to: ' + status);
       }
 
     });

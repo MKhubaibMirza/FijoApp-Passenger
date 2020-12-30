@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController, ModalController, NavController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { PaymentService } from '../services/payment.service';
 import { SureToCancelPaymentMethodPage } from '../sure-to-cancel-payment-method/sure-to-cancel-payment-method.page';
 
@@ -17,25 +18,31 @@ export class AddPaymentMethodPage implements OnInit {
     public alertController: AlertController,
     public paymentService: PaymentService,
     public nav: NavController,
+    public t: TranslateService
   ) {
+    t.get("addPaymentCardPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
   }
+  respFromLanguage: any;
   async presentLoading() {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Please wait...',
+      message: this.respFromLanguage.loading,
       duration: 9000
     });
     await loading.present();
   }
-  async presentAlert(head, message) {
+  async presentAlert(head, message, val) {
     const alert = await this.alertController.create({
       header: head,
       message: message,
       backdropDismiss: false,
       buttons: [{
-        text: 'OK',
+        text: this.respFromLanguage.ok,
         handler: () => {
-          if (head == 'Successfully Saved') {
+          if (val) {
             this.nav.back();
           }
         }
@@ -69,16 +76,16 @@ export class AddPaymentMethodPage implements OnInit {
           this.card.brand = token.card.brand;
           this.card.funding = token.card.funding;
           this.paymentService.addPaymentMethodOfPassenger(this.card).subscribe((resp: any) => {
-            this.presentAlert('Successfully Saved', 'Dear ' + fname + ' ' + lname + ' ' + 'Your ' + token.card.brand + ' ' + token.card.funding + ' ' + token.type + ' stored securely.')
+            this.presentAlert(this.respFromLanguage.successfullySaved, this.respFromLanguage.dear + ' ' + fname + ' ' + lname + ' ' + this.respFromLanguage.your + ' ' + token.card.brand + ' ' + token.card.funding + ' ' + token.type + ' ' + this.respFromLanguage.storedsecurely, true)
             this.loadingController.dismiss();
           })
         })
         .catch(error => {
           this.loadingController.dismiss();
-          this.presentAlert('Error', error)
+          this.presentAlert(this.respFromLanguage.error, error, false)
         });
     } else {
-      this.presentToast('Please Fill All The Fields.');
+      this.presentToast(this.respFromLanguage.fillPlz);
     }
   }
 

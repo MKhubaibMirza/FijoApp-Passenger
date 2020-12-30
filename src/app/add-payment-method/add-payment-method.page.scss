@@ -12,10 +12,38 @@ ion-content {
 }
 
 .input {
-    padding: 10px;
+    padding: 7px;
+    padding-top: 0px;
     border: 5px solid yellow;
     margin: 5px;
     border-radius: 5px;
+}
+
+ion-label {
+    font-size: 15px;
+}
+
+.input2 {
+    padding: 0px;
+    border: 5px solid yellow;
+    margin: 0px;
+    margin-top: 5px;
+    padding-left: 9px;
+    border-radius: 5px;
+    width: 97%;
+}
+
+.input3 {
+    padding-bottom: 9px;
+    padding-top: 9px;
+    border: 5px solid yellow;
+    padding-left: 5px;
+    border-radius: 5px;
+    width: 94%;
+    margin: auto;
+    display: block;
+    margin-top: 5px;
+    margin-right: 10px;
 }
 
 .footer {
@@ -43,11 +71,13 @@ ion-content {
 ion-input {
     color: yellow;
 }
-ion-datetime{
-    color:yellow;
+
+ion-datetime {
+    color: yellow;
     padding: 0 !important;
 }
-.backBtn{
+
+.backBtn {
     padding-left: 15px;
     font-size: 25px;
     outline: none;

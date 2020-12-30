@@ -16,7 +16,6 @@ const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [AuthGuard],
     loadChildren: () => import('./splash/splash.module').then(m => m.SplashPageModule)
   },
   {

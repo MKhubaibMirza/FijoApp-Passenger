@@ -17,8 +17,8 @@
         "somethingWrong": "¡Algo salió mal! Inténtelo de nuevo más tarde",
         "noExist": "¡El número de teléfono no existe!",
         "loading": "Cargando por favor espere...",
-        "noFound": "¡Extraviado!",
-        "noReg": "¡Aún no tienes Registro en Fijo Taxi!",
+        "noFound": "¡Usuario no encontrado!",
+        "noReg": "",
         "cancel": "Cancelar",
         "regNow": "Regístrate ahora"
     },
@@ -37,8 +37,8 @@
         "enterEmailAddress": "Ingrese la dirección de correo electrónico",
         "emailNoFound": "El correo electrónico no existe",
         "loading": "Cargando por favor espere...",
-        "noFound": "¡Extraviado!",
-        "noReg": "¡Aún no tienes Registro en Fijo Taxi!",
+        "noFound": "¡Usuario no encontrado!",
+        "noReg": "",
         "cancel": "Cancelar",
         "regNow": "Regístrate ahora"
     },
@@ -89,7 +89,10 @@
         "changeLanguage": "Cambiar idioma",
         "inviteFriends": "Invitar a amigas",
         "Help": "Ayuda",
-        "logout": "Cerrar sesión"
+        "logout": "Cerrar sesión",
+        "invite": " te ha invitado a unirte a la aplicación FIJO TAXI",
+        "okay": "Bueno",
+        "cancel": "Cancelar"
     },
     "homePage": {
         "title": "Fijo Pasajera",
@@ -103,7 +106,16 @@
         "fixedPrice": "Precio fijo",
         "generalPurpose": "Propósito general",
         "forHandicaps": "Para discapacitados",
-        "orderNow": "Ordenar ahora"
+        "orderNow": "Ordenar ahora",
+
+        "loading": "Por favor espera",
+        "selectRide": "Seleccione su viaje",
+        "selectSeats": "Seleccione la capacidad de asientos",
+        "invalidRoute": "Ruta no válida. ¡Inténtalo de nuevo!",
+        "fixed": "Precio fijo",
+        "sedanN": "Propósito general",
+        "sedanH": "Para discapacitados",
+        "enterDestinationPlz": "Ingrese su destino"
     },
     "askPayWay": {
         "howLikeToPay": "¿Cómo le gustaría pagar?",
@@ -120,10 +132,27 @@
         "onWay": "Está en el camino",
         "contact": "Contacto",
         "call": "Llamada",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+
+        "pleaseconfirmyourpayment": "Confirma tu pago",
+        "continueViaCash": "Continuar con efectivo",
+        "continueViaCard": "Continuar con tarjeta",
+        "successfullycharged": "se cargó correctamente de su tarjeta",
+        "somethingWrong": "Se produjo un error con tu método de pago. Elija una tarjeta diferente para continuar",
+        "useDiffCard": "Elija una tarjeta diferente o pague en efectivo.",
+        "payChanged": "¡Método de pago cambiado!",
+        "changedSubtitle": "Ha cambiado su método de pago de tarjeta a efectivo",
+        "Nodriver": "¡Ups! Extraviado",
+        "sorryText": "Lo sentimos, no encontramos ningún controlador por debajo de los 7 km. Intenta más tarde",
+        "okay": "Bueno",
+        "Continue": "Seguir",
+        "Dear": "Querida",
+        "opps": "¡Ups! Algo salió mal",
+        "sorry": "Lo siento",
+        "noPhone": "no tiene opción de teléfono"
     },
     "myJourneysPage": {
-        "title": "",
+        "title": "Mis viajes",
         "noRide": "Todavía no tienes viaje",
         "complete": "Terminada",
         "cancelled": "Cancelada",
@@ -144,14 +173,29 @@
         "addPaymentMethod": "Añadir método de pago",
         "storedSecurely": "Su información de pago se almacenará de forma segura",
         "noPayMethod": "¡Aún no se ha guardado ningún método de pago!",
-        "btn": "Agregar otro método de pago"
+        "btn": "Agregar otro método de pago",
+
+        "deletePaymentMethod": "Eliminar método de pago",
+        "sure": "¿Estás seguro de que quieres eliminarlo?",
+        "cancel": "Cancelar",
+        "delete": "Eliminar",
+        "deletedSuccessfully": "Borrado exitosamente"
     },
     "addPaymentCardPage": {
         "title": "Agregar tarjeta de pago",
         "cardNumber": "Número de tarjeta",
         "expDate": "Fecha de caducidad",
         "storedSecurely": "Su información de pago se almacenará de forma segura",
-        "save": "SALVAR"
+        "save": "SALVAR",
+
+        "loading": "Por favor espera...",
+        "ok": "Bueno",
+        "successfullySaved": "Guardado con éxito",
+        "dear": "Querido",
+        "your": "Tu",
+        "storedsecurely": "almacenado de forma segura",
+        "error": "Error",
+        "fillPlz": "Por favor llene todos los campos"
     },
     "profilePage": {
         "title": "Mi perfil",
@@ -167,7 +211,11 @@
         "lastName": "Apellido",
         "phone": "Teléfono",
         "saveChanges": "Guardar cambios",
-        "editPassword": "Editar contraseña"
+        "editPassword": "Editar contraseña",
+
+        "fillPlz": "Por favor llene todos los campos",
+        "loading": "Por favor espera...",
+        "updtedSuccessfully": "Actualizado con éxito"
     },
     "myFavsPage": {
         "title": "Mis favoritas",
@@ -175,13 +223,19 @@
         "driver": "Conductor"
     },
     "myFavDestinationPage": {
-        "title": "Destinos favoritos",
+        "title": "Destinos favorito",
         "search": "Dirección de búsqueda",
-        "nofavdest": "¡Aún no hay rutas favoritas!"
+        "nofavdest": "¡Aún no hay rutas favoritas!",
+
+        "favouriteDestinations": "Destinos favorito",
+        "sure": "¿Está seguro de que desea agregar esta ubicación a sus destinos favorito?",
+        "AlrtTitle": "Título",
+        "cancel": "Cancelar",
+        "okay": "Bueno"
     },
     "myFavDriverPage": {
-        "title": "Conductores favoritos",
-        "noFav": "¡Aún no hay controladores favoritos!"
+        "title": "Conductores favorito",
+        "noFav": "¡Aún no hay controladores favorito!"
     },
     "myPreferencesPage": {
         "title": "Mis preferencias"
@@ -214,14 +268,18 @@
         "cash": "Por favor pague a su conductor",
         "text": "Gracias por viajar con FijoTaxi. ¡Te veo pronto!",
         "rate": "Velocidad",
-        "addFav": "Agregue sus controladores favoritos",
+        "addFav": "Agregue sus controladores favorito",
         "submit": "Enviar"
     },
     "contactUsPage": {
         "title": "Contacta con nosotros",
         "subject": "Sujeto",
         "message": "Mensaje",
-        "submit": "Enviar"
+        "submit": "Enviar",
+
+        "fillPlz": "Por favor complete ambos campos",
+        "received": "Mensaje recibido! Gracias por usar FIJO",
+        "loading": "Por favor espera..."
     },
     "sureToCancelModal": {
         "title": "Estas seguro",
@@ -242,14 +300,25 @@
         "r2": "Cambié de opinión",
         "r3": "El conductor me pidió que cancelara",
         "r4": "Un error en los detalles de mi viaje",
-        "close": "Cerca"
+        "close": "Cerca",
+
+        "rideCancelTitle": "Viaje cancelado",
+        "dear": "Querido",
+        "rideCancelMessage": "su viaje se cancela debido a",
+        "Okay": "Bueno"
     },
     "changePasswordModal": {
         "title": "Cambia la contraseña",
         "currentPassword": "Contraseña actual",
         "newPassword": "Nueva contraseña",
         "confirmPassword": "Confirmar contraseña",
-        "changePassword": "Cambia la contraseña"
+        "changePassword": "Cambia la contraseña",
+
+        "fillPlz": "¡Por favor llene todos los campos!",
+        "updatedSuccessfully": "Contraseña actualizada exitosamente",
+        "noMatchedCurrent": "Tu contraseña actual no coincide",
+        "noMatched": "¡Ambas contraseñas no coinciden!",
+        "loading": "Por favor espera..."
     },
     "chatPage": {
         "text": "Escribe tu mensaje"

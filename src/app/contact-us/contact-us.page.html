@@ -10,7 +10,6 @@
 </ion-header>
 
 <ion-content>
-
   <ion-card>
     <ion-item lines="none">
       <ion-label color="primary" position="floating">{{'contactUsPage.subject' | translate}}</ion-label>
@@ -22,7 +21,6 @@
       <ion-textarea [(ngModel)]="contact.message" rows="6" cols="20"></ion-textarea>
     </ion-item>
     <br>
-
     <ion-button expand="block" color="primary" (click)="submit()">
       {{'contactUsPage.submit' | translate}}
     </ion-button>

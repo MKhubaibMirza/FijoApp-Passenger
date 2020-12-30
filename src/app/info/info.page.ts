@@ -8,6 +8,7 @@ import { ChangePasswordPage } from '../change-password/change-password.page';
 import { PassengerService } from '../services/passenger.service';
 import { SocialAuthService } from '../services/social-auth.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-info',
   templateUrl: './info.page.html',
@@ -25,9 +26,15 @@ export class InfoPage implements OnInit {
     public imagePicker: ImagePicker,
     private r: Router,
     public camera: Camera,
-    public socialService: SocialAuthService
-  ) { }
-
+    public socialService: SocialAuthService,
+    public t: TranslateService
+  ) {
+    t.get("infoPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+  }
+  respFromLanguage: any;
   ngOnInit() {
   }
 
@@ -68,14 +75,14 @@ export class InfoPage implements OnInit {
   }
   saveChanges() {
     if ((this.data.firstName && this.data.lastName && this.data.phoneNumber) == '') {
-      this.presentToast('Please Fill all the Fields')
+      this.presentToast(this.respFromLanguage.fillPlz)
     } else {
       this.presentLoading()
       this.passengerService.updateInfo(this.data).subscribe((resp: any) => {
         localStorage.setItem('user', JSON.stringify(resp.passengerObj))
         this.loadingController.dismiss()
         this.ionViewWillEnter()
-        this.presentToast(resp.message)
+        this.presentToast(this.respFromLanguage.updtedSuccessfully)
       })
     }
   }
@@ -181,7 +188,7 @@ export class InfoPage implements OnInit {
   }
   async presentLoading() {
     const loading = await this.loadingController.create({
-      message: 'Please wait...',
+      message: this.respFromLanguage.loading,
       duration: 9000,
       spinner: 'dots',
       backdropDismiss: true,
