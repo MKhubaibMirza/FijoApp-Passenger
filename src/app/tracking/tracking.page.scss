@@ -5,15 +5,15 @@ agm-map {
 
 .FooterCard {
   width: 90%;
-  background: rgb(36, 123, 37, 1);
+  // background: rgb(36, 123, 37, 1);
   margin: auto;
   display: block;
-  border: 5px solid yellow;
+  // border: 5px solid green;
   border-radius: 8px;
 }
 
 .FooterTitle {
-  color: white;
+  color: green;
   font-size: 21px;
   font-weight: bold;
   position: absolute;
@@ -21,7 +21,7 @@ agm-map {
 }
 
 .FooterTopTitle {
-  color: white;
+  color: black;
   font-size: 15px;
   font-weight: bold;
   position: absolute;
@@ -29,7 +29,7 @@ agm-map {
 }
 
 .FooterBottomTitle {
-  color: white;
+  color: #faae16;
   font-size: 21px;
   font-weight: bold;
   position: absolute;
@@ -37,7 +37,7 @@ agm-map {
 }
 
 .spinner {
-  --color: yellow;
+  --color: green;
   height: 67px;
   width: 67px;
   margin: auto;
@@ -45,7 +45,7 @@ agm-map {
 }
 
 .bottomtext {
-  color: yellow;
+  color: green;
   font-weight: bold;
   font-size: 18px;
 }
@@ -58,6 +58,7 @@ agm-map {
 
 .logoImg {
   width: 100%;
+  border-radius: 9px;
 }
 
 .driverImg {
@@ -73,7 +74,7 @@ agm-map {
 }
 
 .carDetails {
-  color: yellow;
+  color: black;
   text-align: right;
   font-size: 15px;
   font-weight: bold;
@@ -83,14 +84,24 @@ agm-map {
   text-align: center;
   outline: none;
 
-  ion-icon {
+  .ion-icon1 {
     width: 100%;
     font-size: 30px;
-    color: yellow;
+    color: #3880ff;
+  }
+  .ion-icon2 {
+    width: 100%;
+    font-size: 30px;
+    color: #28ba62;
+  }
+  .ion-icon3 {
+    width: 100%;
+    font-size: 30px;
+    color: #eb445a;
   }
 
   span {
-    color: white;
+    color: black;
     margin: 0;
     padding: 0;
     font-size: 15px;
@@ -100,7 +111,7 @@ agm-map {
 
 .noimg {
   font-size: 50px;
-  color: #ffff00;
+  color: green;
   margin: auto;
   display: block;
   background: #006600;

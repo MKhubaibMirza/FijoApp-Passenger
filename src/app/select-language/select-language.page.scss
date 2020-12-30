@@ -1,7 +1,14 @@
+ion-content {
+    --background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('../../assets/bg.png') repeat center center / cover;
+}
 ion-card {
     color: white;
     background: transparent;
     box-shadow: none;
+
+    .title {
+        color: white;
+    }
 
     .flag {
         ion-row {

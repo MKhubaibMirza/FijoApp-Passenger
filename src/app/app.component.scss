@@ -1,14 +1,17 @@
-ion-content {
-    // --background: url(../../assets/bg.png) 0 0/100% 100% no-repeat;
-    --background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../assets/bg.png') repeat center center / cover;
-}
-*{
+// ion-content {
+// --background: url(../../assets/bg.png) 0 0/100% 100% no-repeat;
+// --background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../assets/bg.png') repeat center center / cover;
+// }
+* {
     zoom: 99% !important;
 }
+
 .top {
-    margin-top: 30px;
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../assets/bg.png') repeat center center / cover;
 
     ion-row {
+        min-height: 150px;
+
         ion-col {
             img {
                 width: 75px;
@@ -16,7 +19,7 @@ ion-content {
                 margin: auto;
                 display: block;
                 border-radius: 100px;
-                border: 5px solid yellow;
+                // border: 5px solid green;
             }
 
             .name {
@@ -24,7 +27,6 @@ ion-content {
                 font-size: 17px;
                 margin: 0;
                 font-weight: bold;
-                margin-top: 9px;
                 padding-right: 5px;
             }
 
@@ -39,28 +41,24 @@ ion-content {
 }
 
 hr {
-    background: #ffff00;
-    height: 5px;
+    background: green;
+    height: 2px;
 }
 
 .list {
-    ion-row {
-        padding: 13px 5px;
+    ion-item {
+        padding: 9px 5px;
 
-        ion-col {
-            ion-icon {
-                font-size: 28px;
-                padding-left: 10px;
-                color: #ffff00;
-                padding-top: 7px;
-            }
+        ion-icon {
+            color: green;
+            font-size: 27px;
+            padding-top: 3px;
+        }
 
-            p {
-                font-size: 23px;
-                margin: 0;
-                padding-top: 2px;
-                color: #ffff00;
-            }
+        ion-label {
+            font-size: 21px;
+            margin: 0;
+            color: green;
         }
     }
 }

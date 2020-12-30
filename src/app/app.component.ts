@@ -11,6 +11,7 @@ import { PassengerService } from './services/passenger.service';
 import { TranslateConfigService } from './services/translate-config.service';
 import { SocialAuthService } from './services/social-auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SplashPage } from './splash/splash.page';
 
 @Component({
   selector: 'app-root',
@@ -35,10 +36,17 @@ export class AppComponent {
     public t: TranslateService,
     public nav: NavController
   ) {
+    this.presentSplashScreen();
     this.closeApp();
     this.initializeApp();
   }
   url = environment.baseUrl;
+  async presentSplashScreen() {
+    const modal = await this.modalController.create({
+      component: SplashPage,
+    });
+    return await modal.present();
+  }
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleLightContent();

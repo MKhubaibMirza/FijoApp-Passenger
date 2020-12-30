@@ -1,11 +1,11 @@
-ion-content {
-    --background: #006600;
-    border: 5px solid yellow;
-}
+// ion-content {
+//     --background: #006600;
+//     border: 5px solid yellow;
+// }
 
 .title {
     text-align: center;
-    color: yellow;
+    color: red;
     font-weight: bold;
     font-size: 18px;
     margin: 0;
@@ -14,12 +14,14 @@ ion-content {
 
 .subtitle {
     text-align: center;
-    color: white;
+    color: grey;
     font-weight: bold;
     font-size: 14px;
 }
 
 .btn {
-    --color: yellow;
+    --color: green;
+    --background: white;
     --box-shadow: 0;
+    font-weight: bold;
 }

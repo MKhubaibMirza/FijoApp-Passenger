@@ -3,32 +3,30 @@
     <ion-menu side="start" contentId="main-content" type="overlay">
 
       <ion-content>
-        <ion-grid fixed class="top ion-no-padding">
+        <ion-grid class="top ion-no-padding">
           <ion-row>
-            <ion-col size="4">
+            <ion-col style="align-self: center;" size="4">
               <img *ngIf='!getMyImg()' src="../assets/profile.png" alt="">
               <img *ngIf='getMyImg()' [src]="url+getMyImg()" alt="">
             </ion-col>
-            <ion-col size="8">
+            <ion-col style="align-self: center;" size="8">
               <p class="name">{{getName()}}</p>
               <p class="email">{{getEmail()}}</p>
             </ion-col>
           </ion-row>
         </ion-grid>
-        <br>
-        <hr>
 
-        <ion-grid class="list ion-no-padding">
-          <ion-row *ngFor='let item of navlist' (click)='route(item.route);'>
+        <!-- <ion-grid class="list ion-no-padding"> -->
+        <!-- <ion-row *ngFor='let item of navlist' (click)='route(item.route);'>
             <ion-col size="2.2">
               <ion-icon [name]="item.icon"></ion-icon>
             </ion-col>
             <ion-col size="9.8">
               <p>{{'sideMenu.'+item.title | translate}}</p>
             </ion-col>
-          </ion-row>
+          </ion-row> -->
 
-          <hr>
+        <!-- <hr>
 
           <ion-row (click)="logOut()">
             <ion-col size="2.2">
@@ -37,9 +35,19 @@
             <ion-col size="9.8">
               <p>{{'sideMenu.logout' | translate}}</p>
             </ion-col>
-          </ion-row>
-        </ion-grid>
-
+          </ion-row> -->
+        <!-- </ion-grid> -->
+        <ion-list class="list">
+          <ion-item *ngFor='let item of navlist' lines="none" (click)='route(item.route);'>
+            <ion-icon [name]="item.icon" slot="start"></ion-icon>
+            <ion-label>{{'sideMenu.'+item.title | translate}}</ion-label>
+          </ion-item>
+          <hr>
+          <ion-item lines="none" (click)='logOut()'>
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>{{'sideMenu.logout' | translate}}</ion-label>
+          </ion-item>
+        </ion-list>
       </ion-content>
 
     </ion-menu>

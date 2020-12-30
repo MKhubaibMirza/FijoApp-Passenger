@@ -1,25 +1,25 @@
 ion-content {
-    --background: green;
-    border: 5px solid yellow;
+    // --background: green;
+    // border: 5px solid green;
     text-align: center;
 }
 
 .title {
-    color: yellow;
+    color: black;
     font-size: 21px;
     font-weight: bold;
 }
 
 .price {
     font-size: 21px;
-    color: yellow;
+    color: green;
     font-weight: bold;
     margin: 0;
     padding-bottom: 7px;
 }
 
 .text {
-    color: white;
+    color: #383838;
     font-size: 17px;
     margin: 15px;
     margin-top: 0;
@@ -33,18 +33,18 @@ ion-content {
 }
 
 .hr {
-    background: yellow;
+    background: #383838;
     margin: auto;
     display: block;
     width: 90%;
-    height: 5px;
+    height: 3px;
     margin-bottom: 21px;
     margin-top: 21px;
 }
 
 .stars {
     margin: 0;
-    color: yellow;
+    color: gold;
     font-size: 30px;
     ion-icon{
         padding-right: 4px;

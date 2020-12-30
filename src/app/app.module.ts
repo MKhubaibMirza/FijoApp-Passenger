@@ -33,13 +33,14 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { DocumentViewer } from '@ionic-native/document-viewer/ngx';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { Camera } from '@ionic-native/camera/ngx';
+import { SplashPage } from './splash/splash.page';
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 firebase.initializeApp(environment.firebaseConfig);
 @NgModule({
-  declarations: [AppComponent, AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],
-  entryComponents: [AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage],
+  declarations: [AppComponent, AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage, SplashPage],
+  entryComponents: [AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage, SplashPage],
   imports: [
     PdfViewerModule,
     BrowserModule,

@@ -227,15 +227,15 @@ export class TrackingPage {
     } else {
       setTimeout(() => {
         this.isSearching = true;
+        let findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
+        this.driverService.findDrivers(findDriverObj).subscribe((resp: any) => {
+          if (resp.length !== 0) {
+            this.socket.emit('send-data-to-drivers', resp);
+          }
+        }, er => {
+          this.presentAlert();
+        })
       }, 2100);
-      let findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
-      this.driverService.findDrivers(findDriverObj).subscribe((resp: any) => {
-        if (resp.length !== 0) {
-          this.socket.emit('send-data-to-drivers', resp);
-        }
-      }, er => {
-        this.presentAlert();
-      })
     }
     this.menuControl.enable(false);
     this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {

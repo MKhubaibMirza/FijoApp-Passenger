@@ -1,7 +1,7 @@
-ion-content {
-    --background: green;
-    border: 5px solid yellow;
-}
+// ion-content {
+//     --background: green;
+//     border: 5px solid yellow;
+// }
 
 ion-slides {
     height: 100%;
@@ -12,7 +12,7 @@ ion-slides {
             box-shadow: none;
 
             .title {
-                color: yellow;
+                color: green;
                 font-size: 25px;
                 font-weight: bold;
                 margin: 0;
@@ -20,7 +20,7 @@ ion-slides {
             }
 
             .subtitle {
-                color: white;
+                color: green;
                 margin: 0;
                 font-size: 18px;
                 padding-top: 15px;
@@ -30,13 +30,15 @@ ion-slides {
 
             .okBtn {
                 width: 100%;
-                --box-shadow: none;
-                color: yellow;
+                background: green;
+                color: white;
+                border-radius: 7px;
             }
 
             .leaveBtn {
-                --box-shadow: none;
-                color: red;
+                background: red;
+                color: white;
+                border-radius: 7px;
                 width: 100%;
             }
         }

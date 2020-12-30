@@ -1,58 +1,61 @@
-ion-content {
-    --background: #006600;
-    border: 5px solid yellow;
-}
-
-.title{
+.title {
     margin: 0;
-    color: yellow;
+    color: green;
     font-size: 17px;
 }
-.row{
-    background: yellow;
-    color: #006600;
+
+.row {
+    border: 3px solid green;
+    color: green;
     outline: none;
     margin-bottom: 19px;
+    border-radius: 7px;
 }
-.icon{
+
+.icon {
     font-size: 27px;
     text-align: center;
     margin: auto;
     display: block;
     margin-top: 11px;
 }
-.text{
+
+.text {
     font-weight: bold;
     text-align: left;
     margin: 0;
     padding-top: 9px;
     padding-bottom: 9px;
 }
-.chevron{
+
+.chevron {
     font-size: 27px;
-    text-align: right; 
+    text-align: right;
     margin-top: 11px;
     float: right;
     margin-right: 3px;
 }
-.savetitle{
+
+.savetitle {
     text-align: center;
-    color: yellow;
+    color: green;
     font-size: 19px;
 }
-ion-spinner{
-    --color: yellow;
+
+ion-spinner {
+    --color: green;
     display: block;
     margin: auto;
     width: 75px;
     height: 75px;
     margin-top: 21px;
     margin-top: 33px;
-} 
-.subtitle{
+}
+
+.subtitle {
     margin: 0;
     padding-top: 10px;
-    color: yellow;
+    color: green;
     font-weight: bold;
     outline: none;
 }

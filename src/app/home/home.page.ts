@@ -34,7 +34,7 @@ export class HomePage {
   ) {
     this.getLangData();
   }
-  getLangData(){
+  getLangData() {
     this.t.get("homePage").subscribe((resp: any) => {
       console.log(resp);
       this.respFromLanguage = resp;
@@ -361,8 +361,8 @@ export class HomePage {
         this.For4SeaterPrice = resp.totalPrice;
         this.BasePrice4Seater = resp.basePrice;
         let carTypesArray = [
-          { title: 'Sedan', desc: 'General Purpose', description: this.respFromLanguage.sedanN },
-          { title: 'Sedan', desc: 'For Handicaps', description: this.respFromLanguage.sedanH }
+          { title: 'Sedan', desc: 'General Purpose', description: this.respFromLanguage.sedanN, img: 'assets/Fijo_Sedan_XL_v1.png' },
+          { title: 'Sedan', desc: 'For Handicaps', description: this.respFromLanguage.sedanH, img: 'assets/Fijo_Sedan_Handicap_v_2.png' }
         ];
         getExactPriceObject.seatingCapacity = 5;
         this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
@@ -383,7 +383,7 @@ export class HomePage {
                     checked: false
                   }
                 ],
-                image: 'assets/Fijo_Lite_Cab_v1.png'
+                image: element.img
               });
             } else {
               this.carsTypes.push({
@@ -408,7 +408,7 @@ export class HomePage {
                     checked: false
                   },
                 ],
-                image: 'assets/Fijo_Lite_Cab_v1.png'
+                image: element.img
               });
             }
           });

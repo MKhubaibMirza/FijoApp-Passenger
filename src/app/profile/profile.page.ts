@@ -19,7 +19,7 @@ export class ProfilePage implements OnInit {
   ionViewWillEnter() {
   }
   getName() {
-    return JSON.parse(localStorage.getItem('user')).firstName + '' + JSON.parse(localStorage.getItem('user')).lastName;
+    return JSON.parse(localStorage.getItem('user')).firstName + ' ' + JSON.parse(localStorage.getItem('user')).lastName;
   }
   getMyImg() {
     if (localStorage.getItem('user'))

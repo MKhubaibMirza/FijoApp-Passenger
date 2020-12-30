@@ -4,7 +4,7 @@
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>
     <ion-title>
-      Privacy Policy
+      Terms And Condition
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -18,8 +18,6 @@
       <ion-label>English</ion-label>
     </ion-segment-button>
   </ion-segment>
-  <pdf-viewer *ngIf="condition == 'Spanish'" [src]="pdfSrc" [fit-to-page]="true" [render-text]="true"
-    style="display: block;"></pdf-viewer>
-  <pdf-viewer *ngIf="condition == 'English'" [src]="pdfSrc2" [fit-to-page]="true" [render-text]="true"
-    style="display: block;"></pdf-viewer>
+  <pdf-viewer *ngIf="condition == 'Spanish'" [src]="pdfSrc" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
+  <pdf-viewer *ngIf="condition == 'English'" [src]="pdfSrc2" [fit-to-page]="true" [render-text]="true" style="display: block;"></pdf-viewer>
 </ion-content>

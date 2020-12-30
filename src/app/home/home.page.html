@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start" (click)="openMenu()">
-      <ion-menu-button class="menu" autoHide="false" color="medium"></ion-menu-button>
+      <ion-menu-button class="menu" autoHide="false" color="light"></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{'homePage.title' | translate}}</ion-title>
-    <ion-icon slot="end" name="location" (click)="locationClick()" color="medium"></ion-icon>
+    <ion-title color="light">{{'homePage.title' | translate}}</ion-title>
+    <ion-icon slot="end" name="location" (click)="locationClick()" color="light"></ion-icon>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -20,9 +20,9 @@
     </agm-marker>
   </agm-map>
 </ion-content>
-<ion-footer class="ion-no-border" style="background: transparent;position: absolute;bottom: 30px;">
+<ion-footer class="ion-no-border">
   <ion-card *ngIf="!directionCondition" [class]='toUp' [style.height]="heightOfCard"
-    [style.background]="heightOfCard == ''? 'rgb(36, 123, 37, 0.8)':'rgb(36, 123, 37, 1)'" class="FooterCard">
+    [style.background]="heightOfCard == ''? 'rgb(255, 255, 255, 0.9)':'rgb(255, 255, 255, 0.9)'" class="FooterCard">
     <ion-card-content *ngIf="!ShowDestinationCondition">
       <p class="cardTitle">{{'homePage.hello' | translate}} {{getName()}}!</p>
       <p class="subTitle">{{'homePage.whereToGo' | translate}}?</p>
@@ -52,7 +52,7 @@
       </p>
     </ion-card-content>
   </ion-card>
-  <ion-card *ngIf="directionCondition" class="FooterCard" style="background:rgb(36, 123, 37, 0.8)">
+  <ion-card *ngIf="directionCondition" class="FooterCard" style="background:rgb(255, 255, 255, 0.9)">
     <ion-grid>
       <ion-row>
         <ion-col size="10">
@@ -65,7 +65,7 @@
     </ion-grid>
     <ion-grid>
       <ion-row *ngFor="let item of carsTypes;index as i" [style.color]="item.condition?'#006600':'#006600'"
-        [style.background]="item.condition?'yellow':'yellow'" style="margin-bottom: 6px;" (click)="selectCar(item,i)">
+        [style.background]="item.condition?'white':'white'" style="margin-bottom: 6px;" (click)="selectCar(item,i)">
         <ion-col size="3">
           <img class="loopcar" [src]="item.image" alt="">
         </ion-col>

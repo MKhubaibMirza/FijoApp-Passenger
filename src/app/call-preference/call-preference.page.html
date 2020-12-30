@@ -4,7 +4,7 @@
   </p>
   <ion-radio-group [value]="selectedItem.text">
     <ion-item *ngFor='let item of data'>
-      <ion-radio slot="end" [value]="item.text" (click)='click(item)' color="medium"></ion-radio>
+      <ion-radio slot="end" [value]="item.text" (click)='click(item)' color="primary"></ion-radio>
       <ion-label class="ion-text-wrap">{{item.text}}</ion-label>
     </ion-item>
   </ion-radio-group>

@@ -49,16 +49,16 @@ agm-map {
 }
 
 .FooterCard {
-  width: 90%;
+  width: 100%;
   // background: rgb(36, 123, 37, 0.8);
   margin: auto;
   display: block;
-  border: 5px solid yellow;
+  // border: 5px solid green;
   border-radius: 8px;
 
   .cardTitle {
-    color: yellow;
-    font-size: 27px;
+    color: black;
+    font-size: 15px;
     margin: 0;
     font-weight: bold;
   }
@@ -66,26 +66,29 @@ agm-map {
   .subTitle {
     margin: 0;
     font-size: 21px;
-    color: yellow;
-    margin-top: -7px;
+    color: green;
+    margin-top: -3px;
+    font-weight: bold;
   }
 
   .bottomTitle {
     margin: 0;
     font-size: 18px;
-    color: yellow;
-    padding-top: 37px;
+    color: black;
+    padding-top: 39px;
   }
 
   .destination {
-    border: 3px solid yellow;
+    border: 3px solid green;
     height: 57px;
     padding-left: 17px;
     padding-right: 17px;
     width: 100%;
     outline: none;
     color: black;
+    border-right: 0;
     font-size: 17px;
+    border-radius: 9px 0px 0px 9px
   }
 
   .destination::placeholder {
@@ -124,15 +127,15 @@ agm-map {
 }
 
 .search {
-  border: 3px solid yellow;
+  border: 3px solid green;
   width: 100%;
-  outline: none;
-  color: #006600;
-  background: white;
+  color: white;
+  background: green;
   height: 33px;
   padding: 9px 0px;
-  border-left: 0;
+  border-radius: 0px 9px 9px 0px;
   outline: none;
+  border-left: none;
 }
 
 .close {
@@ -141,26 +144,31 @@ agm-map {
   background: white;
   float: right;
   border-radius: 3px;
+  padding-right: 7px;
   outline: none;
 }
 
 .totaldistance {
-  color: yellow;
+  color: green;
   font-size: 18px;
   margin: 0;
 }
 
 .totaltime {
-  color: yellow;
+  color: green;
   font-size: 18px;
+  padding-left: 17px;
+  font-weight: bold;
   margin: 0;
 }
 
 .order {
-  margin: 0;
-  width: 100%;
-  --background: yellow;
-  --color: #006600;
+  width: 90%;
+  --background: green;
+  --color: white;
+  margin: auto;
+  display: block;
+  margin-bottom: 23px;
 }
 
 .ul {
@@ -169,7 +177,7 @@ agm-map {
 }
 
 .li {
-  color: yellow;
+  color: green;
   font-size: 20px;
   outline: none;
 }

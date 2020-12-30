@@ -17,6 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
     SplashPageRoutingModule
   ],
-  declarations: [SplashPage]
+  declarations: []
 })
 export class SplashPageModule {}

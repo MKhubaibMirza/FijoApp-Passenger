@@ -4,6 +4,7 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { PassengerService } from './passenger.service';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +15,7 @@ export class LocationService {
     public androidPermissions: AndroidPermissions,
     public locationAccuracy: LocationAccuracy,
     public passengerService: PassengerService,
+    public modal: ModalController,
     public r: Router
   ) {
   }
@@ -48,7 +50,6 @@ export class LocationService {
             },
             error => {
               //Show alert if user click on 'No Thanks'
-              navigator['app'].exitApp();
             }
           );
       }
@@ -58,14 +59,15 @@ export class LocationService {
     this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
       () => {
         // When GPS Turned ON call method to get Accurate location coordinates
+        setTimeout(() => {
+          this.modal.dismiss();
+        }, 1800);
         this.TrackPassengerLocation();
-        if (localStorage.getItem('user')) {
-          this.r.navigate(['/home']);
-        } else {
-          this.r.navigate(['/select-language']);
-        }
       }
-    );
+    ).catch(err => {
+      console.log('close app')
+      navigator['app'].exitApp();
+    });
   }
   TrackingCounter = 0;
   TrackPassengerLocation() {

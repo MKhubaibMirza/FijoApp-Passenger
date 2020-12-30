@@ -49,9 +49,10 @@ ion-input {
         max-width: 342px;
         display: block;
         margin: auto;
-        background: #006600;
+        background: white;
         box-shadow: none;
-        border: 5px solid yellow;
+        // border: 5px solid yellow;
+        border-radius: 9px;
 
         .ion-page {
             position: relative;
@@ -75,6 +76,7 @@ ion-input {
     display: block;
     background: transparent;
     margin: auto;
+    border-radius: 9px;
     box-shadow: none;
 }
 
@@ -83,6 +85,7 @@ ion-input {
     width: 90%;
     display: block;
     margin: auto;
+    border-radius: 15px;
 }
 
 .cancelconfirm {
@@ -93,9 +96,10 @@ ion-input {
         max-width: 342px;
         display: block;
         margin: auto;
-        background: #006600;
+        border-radius: 15px;
+        // background: #006600;
         box-shadow: none;
-        border: 5px solid yellow;
+        // border: 5px solid yellow;
 
         .ion-page {
             position: relative;
@@ -119,9 +123,10 @@ ion-input {
         max-width: 342px;
         display: block;
         margin: auto;
-        background: #006600;
+        border-radius: 15px;
+        // background: #006600;
         box-shadow: none;
-        border: 5px solid yellow;
+        // border: 5px solid yellow;
 
         .ion-page {
             position: relative;
@@ -211,7 +216,8 @@ ion-input {
 
 .changepassword .modal-wrapper {
     height: 450px;
-    background: #006600;
+    // background: #006600;
+    border-radius: 9px;
     position: absolute;
     bottom: 10px;
     width: 95%;
@@ -220,14 +226,14 @@ ion-input {
 // ================
 
 .loading-class {
-    --background: #006600;
-    --spinner-color: #ffff00;
+    --background: white;
+    --spinner-color: green;
 
-    color: #ffff00;
+    color: green;
 }
 
 .alert-class {
-    --background: #ffff00;
+    --background: white;
 }
 
 .tripStarted {

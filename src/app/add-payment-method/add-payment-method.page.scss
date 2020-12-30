@@ -1,6 +1,6 @@
-ion-content {
-    --background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../assets/bg.png') repeat center center / cover;
-}
+// ion-content {
+//     --background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../assets/bg.png') repeat center center / cover;
+// }
 
 .img {
     height: 150px;
@@ -14,18 +14,19 @@ ion-content {
 .input {
     padding: 7px;
     padding-top: 0px;
-    border: 5px solid yellow;
+    border: 5px solid green;
     margin: 5px;
     border-radius: 5px;
 }
 
 ion-label {
     font-size: 15px;
+    color: green;
 }
 
 .input2 {
     padding: 0px;
-    border: 5px solid yellow;
+    border: 5px solid green;
     margin: 0px;
     margin-top: 5px;
     padding-left: 9px;
@@ -36,7 +37,7 @@ ion-label {
 .input3 {
     padding-bottom: 9px;
     padding-top: 9px;
-    border: 5px solid yellow;
+    border: 5px solid green;
     padding-left: 5px;
     border-radius: 5px;
     width: 94%;
@@ -47,12 +48,12 @@ ion-label {
 }
 
 .footer {
-    background: #006600;
+    // background: #006600;
 
     p {
         font-size: 13px;
         text-align: center;
-        color: yellow;
+        color: green;
     }
 
     ion-button {
@@ -61,19 +62,19 @@ ion-label {
         margin: auto;
         display: block;
         margin-bottom: 27px;
-        --background: yellow;
-        color: green;
+        --background: green;
+        color: white;
         font-weight: bold;
         --box-shadow: none;
     }
 }
 
 ion-input {
-    color: yellow;
+    color: green;
 }
 
 ion-datetime {
-    color: yellow;
+    color: green;
     padding: 0 !important;
 }
 

@@ -15,9 +15,7 @@ export class SplashPage {
   ) { }
 
   ionViewWillEnter() {
-    setTimeout(() => {
-      this.locService.checkGPSPermission();
-    }, 3000);
+    this.locService.checkGPSPermission();
   }
 
 }

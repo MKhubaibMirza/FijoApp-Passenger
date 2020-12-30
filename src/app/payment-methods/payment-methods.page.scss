@@ -7,23 +7,23 @@ ion-slides {
             background: transparent;
 
             p {
-                color: yellow;
+                color: green;
             }
         }
     }
 }
 
-ion-content {
-    --background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../assets/bg.png') repeat center center / cover;
-}
+// ion-content {
+//     --background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../assets/bg.png') repeat center center / cover;
+// }
 
 .footer {
-    background: #006600;
+    background: white;
 
     p {
         font-size: 13px;
         text-align: center;
-        color: yellow;
+        color: green;
     }
 
     ion-button {
@@ -32,8 +32,8 @@ ion-content {
         margin: auto;
         display: block;
         margin-bottom: 27px;
-        --background: yellow;
-        color: green;
+        --background: green;
+        color: white;
         font-weight: bold;
         --box-shadow: none;
     }

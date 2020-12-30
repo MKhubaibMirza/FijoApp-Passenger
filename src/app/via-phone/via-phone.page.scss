@@ -21,8 +21,9 @@ ion-content {
 
     ion-row {
         ion-col {
-            border: 3px solid #ffff00;
             padding: 0;
+            border-radius: 7px;
+            background: white;
 
             .icons {
                 ion-grid {
@@ -38,10 +39,12 @@ ion-content {
                 }
 
                 img {
-                    width: 100px;
+                    width: 90%;
                     height: 57px;
                     position: relative;
                     top: 3px;
+                    left: 0px;
+                    border-radius: 5px;
                     object-fit: cover;
                 }
             }
@@ -52,6 +55,7 @@ ion-content {
                 text-align: left;
                 font-size: 20px;
                 height: 63px;
+                border-radius: 0px 9px 9px 0px;
                 --placeholder-color: white
             }
         }
@@ -62,7 +66,7 @@ ion-content {
     }
 
     .login {
-        color: #ffff00;
+        color: white;
         font-size: 22px;
         outline: none;
     }

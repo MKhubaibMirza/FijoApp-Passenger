@@ -25,7 +25,7 @@
                 background: rgba(0, 0, 0, 0.2);
                 padding: 20px;
                 border-radius: 50%;
-                color: #ffff00;
+                color: white;
                 outline: none;
             }
 
@@ -33,7 +33,7 @@
                 margin: 0;
                 font-size: 25px;
                 font-weight: bold;
-                color: #ffff00;
+                color: white;
             }
         }
     }
@@ -41,11 +41,18 @@
 
 .list {
     ion-item {
-        padding: 5px;
+        padding: 9px 5px;
         font-size: 20px;
 
         ion-icon {
-            font-size: 30px;
+            font-size: 21px;
+            color: green;
+        }
+
+        ion-label {
+            color: green;
+            font-size: 21px;
+            margin: 0;
         }
     }
 }

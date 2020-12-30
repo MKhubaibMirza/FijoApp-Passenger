@@ -15,7 +15,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '',
+    path: 'splash',
     loadChildren: () => import('./splash/splash.module').then(m => m.SplashPageModule)
   },
   {
@@ -59,7 +59,7 @@ const routes: Routes = [
     loadChildren: () => import('./help/help.module').then(m => m.HelpPageModule)
   },
   {
-    path: 'select-language',
+    path: '',
     canActivate: [AuthGuard],
     loadChildren: () => import('./select-language/select-language.module').then(m => m.SelectLanguagePageModule)
   },
@@ -161,38 +161,43 @@ const routes: Routes = [
   {
     path: 'rating',
     canActivate: [ForwordGuard],
-    loadChildren: () => import('./rating/rating.module').then( m => m.RatingPageModule)
+    loadChildren: () => import('./rating/rating.module').then(m => m.RatingPageModule)
   },
   {
     path: 'forgot-password',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule)
   },
   {
     path: 'journey-details',
     canActivate: [ForwordGuard],
-    loadChildren: () => import('./journey-details/journey-details.module').then( m => m.JourneyDetailsPageModule)
+    loadChildren: () => import('./journey-details/journey-details.module').then(m => m.JourneyDetailsPageModule)
   },
   {
     path: 'chat/:name/:id',
     canActivate: [ForwordGuard],
-    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
+    loadChildren: () => import('./chat/chat.module').then(m => m.ChatPageModule)
   },
   {
     path: 'change-password',
     canActivate: [ForwordGuard],
-    loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+    loadChildren: () => import('./change-password/change-password.module').then(m => m.ChangePasswordPageModule)
   },
   {
     path: 'contact-us',
     canActivate: [ForwordGuard],
-    loadChildren: () => import('./contact-us/contact-us.module').then( m => m.ContactUsPageModule)
+    loadChildren: () => import('./contact-us/contact-us.module').then(m => m.ContactUsPageModule)
   },
   {
     path: 'privacy-policy',
     canActivate: [ForwordGuard],
-    loadChildren: () => import('./privacy-policy/privacy-policy.module').then( m => m.PrivacyPolicyPageModule)
+    loadChildren: () => import('./privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyPageModule)
   },
+  {
+    path: 'terms-and-condition',
+    loadChildren: () => import('./terms-and-condition/terms-and-condition.module').then(m => m.TermsAndConditionPageModule)
+  },
+
 
 
 

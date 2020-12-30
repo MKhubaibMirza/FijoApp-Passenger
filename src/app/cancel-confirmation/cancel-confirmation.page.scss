@@ -1,34 +1,39 @@
-ion-content {
-    --background: #006600;
-    border: 5px solid yellow;
-}
+// ion-content {
+//     --background: #006600;
+//     border: 5px solid green;
+// }
 
 .icon {
-    font-size: 99px;
+    font-size: 51px;
     text-align: center;
     margin: auto;
     display: block;
-    color: yellow;
+    color: black;
+    border-radius: 13px;
+    background: yellow;
+    padding: 11px;
+    border: 3px solid black;
+    margin-top: 7px;
 }
 
 .title {
     text-align: center;
     font-size: 17px;
-    color: yellow;
+    color: green;
     font-weight: bold;
 }
 
 .subtitle {
     text-align: center;
-    color: white;
+    color: grey;
     padding-left: 7px;
     padding-right: 7px;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .continue {
     text-align: center;
-    color: yellow;
+    color: green;
     font-size: 21px;
     font-weight: bold;
     margin: 0;
@@ -37,7 +42,7 @@ ion-content {
 }
 
 .hr {
-    background: yellow;
+    background: green;
     height: 5px;
     width: 90%;
     margin: auto;

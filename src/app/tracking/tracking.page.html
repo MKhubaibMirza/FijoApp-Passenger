@@ -25,7 +25,7 @@
       </ion-grid>
       <br>
       <p class="bottomtext">{{'trackingPage.preparingRide' | translate}}</p>
-      <ion-progress-bar class="progress" color="medium" value="0.5"></ion-progress-bar>
+      <ion-progress-bar class="progress" color="primary" value="0.5"></ion-progress-bar>
     </ion-card-content>
   </ion-card>
   <ion-card *ngIf="isSearching" class="FooterCard">
@@ -42,7 +42,7 @@
       </ion-grid>
       <br>
       <p class="bottomtext">{{'trackingPage.findingDrivers' | translate}}</p>
-      <ion-progress-bar class="progress" color="medium" value="0.9"></ion-progress-bar>
+      <ion-progress-bar class="progress" color="primary" value="0.9"></ion-progress-bar>
     </ion-card-content>
   </ion-card>
 </ion-footer>
@@ -79,19 +79,19 @@
         <ion-row *ngIf="!isTripStarted">
           <ion-col size="4">
             <div (click)="openChat()" class="bottomIconAndText">
-              <ion-icon name="chatbox-ellipses"></ion-icon>
+              <ion-icon class="ion-icon1" name="chatbox-ellipses"></ion-icon>
               <span>{{'trackingPage.contact' | translate}}</span>
             </div>
           </ion-col>
           <ion-col size="4">
             <div (click)="call()" class="bottomIconAndText">
-              <ion-icon name="call"></ion-icon>
+              <ion-icon class="ion-icon2" name="call"></ion-icon>
               <span>{{'trackingPage.call' | translate}}</span>
             </div>
           </ion-col>
           <ion-col size="4">
             <div (click)="cancelConfirmModal()" class="bottomIconAndText">
-              <ion-icon name="close-circle"></ion-icon>
+              <ion-icon class="ion-icon3" name="close-circle"></ion-icon>
               <span>{{'trackingPage.cancel' | translate}}</span>
             </div>
           </ion-col>
@@ -99,13 +99,13 @@
         <ion-row *ngIf="isTripStarted">
           <ion-col size="6">
             <div (click)="openChat()" class="bottomIconAndText">
-              <ion-icon name="chatbox-ellipses"></ion-icon>
+              <ion-icon class="ion-icon1" name="chatbox-ellipses"></ion-icon>
               <span>{{'trackingPage.contact' | translate}}</span>
             </div>
           </ion-col>
           <ion-col size="6">
             <div (click)="call()" class="bottomIconAndText">
-              <ion-icon name="call"></ion-icon>
+              <ion-icon class="ion-icon2" name="call"></ion-icon>
               <span>{{'trackingPage.call' | translate}}</span>
             </div>
           </ion-col>

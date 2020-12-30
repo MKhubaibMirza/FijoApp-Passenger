@@ -18,10 +18,10 @@
         <img class="img" *ngIf="!driverImg" src="assets/profile.png" alt="">
         <p class="text">{{'ratingPage.rate' | translate}} {{driverName}}</p>
         <ion-item class="ion-no-padding" color="transparent" lines="none">
-          <ion-label class="ion-text-nowrap" style="text-align: right;" color="medium">
+          <ion-label class="ion-text-nowrap" style="text-align: center;" color="primary">
             {{'ratingPage.addFav' | translate}}
           </ion-label>
-          <ion-checkbox [(ngModel)]="favrouiteDriver" color="medium" slot="end"></ion-checkbox>
+          <ion-checkbox [(ngModel)]="favrouiteDriver" color="primary" slot="end"></ion-checkbox>
         </ion-item>
         <p class="stars">
           <ion-icon (click)="func(1)" [name]="condi1? 'star' : 'star-outline'"></ion-icon>&nbsp;
@@ -30,7 +30,7 @@
           <ion-icon (click)="func(4)" [name]="condi4? 'star' : 'star-outline'"></ion-icon>&nbsp;
           <ion-icon (click)="func(5)" [name]="condi5? 'star' : 'star-outline'"></ion-icon>
         </p>
-        <ion-button expand="block" (click)="onSubmitClick()" color="medium">
+        <ion-button expand="block" (click)="onSubmitClick()" color="primary">
           {{'ratingPage.submit' | translate}}
         </ion-button>
       </ion-card>

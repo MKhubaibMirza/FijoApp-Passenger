@@ -11,5 +11,10 @@ export class PrivacyPolicyPage implements OnInit {
 
   ngOnInit() {
   }
-  pdfSrc = 'assets/Fijotaxi_PassengerPrivacyPolicy_English.pdf';
+  pdfSrc = 'assets/FijoTaxi_PassengerPrivacyPolicy_Spanish.pdf';
+  pdfSrc2 = 'assets/Fijotaxi_PassengerPrivacyPolicy_English.pdf';
+  condition = 'Spanish';
+  segmentChanged(event) {
+    this.condition = event.detail.value;
+  }
 }
