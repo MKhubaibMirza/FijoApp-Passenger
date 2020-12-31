@@ -22,6 +22,34 @@
         "cancel": "Cancelar",
         "regNow": "Regístrate ahora"
     },
+    "signUp": {
+        "registerationFijoTaxi": "Registro Fijo Taxi",
+        "needInfo": "¡Necesito información sobre usted!",
+        "firstName": "Primer nombre",
+        "lastName": "Apellido",
+        "emailPlz": "Por favor introduzca su correo electrónico",
+        "phonePlz": "Por favor, introduzca su número de teléfono",
+        "enterMobile": "Entrar en el móvil",
+        "safeSecurely": "Guardaremos su información personal de forma segura",
+        "enterPass": "Ingrese una contraseña segura",
+        "password": "Contraseña",
+        "confirmPassword": "Confirmar contraseña",
+        "oneStepMore": "¡Solo un paso más!",
+        "selectGender": "Selecciona tu género",
+        "male": "Masculino",
+        "female": "Hembra",
+        "gender": "Género",
+        "allDone": "Todo listo",
+        "allDoneSuccessfully": "Toda su información recopilada con éxito",
+        "register": "Registrarse",
+
+
+        "namePlz": "Por favor ingresa tu nombre completo",
+        "bothPlz": "Complete ambos campos",
+        "noMatch": "¡Contraseña no coincidente!",
+        "genderPlz": "Por favor seleccione su género",
+        "loading": "Por favor espera..."
+    },
     "viaEmail": {
         "loginViaPhone": "Iniciar sesión por teléfono",
         "preferedEmail": "Ingrese su correo electrónico preferido",
@@ -38,7 +66,7 @@
         "emailNoFound": "El correo electrónico no existe",
         "loading": "Cargando por favor espere...",
         "noFound": "¡Usuario no encontrado!",
-        "noReg": "",
+        "noReg": "¡Aún no te has registrado en Fijotaxi!",
         "cancel": "Cancelar",
         "regNow": "Regístrate ahora"
     },

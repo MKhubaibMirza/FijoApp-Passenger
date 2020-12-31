@@ -6,6 +6,7 @@ import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@io
 import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { DataService } from '../services/data.service';
 import { PassengerService } from '../services/passenger.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
@@ -24,8 +25,16 @@ export class SignupPage implements OnInit {
     private passengerService: PassengerService,
     private r: Router,
     private alertController: AlertController,
-    private loading: LoadingController
-  ) { }
+    private loading: LoadingController,
+    public t: TranslateService
+
+  ) {
+    t.get("signUp").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+  }
+  respFromLanguage: any;
 
   ngOnInit() {
   }
@@ -104,7 +113,7 @@ export class SignupPage implements OnInit {
   // first name last name
   toSlide2() {
     if ((this.signupData.firstName && this.signupData.lastName) == '') {
-      this.presentToast('Please Enter Your Full Name')
+      this.presentToast(this.respFromLanguage.namePlz)
     } else {
       this.slide1 = false;
       this.slide2 = true;
@@ -119,7 +128,7 @@ export class SignupPage implements OnInit {
   // email
   toSlide3() {
     if (this.signupData.email == '') {
-      this.presentToast('Please Enter Your Email')
+      this.presentToast(this.respFromLanguage.emailPlz)
     } else {
       this.slide1 = false;
       this.slide2 = false;
@@ -133,7 +142,7 @@ export class SignupPage implements OnInit {
   // phone number 
   toSlide4() {
     if (this.signupData.phoneNumber == '') {
-      this.presentToast('Please Enter Your Phone Number')
+      this.presentToast(this.respFromLanguage.phonePlz)
     } else {
       this.slide1 = false;
       this.slide2 = false;
@@ -147,7 +156,7 @@ export class SignupPage implements OnInit {
   // password 
   toSlide5() {
     if ((this.password.new && this.password.confirm) == '') {
-      this.presentToast('Please Fill Both Fields')
+      this.presentToast(this.respFromLanguage.bothPlz)
     } else {
       if (this.password.confirm == this.password.new) {
         this.slide1 = false;
@@ -159,7 +168,7 @@ export class SignupPage implements OnInit {
 
         this.signupData.password = this.password.new
       } else {
-        this.presentToast('Password Not Matched!')
+        this.presentToast(this.respFromLanguage.noMatch)
       }
     }
   }
@@ -167,7 +176,7 @@ export class SignupPage implements OnInit {
   // gender
   toSlide6() {
     if (this.signupData.gender == '') {
-      this.presentToast('Please Select Your Gender')
+      this.presentToast(this.respFromLanguage.genderPlz)
     } else {
       this.slide1 = false;
       this.slide2 = false;
@@ -219,7 +228,7 @@ export class SignupPage implements OnInit {
           }, err => {
             this.countryData = [];
             if (JSON.stringify(this.signupData.phoneNumber).length > 1) {
-              this.presentToast("Invalid Country Code")
+              // this.presentToast("Invalid Country Code")
             }
           })
         } else {
@@ -229,7 +238,7 @@ export class SignupPage implements OnInit {
                 this.countryData = element;
               });
             } else {
-              this.presentToast("Invalid Country Code")
+              // this.presentToast("Invalid Country Code")
               // its mean no country exsists for country code of 2 or 3 letters you can show error here
             }
           })
@@ -240,23 +249,9 @@ export class SignupPage implements OnInit {
     }
   }
 
-
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: 'Register Successfully',
-      message: 'Please Login to continue',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-
-
-
   async presentLoading() {
     const loading = await this.loading.create({
-      message: 'Please wait',
+      message: this.respFromLanguage.loading,
       duration: 7000,
       spinner: 'dots',
     });

@@ -52,7 +52,7 @@ export class AppComponent {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
       if (this.translateConfigService.selectedLanguage() == undefined) {
-        this.translateConfigService.setLanguage('en');
+        this.translateConfigService.setLanguage('sp');
       }
       if (this.platform.is('cordova')) {
         this.setupPush();

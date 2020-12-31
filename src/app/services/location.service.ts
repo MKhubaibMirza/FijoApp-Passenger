@@ -34,6 +34,7 @@ export class LocationService {
         }
       },
       err => {
+        this.modal.dismiss();
       }
     );
   }
@@ -50,6 +51,7 @@ export class LocationService {
             },
             error => {
               //Show alert if user click on 'No Thanks'
+              this.modal.dismiss();
             }
           );
       }

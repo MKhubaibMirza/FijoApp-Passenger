@@ -3,8 +3,7 @@
 }
 
 ion-content {
-    // --background: url(../../assets/bg.png) 0 0/100% 100% no-repeat;
-    --background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../assets/bg.png') repeat center center / cover;
+    --background: url('../../assets/bg.png') repeat center center / cover;
 }
 
 ion-slides {
@@ -30,15 +29,16 @@ ion-slides {
 
 .backbutton {
     position: absolute;
-    top: 7px;
-    color: #ffff00;
+    top: 13px;
+    color: white;
+    left: 9px;
 }
 
 
 .title {
     font-weight: bold;
     font-size: 20px;
-    color: #ffff00;
+    color: white;
     text-align: center;
     padding: 20px 50px;
     background: rgb(0, 102, 0, 0.5);

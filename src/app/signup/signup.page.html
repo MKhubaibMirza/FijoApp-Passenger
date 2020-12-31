@@ -3,24 +3,24 @@
     <ion-back-button class="back" mode='md' defaultHref=""></ion-back-button>
   </ion-buttons>
 
-  <p class="title">Registeration Fijo Taxi</p>
+  <p class="title">{{'signUp.registerationFijoTaxi' | translate}}</p>
 
   <ion-slides (ionSlideDidChange)="slidechnge(slides)" #slides class="swiper-no-swiping" id="slides">
     <!-- slide one first name last name  -->
     <ion-slide *ngIf='slide1 === true'>
       <ion-grid fixed>
-        <p class="needinfo">Need Some Information About you!</p>
-        <p class="enterinputtext">Please Enter You Name</p>
+        <p class="needinfo">{{'signUp.needInfo' | translate}}</p>
+        <p class="enterinputtext">{{'signUp.namePlz' | translate}}</p>
         <ion-row>
           <ion-col size="6" class="ion-no-padding">
             <ion-item color='transparent ion-no-padding' class="input">
-              <ion-label position="floating" color='light'>First Name</ion-label>
+              <ion-label position="floating" color='light'>{{'signUp.firstName' | translate}}</ion-label>
               <ion-input [(ngModel)]="signupData.firstName" type="text" color="light"></ion-input>
             </ion-item>
           </ion-col>
           <ion-col size="6" class="ion-no-padding">
             <ion-item color='transparent ion-no-padding' class="input">
-              <ion-label position="floating" color='light'>Last Name</ion-label>
+              <ion-label position="floating" color='light'>{{'signUp.lastName' | translate}}</ion-label>
               <ion-input [(ngModel)]="signupData.lastName" type="text" color="light"></ion-input>
             </ion-item>
           </ion-col>
@@ -37,7 +37,7 @@
     <!-- slide 2 email  -->
     <ion-slide *ngIf='slide2 === true'>
       <ion-grid fixed>
-        <p class="enterinputtext">Please Enter You Email</p>
+        <p class="enterinputtext">{{'signUp.emailPlz' | translate}}</p>
         <ion-item color='transparent' class="input ion-no-padding">
           <ion-label position="floating" color='light'>Email</ion-label>
           <ion-input [(ngModel)]="signupData.email" type="email" color="light"></ion-input>
@@ -60,7 +60,7 @@
     <!-- slide 3 phone  -->
     <ion-slide *ngIf='slide3 === true'>
       <ion-grid fixed>
-        <p class="enterinputtext">Please Enter You Phone Number</p>
+        <p class="enterinputtext">{{'signUp.phonePlz' | translate}}</p>
 
         <ion-row>
           <ion-col size="3">
@@ -81,10 +81,11 @@
               </ion-grid>
             </div>
           </ion-col>
-          
+
           <ion-col size='9'>
             <ion-input class="input" type="number" class="ion-no-margin" [(ngModel)]="signupData.phoneNumber"
-              (keyup)="getflag()" placeholder="Enter mobile" style="color: white; text-align: left;"></ion-input>
+              (keyup)="getflag()" placeholder="{{'signUp.enterMobile' | translate}}"
+              style="color: white; text-align: left;"></ion-input>
           </ion-col>
         </ion-row>
 
@@ -106,16 +107,16 @@
     <!-- slide 4 password  -->
     <ion-slide *ngIf='slide4 === true'>
       <ion-grid fixed>
-        <p class="needinfo">This is for your security</p>
-        <p class="enterinputtext">Enter a Strong Password</p>
+        <p class="needinfo">{{'signUp.safeSecurely' | translate}}</p>
+        <p class="enterinputtext">{{'signUp.enterPass' | translate}}</p>
 
         <ion-item color='transparent' class="input ion-no-padding">
-          <ion-label position="floating" color='light'>Password</ion-label>
+          <ion-label position="floating" color='light'>{{'signUp.password' | translate}}</ion-label>
           <ion-input [(ngModel)]="password.new" type="password" color="light"></ion-input>
         </ion-item>
 
         <ion-item color='transparent' class="input ion-no-padding">
-          <ion-label position="floating" color='light'>Confirm Password</ion-label>
+          <ion-label position="floating" color='light'>{{'signUp.confirmPassword' | translate}}</ion-label>
           <ion-input [(ngModel)]="password.confirm" type="password" color="light"></ion-input>
         </ion-item>
       </ion-grid>
@@ -137,14 +138,14 @@
     <!-- slide 5 Gender  -->
     <ion-slide *ngIf='slide5 === true'>
       <ion-grid fixed>
-        <p class="needinfo">Just one step far!</p>
-        <p class="enterinputtext">Select your Gender</p>
+        <p class="needinfo">{{'signUp.oneStepMore' | translate}}</p>
+        <p class="enterinputtext">{{'signUp.selectGender' | translate}}</p>
 
         <ion-item class="input ion-no-padding">
-          <ion-label>Gender</ion-label>
+          <ion-label>{{'signUp.gender' | translate}}</ion-label>
           <ion-select [(ngModel)]="signupData.gender" value="male" interface='action-sheet'>
-            <ion-select-option value="male">Male</ion-select-option>
-            <ion-select-option value="female">Female</ion-select-option>
+            <ion-select-option value="male">{{'signUp.male' | translate}}</ion-select-option>
+            <ion-select-option value="female">{{'signUp.female' | translate}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-grid>
@@ -165,11 +166,11 @@
     <!-- slide 6 End  -->
     <ion-slide *ngIf='slide6 === true'>
       <ion-grid fixed>
-        <p class="enterinputtext">All Done</p>
-        <p class="needinfo">All your Information Collected Successfully</p>
+        <p class="enterinputtext">{{'signUp.allDone' | translate}}</p>
+        <p class="needinfo">{{'signUp.allDoneSuccessfully' | translate}}</p>
 
         <ion-button expand="block" class="register" (click)="onSignupClick()">
-          Register
+          {{'signUp.register' | translate}}
         </ion-button>
       </ion-grid>
 
@@ -180,59 +181,4 @@
       </ion-fab>
     </ion-slide>
   </ion-slides>
-
-  <!--   <ion-buttons class="backbutton">
-    <ion-back-button class="back" mode='md' defaultHref=""></ion-back-button>
-  </ion-buttons>
-
-  <p class="title">Registeration Fijo Taxi</p>
-
-  <ion-grid fixed>
-    <ion-row>
-      <ion-col size="6" class="ion-no-padding">
-        <ion-item color='transparent ion-no-padding' class="input">
-          <ion-label position="floating" color='light'>First Name</ion-label>
-          <ion-input [(ngModel)]="signupData.firstName" type="text" color="light"></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col size="6" class="ion-no-padding">
-        <ion-item color='transparent ion-no-padding' class="input">
-          <ion-label position="floating" color='light'>Last Name</ion-label>
-          <ion-input [(ngModel)]="signupData.lastName" type="text" color="light"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <ion-item color='transparent' class="input ion-no-padding">
-    <ion-label position="floating" color='light'>Email</ion-label>
-    <ion-input [(ngModel)]="signupData.email" type="email" color="light"></ion-input>
-  </ion-item>
-
-  <ion-item color='transparent' class="input ion-no-padding">
-    <ion-label position="floating" color='light'>Phone</ion-label>
-    <ion-input [(ngModel)]="signupData.phone" type="number" color="light"></ion-input>
-  </ion-item>
-
-  <ion-item color='transparent' class="input ion-no-padding">
-    <ion-label position="floating" color='light'>Password</ion-label>
-    <ion-input [(ngModel)]="signupData.password" type="password" color="light"></ion-input>
-  </ion-item>
-
-  <ion-item color='transparent' class="input ion-no-padding">
-    <ion-label position="floating" color='light'>Confirm Password</ion-label>
-    <ion-input type="password" color="light"></ion-input>
-  </ion-item>
-
-  <ion-item class="input ion-no-padding">
-    <ion-label>Gender</ion-label>
-    <ion-select [(ngModel)]="signupData.gender" value="male" interface='action-sheet'>
-      <ion-select-option value="male">Male</ion-select-option>
-      <ion-select-option value="female">Female</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-button expand="block" class="register" (click)="onSignupClick()">
-    Register
-  </ion-button> -->
 </ion-content>

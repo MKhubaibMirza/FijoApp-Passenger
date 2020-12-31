@@ -2,6 +2,34 @@
     "welcomeNotePage": {
         "text": "Freedom at a fixed price from anywhere in your city"
     },
+    "signUp": {
+        "registerationFijoTaxi": "Registeration Fijo Taxi",
+        "needInfo": "Need Some Information About you!",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "emailPlz": "Please Enter Your Email",
+        "phonePlz": "Please Enter Your Phone Number",
+        "enterMobile": "Enter mobile",
+        "safeSecurely": "We will securely save your personal information",
+        "enterPass": "Enter a Strong Password",
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "oneStepMore": "Just one step far!",
+        "selectGender": "Select your Gender",
+        "male": "Male",
+        "female": "Female",
+        "gender": "Gender",
+        "allDone": "All Done",
+        "allDoneSuccessfully": "All your Information Collected Successfully",
+        "register": "Register",
+
+
+        "namePlz": "Please Enter Your Full Name",
+        "bothPlz": "Please Fill Both Fields",
+        "noMatch": "Password Not Matched!",
+        "genderPlz": "Please Select Your Gender",
+        "loading": "Please wait..."
+    },
     "viaPhonePage": {
         "enterMobileNumber": "Enter your Mobile Number",
         "withCountryCode": "with country code",
@@ -38,7 +66,7 @@
         "emailNoFound": "Email does not exist",
         "loading": "Loading Please Wait...",
         "noFound": "User not found!",
-        "noReg": "¡Aún no te has registrado en Fijotaxi!",
+        "noReg": "You have not registered in Fijotaxi yet!",
         "cancel": "Cancel",
         "regNow": "Register Now"
     },
