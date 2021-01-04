@@ -11,6 +11,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { PaymentService } from '../services/payment.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { TranslateConfigService } from '../services/translate-config.service';
 
 @Component({
   selector: 'app-tracking',
@@ -34,6 +35,8 @@ export class TrackingPage {
   longitude: number;
   zoom = 17;
   address: string;
+  isEn: Boolean;
+  isSp: Boolean;
   @ViewChild(AgmMap) agmMap: AgmMap;
   DriverFound = false;
   isSearching = false;
@@ -62,12 +65,20 @@ export class TrackingPage {
     public toastController: ToastController,
     public geolocation: Geolocation,
     public menuControl: MenuController,
-    public t: TranslateService
+    public r: Router,
+    public t: TranslateService,
+    public translate: TranslateConfigService
   ) {
     t.get("trackingPage").subscribe((resp: any) => {
       console.log(resp);
       this.respFromLanguage = resp;
     });
+    let selectedLang = this.translate.selectedLanguage();
+    if (selectedLang == 'en') {
+      this.isEn = true;
+    } else {
+      this.isSp = true;
+    }
   }
   respFromLanguage: any;
   afterTripStart() {
@@ -215,7 +226,18 @@ export class TrackingPage {
     },
     travelMode: "DRIVING",
   }
-
+  driverNotFundInRegion = false;
+  DispatcherCode() {
+    // send data to admin panel and wait for 1 minute
+    this.driverNotFundInRegion = true;
+    let findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
+    this.socket.emit('reqNotFoundSendRequestToAdminPanel', findDriverObj);
+    setTimeout(() => {
+      if (!this.DriverFound) {
+        this.presentAlert();
+      }
+    }, 60000);
+  }
   ionViewWillEnter() {
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
@@ -231,9 +253,12 @@ export class TrackingPage {
         this.driverService.findDrivers(findDriverObj).subscribe((resp: any) => {
           if (resp.length !== 0) {
             this.socket.emit('send-data-to-drivers', resp);
+            this.driverNotFundInRegion = false;
           }
         }, er => {
-          this.presentAlert();
+          // send data to admin panel and wait for 1 minute
+          console.log('Driver Not FOund and send data to admin panel');
+          this.DispatcherCode();
         })
       }, 2100);
     }
@@ -254,14 +279,32 @@ export class TrackingPage {
       this.isTripStarted = true;
       if (this.startTripCounter == false) {
         this.startTripCounter = true;
-        this.tripStart_Or_PaymentRepeater_Or_AlertShower(
-          `Your trip is started. Please read <b>COVID-19</b> SOPs carefully. <br> 
-    <p> 
-    ⦿ Keep your distance from other people when you travel, where possible. <br>
-    ⦿ Avoid making unnecessary stops during your journey. <br>
-    ⦿ Plan ahead, check for disruption before you leave, and avoid the busiest routes, as well as busy times. <br>
-    ⦿ Wash or sanitise your hands regularly.
-    </p>`);
+        if (this.r.url !== '/tracking') {
+          this.r.navigate(['/tracking']);
+        }
+        if (this.isEn) {
+          let message = `
+      Your trip is started.Please read <b> COVID - 19 </b> SOPs carefully. <br>
+        <p>
+      ⦿ Keep your distance from other people when you travel, where possible. <br>
+      ⦿ Avoid making unnecessary stops during your journey. <br>
+      ⦿ Wear a mask on your face. <br>
+      ⦿ Plan ahead, check for disruption before you leave, and avoid the busiest routes, as well as busy times. <br>
+      ⦿ Wash or sanitise your hands regularly.
+      </p>`
+          this.tripStart_Or_PaymentRepeater_Or_AlertShower(message);
+        } else if (this.isSp) {
+          let message = `
+          Tu viaje ha comenzado. Lee <b> COVID - 19 </b>SOP con cuidado. <br>
+            <p>
+          ⦿ Mantenga su distancia de otras personas cuando viaje, siempre que sea posible. <br>
+          ⦿ Evite hacer paradas innecesarias durante su viaje. <br>
+          ⦿ Use una máscara en su cara. <br>
+          ⦿ Planifique con anticipación, verifique si hay interrupciones antes de partir y evite las rutas más concurridas, así como las horas punta. <br>
+          ⦿ Lávese o desinfecte sus manos con regularidad.
+          </p>`
+          this.tripStart_Or_PaymentRepeater_Or_AlertShower(message);
+        }
       }
     });
     this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
@@ -275,7 +318,11 @@ export class TrackingPage {
       if (!localStorage.getItem('tracking')) {
         if (this.DriverFound == false) {
           if (this.router.url == '/tracking') {
-            this.presentAlert();
+            if (this.driverNotFundInRegion == false) {
+              // send data to admin panel and wait for 1 minute
+              console.log('Driver FOund but not accepted');
+              this.DispatcherCode();
+            }
           }
         }
       }
@@ -298,8 +345,12 @@ export class TrackingPage {
       buttons: [{
         text: this.respFromLanguage.okay,
         handler: () => {
-          localStorage.removeItem('findDriverObj');
-          this.router.navigate(['/home']);
+          if (localStorage.getItem('tracking')) {
+            return true;
+          } else {
+            localStorage.removeItem('findDriverObj');
+            this.router.navigate(['/home']);
+          }
         }
       }]
     });

@@ -140,14 +140,16 @@ export class InfoPage implements OnInit {
         quality: 10,
         destinationType: this.camera.DestinationType.DATA_URL,
         mediaType: this.camera.MediaType.PICTURE,
-        sourceType: this.camera.PictureSourceType.CAMERA
+        sourceType: this.camera.PictureSourceType.CAMERA,
+        correctOrientation: true
       };
     } else {
       options = {
         quality: 10,
         destinationType: this.camera.DestinationType.DATA_URL,
         mediaType: this.camera.MediaType.PICTURE,
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+        correctOrientation: true
       };
     }
     this.camera.getPicture(options).then((imageData) => {
