@@ -69,6 +69,8 @@ export class TrackingPage {
     public t: TranslateService,
     public translate: TranslateConfigService
   ) {
+    this.endTripCounter = false;
+    this.startTripCounter = false;
     t.get("trackingPage").subscribe((resp: any) => {
       console.log(resp);
       this.respFromLanguage = resp;
@@ -236,7 +238,7 @@ export class TrackingPage {
       if (!this.DriverFound) {
         this.presentAlert();
       }
-    }, 60000);
+    }, 30000);
   }
   ionViewWillEnter() {
     this.mapsAPILoader.load().then(() => {
@@ -326,7 +328,7 @@ export class TrackingPage {
           }
         }
       }
-    }, 60000);
+    }, 30000);
     if (localStorage.getItem('tripStarted')) {
       this.isTripStarted = true;
       this.afterTripStart();
@@ -396,6 +398,7 @@ export class TrackingPage {
         // this.zoom = 18;
       }, err => {
       });
+      this.agmMap.triggerResize();
   }
   public onResponse(event: any) {
     this.totaltime = event.routes[0]?.legs[0].duration.text;

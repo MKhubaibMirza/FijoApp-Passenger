@@ -12,7 +12,8 @@
       <p class="firsttext">{{'viaEmail.preferedEmail' | translate}}</p>
 
       <ion-row>
-        <ion-input class="input" type="email" [(ngModel)]='data.email' class="ion-no-margin"
+        <ion-input (ionFocus)="conditionForRemoveingEmailDiv('focus')" (ionBlur)="conditionForRemoveingEmailDiv('blur')"
+          class="input" type="email" [(ngModel)]='data.email' class="ion-no-margin"
           placeholder="{{'viaEmail.enterEmail' | translate}}">
         </ion-input>
       </ion-row>
@@ -30,7 +31,7 @@
     </ion-grid>
   </div>
 
-  <div class="bottom">
+  <div *ngIf="!hideEmailLine" class="bottom">
 
     <div class="center">
       <div class="divider-line-x"><span>

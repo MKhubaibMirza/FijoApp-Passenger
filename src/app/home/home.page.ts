@@ -114,7 +114,7 @@ export class HomePage {
     city: JSON.parse(localStorage.getItem('user')).city,
     currentLat: 0,
     currentLng: 0,
-    searchInKM: 7,
+    searchInKM: 15,
     paymentVia: '',
     passengerObj: localStorage.getItem('user'),
     origin: '',
@@ -244,8 +244,8 @@ export class HomePage {
         this.FindDriverObj.currentLat = this.latitude;
         this.FindDriverObj.currentLng = this.longitude;
         this.getAddress(this.latitude, this.longitude);
-      }, err => {
       });
+    this.agmMap.triggerResize();
   }
   totaltime = '';
   totaldistance = '';
@@ -501,7 +501,7 @@ export class HomePage {
       city: JSON.parse(localStorage.getItem('user')).city,
       currentLat: 0,
       currentLng: 0,
-      searchInKM: 7,
+      searchInKM: 15,
       paymentVia: '',
       passengerObj: localStorage.getItem('user'),
       origin: '',

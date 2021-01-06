@@ -104,5 +104,13 @@ export class ViaEmailPage implements OnInit {
 
     await alert.present();
   }
+  hideEmailLine = false;
+  conditionForRemoveingEmailDiv(value) {
+    if (value == 'focus') {
+      this.hideEmailLine = true;
+    } else {
+      this.hideEmailLine = false;
+    }
+  }
 }
 

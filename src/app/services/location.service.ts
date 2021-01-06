@@ -5,6 +5,8 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 import { PassengerService } from './passenger.service';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +17,7 @@ export class LocationService {
     public androidPermissions: AndroidPermissions,
     public locationAccuracy: LocationAccuracy,
     public passengerService: PassengerService,
+    public nativeGeocoder: NativeGeocoder,
     public modal: ModalController,
     public r: Router
   ) {
@@ -81,11 +84,24 @@ export class LocationService {
         let locObj = {
           currentLat: data.coords.latitude,
           currentLng: data.coords.longitude,
+          city: '',
+          address: '',
+          postalCode: ''
         };
-        if (localStorage.getItem('user')) {
-          let id = JSON.parse(localStorage.getItem('user')).id;
-          this.passengerService.updatePassengerLocation(locObj, id).subscribe((resp: any) => { })
-        }
+        let opt: NativeGeocoderOptions = {
+          useLocale: false,
+          maxResults: 1
+        };
+        this.nativeGeocoder.reverseGeocode(data.coords.latitude, data.coords.longitude, opt)
+          .then((result: NativeGeocoderResult[]) => {
+            locObj.city = result[0].locality;
+            locObj.address = result[0].subLocality + ' ' + result[0].thoroughfare;
+            locObj.postalCode = result[0].postalCode;
+            if (localStorage.getItem('user')) {
+              let id = JSON.parse(localStorage.getItem('user')).id;
+              this.passengerService.updatePassengerLocation(locObj, id).subscribe((resp: any) => { })
+            }
+          })
       }
     });
   }

@@ -144,9 +144,7 @@ export class SocialAuthService {
           this.signupData.city = result[0].locality;
           this.signupData.address = result[0].subLocality + ' ' + result[0].thoroughfare;
           this.signupData.postalCode = result[0].postalCode;
-        }).catch((error) => {
         })
-    }).catch((error) => {
     })
   }
   async registerNow() {
