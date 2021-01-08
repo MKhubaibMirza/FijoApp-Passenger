@@ -75,5 +75,7 @@ export class PassengerService {
   updateInfo(data) {
     return this.http.post(this.ApiUrl + 'passenger/update/' + JSON.parse(localStorage.getItem('user')).id, data);
   }
-  updateProfile
+  logoutDriver(id) {
+    return this.http.post(this.ApiUrl + 'passenger/logout/' + id, {})
+  }
 }

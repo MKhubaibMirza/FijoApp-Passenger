@@ -105,7 +105,7 @@ agm-map {
 }
 
 .looptitle {
-  font-size: 21px;
+  font-size: 19px;
   margin: 0;
   font-weight: bold;
   padding-top: 3px;
@@ -115,6 +115,7 @@ agm-map {
   font-size: 15px;
   margin: 0;
   font-weight: bold;
+  color: #262626;
 }
 
 .loopprice {
@@ -155,7 +156,7 @@ agm-map {
 }
 
 .totaltime {
-  color: green;
+  color: black;
   font-size: 18px;
   padding-left: 17px;
   font-weight: bold;
@@ -180,4 +181,17 @@ agm-map {
   color: green;
   font-size: 20px;
   outline: none;
+}
+
+.approxAndMax {
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 3px;
+  color: black;
+
+  .max {
+    float: right;
+    padding-right: 11px;
+  }
 }

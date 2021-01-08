@@ -82,7 +82,8 @@
         "text": "You'll need it to access your account securely",
         "forgotPassword": "I forgot my password",
         "next": "Next",
-
+        "opps": "Oops!",
+        "alreadyLogin": "You are already login from another device. Please log out first to login from this device",
         "inCorrect": "Oops! Incorrect Password!"
     },
     "forgotPasswordPage": {
@@ -124,8 +125,8 @@
     "homePage": {
         "title": "Fijo Passenger",
         "hello": "Hello",
-        "whereToGo": "Where do you want to go",
-        "enterDestination": "Enter Destination",
+        "whereToGo": "Where are you going?",
+        "enterDestination": "Enter your destination",
         "searchWithoutDestination": "Search Without Destination",
         "searchWithDestination": "Search With Destination",
         "addMore": "Add More",
@@ -349,5 +350,14 @@
     },
     "chatPage": {
         "text": "Type your message"
+    },
+    "confirmBookingPage": {
+        "seats": "Seats",
+        "text": "Enter your destination and we will indicate the final price of the journey. We would like to inform you that no stops can be made during the journey.",
+        "ETA": "Estimated Time",
+        "totalDistance": "Total Distance",
+        "max": "Maximum Tariff",
+        "bottomText": "You will not pay more than this price, which is usually less than the real price of the trip (tips and tolls excluded). Only applicable to certain areas of this city.",
+        "continue": "Continue"
     }
 }

@@ -215,7 +215,9 @@ export class SocialAuthService {
     } else if (localStorage.getItem('facebook')) {
       this.fb.logout();
     }
-    localStorage.clear();
-    this.r.navigate(['/via-phone']);
+    this.passenger.logoutDriver(JSON.parse(localStorage.getItem('user')).id).subscribe((respo => {
+      localStorage.clear();
+      this.r.navigate(['/via-phone']);
+    }));
   }
 }

@@ -58,18 +58,20 @@ export class AskPaymentWayPage implements OnInit {
         localStorage.setItem('paymentMethods', this.paymentMethods);
         this.IsSaving = true;
         localStorage.setItem('findDriverObj', JSON.stringify(this.FindDriverObj));
+        localStorage.removeItem('tempFindDriverObj');
         setTimeout(() => {
           this.r.navigate(['/tracking'])
           this.modal.dismiss();
         }, 1500);
       }
-    }else if(i == 3){
+    } else if (i == 3) {
       this.r.navigate(['/add-payment-method'])
       this.modal.dismiss();
     } else {
       this.FindDriverObj.paymentVia = 'cash';
       this.IsSaving = true;
       localStorage.setItem('findDriverObj', JSON.stringify(this.FindDriverObj));
+      localStorage.removeItem('tempFindDriverObj');
       setTimeout(() => {
         this.r.navigate(['/tracking'])
         this.modal.dismiss();

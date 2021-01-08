@@ -196,7 +196,11 @@ const routes: Routes = [
   {
     path: 'terms-and-condition',
     loadChildren: () => import('./terms-and-condition/terms-and-condition.module').then(m => m.TermsAndConditionPageModule)
+  },  {
+    path: 'confirm-booking',
+    loadChildren: () => import('./confirm-booking/confirm-booking.module').then( m => m.ConfirmBookingPageModule)
   },
+
 
 
 

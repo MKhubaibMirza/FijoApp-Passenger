@@ -83,7 +83,8 @@
         "text": "Lo necesitará para acceder a su cuenta de forma segura",
         "forgotPassword": "Olvidé mi contraseña",
         "next": "Próxima",
-
+        "opps": "¡Ups!",
+        "alreadyLogin": "Ya ha iniciado sesión desde otro dispositivo. Primero, cierre sesión para iniciar sesión desde este dispositivo",
         "inCorrect": "¡Ups! ¡Contraseña incorrecta!"
     },
     "forgotPasswordPage": {
@@ -125,8 +126,8 @@
     "homePage": {
         "title": "Fijo Pasajera",
         "hello": "Hola",
-        "whereToGo": "A donde quieres ir",
-        "enterDestination": "Ingrese Destino",
+        "whereToGo": "¿A dónde vas?",
+        "enterDestination": "Introduce tu destino",
         "searchWithoutDestination": "Buscar sin destino",
         "searchWithDestination": "Buscar con destino",
         "addMore": "Añadir más",
@@ -350,5 +351,14 @@
     },
     "chatPage": {
         "text": "Escribe tu mensaje"
+    },
+    "confirmBookingPage": {
+        "seats": "Plazas",
+        "text": "Introduce su destino y le indicaremos el precio final del viaje. Nos gustaría informarle que no se pueden hacer paradas durante el viaje.",
+        "ETA": "Tiempo estimada de recogida",
+        "totalDistance": "Distancia total",
+        "max": "Tarifa Maxima",
+        "bottomText": "No pagaras mas de este precio, el cual, suele ser menor al precio real del trayecto (propinas y peajes excluidos). Solo aplicable de areas determinadas de esta ciudad",
+        "continue": "Seguir"
     }
 }

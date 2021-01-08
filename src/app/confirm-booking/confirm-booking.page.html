@@ -1,0 +1,51 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="home" slot="start"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <img *ngIf="FindDriverObj.vehicleType == 'sedanH'" class="img" src="assets/Fijo_Sedan_Handicap_v_2.png" alt="">
+        <img *ngIf="FindDriverObj.vehicleType == 'sedanN'" class="img" src="assets/Fijo_Sedan_XL_v1.png" alt="">
+        <img *ngIf="FindDriverObj.vehicleType == 'lite'" class="img" src="assets/Fijo_Lite_Cab_v1.png" alt="">
+      </ion-col>
+      <ion-col size="8">
+        <p class="title" *ngIf="FindDriverObj.vehicleType == 'sedanH'">Sedan Equipped</p>
+        <p class="title" *ngIf="FindDriverObj.vehicleType == 'sedanN'">Sedan</p>
+        <p class="title" *ngIf="FindDriverObj.vehicleType == 'lite'">Lite</p>
+        <p class="subtitle">
+          <span *ngIf="FindDriverObj.vehicleType !== 'lite'">{{FindDriverObj.noOfSeating}} {{'confirmBookingPage.seats' | translate}}</span>
+          <span *ngIf="FindDriverObj.vehicleType == 'lite'">3-4 {{'confirmBookingPage.seats' | translate}}</span>
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <p class="p1">{{'confirmBookingPage.text' | translate}}</p>
+  <ion-grid class="ion-no-padding ion-no-margin">
+    <ion-row class="ion-no-padding ion-no-margin">
+      <ion-col size="9.5" class="text">{{'confirmBookingPage.ETA' | translate}}</ion-col>
+      <ion-col size="2.5" class="bottom_text">{{FindDriverObj.estTime}}</ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding ion-no-margin">
+      <ion-col size="6" class="text">{{'confirmBookingPage.totalDistance' | translate}}</ion-col>
+      <ion-col size="6" class="bottom_text">{{FindDriverObj.totalKM}}km</ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding ion-no-margin">
+      <ion-col size="6" class="text">{{'confirmBookingPage.max' | translate}}</ion-col>
+      <ion-col size="6" class="bottom_text">{{FindDriverObj.exactPriceForPassenger}}&euro;</ion-col>
+    </ion-row>
+  </ion-grid>
+  <br>
+  <p class="text">
+    {{'confirmBookingPage.bottomText' | translate}}
+  </p>
+  <br>
+  <br>
+  <ion-button color="primary" (click)="askPayWay()" expand="block">
+    {{'confirmBookingPage.continue' | translate}}
+  </ion-button>
+</ion-content>

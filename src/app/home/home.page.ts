@@ -93,7 +93,7 @@ export class HomePage {
         }
       },
       infoWindow: 'My Location',
-      draggable: false,
+      draggable: true,
     },
     destination: {
       icon: {
@@ -157,14 +157,8 @@ export class HomePage {
       if (this.FindDriverObj.vehicleType == 'lite') {
         this.FindDriverObj.exactPriceForDriver = this.totalPriceForLite - this.basePriceForLite;
         this.FindDriverObj.exactPriceForPassenger = this.totalPriceForLite;
-        const modal = await this.modalController.create({
-          component: AskPaymentWayPage,
-          componentProps: {
-            FindDriverObj: this.FindDriverObj
-          },
-          cssClass: 'askpayway'
-        });
-        await modal.present();
+        localStorage.setItem('tempFindDriverObj', JSON.stringify(this.FindDriverObj));
+        this.r.navigate(['/confirm-booking']);
       } else {
         if (this.FindDriverObj.noOfSeating == 4) {
           this.FindDriverObj.exactPriceForDriver = this.For4SeaterPrice - this.BasePrice4Seater;
@@ -173,14 +167,8 @@ export class HomePage {
           this.FindDriverObj.exactPriceForDriver = this.For5SeaterPrice - this.BasePrice5Seater;
           this.FindDriverObj.exactPriceForPassenger = this.For5SeaterPrice;
         }
-        const modal = await this.modalController.create({
-          component: AskPaymentWayPage,
-          componentProps: {
-            FindDriverObj: this.FindDriverObj
-          },
-          cssClass: 'askpayway'
-        });
-        await modal.present();
+        localStorage.setItem('tempFindDriverObj', JSON.stringify(this.FindDriverObj));
+        this.r.navigate(['/confirm-booking']);
       }
     }
   }
@@ -311,6 +299,7 @@ export class HomePage {
         this.carsTypes.push({
           title: 'Lite',
           desc: 'Fixed Price',
+          approxOrMaxValue: this.totalPriceForLite,
           condition: false,
           description: this.respFromLanguage.fixed,
           seats: [
@@ -361,14 +350,15 @@ export class HomePage {
         this.For4SeaterPrice = resp.totalPrice;
         this.BasePrice4Seater = resp.basePrice;
         let carTypesArray = [
-          { title: 'Sedan', desc: 'General Purpose', description: this.respFromLanguage.sedanN, img: 'assets/Fijo_Sedan_XL_v1.png' },
-          { title: 'Sedan', desc: 'For Handicaps', description: this.respFromLanguage.sedanH, img: 'assets/Fijo_Sedan_Handicap_v_2.png' }
+          { title: 'Sedan', desc: 'General Purpose', description: this.respFromLanguage.sedanN, img: 'assets/Fijo_Sedan_XL_v1.png', approxOrMaxValue: 0 },
+          { title: 'Sedan Equipped', desc: 'For Handicaps', description: this.respFromLanguage.sedanH, img: 'assets/Fijo_Sedan_Handicap_v_2.png', approxOrMaxValue: 0 }
         ];
         getExactPriceObject.seatingCapacity = 5;
         this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
           console.log(resp, getExactPriceObject, '----- 5 -----');
           this.For5SeaterPrice = resp.totalPrice;
           this.BasePrice5Seater = resp.basePrice;
+          let approxPrice = this.For4SeaterPrice + this.BasePrice5Seater / 2;
           carTypesArray.forEach(element => {
             if (resp.length == 0) {
               this.carsTypes.push({
@@ -376,6 +366,7 @@ export class HomePage {
                 desc: element.desc,
                 description: element.description,
                 condition: false,
+                approxOrMaxValue: this.For4SeaterPrice,
                 seats: [
                   {
                     numbers: 4,
@@ -391,6 +382,7 @@ export class HomePage {
                 desc: element.desc,
                 description: element.description,
                 condition: false,
+                approxOrMaxValue: approxPrice,
                 seats: [
                   {
                     numbers: 4,

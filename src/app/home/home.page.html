@@ -25,7 +25,7 @@
     [style.background]="heightOfCard == ''? 'rgb(255, 255, 255, 0.9)':'rgb(255, 255, 255, 0.9)'" class="FooterCard">
     <ion-card-content *ngIf="!ShowDestinationCondition">
       <p class="cardTitle">{{'homePage.hello' | translate}} {{getName()}}!</p>
-      <p class="subTitle">{{'homePage.whereToGo' | translate}}?</p>
+      <p class="subTitle">{{'homePage.whereToGo' | translate}}</p>
       <br>
       <ion-grid class="ion-no-padding">
         <ion-row class="ion-no-padding">
@@ -66,12 +66,18 @@
     <ion-grid>
       <ion-row *ngFor="let item of carsTypes;index as i" [style.color]="item.condition?'#006600':'#006600'"
         [style.background]="item.condition?'white':'white'" style="margin-bottom: 6px;" (click)="selectCar(item,i)">
-        <ion-col size="3">
+        <ion-col size="2.5">
           <img class="loopcar" [src]="item.image" alt="">
         </ion-col>
-        <ion-col size="9">
+        <ion-col size="6">
           <p class="looptitle"><b>{{item.title}}</b></p>
           <p class="loopdesc">{{item.description}}</p>
+        </ion-col>
+        <ion-col size="3.5">
+          <p class="approxAndMax">
+            <span class="max" *ngIf="item.desc == 'Fixed Price'">max. {{item.approxOrMaxValue}}&euro;</span>
+            <span *ngIf="item.desc !== 'Fixed Price'">aprox. {{item.approxOrMaxValue}}&euro;</span>
+          </p>
         </ion-col>
         <ion-col size="12" *ngIf="item.condition == true">
           <ion-radio-group [(ngModel)]="FindDriverObj.noOfSeating">
