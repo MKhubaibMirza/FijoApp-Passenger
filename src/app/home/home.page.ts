@@ -10,6 +10,7 @@ import { WelcomeUserPage } from '../welcome-user/welcome-user.page';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { ConfirmBookingPage } from '../confirm-booking/confirm-booking.page';
 
 declare var google: any;
 
@@ -62,9 +63,11 @@ export class HomePage {
   }
   latitude: number;
   longitude: number;
+  currentLongitude = 0;
+  currentLatitude = 0;
   currntLAT = 750;
   currntLONG = 700;
-  zoom = 18;
+  zoom = 19;
   address: string;
   SavedLocations = [];
   private geoCoder;
@@ -127,7 +130,7 @@ export class HomePage {
   @ViewChild('search')
   public searchElementRef: ElementRef;
   @ViewChild(AgmMap) agmMap: AgmMap;
-  selectedCar;
+  selectedCar = { approxOrMaxValue: 0 };
   selectCar(item, i) {
     this.selectedCar = item;
     this.carsTypes.forEach((element, index) => {
@@ -147,7 +150,7 @@ export class HomePage {
     }
   }
   async AskPayWay() {
-    if (this.selectedCar == undefined) {
+    if (this.selectedCar.approxOrMaxValue == 0) {
       this.presentToast(this.respFromLanguage.selectRide);
     } else if (this.FindDriverObj.noOfSeating == 0 && this.FindDriverObj.vehicleType !== 'lite') {
       this.presentToast(this.respFromLanguage.selectSeats);
@@ -157,8 +160,16 @@ export class HomePage {
       if (this.FindDriverObj.vehicleType == 'lite') {
         this.FindDriverObj.exactPriceForDriver = this.totalPriceForLite - this.basePriceForLite;
         this.FindDriverObj.exactPriceForPassenger = this.totalPriceForLite;
-        localStorage.setItem('tempFindDriverObj', JSON.stringify(this.FindDriverObj));
-        this.r.navigate(['/confirm-booking']);
+        // localStorage.setItem('tempFindDriverObj', JSON.stringify(this.FindDriverObj));
+        // this.r.navigate(['/confirm-booking']);
+        const modal = await this.modalController.create({
+          component: AskPaymentWayPage,
+          componentProps: {
+            FindDriverObj: this.FindDriverObj
+          },
+          cssClass: 'askpayway'
+        });
+        await modal.present();
       } else {
         if (this.FindDriverObj.noOfSeating == 4) {
           this.FindDriverObj.exactPriceForDriver = this.For4SeaterPrice - this.BasePrice4Seater;
@@ -167,8 +178,16 @@ export class HomePage {
           this.FindDriverObj.exactPriceForDriver = this.For5SeaterPrice - this.BasePrice5Seater;
           this.FindDriverObj.exactPriceForPassenger = this.For5SeaterPrice;
         }
-        localStorage.setItem('tempFindDriverObj', JSON.stringify(this.FindDriverObj));
-        this.r.navigate(['/confirm-booking']);
+        // localStorage.setItem('tempFindDriverObj', JSON.stringify(this.FindDriverObj));
+        // this.r.navigate(['/confirm-booking']);
+        const modal = await this.modalController.create({
+          component: AskPaymentWayPage,
+          componentProps: {
+            FindDriverObj: this.FindDriverObj
+          },
+          cssClass: 'askpayway'
+        });
+        await modal.present();
       }
     }
   }
@@ -183,6 +202,7 @@ export class HomePage {
   }
   ionViewWillEnter() {
     // this.presentUser();
+    this.zoom = 19;
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       this.setCurrentLocation();
@@ -217,9 +237,8 @@ export class HomePage {
   map: any;
   locationClick() {
     this.map.setCenter({ lat: this.latitude, lng: this.longitude });
-    this.zoom = 18;
+    this.zoom = 19;
   }
-  // Get Current Location Coordinates
   setCurrentLocation() {
     let options = {
       maximumAge: 3000,
@@ -231,8 +250,24 @@ export class HomePage {
         this.longitude = parseFloat(position.coords.longitude);
         this.FindDriverObj.currentLat = this.latitude;
         this.FindDriverObj.currentLng = this.longitude;
+        this.currentLatitude = parseFloat(position.coords.latitude);
+        this.currentLongitude = parseFloat(position.coords.longitude);
         this.getAddress(this.latitude, this.longitude);
       });
+    let watchPositionTrigger = 0;
+    this.geolocation.watchPosition().subscribe((coords: any) => {
+      watchPositionTrigger = watchPositionTrigger + 1;
+      this.currentLatitude = parseFloat(coords.coords.latitude);
+      this.currentLongitude = parseFloat(coords.coords.longitude);
+      this.FindDriverObj.currentLat = this.latitude;
+      this.FindDriverObj.currentLng = this.longitude;
+      if (watchPositionTrigger == 21) {
+        this.latitude = this.currentLatitude;
+        this.longitude = this.currentLongitude;
+        this.getAddress(this.currentLatitude, this.currentLongitude);
+        watchPositionTrigger = 0;
+      }
+    });
     this.agmMap.triggerResize();
   }
   totaltime = '';
@@ -419,7 +454,7 @@ export class HomePage {
     this.geoCoder.geocode({ 'location': { lat: coords3.lat, lng: coords3.lng } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 12;
+          this.zoom = 19;
           this.destination = results[0].formatted_address;
         } else {
         }
@@ -435,6 +470,7 @@ export class HomePage {
       setTimeout(() => {
         this.presentLoading();
         this.directionCondition = true;
+        new google.maps.event.trigger(this.agmMap, 'resize');
       }, 900);
     } else {
       this.presentToast(this.respFromLanguage.enterDestinationPlz);
@@ -444,13 +480,10 @@ export class HomePage {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 18;
+          this.zoom = 19;
           this.origin = results[0].formatted_address;
-        } else {
         }
-      } else {
       }
-
     });
   }
   directionCondition = false;
@@ -459,7 +492,8 @@ export class HomePage {
     this.ShowDestinationCondition = false;
     this.destination = '';
     this.carsTypes = [];
-    this.locationClick()
+    this.locationClick();
+    this.selectedCar = { approxOrMaxValue: 0 }
   }
   heightOfCard = '';
   toUp = ''
@@ -482,6 +516,16 @@ export class HomePage {
     const modal = await this.modalController.create({
       component: WelcomeUserPage,
       cssClass: 'welcomeUser'
+    });
+    return await modal.present();
+  }
+  async presentConfirmBookingPage() {
+    const modal = await this.modalController.create({
+      component: ConfirmBookingPage,
+      componentProps: {
+        FindDriverObj: this.FindDriverObj,
+        approxOrMaxValue: this.selectedCar.approxOrMaxValue
+      }
     });
     return await modal.present();
   }

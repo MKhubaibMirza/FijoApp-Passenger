@@ -17,6 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
     ConfirmBookingPageRoutingModule
   ],
-  declarations: [ConfirmBookingPage]
+  declarations: []
 })
 export class ConfirmBookingPageModule {}

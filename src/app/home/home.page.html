@@ -8,7 +8,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-
   <agm-map [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom" [latitude]="latitude"
     [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
     <agm-direction (onResponse)="onResponse($event)" (destinationDrag)="markerDragEnd($event)"
@@ -16,7 +15,7 @@
       [destination]="destination">
     </agm-direction>
     <agm-marker *ngIf="!directionCondition" [animation]="currentMarkerAnimation" [iconUrl]="currentMarker"
-      [latitude]="latitude" [longitude]="longitude">
+      [latitude]="currentLatitude" [longitude]="currentLongitude">
     </agm-marker>
   </agm-map>
 </ion-content>
@@ -90,6 +89,8 @@
           </ion-radio-group>
         </ion-col>
       </ion-row>
+      <p *ngIf="selectedCar.approxOrMaxValue !== 0" class="loopdesc2" (click)="presentConfirmBookingPage()">
+        {{'homePage.seeDetails' | translate}}</p>
       <ion-button class="order" (click)="AskPayWay()">
         {{'homePage.orderNow' | translate}}
       </ion-button>

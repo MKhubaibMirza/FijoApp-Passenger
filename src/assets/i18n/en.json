@@ -135,7 +135,8 @@
         "generalPurpose": "General Purpose",
         "forHandicaps": "For Handicaps",
         "orderNow": "Order Now",
-
+        "seeDetails":"See Details",
+        
         "loading": "Please wait",
         "selectRide": "Please Select Your Ride",
         "selectSeats": "Please Select Seating Capacity",
@@ -171,7 +172,7 @@
         "payChanged": "Payment Method Changed!",
         "changedSubtitle": "You have changed your payment method from card to cash.",
         "Nodriver": "Oops! Not Found",
-        "sorryText": "Sorry, we did not found any driver under 7KM. Try Later",
+        "sorryText": "Sorry, we did not found any driver. Try Later",
         "okay": "Ok",
         "Continue": "Continue",
         "Dear": "Dear",
@@ -357,7 +358,11 @@
         "ETA": "Estimated Time",
         "totalDistance": "Total Distance",
         "max": "Maximum Tariff",
+        "approx":"Approximate",
         "bottomText": "You will not pay more than this price, which is usually less than the real price of the trip (tips and tolls excluded). Only applicable to certain areas of this city.",
-        "continue": "Continue"
+        "continue": "Continue",
+        "fixed": "Fixed Price",
+        "sedanN": "General Purpose",
+        "sedanH": "For Handicaps"
     }
 }

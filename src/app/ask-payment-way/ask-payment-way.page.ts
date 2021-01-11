@@ -58,7 +58,6 @@ export class AskPaymentWayPage implements OnInit {
         localStorage.setItem('paymentMethods', this.paymentMethods);
         this.IsSaving = true;
         localStorage.setItem('findDriverObj', JSON.stringify(this.FindDriverObj));
-        localStorage.removeItem('tempFindDriverObj');
         setTimeout(() => {
           this.r.navigate(['/tracking'])
           this.modal.dismiss();
@@ -71,7 +70,6 @@ export class AskPaymentWayPage implements OnInit {
       this.FindDriverObj.paymentVia = 'cash';
       this.IsSaving = true;
       localStorage.setItem('findDriverObj', JSON.stringify(this.FindDriverObj));
-      localStorage.removeItem('tempFindDriverObj');
       setTimeout(() => {
         this.r.navigate(['/tracking'])
         this.modal.dismiss();

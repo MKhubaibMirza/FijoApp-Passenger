@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { AskPaymentWayPage } from '../ask-payment-way/ask-payment-way.page';
+// import { AskPaymentWayPage } from '../ask-payment-way/ask-payment-way.page';
 
 @Component({
   selector: 'app-confirm-booking',
@@ -15,8 +15,12 @@ export class ConfirmBookingPage implements OnInit {
 
   }
   ionViewWillEnter() {
-    this.FindDriverObj = JSON.parse(localStorage.getItem('tempFindDriverObj'));
+    // this.FindDriverObj = JSON.parse(localStorage.getItem('tempFindDriverObj'));
   }
+  dismiss(){
+    this.modalController.dismiss();
+  }
+  approxOrMaxValue;
   FindDriverObj = {
     noOfSeating: 0,
     vehicleType: '',
@@ -33,14 +37,14 @@ export class ConfirmBookingPage implements OnInit {
     exactPriceForPassenger: 0,
     totalKM: 0
   }
-  async askPayWay() {
-    const modal = await this.modalController.create({
-      component: AskPaymentWayPage,
-      componentProps: {
-        FindDriverObj: this.FindDriverObj
-      },
-      cssClass: 'askpayway'
-    });
-    await modal.present();
-  }
+  // async askPayWay() {
+  //   const modal = await this.modalController.create({
+  //     component: AskPaymentWayPage,
+  //     componentProps: {
+  //       FindDriverObj: this.FindDriverObj
+  //     },
+  //     cssClass: 'askpayway'
+  //   });
+  //   await modal.present();
+  // }
 }

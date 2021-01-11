@@ -32,7 +32,9 @@
     "@ionic-native/geolocation": "^5.29.0",
     "@ionic-native/google-plus": "^5.30.0",
     "@ionic-native/image-picker": "^5.30.0",
+    "@ionic-native/insomnia": "^5.30.0",
     "@ionic-native/location-accuracy": "^5.30.0",
+    "@ionic-native/native-audio": "^5.30.0",
     "@ionic-native/native-geocoder": "^5.29.0",
     "@ionic-native/onesignal": "^5.30.0",
     "@ionic-native/social-sharing": "^5.30.0",
@@ -78,8 +80,10 @@
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-googleplus": "^8.5.1",
+    "cordova-plugin-insomnia": "^4.3.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
+    "cordova-plugin-nativeaudio": "^3.0.9",
     "cordova-plugin-nativegeocoder": "^3.4.1",
     "cordova-plugin-request-location-accuracy": "^2.3.0",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -144,7 +148,9 @@
       "cordova-plugin-document-viewer": {},
       "cordova-plugin-camera": {
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
-      }
+      },
+      "cordova-plugin-insomnia": {},
+      "cordova-plugin-nativeaudio": {}
     },
     "platforms": [
       "android"

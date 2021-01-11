@@ -1,7 +1,7 @@
 import { AgmMap, MapsAPILoader } from '@agm/core';
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { AlertController, LoadingController, MenuController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController, ModalController, Platform, ToastController } from '@ionic/angular';
 import { CancelConfirmationPage } from '../cancel-confirmation/cancel-confirmation.page';
 import { RatingPage } from '../rating/rating.page';
 import { DriverService } from '../services/driver.service';
@@ -19,6 +19,122 @@ import { TranslateConfigService } from '../services/translate-config.service';
   styleUrls: ['./tracking.page.scss'],
 })
 export class TrackingPage {
+  @ViewChild(AgmMap) private agmMap: AgmMap;
+  ionViewWillEnter() {
+    this.mapsAPILoader.load().then(() => {
+      this.geoCoder = new google.maps.Geocoder;
+    });
+    this.setCurrentLocation();
+    if (localStorage.getItem('tracking')) {
+      this.DriverDetail = JSON.parse(localStorage.getItem('tracking'));
+      this.DriverFound = true;
+    } else {
+      setTimeout(() => {
+        this.isSearching = true;
+        let findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
+        this.driverService.findDrivers(findDriverObj).subscribe((resp: any) => {
+          if (resp.length !== 0) {
+            this.socket.emit('send-data-to-drivers', resp);
+            this.driverNotFundInRegion = false;
+            console.log(resp)
+          }
+        }, er => {
+          // send data to admin panel and wait for 1 minute
+          console.log('Driver Not FOund and send data to admin panel');
+          this.DispatcherCode();
+        })
+      }, 2100);
+    }
+    this.menuControl.enable(false);
+    this.socket.on('receive-driver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.DriverFound = true;
+      this.DriverDetail = object;
+      localStorage.setItem('tracking', JSON.stringify(object));
+    });
+    this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.isTripStarted = true;
+      if (this.startTripCounter == false) {
+        this.startTripCounter = true;
+        if (this.r.url !== '/tracking') {
+          this.r.navigate(['/tracking']);
+        }
+        if (this.isEn) {
+          let message = `
+      Your trip is started.Please read <b> COVID - 19 </b> SOPs carefully. <br>
+        <p>
+      ⦿ Keep your distance from other people when you travel, where possible. <br>
+      ⦿ Avoid making unnecessary stops during your journey. <br>
+      ⦿ Wear a mask on your face. <br>
+      ⦿ Plan ahead, check for disruption before you leave, and avoid the busiest routes, as well as busy times. <br>
+      ⦿ Wash or sanitise your hands regularly.
+      </p>`
+          this.tripStart_Or_PaymentRepeater_Or_AlertShower(message);
+        } else if (this.isSp) {
+          let message = `
+          Tu viaje ha comenzado. Lee <b> COVID - 19 </b>SOP con cuidado. <br>
+            <p>
+          ⦿ Mantenga su distancia de otras personas cuando viaje, siempre que sea posible. <br>
+          ⦿ Evite hacer paradas innecesarias durante su viaje. <br>
+          ⦿ Use una máscara en su cara. <br>
+          ⦿ Planifique con anticipación, verifique si hay interrupciones antes de partir y evite las rutas más concurridas, así como las horas punta. <br>
+          ⦿ Lávese o desinfecte sus manos con regularidad.
+          </p>`
+          this.tripStart_Or_PaymentRepeater_Or_AlertShower(message);
+        }
+      }
+    });
+    this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      localStorage.setItem('tripEnded', 'true');
+      if (this.endTripCounter == false) {
+        this.endTripCounter = true;
+        this.RatingModal();
+      }
+    });
+    this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.driverLat = object.driverLat;
+      this.driverLng = object.driverLng;
+      if (localStorage.getItem('tripStarted')) {
+        this.isTripStarted = true;
+      }
+    });
+    setTimeout(() => {
+      if (!localStorage.getItem('tracking')) {
+        if (this.DriverFound == false) {
+          if (this.router.url == '/tracking') {
+            if (this.driverNotFundInRegion == false) {
+              // send data to admin panel and wait for 1 minute
+              console.log('Driver FOund but not accepted');
+              this.DispatcherCode();
+            }
+          }
+        }
+      }
+    }, 30000);
+    if (localStorage.getItem('tripStarted')) {
+      this.isTripStarted = true;
+      this.afterTripStart();
+    } else {
+      this.isTripStarted = false;
+    }
+    if (localStorage.getItem('tripEnded')) {
+      this.RatingModal();
+    }
+  }
+  // Get Current Location Coordinates
+  setCurrentLocation() {
+    let options = {
+      maximumAge: 3000,
+      enableHighAccuracy: true
+    };
+    this.geolocation.getCurrentPosition(options).then
+      ((position: any) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+      });
+    setTimeout(() => {
+      document.getElementById('map-parent').style.width = "100%";
+    }, 100);
+  }
   socket = io(environment.baseUrl);
   DriverDetail = {
     driverObj: {
@@ -31,13 +147,12 @@ export class TrackingPage {
       vehicleNoPlate: ""
     }
   };
-  latitude: number;
-  longitude: number;
-  zoom = 17;
+  latitude = 56;
+  longitude = 10;
+  zoom = 19;
   address: string;
   isEn: Boolean;
   isSp: Boolean;
-  @ViewChild(AgmMap) agmMap: AgmMap;
   DriverFound = false;
   isSearching = false;
   isTripStarted = false;
@@ -67,7 +182,8 @@ export class TrackingPage {
     public menuControl: MenuController,
     public r: Router,
     public t: TranslateService,
-    public translate: TranslateConfigService
+    public translate: TranslateConfigService,
+    public platform: Platform
   ) {
     this.endTripCounter = false;
     this.startTripCounter = false;
@@ -240,105 +356,7 @@ export class TrackingPage {
       }
     }, 30000);
   }
-  ionViewWillEnter() {
-    this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder;
-      this.setCurrentLocation();
-    });
-    if (localStorage.getItem('tracking')) {
-      this.DriverDetail = JSON.parse(localStorage.getItem('tracking'));
-      this.DriverFound = true;
-    } else {
-      setTimeout(() => {
-        this.isSearching = true;
-        let findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
-        this.driverService.findDrivers(findDriverObj).subscribe((resp: any) => {
-          if (resp.length !== 0) {
-            this.socket.emit('send-data-to-drivers', resp);
-            this.driverNotFundInRegion = false;
-          }
-        }, er => {
-          // send data to admin panel and wait for 1 minute
-          console.log('Driver Not FOund and send data to admin panel');
-          this.DispatcherCode();
-        })
-      }, 2100);
-    }
-    this.menuControl.enable(false);
-    this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.driverLat = object.driverLat;
-      this.driverLng = object.driverLng;
-      if (localStorage.getItem('tripStarted')) {
-        this.isTripStarted = true;
-      }
-    });
-    this.socket.on('receive-driver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.DriverFound = true;
-      this.DriverDetail = object;
-      localStorage.setItem('tracking', JSON.stringify(object));
-    });
-    this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.isTripStarted = true;
-      if (this.startTripCounter == false) {
-        this.startTripCounter = true;
-        if (this.r.url !== '/tracking') {
-          this.r.navigate(['/tracking']);
-        }
-        if (this.isEn) {
-          let message = `
-      Your trip is started.Please read <b> COVID - 19 </b> SOPs carefully. <br>
-        <p>
-      ⦿ Keep your distance from other people when you travel, where possible. <br>
-      ⦿ Avoid making unnecessary stops during your journey. <br>
-      ⦿ Wear a mask on your face. <br>
-      ⦿ Plan ahead, check for disruption before you leave, and avoid the busiest routes, as well as busy times. <br>
-      ⦿ Wash or sanitise your hands regularly.
-      </p>`
-          this.tripStart_Or_PaymentRepeater_Or_AlertShower(message);
-        } else if (this.isSp) {
-          let message = `
-          Tu viaje ha comenzado. Lee <b> COVID - 19 </b>SOP con cuidado. <br>
-            <p>
-          ⦿ Mantenga su distancia de otras personas cuando viaje, siempre que sea posible. <br>
-          ⦿ Evite hacer paradas innecesarias durante su viaje. <br>
-          ⦿ Use una máscara en su cara. <br>
-          ⦿ Planifique con anticipación, verifique si hay interrupciones antes de partir y evite las rutas más concurridas, así como las horas punta. <br>
-          ⦿ Lávese o desinfecte sus manos con regularidad.
-          </p>`
-          this.tripStart_Or_PaymentRepeater_Or_AlertShower(message);
-        }
-      }
-    });
-    this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      localStorage.setItem('tripEnded', 'true');
-      if (this.endTripCounter == false) {
-        this.endTripCounter = true;
-        this.RatingModal();
-      }
-    });
-    setTimeout(() => {
-      if (!localStorage.getItem('tracking')) {
-        if (this.DriverFound == false) {
-          if (this.router.url == '/tracking') {
-            if (this.driverNotFundInRegion == false) {
-              // send data to admin panel and wait for 1 minute
-              console.log('Driver FOund but not accepted');
-              this.DispatcherCode();
-            }
-          }
-        }
-      }
-    }, 30000);
-    if (localStorage.getItem('tripStarted')) {
-      this.isTripStarted = true;
-      this.afterTripStart();
-    } else {
-      this.isTripStarted = false;
-    }
-    if (localStorage.getItem('tripEnded')) {
-      this.RatingModal();
-    }
-  }
+
   async presentAlert() {
     const alert = await this.alertController.create({
       backdropDismiss: false,
@@ -385,21 +403,7 @@ export class TrackingPage {
     });
     toast.present();
   }
-  // Get Current Location Coordinates
-  setCurrentLocation() {
-    let options = {
-      maximumAge: 3000,
-      enableHighAccuracy: true
-    };
-    this.geolocation.getCurrentPosition(options).then
-      ((position: any) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        // this.zoom = 18;
-      }, err => {
-      });
-      this.agmMap.triggerResize();
-  }
+
   public onResponse(event: any) {
     this.totaltime = event.routes[0]?.legs[0].duration.text;
   }

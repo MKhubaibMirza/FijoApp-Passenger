@@ -12,6 +12,7 @@ import { TranslateConfigService } from './services/translate-config.service';
 import { SocialAuthService } from './services/social-auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SplashPage } from './splash/splash.page';
+import { Insomnia } from '@ionic-native/insomnia/ngx';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ export class AppComponent {
     private r: Router,
     private oneSignal: OneSignal,
     private alertCtrl: AlertController,
+    private insomnia: Insomnia,
     private socialSharing: SocialSharing,
     public modalController: ModalController,
     private menuController: MenuController,
@@ -57,6 +59,11 @@ export class AppComponent {
       if (this.platform.is('cordova')) {
         this.setupPush();
       }
+      this.insomnia.keepAwake()
+        .then(
+          () => console.log('Keep Awaking'),
+          () => console.log('Error In Keep Awaking')
+        );
     });
     if (localStorage.getItem('user')) {
       this.passengerService.getAvailabilityStatus().subscribe((resp: any) => {
@@ -77,17 +84,23 @@ export class AppComponent {
   }
   closeApp() {
     this.platform.backButton.subscribeWithPriority(999999, () => {
-      if (this.r.url == '/home') {
-        navigator['app'].exitApp();
-      } else if (this.r.url == '/tracking') {
-        // Nothing to do here
-      } else if (this.r.url == '/add-payment-method') {
-        // Nothing to do here
-      } else if (this.r.url == '/') {
-        // Nothing to do here
-      } else {
-        this.nav.back();
-      }
+      this.modalController.getTop().then(resp => {
+        if (resp == undefined) {
+          if (this.r.url == '/home') {
+            navigator['app'].exitApp();
+          } else if (this.r.url == '/tracking') {
+            // Nothing to do here
+          } else if (this.r.url == '/add-payment-method') {
+            // Nothing to do here
+          } else if (this.r.url == '/') {
+            // Nothing to do here
+          } else {
+            this.nav.back();
+          }
+        }else{
+          this.modalController.dismiss();
+        }
+      })
     })
     console.log('back btn pressed', this.r.url);
   }

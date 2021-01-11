@@ -1,11 +1,12 @@
-<ion-header class="ion-no-border">
+<!-- <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons>
-      <ion-back-button defaultHref="home" slot="start"></ion-back-button>
+      <ion-back-button defaultHref="" slot="start"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 <ion-content class="ion-padding">
+  <ion-icon name="arrow-back-outline" (click)="dismiss()" class="backbtn"></ion-icon>
   <ion-grid>
     <ion-row>
       <ion-col size="4">
@@ -17,10 +18,15 @@
         <p class="title" *ngIf="FindDriverObj.vehicleType == 'sedanH'">Sedan Equipped</p>
         <p class="title" *ngIf="FindDriverObj.vehicleType == 'sedanN'">Sedan</p>
         <p class="title" *ngIf="FindDriverObj.vehicleType == 'lite'">Lite</p>
-        <p class="subtitle">
+        <p class="subtitle" *ngIf="FindDriverObj.vehicleType == 'sedanH'">{{'confirmBookingPage.sedanH' | translate}}
+        </p>
+        <p class="subtitle" *ngIf="FindDriverObj.vehicleType == 'sedanN'">{{'confirmBookingPage.sedanN' | translate}}
+        </p>
+        <p class="subtitle" *ngIf="FindDriverObj.vehicleType == 'lite'">{{'confirmBookingPage.fixed' | translate}}</p>
+        <!-- <p class="subtitle">
           <span *ngIf="FindDriverObj.vehicleType !== 'lite'">{{FindDriverObj.noOfSeating}} {{'confirmBookingPage.seats' | translate}}</span>
           <span *ngIf="FindDriverObj.vehicleType == 'lite'">3-4 {{'confirmBookingPage.seats' | translate}}</span>
-        </p>
+        </p> -->
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -35,17 +41,20 @@
       <ion-col size="6" class="bottom_text">{{FindDriverObj.totalKM}}km</ion-col>
     </ion-row>
     <ion-row class="ion-no-padding ion-no-margin">
-      <ion-col size="6" class="text">{{'confirmBookingPage.max' | translate}}</ion-col>
-      <ion-col size="6" class="bottom_text">{{FindDriverObj.exactPriceForPassenger}}&euro;</ion-col>
+      <ion-col size="6" class="text" *ngIf="FindDriverObj.vehicleType == 'lite'">
+        {{'confirmBookingPage.max' | translate}}</ion-col>
+      <ion-col size="6" class="text" *ngIf="FindDriverObj.vehicleType !== 'lite'">
+        {{'confirmBookingPage.approx' | translate}}</ion-col>
+      <ion-col size="6" class="bottom_text">{{approxOrMaxValue}}&euro;</ion-col>
     </ion-row>
   </ion-grid>
   <br>
   <p class="text">
     {{'confirmBookingPage.bottomText' | translate}}
   </p>
-  <br>
+  <!-- <br>
   <br>
   <ion-button color="primary" (click)="askPayWay()" expand="block">
     {{'confirmBookingPage.continue' | translate}}
-  </ion-button>
+  </ion-button> -->
 </ion-content>
