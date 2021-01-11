@@ -12,6 +12,7 @@ import { PaymentService } from '../services/payment.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from '../services/translate-config.service';
+import { SmartAudioService } from '../services/smart-audio.service';
 
 @Component({
   selector: 'app-tracking',
@@ -20,17 +21,82 @@ import { TranslateConfigService } from '../services/translate-config.service';
 })
 export class TrackingPage {
   @ViewChild(AgmMap) private agmMap: AgmMap;
+
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+    public modalController: ModalController,
+    public loadingController: LoadingController,
+    public alertController: AlertController,
+    public driverService: DriverService,
+    public paymentService: PaymentService,
+    private callNumber: CallNumber,
+    public router: Router,
+    public toastController: ToastController,
+    public geolocation: Geolocation,
+    public menuControl: MenuController,
+    public r: Router,
+    public t: TranslateService,
+    public translate: TranslateConfigService,
+    public platform: Platform,
+    private audioService: SmartAudioService,
+  ) {
+    this.endTripCounter = false;
+    this.startTripCounter = false;
+    this.Route_To_Passenger = false;
+    this.Route_To_Destination = false;
+    t.get("trackingPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
+    let selectedLang = this.translate.selectedLanguage();
+    if (selectedLang == 'en') {
+      this.isEn = true;
+    } else {
+      this.isSp = true;
+    }
+  }
   ionViewWillEnter() {
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
     });
     this.setCurrentLocation();
+
+    this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.toOrigin.origin.lat = object.driverLat;
+      this.toOrigin.origin.lng = object.driverLng;
+      this.driverLat = object.driverLat;
+      this.driverLng = object.driverLng;
+
+      if (localStorage.getItem('tripStarted')) {
+        this.isTripStarted = true;
+        this.Route_To_Destination = true;
+        this.Route_To_Passenger = false;
+      } else {
+        this.Route_To_Passenger = true;
+        this.Route_To_Destination = false;
+      }
+    });
+    let senderId = JSON.parse(localStorage.getItem('user')).id;
+    this.socket.on('listenchat' + senderId, (data) => {
+      this.audioService.preload('chat')
+      this.audioService.play('chat')
+      this.newMesssage = true;
+    })
     if (localStorage.getItem('tracking')) {
       this.DriverDetail = JSON.parse(localStorage.getItem('tracking'));
       this.DriverFound = true;
+      if (localStorage.getItem('tripStarted')) {
+        this.Route_To_Destination = true;
+        this.Route_To_Passenger = false;
+      } else {
+        this.Route_To_Passenger = true;
+        this.Route_To_Destination = false;
+      }
     } else {
       setTimeout(() => {
         this.isSearching = true;
+        this.Route_To_Destination = true;
+        this.Route_To_Passenger = false;
         let findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
         this.driverService.findDrivers(findDriverObj).subscribe((resp: any) => {
           if (resp.length !== 0) {
@@ -52,7 +118,11 @@ export class TrackingPage {
       localStorage.setItem('tracking', JSON.stringify(object));
     });
     this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.audioService.preload('startRide')
+      this.audioService.play('startRide')
       this.isTripStarted = true;
+      this.Route_To_Destination = true;
+      this.Route_To_Passenger = false;
       if (this.startTripCounter == false) {
         this.startTripCounter = true;
         if (this.r.url !== '/tracking') {
@@ -84,19 +154,15 @@ export class TrackingPage {
       }
     });
     this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.audioService.preload('endRide')
+      this.audioService.play('endRide')
       localStorage.setItem('tripEnded', 'true');
       if (this.endTripCounter == false) {
         this.endTripCounter = true;
         this.RatingModal();
       }
     });
-    this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.driverLat = object.driverLat;
-      this.driverLng = object.driverLng;
-      if (localStorage.getItem('tripStarted')) {
-        this.isTripStarted = true;
-      }
-    });
+
     setTimeout(() => {
       if (!localStorage.getItem('tracking')) {
         if (this.DriverFound == false) {
@@ -120,6 +186,7 @@ export class TrackingPage {
       this.RatingModal();
     }
   }
+  newMesssage = false;
   // Get Current Location Coordinates
   setCurrentLocation() {
     let options = {
@@ -153,6 +220,8 @@ export class TrackingPage {
   address: string;
   isEn: Boolean;
   isSp: Boolean;
+  Route_To_Passenger = false;
+  Route_To_Destination = false;
   DriverFound = false;
   isSearching = false;
   isTripStarted = false;
@@ -168,36 +237,7 @@ export class TrackingPage {
     });
     await loading.present();
   }
-  constructor(
-    private mapsAPILoader: MapsAPILoader,
-    public modalController: ModalController,
-    public loadingController: LoadingController,
-    public alertController: AlertController,
-    public driverService: DriverService,
-    public paymentService: PaymentService,
-    private callNumber: CallNumber,
-    public router: Router,
-    public toastController: ToastController,
-    public geolocation: Geolocation,
-    public menuControl: MenuController,
-    public r: Router,
-    public t: TranslateService,
-    public translate: TranslateConfigService,
-    public platform: Platform
-  ) {
-    this.endTripCounter = false;
-    this.startTripCounter = false;
-    t.get("trackingPage").subscribe((resp: any) => {
-      console.log(resp);
-      this.respFromLanguage = resp;
-    });
-    let selectedLang = this.translate.selectedLanguage();
-    if (selectedLang == 'en') {
-      this.isEn = true;
-    } else {
-      this.isSp = true;
-    }
-  }
+
   respFromLanguage: any;
   afterTripStart() {
     if (!localStorage.getItem('paid')) {
@@ -303,6 +343,16 @@ export class TrackingPage {
     suppressMarkers: true,
     polylineOptions: { strokeColor: '#006600', strokeWeight: 5 }
   }
+  toOrigin = {
+    origin: { lat: this.driverLat, lng: this.driverLng },
+    destination: this.origin,
+    renderOptions: { suppressMarkers: true, polylineOptions: { strokeColor: '#006600', strokeWeight: 5 } },
+  }
+  toDestination = {
+    origin: this.origin,
+    destination: this.destination,
+    renderOptions: { suppressMarkers: true, polylineOptions: { strokeColor: '#006600', strokeWeight: 5 } },
+  }
   currentMarkerAnimation = 'DROP';
   // animation: 'BOUNCE' | 'DROP';
   public currentMarker = {
@@ -340,6 +390,58 @@ export class TrackingPage {
         }
       },
       infoWindow: 'My Destination',
+      draggable: false,
+    },
+    travelMode: "DRIVING",
+  }
+
+  public toOriginMarker = {
+    origin: {
+      icon: {
+        url: 'assets/driver.png',
+        scaledSize: {
+          width: 35,
+          height: 50
+        }
+      },
+      infoWindow: 'Driver Location',
+      draggable: false,
+    },
+    destination: {
+      icon: {
+        url: 'assets/man.png',
+        scaledSize: {
+          width: 50,
+          height: 50
+        }
+      },
+      infoWindow: 'My Location',
+      draggable: false,
+    },
+    travelMode: "DRIVING",
+  }
+
+  public toDestinationMarker = {
+    origin: {
+      icon: {
+        url: 'assets/man.png',
+        scaledSize: {
+          width: 50,
+          height: 50
+        }
+      },
+      infoWindow: 'My Location',
+      draggable: false,
+    },
+    destination: {
+      icon: {
+        url: 'assets/destination.png',
+        scaledSize: {
+          width: 70,
+          height: 50
+        }
+      },
+      // infoWindow: 'My Destination',
       draggable: false,
     },
     travelMode: "DRIVING",
@@ -415,6 +517,7 @@ export class TrackingPage {
     return await modal.present();
   }
   openChat() {
+    this.newMesssage = false;
     let driver = JSON.parse(localStorage.getItem('tracking')).driverObj;
     let name = driver.firstName + ' ' + driver.lastName;
     this.router.navigate(['/chat/' + name + '/' + driver.id]);

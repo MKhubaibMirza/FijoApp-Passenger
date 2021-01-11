@@ -2,9 +2,16 @@
   <div style="width: 90%;height: 100%;" id="map-parent">
     <agm-map #agmmap [usePanning]="true" [zoom]="zoom" [latitude]="latitude" [longitude]="longitude"
       [zoomControl]="false" [streetViewControl]="false">
-      <agm-direction (onResponse)="onResponse($event)" [renderOptions]="renderOptions" [markerOptions]="markerOptions"
-        [origin]="origin" [destination]="destination">
+      <agm-direction *ngIf="Route_To_Passenger" (onResponse)="onResponse($event)"
+        [renderOptions]="toOrigin.renderOptions" [markerOptions]="toOriginMarker" [origin]="toOrigin.origin"
+        [destination]="toOrigin.destination">
       </agm-direction>
+      <agm-direction *ngIf="Route_To_Destination" [renderOptions]="toDestination.renderOptions"
+        [markerOptions]="markerOptions" [origin]="toDestination.origin" [destination]="toDestination.destination">
+      </agm-direction>
+      <!-- <agm-direction (onResponse)="onResponse($event)" [renderOptions]="renderOptions" [markerOptions]="markerOptions"
+        [origin]="origin" [destination]="destination">
+      </agm-direction> -->
       <agm-marker *ngIf="isTripStarted" [latitude]="driverLat" [longitude]="driverLng" [iconUrl]="driverMarker">
       </agm-marker>
     </agm-map>
@@ -82,6 +89,9 @@
         <ion-row *ngIf="!isTripStarted">
           <ion-col size="4">
             <div (click)="openChat()" class="bottomIconAndText">
+              <ion-badge *ngIf="newMesssage" color="transparent" slot="end">
+                <ion-icon name="ellipse"></ion-icon>
+              </ion-badge>
               <ion-icon class="ion-icon1" name="chatbox-ellipses"></ion-icon>
               <span>{{'trackingPage.contact' | translate}}</span>
             </div>

@@ -89,11 +89,13 @@ agm-map {
     font-size: 30px;
     color: #3880ff;
   }
+
   .ion-icon2 {
     width: 100%;
     font-size: 30px;
     color: #28ba62;
   }
+
   .ion-icon3 {
     width: 100%;
     font-size: 30px;
@@ -117,4 +119,17 @@ agm-map {
   background: #006600;
   padding: 13px;
   border-radius: 50%;
+}
+
+
+ion-badge {
+  position: absolute;
+  right: 35px;
+  top: 0px;
+  z-index: 111;
+
+  ion-icon {
+    font-size: 15px;
+    color: #eb445a;
+  }
 }
