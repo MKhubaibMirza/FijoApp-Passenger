@@ -261,7 +261,7 @@ export class HomePage {
       this.currentLongitude = parseFloat(coords.coords.longitude);
       this.FindDriverObj.currentLat = this.latitude;
       this.FindDriverObj.currentLng = this.longitude;
-      if (watchPositionTrigger == 21) {
+      if (watchPositionTrigger == 15) {
         this.latitude = this.currentLatitude;
         this.longitude = this.currentLongitude;
         this.getAddress(this.currentLatitude, this.currentLongitude);

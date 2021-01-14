@@ -6,12 +6,10 @@
         [renderOptions]="toOrigin.renderOptions" [markerOptions]="toOriginMarker" [origin]="toOrigin.origin"
         [destination]="toOrigin.destination">
       </agm-direction>
-      <agm-direction *ngIf="Route_To_Destination" [renderOptions]="toDestination.renderOptions"
-        [markerOptions]="markerOptions" [origin]="toDestination.origin" [destination]="toDestination.destination">
+      <agm-direction *ngIf="Route_To_Destination" (onResponse)="onResponse($event)"
+        [renderOptions]="toDestination.renderOptions" [markerOptions]="markerOptions" [origin]="toDestination.origin"
+        [destination]="toDestination.destination">
       </agm-direction>
-      <!-- <agm-direction (onResponse)="onResponse($event)" [renderOptions]="renderOptions" [markerOptions]="markerOptions"
-        [origin]="origin" [destination]="destination">
-      </agm-direction> -->
       <agm-marker *ngIf="isTripStarted" [latitude]="driverLat" [longitude]="driverLng" [iconUrl]="driverMarker">
       </agm-marker>
     </agm-map>
@@ -86,7 +84,7 @@
         </ion-row>
       </ion-grid>
       <ion-grid>
-        <ion-row *ngIf="!isTripStarted">
+        <ion-row>
           <ion-col size="4">
             <div (click)="openChat()" class="bottomIconAndText">
               <ion-badge *ngIf="newMesssage" color="transparent" slot="end">
@@ -106,20 +104,6 @@
             <div (click)="cancelConfirmModal()" class="bottomIconAndText">
               <ion-icon class="ion-icon3" name="close-circle"></ion-icon>
               <span>{{'trackingPage.cancel' | translate}}</span>
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row *ngIf="isTripStarted">
-          <ion-col size="6">
-            <div (click)="openChat()" class="bottomIconAndText">
-              <ion-icon class="ion-icon1" name="chatbox-ellipses"></ion-icon>
-              <span>{{'trackingPage.contact' | translate}}</span>
-            </div>
-          </ion-col>
-          <ion-col size="6">
-            <div (click)="call()" class="bottomIconAndText">
-              <ion-icon class="ion-icon2" name="call"></ion-icon>
-              <span>{{'trackingPage.call' | translate}}</span>
             </div>
           </ion-col>
         </ion-row>

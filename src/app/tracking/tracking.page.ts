@@ -66,11 +66,13 @@ export class TrackingPage {
       this.toOrigin.origin.lng = object.driverLng;
       this.driverLat = object.driverLat;
       this.driverLng = object.driverLng;
+      this.latitude = object.driverLat;
+      this.longitude = object.driverLng;
 
       if (localStorage.getItem('tripStarted')) {
         this.isTripStarted = true;
-        this.Route_To_Destination = true;
         this.Route_To_Passenger = false;
+        this.Route_To_Destination = true;
       } else {
         this.Route_To_Passenger = true;
         this.Route_To_Destination = false;
@@ -81,13 +83,27 @@ export class TrackingPage {
       this.audioService.preload('chat')
       this.audioService.play('chat')
       this.newMesssage = true;
-    })
+    });
+
+    this.socket.on('isCancel' + JSON.parse(localStorage.getItem('user')).id, (data) => {
+      this.audioService.preload('cancelReq')
+      this.audioService.play('cancelReq')
+      if (this.isEn) {
+        let header = "Ride Cancelled";
+        let message = " Passenger cancel this ride due to"
+        this.presentCancelRidePopUp(data.reason, header, "Dear", message, "Ok")
+      } else if (this.isSp) {
+        let header = "Viaje cancelado";
+        let message = " El pasajero cancela este viaje debido a"
+        this.presentCancelRidePopUp(data.reason, header, "Querido", message, "Okay")
+      }
+    });
     if (localStorage.getItem('tracking')) {
       this.DriverDetail = JSON.parse(localStorage.getItem('tracking'));
       this.DriverFound = true;
       if (localStorage.getItem('tripStarted')) {
-        this.Route_To_Destination = true;
         this.Route_To_Passenger = false;
+        this.Route_To_Destination = true;
       } else {
         this.Route_To_Passenger = true;
         this.Route_To_Destination = false;
@@ -105,7 +121,6 @@ export class TrackingPage {
             console.log(resp)
           }
         }, er => {
-          // send data to admin panel and wait for 1 minute
           console.log('Driver Not FOund and send data to admin panel');
           this.DispatcherCode();
         })
@@ -118,8 +133,8 @@ export class TrackingPage {
       localStorage.setItem('tracking', JSON.stringify(object));
     });
     this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.audioService.preload('startRide')
-      this.audioService.play('startRide')
+      this.audioService.preload('startRide');
+      this.audioService.play('startRide');
       this.isTripStarted = true;
       this.Route_To_Destination = true;
       this.Route_To_Passenger = false;
@@ -186,6 +201,27 @@ export class TrackingPage {
       this.RatingModal();
     }
   }
+  async presentCancelRidePopUp(reason, header, dear, message, button) {
+    let user = JSON.parse(localStorage.getItem('user'));
+    let name = user.firstName + ' ' + user.lastName;
+    const alert = await this.alertController.create({
+      header: header,
+      message: dear + ' ' + name + ',' + message + ' <br>"' + reason + '"',
+      buttons: [{
+        text: button,
+        handler: () => {
+        }
+      }]
+    });
+    localStorage.removeItem('findDriverObj');
+    localStorage.removeItem('tracking');
+    localStorage.removeItem('tripEnded');
+    localStorage.removeItem('tripStarted');
+    localStorage.removeItem('paymentMethods');
+    localStorage.removeItem('paid');
+    this.r.navigate(['/home'])
+    await alert.present();
+  }
   newMesssage = false;
   // Get Current Location Coordinates
   setCurrentLocation() {
@@ -207,7 +243,9 @@ export class TrackingPage {
     driverObj: {
       firstName: '',
       lastName: '',
-      driverPhoto: ''
+      driverPhoto: '',
+      currentLat: 0,
+      currentLng: 0
     },
     vehicleObj: {
       brand: "",
@@ -344,7 +382,7 @@ export class TrackingPage {
     polylineOptions: { strokeColor: '#006600', strokeWeight: 5 }
   }
   toOrigin = {
-    origin: { lat: this.driverLat, lng: this.driverLng },
+    origin: { lat: this.DriverDetail.driverObj.currentLat, lng: this.DriverDetail.driverObj.currentLng },
     destination: this.origin,
     renderOptions: { suppressMarkers: true, polylineOptions: { strokeColor: '#006600', strokeWeight: 5 } },
   }
@@ -507,6 +545,7 @@ export class TrackingPage {
   }
 
   public onResponse(event: any) {
+    console.log(event)
     this.totaltime = event.routes[0]?.legs[0].duration.text;
   }
   async cancelConfirmModal() {

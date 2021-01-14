@@ -97,7 +97,7 @@ export class AppComponent {
           } else {
             this.nav.back();
           }
-        }else{
+        } else {
           this.modalController.dismiss();
         }
       })
