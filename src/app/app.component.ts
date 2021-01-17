@@ -36,7 +36,7 @@ export class AppComponent {
     public translateConfigService: TranslateConfigService,
     public socialService: SocialAuthService,
     public t: TranslateService,
-    public nav: NavController
+    public nav: NavController,
   ) {
     this.presentSplashScreen();
     this.closeApp();
@@ -65,7 +65,37 @@ export class AppComponent {
           () => console.log('Error In Keep Awaking')
         );
     });
+
+    this.platform.pause.subscribe(() => {
+      if (localStorage.getItem('user')) {
+        let id = JSON.parse(localStorage.getItem('user')).id;
+        this.passengerService.logoutPassenger(id).subscribe((resp: any) => {
+        });
+      }
+    });
+
+    this.platform.resume.subscribe(() => {
+
+      if (localStorage.getItem('user')) {
+        this.passengerService.Check_Is_Login().subscribe((isLogin: any) => {
+
+          if (!isLogin.isPassengerLogin) {
+            this.passengerService.isLoggedTrue().subscribe((resp: any) => {
+            })
+          } else {
+            localStorage.clear()
+            this.r.navigate(['/login'])
+          }
+
+        });
+      }
+
+    });
+
     if (localStorage.getItem('user')) {
+
+
+
       this.passengerService.getAvailabilityStatus().subscribe((resp: any) => {
         if (resp.isPassengerAvailable) {
           localStorage.removeItem('findDriverObj');

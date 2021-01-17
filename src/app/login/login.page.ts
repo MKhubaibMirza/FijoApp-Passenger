@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, MenuController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { PassengerService } from '../services/passenger.service';
+import { SocialAuthService } from '../services/social-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +18,20 @@ export class LoginPage implements OnInit {
     private menucontroller: MenuController,
     private router: Router,
     private loading: LoadingController,
-  ) { }
-
-  ngOnInit() { 
+    private socialService: SocialAuthService,
+    private alertControler: AlertController,
+    private t: TranslateService,
+  ) {
+    t.get("loginPage").subscribe((resp: any) => {
+      console.log(resp);
+      this.respFromLanguage = resp;
+    });
   }
+
+  ngOnInit() {
+  }
+
+  respFromLanguage: any;
 
   loginData = {
     email: '',
@@ -27,27 +39,54 @@ export class LoginPage implements OnInit {
   }
 
   loginClick() {
-    this.presentLoading()
     if ((this.loginData.email && this.loginData.password) !== '') {
+      this.presentLoading()
       this.passengerService.login(this.loginData).subscribe((resp: any) => {
-        this.loading.dismiss(true)
-        localStorage.setItem('user', JSON.stringify(resp))
-        this.router.navigate(['/home'])
-      }, err => {
-        if (err.error) {
+        if (resp.message == 'You are already login from another device. Please logput first to login from this device') {
           this.loading.dismiss(true)
-          this.presentToast('Email or Password may be wrong')
+          this.AlreadyLoggedIn();
+        } else {
+          this.loading.dismiss(true)
+          localStorage.setItem('user', JSON.stringify(resp.pessenger));
+          this.router.navigate(['/home'])
+        }
+        // localStorage.setItem('user', JSON.stringify(resp))
+        // this.router.navigate(['/home'])
+      }, err => {
+        this.loading.dismiss(true)
+        if (err.error) {
+          this.presentToast(this.respFromLanguage.wrong)
         }
       })
     } else {
-      this.presentToast('Please Fill all the Fields!')
+      this.presentToast(this.respFromLanguage.fillAllFields)
     }
   }
 
+  ionViewWillLeave() {
+    this.loginData = {
+      email: '',
+      password: ''
+    }
+  }
+
+  googleLogin() {
+    this.socialService.gplog()
+  }
+
+  async AlreadyLoggedIn() {
+    const alert = await this.alertControler.create({
+      header: this.respFromLanguage.opps,
+      message: this.respFromLanguage.alreadyLogin,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 
   async presentLoading() {
     const loading = await this.loading.create({
-      message: 'Please wait...',
+      message: this.respFromLanguage.pleaseWait,
       duration: 2000,
       spinner: 'dots',
     });

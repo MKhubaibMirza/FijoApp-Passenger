@@ -1,0 +1,102 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color='light' class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-back-button color="primary" defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title color="primary">{{'signup.ion-title' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <img src="../../assets/logo.png" alt="">
+
+  <p>{{'signup.text' | translate}}</p>
+
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-icon name="person-outline" slot="start"></ion-icon>
+            <ion-input type='text' [(ngModel)]="signupData.firstName" [placeholder]="'signup.firstName' | translate">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-input type='text' [(ngModel)]="signupData.lastName" [placeholder]="'signup.lastName' | translate">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-icon name="mail-outline" slot="start"></ion-icon>
+            <ion-input [(ngModel)]="signupData.email" type='text' [placeholder]="'signup.email' | translate">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+            <ion-input [(ngModel)]="password.new" type='password' [placeholder]="'signup.newPassword' | translate">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+            <ion-input [(ngModel)]="password.confirm" type='password'
+              [placeholder]="'signup.confirmPassword' | translate"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-icon name="call-outline" slot="start"></ion-icon>
+            <ion-input [(ngModel)]="signupData.phoneNumber" type='number'
+              [placeholder]="'signup.phoneNumber' | translate"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-icon name="location-outline" slot="start"></ion-icon>
+            <ion-input [(ngModel)]="signupData.city" type='text' [placeholder]="'signup.city' | translate"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-radio-group value="male" (ionFocus)="gender($event)">
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label color="primary">{{'signup.male' | translate}}</ion-label>
+              <ion-radio color='primary' slot="start" value="male"></ion-radio>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label color="primary">{{'signup.female' | translate}}</ion-label>
+              <ion-radio slot="start" color='primary' value="female"></ion-radio>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-radio-group>
+    </ion-grid>
+
+    <ion-button expand="block" (click)="signupClick()">{{'signup.signupButton' | translate}}</ion-button>
+
+    <p>{{'signup.agree' | translate}}<span>{{'signup.privacy' | translate}}</span></p>
+  </ion-card>
+  <br>
+</ion-content>

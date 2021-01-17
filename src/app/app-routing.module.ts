@@ -195,10 +195,18 @@ const routes: Routes = [
   },
   {
     path: 'terms-and-condition',
+    canActivate: [ForwordGuard],
     loadChildren: () => import('./terms-and-condition/terms-and-condition.module').then(m => m.TermsAndConditionPageModule)
-  },  {
+  },
+  {
     path: 'confirm-booking',
-    loadChildren: () => import('./confirm-booking/confirm-booking.module').then( m => m.ConfirmBookingPageModule)
+    canActivate: [ForwordGuard],
+    loadChildren: () => import('./confirm-booking/confirm-booking.module').then(m => m.ConfirmBookingPageModule)
+  },
+  {
+    path: 'new-signup',
+    canActivate: [ForwordGuard],
+    loadChildren: () => import('./new-signup/new-signup.module').then(m => m.NewSignupPageModule)
   },
 
 

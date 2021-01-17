@@ -100,6 +100,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~3.3.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "mx.ferreyra.callnumber": "0.0.2",
     "onesignal-cordova-plugin": "^2.11.1",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
@@ -150,10 +151,9 @@
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
       "cordova-plugin-insomnia": {},
-      "cordova-plugin-nativeaudio": {}
+      "cordova-plugin-nativeaudio": {},
+      "call-number": {}
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   }
 }

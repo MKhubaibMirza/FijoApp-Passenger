@@ -70,6 +70,7 @@ export class TrackingPage {
       this.longitude = object.driverLng;
 
       if (localStorage.getItem('tripStarted')) {
+        this.zoom = 20
         this.isTripStarted = true;
         this.Route_To_Passenger = false;
         this.Route_To_Destination = true;
@@ -133,6 +134,7 @@ export class TrackingPage {
       localStorage.setItem('tracking', JSON.stringify(object));
     });
     this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.zoom = 20
       this.audioService.preload('startRide');
       this.audioService.play('startRide');
       this.isTripStarted = true;
@@ -192,6 +194,7 @@ export class TrackingPage {
       }
     }, 30000);
     if (localStorage.getItem('tripStarted')) {
+      this.zoom = 20
       this.isTripStarted = true;
       this.afterTripStart();
     } else {

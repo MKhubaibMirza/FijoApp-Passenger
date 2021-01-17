@@ -1,0 +1,58 @@
+// ion-content {
+//     --background: url('../../assets/bg.png') repeat center center / cover;
+// }
+
+img {
+    width: 150px;
+    margin: auto;
+    display: block;
+    margin-top: 20px;
+    border-radius: 9px;
+}
+
+p {
+    font-size: 18px;
+    font-weight: bold;
+    color: green;
+    text-align: center;
+    padding: 5px 15px;
+}
+
+ion-card {
+    // background: #006600;
+    // box-shadow: 0 0 0px 3px #3f8c00;
+    margin: auto;
+    display: block;
+    width: 90%;
+
+    ion-item {
+        ion-icon {
+            color: green;
+            margin-right: 10px;
+        }
+
+        --background: transparent;
+        border: 2px solid green;
+        color: green;
+    }
+
+    ion-button {
+        width: 95%;
+        margin: auto;
+        display: block;
+        height: 45px;
+        font-size: 18px;
+        --background: green;
+        --color: white;
+    }
+
+    p {
+        font-size: 15px;
+        font-weight: unset;
+        color: green;
+
+        span {
+            font-weight: bold;
+        }
+    }
+}

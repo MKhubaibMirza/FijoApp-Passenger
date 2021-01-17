@@ -80,7 +80,7 @@ export class SocialAuthService {
           this.isLoggedIn = false;
         }
       })
-      .catch(e => {});
+      .catch(e => { });
     return 0;
   }
 
@@ -215,9 +215,9 @@ export class SocialAuthService {
     } else if (localStorage.getItem('facebook')) {
       this.fb.logout();
     }
-    this.passenger.logoutDriver(JSON.parse(localStorage.getItem('user')).id).subscribe((respo => {
+    this.passenger.logoutPassenger(JSON.parse(localStorage.getItem('user')).id).subscribe((respo => {
       localStorage.clear();
-      this.r.navigate(['/via-phone']);
+      this.r.navigate(['/login']);
     }));
   }
 }

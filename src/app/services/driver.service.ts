@@ -24,4 +24,7 @@ export class DriverService {
     getAllFavouriteDrivers() {
         return this.http.get(this.ApiUrl + 'favorite-driver/getall/' + JSON.parse(localStorage.getItem('user')).id);
     }
+    Check_Is_Login() {
+        return this.http.get(this.ApiUrl + 'passenger/is_Driver_Login/' + JSON.parse(localStorage.getItem('user')).id)
+    }
 }

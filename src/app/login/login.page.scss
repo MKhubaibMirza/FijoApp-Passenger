@@ -1,7 +1,7 @@
-ion-content {
-    // --background: url(../../assets/bg.png) 0 0/100% 100% no-repeat;
-    --background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url('../../assets/bg.png') repeat center center / cover;
-}
+// ion-content {
+//     // --background: url(../../assets/bg.png) 0 0/100% 100% no-repeat;
+//     --background: url('../../assets/bg.png') repeat center center / cover;
+// }
 
 .logo {
     width: 160px;
@@ -15,16 +15,16 @@ ion-content {
     margin: auto;
     display: block;
     width: 90%;
-    color: white;
     margin-top: 26px;
     font-size: 20px;
 }
 
 .forgot {
-    font-size: 17px;
+    font-size: 14px;
     text-align: right;
     margin-right: 6%;
-    color: white;
+    outline: none;
+    color: #a3a3a3;
 }
 
 .login {
@@ -37,9 +37,9 @@ ion-content {
     margin-top: 20px;
     margin-bottom: 20px;
     font-family: "Anton", sans-serif;
-    --background: #ffff00;
+    --background: #006600;
     letter-spacing: 5;
-    color: #006600;
+    color: #fff;
 }
 
 
@@ -57,7 +57,7 @@ ion-content {
         font-weight: bold;
         font-size: 18px;
         color: white;
-        border-bottom: 2px solid #ffff00;
+        border-bottom: 2px solid #006600;
 
         span {
             position: relative;
@@ -65,7 +65,7 @@ ion-content {
             padding: 5px 13px;
             background: #4d944d;
             border-radius: 10px;
-            color: yellow;
+            color: white;
         }
     }
 }
@@ -98,9 +98,10 @@ ion-content {
     outline: none;
     width: 100%;
     background: white;
-    color: grey;
+    color: gray;
     border-radius: 5px;
     height: 45px;
+    box-shadow: 0px 0px 7px 7px #f3f3f3;
 
     img {
         float: left;

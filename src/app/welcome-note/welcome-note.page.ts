@@ -12,7 +12,7 @@ export class WelcomeNotePage implements OnInit {
 
   ngOnInit() {
     setTimeout(() => {
-      this.r.navigate(['/via-phone'])
+      this.r.navigate(['/login'])
     }, 1500);
   }
 

@@ -12,7 +12,6 @@
         "terms": "Términos de Uso",
         "privacy": "Política de privacidad",
         "and": "y",
-
         "enterPhone": "Ingrese el número de teléfono",
         "somethingWrong": "¡Algo salió mal! Inténtelo de nuevo más tarde",
         "noExist": "¡El número de teléfono no existe!",
@@ -21,6 +20,28 @@
         "noReg": "",
         "cancel": "Cancelar",
         "regNow": "Regístrate ahora"
+    },
+    "signup": {
+        "ion-title": "Regístrate",
+        "text": "Cree una cuenta para iniciar su aplicación",
+        "firstName": "Primer nombre",
+        "lastName": "Apellido",
+        "email": "correo electrónico",
+        "newPassword": "Nueva contraseña",
+        "confirmPassword": "Confirmar contraseña",
+        "phoneNumber": "Número de teléfono (código de país)",
+        "city": "Ciudad",
+        "male": "Masculino",
+        "female": "Hembra",
+        "signupButton": "Regístrate",
+        "agree": "Al continuar, acepta nuestras ",
+        "privacy": "Política de privacidad",
+        "registerSuccessfully": "Registro de pasajeros con éxito",
+        "fillAllFields": "Por favor llene todos los campos",
+        "passwordNotMatch": "¡La contraseña no coincide!",
+        "pleaseWait": "Por favor espera...",
+        "phoneNumberExist": "El número de teléfono ya existe",
+        "emailExist": "El correo electrónico ya existe"
     },
     "signUp": {
         "registerationFijoTaxi": "Registro Fijo Taxi",
@@ -42,13 +63,24 @@
         "allDone": "Todo listo",
         "allDoneSuccessfully": "Toda su información recopilada con éxito",
         "register": "Registrarse",
-
-
         "namePlz": "Como te llamas?",
         "bothPlz": "Complete ambos campos",
         "noMatch": "¡Contraseña no coincidente!",
         "genderPlz": "Por favor seleccione su género",
         "loading": "Por favor espera..."
+    },
+    "loginPage": {
+        "opps": "¡Ups!",
+        "alreadyLogin": "Ya ha iniciado sesión desde otro dispositivo. Primero, cierre sesión para iniciar sesión desde este dispositivo",
+        "wrong": "¡Ups! ¡Contraseña incorrecta!",
+        "fillAllFields": "Por favor llene todos los campos",
+        "pleaseWait": "Por favor espera...",
+        "email": "Email",
+        "password": "Contraseña",
+        "forgotPassword": "Se te olvidó tu contraseña",
+        "login": "Iniciar sesión",
+        "signupWithGoogle": "Ingresa con e-mail",
+        "or": "o"
     },
     "viaEmail": {
         "loginViaPhone": "Iniciar sesión por teléfono",
@@ -61,7 +93,6 @@
         "privacy": "Política de privacidad",
         "and": "y",
         "or": "o",
-
         "enterEmailAddress": "Ingrese la dirección de correo electrónico",
         "emailNoFound": "El correo electrónico no existe",
         "loading": "Cargando por favor espere...",
@@ -73,10 +104,8 @@
     "otpPage": {
         "text": "Ingrese el código de confirmación de 6 dígitos que enviamos a",
         "btn": "Seguir",
-
         "noCorrect": "¡El código dado no es correcto!",
         "loading": "Cargando por favor espere..."
-
     },
     "passwordPage": {
         "enterPassword": "Ingresa tu contraseña",
@@ -98,7 +127,6 @@
         "next": "Siguiente",
         "ok": "BUENO",
         "btn": "Seguir",
-
         "checkEmail": "Consultar su correo electrónico",
         "copy": "Copie el código secreto de 6 palabras de su correo electrónico",
         "noExist": "El correo electrónico no existe. ¡INTÉNTALO DE NUEVO!",
@@ -137,7 +165,6 @@
         "forHandicaps": "Para discapacitados",
         "orderNow": "Ordenar ahora",
         "seeDetails": "Ver detalles",
-
         "loading": "Por favor espera",
         "selectRide": "Seleccione su viaje",
         "selectSeats": "Seleccione la capacidad de asientos",
@@ -163,7 +190,6 @@
         "contact": "Contacto",
         "call": "Llamada",
         "cancel": "Cancelar",
-
         "pleaseconfirmyourpayment": "Confirma tu pago",
         "continueViaCash": "Continuar con efectivo",
         "continueViaCard": "Continuar con tarjeta",
@@ -204,7 +230,6 @@
         "storedSecurely": "Su información de pago se almacenará de forma segura",
         "noPayMethod": "¡Aún no se ha guardado ningún método de pago!",
         "btn": "Agregar otro método de pago",
-
         "deletePaymentMethod": "Eliminar método de pago",
         "sure": "¿Estás seguro de que quieres eliminarlo?",
         "cancel": "Cancelar",
@@ -217,7 +242,6 @@
         "expDate": "Fecha de caducidad",
         "storedSecurely": "Su información de pago se almacenará de forma segura",
         "save": "SALVAR",
-
         "loading": "Por favor espera...",
         "ok": "Bueno",
         "successfullySaved": "Guardado con éxito",
@@ -242,7 +266,6 @@
         "phone": "Teléfono",
         "saveChanges": "Guardar cambios",
         "editPassword": "Editar contraseña",
-
         "fillPlz": "Por favor llene todos los campos",
         "loading": "Por favor espera...",
         "updtedSuccessfully": "Actualizado con éxito"
@@ -256,7 +279,6 @@
         "title": "Destinos favorito",
         "search": "Dirección de búsqueda",
         "nofavdest": "¡Aún no hay rutas favoritas!",
-
         "favouriteDestinations": "Destinos favorito",
         "sure": "¿Está seguro de que desea agregar esta ubicación a sus destinos favorito?",
         "AlrtTitle": "Título",
@@ -306,7 +328,6 @@
         "subject": "Sujeto",
         "message": "Mensaje",
         "submit": "Enviar",
-
         "fillPlz": "Por favor complete ambos campos",
         "received": "Mensaje recibido! Gracias por usar FIJO",
         "loading": "Por favor espera..."
@@ -331,7 +352,6 @@
         "r3": "El conductor me pidió que cancelara",
         "r4": "Un error en los detalles de mi viaje",
         "close": "Cerca",
-
         "rideCancelTitle": "Viaje cancelado",
         "dear": "Querido",
         "rideCancelMessage": "su viaje se cancela debido a",
@@ -343,7 +363,6 @@
         "newPassword": "Nueva contraseña",
         "confirmPassword": "Confirmar contraseña",
         "changePassword": "Cambia la contraseña",
-
         "fillPlz": "¡Por favor llene todos los campos!",
         "updatedSuccessfully": "Contraseña actualizada exitosamente",
         "noMatchedCurrent": "Tu contraseña actual no coincide",
@@ -359,7 +378,7 @@
         "ETA": "Tiempo estimada de recogida",
         "totalDistance": "Distancia total",
         "max": "Tarifa Maxima",
-        "approx":"Aproximado",
+        "approx": "Aproximado",
         "bottomText": "No pagaras mas de este precio, el cual, suele ser menor al precio real del trayecto (propinas y peajes excluidos). Solo aplicable de areas determinadas de esta ciudad",
         "continue": "Seguir",
         "fixed": "Precio fijo",

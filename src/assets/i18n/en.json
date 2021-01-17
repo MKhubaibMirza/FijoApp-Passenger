@@ -2,6 +2,28 @@
     "welcomeNotePage": {
         "text": "Freedom at a fixed price from anywhere in your city"
     },
+    "signup": {
+        "ion-title": "Signup",
+        "text": "Create an account to start your application",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm password",
+        "phoneNumber": "Phone Number (Country Code)",
+        "city": "City",
+        "male": "Male",
+        "female": "Female",
+        "signupButton": "Signup",
+        "agree": "By continuing, you agree to our ",
+        "privacy": "Privacy Policy",
+        "registerSuccessfully": "Passenger register Successfully",
+        "fillAllFields": "Please Fill all the Fields",
+        "passwordNotMatch": "Password not Match!",
+        "pleaseWait": "Please wait...",
+        "phoneNumberExist": "Phone Number is already exist",
+        "emailExist": "Email is already exists"
+    },
     "signUp": {
         "registerationFijoTaxi": "Registeration Fijo Taxi",
         "needInfo": "Need Some Information About you!",
@@ -22,13 +44,24 @@
         "allDone": "All Done",
         "allDoneSuccessfully": "All your Information Collected Successfully",
         "register": "Register",
-
-
         "namePlz": "Please Enter Your Full Name",
         "bothPlz": "Please Fill Both Fields",
         "noMatch": "Password Not Matched!",
         "genderPlz": "Please Select Your Gender",
         "loading": "Please wait..."
+    },
+    "loginPage": {
+        "opps": "Oops!",
+        "alreadyLogin": "You are already login from another device. Please log out first to login from this device",
+        "wrong": "Email or Password may be wrong",
+        "fillAllFields": "Please Fill all the Fields!",
+        "pleaseWait": "Please wait...",
+        "email": "Email",
+        "password": "Password",
+        "forgotPassword": "I forgot my password",
+        "login": "Login",
+        "signupWithGoogle": "Signup With Email",
+        "or": "or"
     },
     "viaPhonePage": {
         "enterMobileNumber": "Enter your Mobile Number",
@@ -40,7 +73,6 @@
         "terms": "Terms of Use",
         "privacy": "Privacy Policy",
         "and": "and",
-
         "enterPhone": "Please Enter Phone Number",
         "somethingWrong": "Something Went Wrong! Try Again Later",
         "noExist": "Phone Number Doesn't Exist!",
@@ -61,7 +93,6 @@
         "privacy": "Privacy Policy",
         "and": "and",
         "or": "or",
-
         "enterEmailAddress": "Please Enter Email Address",
         "emailNoFound": "Email does not exist",
         "loading": "Loading Please Wait...",
@@ -73,7 +104,6 @@
     "otpPage": {
         "text": "Enter the 6 digit confirmation code that we sent to",
         "btn": "Continue",
-
         "noCorrect": "The Given code is not Correct!",
         "loading": "Loading Please Wait..."
     },
@@ -97,7 +127,6 @@
         "next": "Next",
         "ok": "OKAY",
         "btn": "Continue",
-
         "checkEmail": "Check Your E-Mail",
         "copy": "Please copy the 6 words secret code from your email",
         "noExist": "Email does not exist. TRY AGAIN!",
@@ -135,8 +164,7 @@
         "generalPurpose": "General Purpose",
         "forHandicaps": "For Handicaps",
         "orderNow": "Order Now",
-        "seeDetails":"See Details",
-        
+        "seeDetails": "See Details",
         "loading": "Please wait",
         "selectRide": "Please Select Your Ride",
         "selectSeats": "Please Select Seating Capacity",
@@ -162,7 +190,6 @@
         "contact": "Contact",
         "call": "Call",
         "cancel": "Cancel",
-
         "pleaseconfirmyourpayment": "Please confirm your payment",
         "continueViaCash": "Continue Via Cash",
         "continueViaCard": "Continue Via Card",
@@ -203,7 +230,6 @@
         "storedSecurely": "Your payment information will be stored securely",
         "noPayMethod": "No Payment Method Saved yet!",
         "btn": "Add Another Payment Method",
-
         "deletePaymentMethod": "Delete Payment Method",
         "sure": "Are you sure you want to delete it?",
         "cancel": "Cancel",
@@ -216,7 +242,6 @@
         "expDate": "Expiry Date",
         "storedSecurely": "Your payment information will be stored securely",
         "save": "SAVE",
-
         "loading": "Please wait...",
         "ok": "OK",
         "successfullySaved": "Successfully Saved",
@@ -241,7 +266,6 @@
         "phone": "Phone",
         "saveChanges": "Save Changes",
         "editPassword": "Edit Password",
-
         "fillPlz": "Please Fill all the Fields",
         "loading": "Please wait...",
         "updtedSuccessfully": "Updated Successfully"
@@ -255,7 +279,6 @@
         "title": "Favourite Destinations",
         "search": "Search Address",
         "nofavdest": "No Favourite Routes Yet!",
-
         "favouriteDestinations": "Favourite Destinations",
         "sure": "Are you sure you want to add this location into your favourite destinations?",
         "AlrtTitle": "Title",
@@ -305,7 +328,6 @@
         "subject": "Subject",
         "message": "Message",
         "submit": "Submit",
-
         "fillPlz": "Please fill both the fields",
         "received": "Message Received! Thank you for using FIJO",
         "loading": "Please wait..."
@@ -330,7 +352,6 @@
         "r3": "The driver requested me to cancel",
         "r4": "A mistake in my journey details",
         "close": "Close",
-
         "rideCancelTitle": "Ride Cancelled",
         "dear": "Dear",
         "rideCancelMessage": "your ride is Cancelled due to",
@@ -342,7 +363,6 @@
         "newPassword": "New Password",
         "confirmPassword": "Confirm Password",
         "changePassword": "Change Password",
-
         "fillPlz": "Please Fill all the Fields!",
         "updatedSuccessfully": "Password updated successfully",
         "noMatchedCurrent": "Your current password does not match",
@@ -358,7 +378,7 @@
         "ETA": "Estimated Time",
         "totalDistance": "Total Distance",
         "max": "Maximum Tariff",
-        "approx":"Approximate",
+        "approx": "Approximate",
         "bottomText": "You will not pay more than this price, which is usually less than the real price of the trip (tips and tolls excluded). Only applicable to certain areas of this city.",
         "continue": "Continue",
         "fixed": "Fixed Price",
