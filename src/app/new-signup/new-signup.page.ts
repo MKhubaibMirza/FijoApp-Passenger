@@ -47,6 +47,8 @@ export class NewSignupPage implements OnInit {
     city: '',
     address: '',
     postalCode: '',
+    currentLat: 0,
+    currentLng: 0,
   }
 
   password = {
@@ -120,6 +122,8 @@ export class NewSignupPage implements OnInit {
     this.geolocation.getCurrentPosition().then((resp: any) => {
       currentlatitude = resp.coords.latitude;
       currentlongitude = resp.coords.longitude;
+      this.signupData.currentLat = resp.coords.latitude;
+      this.signupData.currentLng = resp.coords.longitude;
       let opt: NativeGeocoderOptions = {
         useLocale: false,
         maxResults: 5

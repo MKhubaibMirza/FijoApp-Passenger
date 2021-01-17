@@ -55,7 +55,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-grid>
+    <!-- <ion-grid>
       <ion-row>
         <ion-col size="2.5">
           <img class="incardimg" *ngIf="journeyObject.driver.driverPhoto" [src]="url+journeyObject.driver.driverPhoto"
@@ -67,7 +67,7 @@
           <p class="email">{{journeyObject.driver.email}}</p>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
     <p class="footerText_cancelled" *ngIf="journeyObject.status == 'cancelled'">{{'JourneyDetailsPage.noCost' | translate}}</p>
     <p class="footerText_completed" *ngIf="journeyObject.status == 'completed'">{{'JourneyDetailsPage.withCost' | translate}}
       {{journeyObject.exactPriceForPassenger}}&euro;</p>

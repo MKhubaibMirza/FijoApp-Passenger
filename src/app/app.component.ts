@@ -49,6 +49,7 @@ export class AppComponent {
     });
     return await modal.present();
   }
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleLightContent();
@@ -65,7 +66,6 @@ export class AppComponent {
           () => console.log('Error In Keep Awaking')
         );
     });
-
     this.platform.pause.subscribe(() => {
       if (localStorage.getItem('user')) {
         let id = JSON.parse(localStorage.getItem('user')).id;
@@ -83,7 +83,12 @@ export class AppComponent {
             this.passengerService.isLoggedTrue().subscribe((resp: any) => {
             })
           } else {
-            localStorage.clear()
+            if (this.getCurrentLanguage() == 'en') {
+              this.showAlert('Session Expired', 'Please log in to continue.');
+            } else {
+              this.showAlert('Sesión expirada', 'Por favor inicie sesión para continuar.');
+            }
+            localStorage.clear();
             this.r.navigate(['/login'])
           }
 
@@ -94,7 +99,22 @@ export class AppComponent {
 
     if (localStorage.getItem('user')) {
 
+      this.passengerService.Check_Is_Login().subscribe((isLogin: any) => {
 
+        if (!isLogin.isPassengerLogin) {
+          this.passengerService.isLoggedTrue().subscribe((resp: any) => {
+          })
+        } else {
+          if (this.getCurrentLanguage() == 'en') {
+            this.showAlert('Session Expired', 'Please log in to continue.');
+          } else {
+            this.showAlert('Sesión expirada', 'Por favor inicie sesión para continuar.');
+          }
+          localStorage.clear();
+          this.r.navigate(['/login'])
+        }
+
+      });
 
       this.passengerService.getAvailabilityStatus().subscribe((resp: any) => {
         if (resp.isPassengerAvailable) {

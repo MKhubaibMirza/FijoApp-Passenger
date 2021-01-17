@@ -205,7 +205,7 @@ const routes: Routes = [
   },
   {
     path: 'new-signup',
-    canActivate: [ForwordGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./new-signup/new-signup.module').then(m => m.NewSignupPageModule)
   },
 
