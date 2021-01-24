@@ -8,7 +8,7 @@ agm-map {
   // background: rgb(36, 123, 37, 1);
   margin: auto;
   display: block;
-  // border: 5px solid green;
+  // border: 5px solid #4ebe38;
   border-radius: 8px;
 }
 
@@ -37,7 +37,7 @@ agm-map {
 }
 
 .spinner {
-  --color: green;
+  --color: #4ebe38;
   height: 67px;
   width: 67px;
   margin: auto;
@@ -113,10 +113,10 @@ agm-map {
 
 .noimg {
   font-size: 50px;
-  color: green;
+  color: #4ebe38;
   margin: auto;
   display: block;
-  background: #006600;
+  background: #4ebe38;
   padding: 13px;
   border-radius: 50%;
 }

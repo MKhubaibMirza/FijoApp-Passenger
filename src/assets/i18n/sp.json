@@ -80,7 +80,8 @@
         "forgotPassword": "Se te olvidó tu contraseña",
         "login": "Iniciar sesión",
         "signupWithGoogle": "Ingresa con e-mail",
-        "or": "o"
+        "or": "o",
+        "rememberMe": "Recuérdame"
     },
     "viaEmail": {
         "loginViaPhone": "Iniciar sesión por teléfono",
@@ -152,7 +153,7 @@
         "cancel": "Cancelar"
     },
     "homePage": {
-        "title": "Fijo Pasajera",
+        "title": "Fijo Taxi",
         "hello": "Hola",
         "whereToGo": "¿A dónde vas?",
         "enterDestination": "Introduce tu destino",
@@ -163,7 +164,7 @@
         "fixedPrice": "Precio fijo",
         "generalPurpose": "Propósito general",
         "forHandicaps": "Para discapacitados",
-        "orderNow": "Ordenar ahora",
+        "orderNow": "Pedir Taxi",
         "seeDetails": "Ver detalles",
         "loading": "Por favor espera",
         "selectRide": "Seleccione su viaje",
@@ -319,8 +320,8 @@
         "card": "Se cargará en su tarjeta",
         "cash": "Por favor pague a su conductor",
         "text": "Gracias por viajar con FijoTaxi. ¡Te veo pronto!",
-        "rate": "Velocidad",
-        "addFav": "Agregue sus controladores favorito",
+        "rate": "Valoracion",
+        "addFav": "Agregue sus conductor favorito",
         "submit": "Enviar"
     },
     "contactUsPage": {

@@ -1,5 +1,5 @@
 ::placeholder {
-    color: green;
+    color: #4ebe38;
 }
 
 ion-grid {
@@ -26,7 +26,7 @@ ion-grid {
             }
 
             .passenger {
-                background: #006600;
+                background: #4ebe38;
                 height: 40px;
                 width: 40px;
                 border-radius: 50%;
@@ -70,7 +70,7 @@ ion-grid {
 
         .passengerMessage {
             padding: 13px;
-            background: #006600;
+            background: #4ebe38;
             color: white;
             border-radius: 10px 10px 10px 10px;
             max-width: 100%;
@@ -86,7 +86,7 @@ ion-grid {
                 right: -17px;
                 top: 8px;
                 border-right: 34px solid transparent;
-                border-bottom: 17px solid #006600;
+                border-bottom: 17px solid #4ebe38;
                 transform: rotate(90deg);
                 outline: none;
             }
@@ -105,14 +105,14 @@ ion-footer {
             background: white;
             position: absolute;
             padding-left: 14px;
-            color: green;
-            border: 3px solid green;
+            color: #4ebe38;
+            border: 3px solid #4ebe38;
         }
 
         div {
             height: 50px;
             width: 13%;
-            background: green;
+            background: #4ebe38;
             float: right;
             border-radius: 0px 60px 60px 0px;
             margin-right: 11px;

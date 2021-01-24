@@ -66,55 +66,68 @@ export class AppComponent {
           () => console.log('Error In Keep Awaking')
         );
     });
-    this.platform.pause.subscribe(() => {
-      if (localStorage.getItem('user')) {
-        let id = JSON.parse(localStorage.getItem('user')).id;
-        this.passengerService.logoutPassenger(id).subscribe((resp: any) => {
-        });
-      }
-    });
+    // this.platform.pause.subscribe(() => {
+    //   if (localStorage.getItem('user')) {
+    //     let id = JSON.parse(localStorage.getItem('user')).id;
+    //     this.passengerService.logoutPassenger(id).subscribe((resp: any) => {
+    //     });
+    //   }
+    // });
 
     this.platform.resume.subscribe(() => {
-
       if (localStorage.getItem('user')) {
-        this.passengerService.Check_Is_Login().subscribe((isLogin: any) => {
-
-          if (!isLogin.isPassengerLogin) {
-            this.passengerService.isLoggedTrue().subscribe((resp: any) => {
-            })
-          } else {
+        if (!localStorage.getItem('remember')) {
+          let id = JSON.parse(localStorage.getItem('user')).id;
+          this.passengerService.logoutPassenger(id).subscribe((resp: any) => {
             if (this.getCurrentLanguage() == 'en') {
               this.showAlert('Session Expired', 'Please log in to continue.');
             } else {
               this.showAlert('Sesión expirada', 'Por favor inicie sesión para continuar.');
             }
-            localStorage.clear();
+            localStorage.clear()
             this.r.navigate(['/login'])
-          }
-
-        });
+          });
+        }
       }
+      // if (localStorage.getItem('user')) {
+      //   this.passengerService.Check_Is_Login().subscribe((isLogin: any) => {
+
+      //     if (!isLogin.isPassengerLogin) {
+      //       this.passengerService.isLoggedTrue().subscribe((resp: any) => {
+      //       })
+      //     } else {
+      //       if (this.getCurrentLanguage() == 'en') {
+      //         this.showAlert('Session Expired', 'Please log in to continue.');
+      //       } else {
+      //         this.showAlert('Sesión expirada', 'Por favor inicie sesión para continuar.');
+      //       }
+      //       localStorage.clear();
+      //       this.r.navigate(['/login'])
+      //     }
+
+      //   });
+      // }
 
     });
 
     if (localStorage.getItem('user')) {
 
-      this.passengerService.Check_Is_Login().subscribe((isLogin: any) => {
+      // this.passengerService.Check_Is_Login().subscribe((isLogin: any) => {
 
-        if (!isLogin.isPassengerLogin) {
-          this.passengerService.isLoggedTrue().subscribe((resp: any) => {
-          })
-        } else {
-          if (this.getCurrentLanguage() == 'en') {
-            this.showAlert('Session Expired', 'Please log in to continue.');
-          } else {
-            this.showAlert('Sesión expirada', 'Por favor inicie sesión para continuar.');
-          }
-          localStorage.clear();
-          this.r.navigate(['/login'])
-        }
+      //   if (!isLogin.isPassengerLogin) {
+      //     this.passengerService.isLoggedTrue().subscribe((resp: any) => {
+      //     })
+      //   } else {
+      //     if (this.getCurrentLanguage() == 'en') {
+      //       this.showAlert('Session Expired', 'Please log in to continue.');
+      //     } else {
+      //       this.showAlert('Sesión expirada', 'Por favor inicie sesión para continuar.');
+      //     }
+      //     localStorage.clear();
+      //     this.r.navigate(['/login'])
+      //   }
 
-      });
+      // });
 
       this.passengerService.getAvailabilityStatus().subscribe((resp: any) => {
         if (resp.isPassengerAvailable) {

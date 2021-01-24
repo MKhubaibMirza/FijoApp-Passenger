@@ -28,8 +28,8 @@
     <ion-grid>
       <ion-row>
         <ion-col size="6">
-          <p class="status" *ngIf="item.status == 'completed'" [style.color]="item.status == 'completed'?'green':'red'">{{'myJourneysPage.complete' | translate}}</p>
-          <p class="status" *ngIf="item.status !== 'completed'" [style.color]="item.status !== 'completed'?'red':'green'">{{'myJourneysPage.cancelled' | translate}}</p>
+          <p class="status" *ngIf="item.status == 'completed'" [style.color]="item.status == 'completed'?'#4ebe38':'red'">{{'myJourneysPage.complete' | translate}}</p>
+          <p class="status" *ngIf="item.status !== 'completed'" [style.color]="item.status !== 'completed'?'red':'#4ebe38'">{{'myJourneysPage.cancelled' | translate}}</p>
         </ion-col>
         <ion-col size="6">
           <p class="detail">{{'myJourneysPage.seeDetails' | translate}} </p>

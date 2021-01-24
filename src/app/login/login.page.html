@@ -13,7 +13,10 @@
   </ion-item>
 
   <p class="forgot" routerLink="/forgot-password">{{'loginPage.forgotPassword' | translate}}</p>
-
+  <ion-item class="input ion-no-padding">
+    <ion-label color="primary">{{'loginPage.rememberMe' | translate}}</ion-label>
+    <ion-checkbox slot="end" [(ngModel)]="isRememberMe"></ion-checkbox>
+  </ion-item>
   <ion-button expand="block" class="login" (click)="loginClick()">
     {{'loginPage.login' | translate}}
   </ion-button>

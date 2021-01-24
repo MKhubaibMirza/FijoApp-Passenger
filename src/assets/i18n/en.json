@@ -58,8 +58,9 @@
         "pleaseWait": "Please wait...",
         "email": "Email",
         "password": "Password",
-        "forgotPassword": "I forgot my password",
+        "forgotPassword": "Forgot Password?",
         "login": "Login",
+        "rememberMe": "Remember Me",
         "signupWithGoogle": "Signup With Email",
         "or": "or"
     },
@@ -152,7 +153,7 @@
         "cancel": "Cancel"
     },
     "homePage": {
-        "title": "Fijo Passenger",
+        "title": "Fijo Taxi",
         "hello": "Hello",
         "whereToGo": "Where are you going?",
         "enterDestination": "Enter your destination",

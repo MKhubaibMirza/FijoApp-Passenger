@@ -14,19 +14,19 @@
 .input {
     padding: 7px;
     padding-top: 0px;
-    border: 5px solid green;
+    border: 5px solid #4ebe38;
     margin: 5px;
     border-radius: 5px;
 }
 
 ion-label {
     font-size: 15px;
-    color: green;
+    color: #4ebe38;
 }
 
 .input2 {
     padding: 0px;
-    border: 5px solid green;
+    border: 5px solid #4ebe38;
     margin: 0px;
     margin-top: 5px;
     padding-left: 9px;
@@ -37,7 +37,7 @@ ion-label {
 .input3 {
     padding-bottom: 9px;
     padding-top: 9px;
-    border: 5px solid green;
+    border: 5px solid #4ebe38;
     padding-left: 5px;
     border-radius: 5px;
     width: 94%;
@@ -48,12 +48,12 @@ ion-label {
 }
 
 .footer {
-    // background: #006600;
+    // background: #4ebe38;
 
     p {
         font-size: 13px;
         text-align: center;
-        color: green;
+        color: #4ebe38;
     }
 
     ion-button {
@@ -62,7 +62,7 @@ ion-label {
         margin: auto;
         display: block;
         margin-bottom: 27px;
-        --background: green;
+        --background: #4ebe38;
         color: white;
         font-weight: bold;
         --box-shadow: none;
@@ -70,11 +70,11 @@ ion-label {
 }
 
 ion-input {
-    color: green;
+    color: #4ebe38;
 }
 
 ion-datetime {
-    color: green;
+    color: #4ebe38;
     padding: 0 !important;
 }
 

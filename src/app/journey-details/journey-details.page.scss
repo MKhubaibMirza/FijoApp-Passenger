@@ -1,6 +1,6 @@
 .back {
     font-size: 30px;
-    color: green;
+    color: #4ebe38;
     font-weight: bold;
     outline: none;
 }
@@ -8,7 +8,7 @@
 .title {
     font-size: 21px;
     margin: 0;
-    color: green;
+    color: #4ebe38;
     font-weight: bold;
 }
 
@@ -21,7 +21,7 @@
 
 .subtitle_completed {
     margin: 0;
-    color: green;
+    color: #4ebe38;
     font-weight: bold;
     padding-top: 5px;
 }
@@ -33,7 +33,7 @@
 }
 
 .checked {
-    color: green;
+    color: #4ebe38;
     font-size: 33px;
     margin: 0;
 }
@@ -41,7 +41,7 @@
 .hr {
     margin: auto;
     display: block;
-    background: green;
+    background: #4ebe38;
     height: 5px;
     width: 90%;
 }
@@ -53,11 +53,11 @@
     height: 367px;
     width: 90%;
     border-radius: 50px;
-    border: 7px solid green;
+    border: 7px solid #4ebe38;
 }
 
 .card {
-    border: 7px solid green;
+    border: 7px solid #4ebe38;
     border-radius: 15px;
     margin: auto;
     display: block;
@@ -69,7 +69,7 @@
     }
 
     .textUnderCard {
-        color: green;
+        color: #4ebe38;
 
         ion-icon {
             position: relative;
@@ -79,7 +79,7 @@
 
     .time {
 
-        color: green;
+        color: #4ebe38;
         font-weight: bold;
         text-align: center;
         font-size: 11px;
@@ -96,12 +96,12 @@
     }
 
     .name {
-        color: green;
+        color: #4ebe38;
         font-weight: bold;
     }
 
     .email {
-        color: green;
+        color: #4ebe38;
     }
 
     .footerText_cancelled {
@@ -112,21 +112,21 @@
 
     .footerText_completed {
         padding-left: 21px;
-        color: green;
+        color: #4ebe38;
         font-weight: bold;
     }
 
     .circle {
         height: 13px;
         width: 13px;
-        background: green;
+        background: #4ebe38;
         border-radius: 9px;
         margin-top: 7px;
     }
 
     .afterCircle {
         height: 117%;
-        background: green;
+        background: #4ebe38;
         width: 5px;
         margin-left: 4px;
         margin-top: -1px;

@@ -4,12 +4,11 @@
       <ion-menu-button class="menu" autoHide="false" color="light"></ion-menu-button>
     </ion-buttons>
     <ion-title color="light">{{'homePage.title' | translate}}</ion-title>
-    <ion-icon slot="end" name="location" (click)="locationClick()" color="light"></ion-icon>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <agm-map [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom" [latitude]="latitude"
-    [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
+  <agm-map [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom"
+    [latitude]="latitude" [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
     <agm-direction (onResponse)="onResponse($event)" (destinationDrag)="markerDragEnd($event)"
       *ngIf="directionCondition" [renderOptions]="renderOptions" [markerOptions]="markerOptions" [origin]="origin"
       [destination]="destination">
@@ -18,6 +17,11 @@
       [latitude]="currentLatitude" [longitude]="currentLongitude">
     </agm-marker>
   </agm-map>
+  <ion-fab (click)="locationClick()" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="locate"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 <ion-footer class="ion-no-border">
   <ion-card *ngIf="!directionCondition" [class]='toUp' [style.height]="heightOfCard"
@@ -63,7 +67,7 @@
       </ion-row>
     </ion-grid>
     <ion-grid>
-      <ion-row *ngFor="let item of carsTypes;index as i" [style.color]="item.condition?'#006600':'#006600'"
+      <ion-row *ngFor="let item of carsTypes;index as i" [style.color]="item.condition?'#4ebe38':'#4ebe38'"
         [style.background]="item.condition?'white':'white'" style="margin-bottom: 6px;" (click)="selectCar(item,i)">
         <ion-col size="2.5">
           <img class="loopcar" [src]="item.image" alt="">

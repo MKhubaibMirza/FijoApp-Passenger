@@ -6,8 +6,8 @@
 }
 
 .row {
-    // border: 3px solid green;
-    color: green;
+    // border: 3px solid #4ebe38;
+    color: #4ebe38;
     outline: none;
     margin-bottom: 19px;
     border-radius: 7px;
@@ -46,7 +46,7 @@
 }
 
 ion-spinner {
-    --color: green;
+    --color: #4ebe38;
     display: block;
     margin: auto;
     width: 75px;
@@ -58,7 +58,7 @@ ion-spinner {
 .subtitle {
     margin: 0;
     padding-top: 10px;
-    color: green;
+    color: #4ebe38;
     font-weight: bold;
     outline: none;
 }

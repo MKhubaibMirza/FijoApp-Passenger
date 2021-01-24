@@ -67,20 +67,20 @@ export class HomePage {
   currentLatitude = 0;
   currntLAT = 750;
   currntLONG = 700;
-  zoom = 19;
+  zoom = 18;
   address: string;
   SavedLocations = [];
   private geoCoder;
-  public origin = ''
-  public destination = ''
+  public origin = '';
+  public destination = '';
   public renderOptions = {
     suppressMarkers: true,
-    polylineOptions: { strokeColor: '#006600', strokeWeight: 5 }
+    polylineOptions: { strokeColor: '#4ebe38', strokeWeight: 5 }
   }
   currentMarkerAnimation = 'DROP';
   // animation: 'BOUNCE' | 'DROP';
   public currentMarker = {
-    url: 'assets/man.png',
+    url: 'assets/currentMarkerGif.gif',
     scaledSize: {
       width: 70,
       height: 70
@@ -202,7 +202,7 @@ export class HomePage {
   }
   ionViewWillEnter() {
     // this.presentUser();
-    this.zoom = 19;
+    this.zoom = 18;
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       this.setCurrentLocation();
@@ -237,7 +237,13 @@ export class HomePage {
   map: any;
   locationClick() {
     this.map.setCenter({ lat: this.latitude, lng: this.longitude });
-    this.zoom = 19;
+    this.map.zoom = 18;
+    this.zoom = 18;
+    setTimeout(() => {
+      this.map.setCenter({ lat: this.latitude, lng: this.longitude });
+      this.map.zoom = 18;
+      this.zoom = 18;
+    }, 300);
   }
   setCurrentLocation() {
     let options = {
@@ -257,18 +263,20 @@ export class HomePage {
     let watchPositionTrigger = 0;
     this.geolocation.watchPosition().subscribe((coords: any) => {
       watchPositionTrigger = watchPositionTrigger + 1;
-      this.currentLatitude = parseFloat(coords.coords.latitude);
-      this.currentLongitude = parseFloat(coords.coords.longitude);
+      this.latitude = parseFloat(coords.coords.latitude);
+      this.longitude = parseFloat(coords.coords.longitude);
       this.FindDriverObj.currentLat = this.latitude;
       this.FindDriverObj.currentLng = this.longitude;
-      if (watchPositionTrigger == 15) {
-        this.latitude = this.currentLatitude;
-        this.longitude = this.currentLongitude;
+      if (watchPositionTrigger == 7) {
+        if (!this.directionCondition) {
+          this.map.setCenter({ lat: this.latitude, lng: this.longitude });
+        }
+        this.currentLatitude = this.latitude;
+        this.currentLongitude = this.longitude;
         this.getAddress(this.currentLatitude, this.currentLongitude);
         watchPositionTrigger = 0;
       }
     });
-    this.agmMap.triggerResize();
   }
   totaltime = '';
   totaldistance = '';
@@ -385,8 +393,8 @@ export class HomePage {
         this.For4SeaterPrice = resp.totalPrice;
         this.BasePrice4Seater = resp.basePrice;
         let carTypesArray = [
-          { title: 'Sedan', desc: 'General Purpose', description: this.respFromLanguage.sedanN, img: 'assets/Fijo_Sedan_XL_v1.png', approxOrMaxValue: 0 },
-          { title: 'Sedan Equipped', desc: 'For Handicaps', description: this.respFromLanguage.sedanH, img: 'assets/Fijo_Sedan_Handicap_v_2.png', approxOrMaxValue: 0 }
+          { title: 'Taxi XL', desc: 'General Purpose', description: this.respFromLanguage.sedanN, img: 'assets/Fijo_Sedan_XL_v1.png', approxOrMaxValue: 0 },
+          { title: 'Sedan Accesivilidad', desc: 'For Handicaps', description: this.respFromLanguage.sedanH, img: 'assets/Fijo_Sedan_Handicap_v_2.png', approxOrMaxValue: 0 }
         ];
         getExactPriceObject.seatingCapacity = 5;
         this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
@@ -454,7 +462,7 @@ export class HomePage {
     this.geoCoder.geocode({ 'location': { lat: coords3.lat, lng: coords3.lng } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 19;
+          this.zoom = 18;
           this.destination = results[0].formatted_address;
         } else {
         }
@@ -480,7 +488,7 @@ export class HomePage {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 19;
+          this.zoom = 18;
           this.origin = results[0].formatted_address;
         }
       }
@@ -551,4 +559,85 @@ export class HomePage {
     this.ShowDestinationCondition = false;
     this.carsTypes = [];
   }
+  DarkStyle = [
+    { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+    {
+      featureType: "administrative.locality",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry",
+      stylers: [{ color: "#263c3f" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#6b9a76" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [{ color: "#38414e" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#212a37" }],
+    },
+    {
+      featureType: "road",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#9ca5b3" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{ color: "#746855" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#1f2835" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#f3d19c" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "geometry",
+      stylers: [{ color: "#2f3948" }],
+    },
+    {
+      featureType: "transit.station",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ color: "#17263c" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#515c6d" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.stroke",
+      stylers: [{ color: "#17263c" }],
+    },
+  ];
+  LightStyle = [];
 }

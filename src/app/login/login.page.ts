@@ -37,6 +37,7 @@ export class LoginPage implements OnInit {
     email: '',
     password: ''
   }
+  isRememberMe = false;
 
   loginClick() {
     if ((this.loginData.email && this.loginData.password) !== '') {
@@ -48,6 +49,9 @@ export class LoginPage implements OnInit {
         } else {
           this.loading.dismiss(true)
           localStorage.setItem('user', JSON.stringify(resp.pessenger));
+          if (this.isRememberMe) {
+            localStorage.setItem('remember', 'true');
+          }
           this.router.navigate(['/home'])
         }
         // localStorage.setItem('user', JSON.stringify(resp))

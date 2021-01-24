@@ -21,7 +21,35 @@ import { SmartAudioService } from '../services/smart-audio.service';
 })
 export class TrackingPage {
   @ViewChild(AgmMap) private agmMap: AgmMap;
-
+  socket = io(environment.baseUrl);
+  DriverDetail = {
+    driverObj: {
+      firstName: '',
+      lastName: '',
+      driverPhoto: '',
+      currentLat: 0,
+      currentLng: 0
+    },
+    vehicleObj: {
+      brand: "",
+      vehicleNoPlate: ""
+    }
+  };
+  latitude = 56;
+  longitude = 10;
+  zoom = 18;
+  address: string;
+  isEn: Boolean;
+  isSp: Boolean;
+  Route_To_Passenger = false;
+  Route_To_Destination = false;
+  DriverFound = false;
+  isSearching = false;
+  isTripStarted = false;
+  totaltime = '';
+  endTripCounter = false;
+  startTripCounter = false;
+  url = environment.baseUrl;
   constructor(
     private mapsAPILoader: MapsAPILoader,
     public modalController: ModalController,
@@ -70,7 +98,7 @@ export class TrackingPage {
       this.longitude = object.driverLng;
 
       if (localStorage.getItem('tripStarted')) {
-        this.zoom = 20
+        this.zoom = 18
         this.isTripStarted = true;
         this.Route_To_Passenger = false;
         this.Route_To_Destination = true;
@@ -134,7 +162,7 @@ export class TrackingPage {
       localStorage.setItem('tracking', JSON.stringify(object));
     });
     this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.zoom = 20
+      this.zoom = 18
       this.audioService.preload('startRide');
       this.audioService.play('startRide');
       this.isTripStarted = true;
@@ -194,7 +222,7 @@ export class TrackingPage {
       }
     }, 30000);
     if (localStorage.getItem('tripStarted')) {
-      this.zoom = 20
+      this.zoom = 18
       this.isTripStarted = true;
       this.afterTripStart();
     } else {
@@ -241,35 +269,7 @@ export class TrackingPage {
       document.getElementById('map-parent').style.width = "100%";
     }, 100);
   }
-  socket = io(environment.baseUrl);
-  DriverDetail = {
-    driverObj: {
-      firstName: '',
-      lastName: '',
-      driverPhoto: '',
-      currentLat: 0,
-      currentLng: 0
-    },
-    vehicleObj: {
-      brand: "",
-      vehicleNoPlate: ""
-    }
-  };
-  latitude = 56;
-  longitude = 10;
-  zoom = 19;
-  address: string;
-  isEn: Boolean;
-  isSp: Boolean;
-  Route_To_Passenger = false;
-  Route_To_Destination = false;
-  DriverFound = false;
-  isSearching = false;
-  isTripStarted = false;
-  totaltime = '';
-  endTripCounter = false;
-  startTripCounter = false;
-  url = environment.baseUrl;
+
   async presentLoading() {
     const loading = await this.loadingController.create({
       message: 'Please wait',
@@ -382,17 +382,17 @@ export class TrackingPage {
   public destination = JSON.parse(localStorage.getItem('findDriverObj')).destination;
   public renderOptions = {
     suppressMarkers: true,
-    polylineOptions: { strokeColor: '#006600', strokeWeight: 5 }
+    polylineOptions: { strokeColor: '#4ebe38', strokeWeight: 5 }
   }
   toOrigin = {
     origin: { lat: this.DriverDetail.driverObj.currentLat, lng: this.DriverDetail.driverObj.currentLng },
     destination: this.origin,
-    renderOptions: { suppressMarkers: true, polylineOptions: { strokeColor: '#006600', strokeWeight: 5 } },
+    renderOptions: { suppressMarkers: true, polylineOptions: { strokeColor: '#4ebe38', strokeWeight: 5 } },
   }
   toDestination = {
     origin: this.origin,
     destination: this.destination,
-    renderOptions: { suppressMarkers: true, polylineOptions: { strokeColor: '#006600', strokeWeight: 5 } },
+    renderOptions: { suppressMarkers: true, polylineOptions: { strokeColor: '#4ebe38', strokeWeight: 5 } },
   }
   currentMarkerAnimation = 'DROP';
   // animation: 'BOUNCE' | 'DROP';
@@ -404,9 +404,9 @@ export class TrackingPage {
     }
   }
   public driverMarker = {
-    url: 'assets/driver.png',
+    url: 'assets/currentMarkerGif.gif',
     scaledSize: {
-      width: 45,
+      width: 70,
       height: 70
     }
   }
@@ -587,4 +587,86 @@ export class TrackingPage {
     this.startTripCounter = false;
     this.menuControl.enable(true);
   }
+
+  DarkStyle = [
+    { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+    {
+      featureType: "administrative.locality",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry",
+      stylers: [{ color: "#263c3f" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#6b9a76" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [{ color: "#38414e" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#212a37" }],
+    },
+    {
+      featureType: "road",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#9ca5b3" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{ color: "#746855" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#1f2835" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#f3d19c" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "geometry",
+      stylers: [{ color: "#2f3948" }],
+    },
+    {
+      featureType: "transit.station",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ color: "#17263c" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#515c6d" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.stroke",
+      stylers: [{ color: "#17263c" }],
+    },
+  ];
+  LightStyle = [];
 }

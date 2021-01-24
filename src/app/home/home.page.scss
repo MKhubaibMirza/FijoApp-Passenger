@@ -42,7 +42,7 @@ agm-map {
 
 .menuBtn {
   background: transparent;
-  color: #006600;
+  color: #4ebe38;
   --box-shadow: none;
   position: absolute;
   z-index: 111;
@@ -53,7 +53,7 @@ agm-map {
   // background: rgb(36, 123, 37, 0.8);
   margin: auto;
   display: block;
-  // border: 5px solid green;
+  // border: 5px solid #4ebe38;
   border-radius: 8px;
 
   .cardTitle {
@@ -66,7 +66,7 @@ agm-map {
   .subTitle {
     margin: 0;
     font-size: 21px;
-    color: green;
+    color: #4ebe38;
     margin-top: -3px;
     font-weight: bold;
   }
@@ -79,7 +79,7 @@ agm-map {
   }
 
   .destination {
-    border: 3px solid green;
+    border: 3px solid #4ebe38;
     height: 57px;
     padding-left: 17px;
     padding-right: 17px;
@@ -137,10 +137,10 @@ agm-map {
 }
 
 .search {
-  border: 3px solid green;
+  border: 3px solid #4ebe38;
   width: 100%;
   color: white;
-  background: green;
+  background: #4ebe38;
   height: 33px;
   padding: 9px 0px;
   border-radius: 0px 9px 9px 0px;
@@ -159,7 +159,7 @@ agm-map {
 }
 
 .totaldistance {
-  color: green;
+  color: #4ebe38;
   font-size: 18px;
   margin: 0;
 }
@@ -174,7 +174,7 @@ agm-map {
 
 .order {
   width: 90%;
-  --background: green;
+  --background: #4ebe38;
   --color: white;
   margin: auto;
   display: block;
@@ -187,7 +187,7 @@ agm-map {
 }
 
 .li {
-  color: green;
+  color: #4ebe38;
   font-size: 20px;
   outline: none;
 }
@@ -202,5 +202,11 @@ agm-map {
   .max {
     float: right;
     padding-right: 11px;
+  }
+}
+ion-fab {
+  ion-fab-button {
+    --background: white !important;
+    --color: black !important;
   }
 }

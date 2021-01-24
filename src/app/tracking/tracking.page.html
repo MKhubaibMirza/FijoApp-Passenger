@@ -1,7 +1,7 @@
 <ion-content>
   <div style="width: 90%;height: 100%;" id="map-parent">
-    <agm-map #agmmap [usePanning]="true" [zoom]="zoom" [latitude]="latitude" [longitude]="longitude"
-      [zoomControl]="false" [streetViewControl]="false">
+    <agm-map #agmmap [usePanning]="true" [zoom]="zoom"
+      [latitude]="latitude" [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
       <agm-direction *ngIf="Route_To_Passenger" (onResponse)="onResponse($event)"
         [renderOptions]="toOrigin.renderOptions" [markerOptions]="toOriginMarker" [origin]="toOrigin.origin"
         [destination]="toOrigin.destination">

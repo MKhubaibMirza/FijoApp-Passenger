@@ -11,7 +11,7 @@
         margin: auto;
         width: 109px;
         display: block;
-        // border: 5px solid green;
+        // border: 5px solid #4ebe38;
         border-radius: 50%;
     }
 
@@ -22,7 +22,7 @@
         background: rgba(0, 0, 0, 0.2);
         padding: 20px;
         border-radius: 50%;
-        color: green;
+        color: #4ebe38;
         outline: none;
     }
 
@@ -32,7 +32,7 @@
         position: relative;
         left: 35px;
         bottom: 39px;
-        color: #006600;
+        color: #4ebe38;
         background: white;
     }
 
@@ -50,7 +50,7 @@
     padding: 15px;
 
     .title {
-        color: #006600;
+        color: #4ebe38;
         font-size: 20px;
         padding-left: 3%;
         font-weight: bold;
@@ -58,7 +58,7 @@
 
     .input {
         padding: 10px;
-        border: 2px solid #006600;
+        border: 2px solid #4ebe38;
         margin-bottom: 15px;
         border-radius: 5px;
         text-align: right;
@@ -75,6 +75,6 @@
     font-size: 58px;
     margin: 20px auto;
     display: block;
-    color: #006600;
+    color: #4ebe38;
     outline: none;
 }

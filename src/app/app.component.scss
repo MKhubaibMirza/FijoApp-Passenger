@@ -19,7 +19,7 @@
                 margin: auto;
                 display: block;
                 border-radius: 100px;
-                // border: 5px solid green;
+                // border: 5px solid #4ebe38;
             }
 
             .name {
@@ -41,7 +41,7 @@
 }
 
 hr {
-    background: green;
+    background: #4ebe38;
     height: 2px;
 }
 
@@ -50,7 +50,7 @@ hr {
         padding: 9px 5px;
 
         ion-icon {
-            color: green;
+            color: #4ebe38;
             font-size: 27px;
             padding-top: 3px;
         }
@@ -58,7 +58,7 @@ hr {
         ion-label {
             font-size: 21px;
             margin: 0;
-            color: green;
+            color: #4ebe38;
         }
     }
 }
