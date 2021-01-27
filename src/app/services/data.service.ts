@@ -35,4 +35,7 @@ export class DataService {
   createContactUs(data) {
     return this.http.post(this.ApiUrl + 'contact-us/create', data);
   }
+  idDeviceIdMatched() {
+    return this.http.post(this.ApiUrl + 'passenger/idDeviceIdMatched/' + JSON.parse(localStorage.getItem('user')).id, { logedInDeviceId: localStorage.getItem('logedInDeviceId') });
+  }
 }

@@ -13,7 +13,15 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from '../services/translate-config.service';
 import { SmartAudioService } from '../services/smart-audio.service';
-
+const CountdownTimeUnits: Array<[string, number]> = [
+  ['Y', 1000 * 60 * 60 * 24 * 365], // years
+  ['M', 1000 * 60 * 60 * 24 * 30], // months
+  ['D', 1000 * 60 * 60 * 24], // days
+  ['H', 1000 * 60 * 60], // hours
+  ['m', 1000 * 60], // minutes
+  ['s', 1000], // seconds
+  ['S', 1], // million seconds
+];
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.page.html',
@@ -72,6 +80,7 @@ export class TrackingPage {
     this.startTripCounter = false;
     this.Route_To_Passenger = false;
     this.Route_To_Destination = false;
+    this.waitToGetRoute = false;
     t.get("trackingPage").subscribe((resp: any) => {
       console.log(resp);
       this.respFromLanguage = resp;
@@ -546,10 +555,18 @@ export class TrackingPage {
     });
     toast.present();
   }
-
+  timer = 100;
+  waitToGetRoute = false;
   public onResponse(event: any) {
-    console.log(event)
+    this.waitToGetRoute = false;
     this.totaltime = event.routes[0]?.legs[0].duration.text;
+    if (event.routes[0]?.legs[0].duration.value !== undefined) {
+      this.timer = event.routes[0]?.legs[0].duration.value;
+      this.getConfig.leftTime = this.timer;
+      setTimeout(() => {
+        this.waitToGetRoute = true;
+      }, 900);
+    }
   }
   async cancelConfirmModal() {
     const modal = await this.modalController.create({
@@ -669,4 +686,36 @@ export class TrackingPage {
     },
   ];
   LightStyle = [];
+  getConfig = {
+    leftTime: this.timer,
+    format: 'HH:mm:ss',
+    formatDate: ({ date, formatStr }) => {
+      let duration = Number(date || 0);
+
+      return CountdownTimeUnits.reduce((current, [name, unit]) => {
+        if (current.indexOf(name) !== -1) {
+          const v = Math.floor(duration / unit);
+          duration -= v * unit;
+          return current.replace(new RegExp(`${name}+`, 'g'), (match: string) => {
+            return v.toString().padStart(match.length, '0');
+          });
+        }
+        return current;
+      }, formatStr);
+    },
+    prettyText: (text) => {
+      let h = text.substr(0, 2) + 'h ';
+      let m = text.substring(3, 5) + 'm ';
+      let s = text.substr(6, 8) + 's ';
+      let z = '';
+      if (this.translate.selectedLanguage() == 'sp') {
+        z = m + '' + s + "Restante";
+      } else {
+        z = m + '' + s + "Remaining";
+      }
+      // let z = h + '' + m + '' + s + '';
+      // console.log(text)
+      return z;
+    },
+  };
 }

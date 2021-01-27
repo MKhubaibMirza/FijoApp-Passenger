@@ -4,13 +4,17 @@ import {
   MapsAPILoader,
 } from "@agm/core";
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { LoadingController, MenuController, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, MenuController, ModalController, NavController, Platform, ToastController } from '@ionic/angular';
 import { AskPaymentWayPage } from '../ask-payment-way/ask-payment-way.page';
 import { WelcomeUserPage } from '../welcome-user/welcome-user.page';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfirmBookingPage } from '../confirm-booking/confirm-booking.page';
+import { LocationService } from '../services/location.service';
+import io from 'socket.io-client';
+import { environment } from 'src/environments/environment';
+import { TranslateConfigService } from '../services/translate-config.service';
 
 declare var google: any;
 
@@ -20,6 +24,8 @@ declare var google: any;
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  socket = io(environment.baseUrl);
+
   constructor(
     public loadingController: LoadingController,
     private mapsAPILoader: MapsAPILoader,
@@ -30,10 +36,30 @@ export class HomePage {
     public dataservice: DataService,
     public modalController: ModalController,
     private geolocation: Geolocation,
+    public locationservice: LocationService,
     public t: TranslateService,
+    public alertCtrl: AlertController,
+    public translateconfig: TranslateConfigService,
     public r: Router,
   ) {
     this.getLangData();
+  }
+  async showAlert(title, msg) {
+    const alert = await this.alertCtrl.create({
+      header: title,
+      subHeader: msg,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+          }
+        }
+      ]
+    })
+    alert.present();
+  }
+  logingHoppingReturner() {
+    return 'notify-old-device' + localStorage.getItem('logedInDeviceId');
   }
   getLangData() {
     this.t.get("homePage").subscribe((resp: any) => {
@@ -201,7 +227,16 @@ export class HomePage {
     toast.present();
   }
   ionViewWillEnter() {
-    // this.presentUser();
+    this.socket.on(this.logingHoppingReturner(), (data) => {
+      if (this.translateconfig.selectedLanguage() == 'en') {
+        this.showAlert('Session Expire', 'Your account is logged in from a different device.');
+      } else {
+        this.showAlert('Sesión Expirada', 'Su cuenta está conectada desde un dispositivo diferente.');
+      }
+      localStorage.clear();
+      this.r.navigate(['/login']);
+    })
+    this.locationservice.updateLocationInstantly();
     this.zoom = 18;
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;

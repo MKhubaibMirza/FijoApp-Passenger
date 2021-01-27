@@ -4,6 +4,8 @@ import { AlertController, LoadingController, MenuController, ToastController } f
 import { TranslateService } from '@ngx-translate/core';
 import { PassengerService } from '../services/passenger.service';
 import { SocialAuthService } from '../services/social-auth.service';
+import io from 'socket.io-client';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ import { SocialAuthService } from '../services/social-auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  socket = io(environment.baseUrl);
   constructor(
     private passengerService: PassengerService,
     private toastController: ToastController,
@@ -43,19 +45,17 @@ export class LoginPage implements OnInit {
     if ((this.loginData.email && this.loginData.password) !== '') {
       this.presentLoading()
       this.passengerService.login(this.loginData).subscribe((resp: any) => {
-        if (resp.message == 'You are already login from another device. Please logput first to login from this device') {
-          this.loading.dismiss(true)
-          this.AlreadyLoggedIn();
-        } else {
-          this.loading.dismiss(true)
-          localStorage.setItem('user', JSON.stringify(resp.pessenger));
-          if (this.isRememberMe) {
-            localStorage.setItem('remember', 'true');
-          }
-          this.router.navigate(['/home'])
+        this.loading.dismiss(true);
+        let data = {
+          oldDeviceId: resp.oldDeviceId
         }
-        // localStorage.setItem('user', JSON.stringify(resp))
-        // this.router.navigate(['/home'])
+        this.socket.emit('loging-hopping', data);
+        localStorage.setItem('logedInDeviceId', resp.newDeviceId);
+        localStorage.setItem('user', JSON.stringify(resp.pessenger));
+        if (this.isRememberMe) {
+          localStorage.setItem('remember', 'true');
+        }
+        this.router.navigate(['/home']);
       }, err => {
         this.loading.dismiss(true)
         if (err.error) {

@@ -105,4 +105,30 @@ export class LocationService {
       }
     });
   }
+  updateLocationInstantly() {
+    let geolocation = this.geolocation.getCurrentPosition();
+    geolocation.then((data: any) => {
+      let locObj = {
+        currentLat: data.coords.latitude,
+        currentLng: data.coords.longitude,
+        city: '',
+        address: '',
+        postalCode: ''
+      };
+      let opt: NativeGeocoderOptions = {
+        useLocale: false,
+        maxResults: 1
+      };
+      this.nativeGeocoder.reverseGeocode(data.coords.latitude, data.coords.longitude, opt)
+        .then((result: NativeGeocoderResult[]) => {
+          locObj.city = result[0].locality;
+          locObj.address = result[0].subLocality + ' ' + result[0].thoroughfare;
+          locObj.postalCode = result[0].postalCode;
+          if (localStorage.getItem('user')) {
+            let id = JSON.parse(localStorage.getItem('user')).id;
+            this.passengerService.updatePassengerLocation(locObj, id).subscribe((resp: any) => { })
+          }
+        })
+    });
+  }
 }

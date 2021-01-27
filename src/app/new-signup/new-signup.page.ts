@@ -87,7 +87,8 @@ export class NewSignupPage implements OnInit {
                   console.log(resp)
                   if (resp.message == "Passenger is Created Successfully") {
                     this.presentToast(this.respFromLanguage.registerSuccessfully)
-                    this.loading.dismiss()
+                    this.loading.dismiss();
+                    localStorage.setItem('logedInDeviceId', resp.newDeviceId);
                     localStorage.setItem('user', JSON.stringify(resp.passenger))
                     setTimeout(() => {
                       this.r.navigate(['/home'])

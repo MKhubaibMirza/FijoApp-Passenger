@@ -13,7 +13,7 @@ import { SocialAuthService } from './services/social-auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { SplashPage } from './splash/splash.page';
 import { Insomnia } from '@ionic-native/insomnia/ngx';
-
+import { DataService } from './services/data.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -35,8 +35,9 @@ export class AppComponent {
     public passengerService: PassengerService,
     public translateConfigService: TranslateConfigService,
     public socialService: SocialAuthService,
+    public dataservice: DataService,
     public t: TranslateService,
-    public nav: NavController,
+    public nav: NavController
   ) {
     this.presentSplashScreen();
     this.closeApp();
@@ -49,7 +50,6 @@ export class AppComponent {
     });
     return await modal.present();
   }
-
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleLightContent();
@@ -66,14 +66,6 @@ export class AppComponent {
           () => console.log('Error In Keep Awaking')
         );
     });
-    // this.platform.pause.subscribe(() => {
-    //   if (localStorage.getItem('user')) {
-    //     let id = JSON.parse(localStorage.getItem('user')).id;
-    //     this.passengerService.logoutPassenger(id).subscribe((resp: any) => {
-    //     });
-    //   }
-    // });
-
     this.platform.resume.subscribe(() => {
       if (localStorage.getItem('user')) {
         if (!localStorage.getItem('remember')) {
@@ -82,53 +74,38 @@ export class AppComponent {
             if (this.getCurrentLanguage() == 'en') {
               this.showAlert('Session Expired', 'Please log in to continue.');
             } else {
-              this.showAlert('Sesión expirada', 'Por favor inicie sesión para continuar.');
+              this.showAlert('Sesión Expirada', 'Por favor inicie sesión para continuar.');
             }
             localStorage.clear()
             this.r.navigate(['/login'])
           });
         }
+        this.dataservice.idDeviceIdMatched().subscribe((resp: any) => {
+          if (resp.message == 'Device Id is not matched') {
+            if (this.translateConfigService.selectedLanguage() == 'en') {
+              this.showAlert('Session Expire', 'Your account is logged in from a different device.');
+            } else {
+              this.showAlert('Sesión Expirada', 'Su cuenta está conectada desde un dispositivo diferente.');
+            }
+            localStorage.clear();
+            this.r.navigate(['/login']);
+          }
+        })
       }
-      // if (localStorage.getItem('user')) {
-      //   this.passengerService.Check_Is_Login().subscribe((isLogin: any) => {
-
-      //     if (!isLogin.isPassengerLogin) {
-      //       this.passengerService.isLoggedTrue().subscribe((resp: any) => {
-      //       })
-      //     } else {
-      //       if (this.getCurrentLanguage() == 'en') {
-      //         this.showAlert('Session Expired', 'Please log in to continue.');
-      //       } else {
-      //         this.showAlert('Sesión expirada', 'Por favor inicie sesión para continuar.');
-      //       }
-      //       localStorage.clear();
-      //       this.r.navigate(['/login'])
-      //     }
-
-      //   });
-      // }
-
     });
 
     if (localStorage.getItem('user')) {
-
-      // this.passengerService.Check_Is_Login().subscribe((isLogin: any) => {
-
-      //   if (!isLogin.isPassengerLogin) {
-      //     this.passengerService.isLoggedTrue().subscribe((resp: any) => {
-      //     })
-      //   } else {
-      //     if (this.getCurrentLanguage() == 'en') {
-      //       this.showAlert('Session Expired', 'Please log in to continue.');
-      //     } else {
-      //       this.showAlert('Sesión expirada', 'Por favor inicie sesión para continuar.');
-      //     }
-      //     localStorage.clear();
-      //     this.r.navigate(['/login'])
-      //   }
-
-      // });
-
+      this.dataservice.idDeviceIdMatched().subscribe((resp: any) => {
+        if (resp.message == 'Device Id is not matched') {
+          if (this.translateConfigService.selectedLanguage() == 'en') {
+            this.showAlert('Session Expire', 'Your account is logged in from a different device.');
+          } else {
+            this.showAlert('Sesión Expirada', 'Su cuenta está conectada desde un dispositivo diferente.');
+          }
+          localStorage.clear();
+          this.r.navigate(['/login']);
+        }
+      })
       this.passengerService.getAvailabilityStatus().subscribe((resp: any) => {
         if (resp.isPassengerAvailable) {
           localStorage.removeItem('findDriverObj');
@@ -165,7 +142,6 @@ export class AppComponent {
         }
       })
     })
-    console.log('back btn pressed', this.r.url);
   }
   setupPush() {
     // I recommend to put these into your environment.ts

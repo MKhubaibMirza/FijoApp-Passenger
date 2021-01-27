@@ -132,3 +132,19 @@ ion-badge {
     color: #eb445a;
   }
 }
+.countdown {
+  color: black;
+  font-weight: bold;
+  font-size: 19px;
+  pointer-events: none;
+  padding-left: 9px;
+  margin: 0;
+}
+
+.speedicon {
+  color: black;
+  font-size: 30px;
+  margin: 0;
+  position: relative;
+  top: 7px;
+}

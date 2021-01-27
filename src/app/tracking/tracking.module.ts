@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { TrackingPageRoutingModule } from './tracking-routing.module';
+import { CountdownModule } from 'ngx-countdown';
 
 import { TrackingPage } from './tracking.page';
 import { AgmCoreModule } from '@agm/core';
@@ -14,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
+    CountdownModule,
     FormsModule,
     IonicModule,
     TranslateModule,

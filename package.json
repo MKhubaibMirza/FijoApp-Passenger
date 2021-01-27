@@ -49,6 +49,7 @@
     "animate.css": "^4.1.1",
     "firebase": "^7.20.0",
     "ng2-pdf-viewer": "^6.3.2",
+    "ngx-countdown": "^11.0.1",
     "rxjs": "~6.5.5",
     "socket.io-client": "^2.3.0",
     "tslib": "^2.0.0",
