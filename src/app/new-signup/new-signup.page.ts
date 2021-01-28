@@ -75,16 +75,13 @@ export class NewSignupPage implements OnInit {
           phoneNumber: this.signupData.phoneNumber
         }
         this.passengerService.checkByPhone(numberData).subscribe((checkNumber: any) => {
-          console.log(checkNumber)
           if (!checkNumber.isPassengerExist) {
             let email = {
               email: this.signupData.email
             }
             this.passengerService.checkByEmail(email).subscribe((checkEmail: any) => {
-              console.log(checkEmail)
               if (!checkEmail.isPassengerExist) {
                 this.passengerService.sigup(this.signupData).subscribe((resp: any) => {
-                  console.log(resp)
                   if (resp.message == "Passenger is Created Successfully") {
                     this.presentToast(this.respFromLanguage.registerSuccessfully)
                     this.loading.dismiss();
@@ -135,7 +132,6 @@ export class NewSignupPage implements OnInit {
           this.signupData.address = result[0].subLocality + ' ' + result[0].thoroughfare;
           this.signupData.postalCode = result[0].postalCode;
           this.passengerService.getContryCodeAndFlag(result[0].countryName).subscribe((resp: any) => {
-            console.log(resp[0].flag);
             this.signupData.phoneNumber = resp[0].callingCodes[0];
           })
         }).catch((error) => {
@@ -149,6 +145,7 @@ export class NewSignupPage implements OnInit {
       message: msg,
       duration: 2000,
       position: 'top',
+      mode:'ios',
       color: 'primary'
     });
     toast.present();

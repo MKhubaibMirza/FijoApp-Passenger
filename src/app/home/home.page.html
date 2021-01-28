@@ -4,14 +4,15 @@
       <ion-menu-button class="menu" autoHide="false" color="light"></ion-menu-button>
     </ion-buttons>
     <ion-title color="light">{{'homePage.title' | translate}}</ion-title>
+    <ion-icon slot="end" name="calendar-outline" style="outline:none" routerLink="/reserved-bookings"></ion-icon>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <agm-map [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom"
-    [latitude]="latitude" [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
-    <agm-direction (onResponse)="onResponse($event)" (destinationDrag)="markerDragEnd($event)"
-      *ngIf="directionCondition" [renderOptions]="renderOptions" [markerOptions]="markerOptions" [origin]="origin"
-      [destination]="destination">
+  <agm-map [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom" [latitude]="latitude"
+    [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
+    <agm-direction (onResponse)="onResponse($event)" (destinationDrag)="markerDragEndDestination($event)"
+      (originDrag)="markerDragEndOrigin($event)" *ngIf="directionCondition" [renderOptions]="renderOptions"
+      [markerOptions]="markerOptions" [origin]="origin" [destination]="destination">
     </agm-direction>
     <agm-marker *ngIf="!directionCondition" [animation]="currentMarkerAnimation" [iconUrl]="currentMarker"
       [latitude]="currentLatitude" [longitude]="currentLongitude">
@@ -85,7 +86,7 @@
         <ion-col size="12" *ngIf="item.condition == true">
           <ion-radio-group [(ngModel)]="FindDriverObj.noOfSeating">
             <ion-item no-lines lines="none" *ngFor="let inner of item.seats" color="transparent">
-              <ion-label color="primary"> <span *ngIf="inner.numbers !== 0">{{inner.numbers}}
+              <ion-label color="dark"> <span *ngIf="inner.numbers !== 0">{{inner.numbers}}
                   {{'homePage.seaters' | translate}}</span>
                 (€{{inner.price}})</ion-label>
               <ion-radio [value]="inner.numbers"></ion-radio>
@@ -95,9 +96,20 @@
       </ion-row>
       <p *ngIf="selectedCar.approxOrMaxValue !== 0" class="loopdesc2" (click)="presentConfirmBookingPage()">
         {{'homePage.seeDetails' | translate}}</p>
-      <ion-button class="order" (click)="AskPayWay()">
-        {{'homePage.orderNow' | translate}}
-      </ion-button>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button class="order" (click)="AskPayWay(false,null,null)">
+              {{'homePage.orderNow' | translate}}
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button class="reserveButton" (click)="ReserveBooking()">
+              {{'homePage.reserved' | translate}}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-grid>
   </ion-card>
 </ion-footer>

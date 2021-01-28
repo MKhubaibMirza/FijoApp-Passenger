@@ -1,3 +1,8 @@
+agm-map {
+    height: 100%;
+    width: 100%;
+}
+
 .back {
     font-size: 30px;
     color: #4ebe38;
@@ -51,8 +56,8 @@
     display: block;
     object-fit: cover;
     height: 367px;
-    width: 90%;
-    border-radius: 50px;
+    overflow: hidden; 
+    border-radius: 15px;
     border: 7px solid #4ebe38;
 }
 

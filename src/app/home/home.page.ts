@@ -15,6 +15,8 @@ import { LocationService } from '../services/location.service';
 import io from 'socket.io-client';
 import { environment } from 'src/environments/environment';
 import { TranslateConfigService } from '../services/translate-config.service';
+import { PassengerService } from '../services/passenger.service';
+import { ReserveBookingConfirmationPage } from '../reserve-booking-confirmation/reserve-booking-confirmation.page';
 
 declare var google: any;
 
@@ -41,29 +43,33 @@ export class HomePage {
     public alertCtrl: AlertController,
     public translateconfig: TranslateConfigService,
     public r: Router,
+    public passengerService: PassengerService
   ) {
     this.getLangData();
   }
   async showAlert(title, msg) {
     const alert = await this.alertCtrl.create({
       header: title,
-      subHeader: msg,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
+      message: msg,
+      buttons:
+        [
+          {
+            text: 'OK',
+            handler: () => {
+            }
           }
-        }
-      ]
+        ]
     })
     alert.present();
   }
   logingHoppingReturner() {
-    return 'notify-old-device' + localStorage.getItem('logedInDeviceId');
+    if (localStorage.getItem('logedInDeviceId'))
+      return 'notify-old-device' + localStorage.getItem('logedInDeviceId');
+    else
+      return false;
   }
   getLangData() {
     this.t.get("homePage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -175,7 +181,7 @@ export class HomePage {
       this.FindDriverObj.vehicleType = 'sedanH';
     }
   }
-  async AskPayWay() {
+  async AskPayWay(isReserved, date, time) {
     if (this.selectedCar.approxOrMaxValue == 0) {
       this.presentToast(this.respFromLanguage.selectRide);
     } else if (this.FindDriverObj.noOfSeating == 0 && this.FindDriverObj.vehicleType !== 'lite') {
@@ -186,12 +192,13 @@ export class HomePage {
       if (this.FindDriverObj.vehicleType == 'lite') {
         this.FindDriverObj.exactPriceForDriver = this.totalPriceForLite - this.basePriceForLite;
         this.FindDriverObj.exactPriceForPassenger = this.totalPriceForLite;
-        // localStorage.setItem('tempFindDriverObj', JSON.stringify(this.FindDriverObj));
-        // this.r.navigate(['/confirm-booking']);
         const modal = await this.modalController.create({
           component: AskPaymentWayPage,
           componentProps: {
-            FindDriverObj: this.FindDriverObj
+            FindDriverObj: this.FindDriverObj,
+            isReserved: isReserved,
+            ReserveDate: date,
+            ReserveTime: time
           },
           cssClass: 'askpayway'
         });
@@ -221,27 +228,30 @@ export class HomePage {
     const toast = await this.toastController.create({
       message: message,
       color: 'medium',
+      mode:'ios',
       position: 'top',
       duration: 2000
     });
     toast.present();
   }
   ionViewWillEnter() {
-    this.socket.on(this.logingHoppingReturner(), (data) => {
-      if (this.translateconfig.selectedLanguage() == 'en') {
-        this.showAlert('Session Expire', 'Your account is logged in from a different device.');
-      } else {
-        this.showAlert('Sesión Expirada', 'Su cuenta está conectada desde un dispositivo diferente.');
+    if (localStorage.getItem('user')) {
+      let data = {
+        isAvailable: true
       }
-      localStorage.clear();
-      this.r.navigate(['/login']);
-    })
+      let id = JSON.parse(localStorage.getItem('user')).id;
+      this.passengerService.passengerAvailablity(id, data).subscribe((resp: any) => {
+      })
+    }
     this.locationservice.updateLocationInstantly();
     this.zoom = 18;
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       this.setCurrentLocation();
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.setComponentRestrictions({
+        country: ["ES", "PK", "UA"],
+      });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
@@ -255,6 +265,15 @@ export class HomePage {
     });
     this.dataservice.saved_location_get().subscribe((resp: any) => {
       this.SavedLocations = resp;
+    })
+    this.socket.on(this.logingHoppingReturner(), (data) => {
+      if (this.translateconfig.selectedLanguage() == 'en') {
+        this.showAlert('Session Expire', 'Your account is logged in from a different device.');
+      } else {
+        this.showAlert('Sesión Expirada', 'Su cuenta está conectada desde un dispositivo diferente.');
+      }
+      localStorage.clear();
+      this.r.navigate(['/login']);
     })
   }
   ShowDestinationCondition = false;
@@ -371,7 +390,6 @@ export class HomePage {
     }
     if (this.iAmCalledForLite == 1) {
       this.dataservice.getExactPrice(getExactPriceObjectFor_Lite).subscribe((resp: any) => {
-        console.log(resp);
         this.totalPriceForLite = resp.totalPrice;
         this.basePriceForLite = resp.basePrice;
         this.carsTypes.push({
@@ -424,7 +442,6 @@ export class HomePage {
     if (this.iAmCalled == 1) {
       getExactPriceObject.seatingCapacity = 4;
       this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-        console.log(resp, getExactPriceObject, '----- 4 -----');
         this.For4SeaterPrice = resp.totalPrice;
         this.BasePrice4Seater = resp.basePrice;
         let carTypesArray = [
@@ -433,7 +450,6 @@ export class HomePage {
         ];
         getExactPriceObject.seatingCapacity = 5;
         this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-          console.log(resp, getExactPriceObject, '----- 5 -----');
           this.For5SeaterPrice = resp.totalPrice;
           this.BasePrice5Seater = resp.basePrice;
           let approxPrice = this.For4SeaterPrice + this.BasePrice5Seater / 2;
@@ -491,7 +507,7 @@ export class HomePage {
     }
   }
   carsTypes = [];
-  markerDragEnd(event: any) {
+  markerDragEndDestination(event: any) {
     let coords = JSON.stringify(event);
     let coords3 = JSON.parse(coords);
     this.geoCoder.geocode({ 'location': { lat: coords3.lat, lng: coords3.lng } }, (results, status) => {
@@ -499,11 +515,24 @@ export class HomePage {
         if (results[0]) {
           this.zoom = 18;
           this.destination = results[0].formatted_address;
+          this.FindDriverObj.destination = results[0].formatted_address;
         } else {
         }
-      } else {
       }
-
+    });
+  }
+  markerDragEndOrigin(event: any) {
+    let coords = JSON.stringify(event);
+    let coords3 = JSON.parse(coords);
+    this.geoCoder.geocode({ 'location': { lat: coords3.lat, lng: coords3.lng } }, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 18;
+          this.origin = results[0].formatted_address;
+          this.FindDriverObj.origin = results[0].formatted_address;
+        } else {
+        }
+      }
     });
   }
   isAirport = false;
@@ -675,4 +704,21 @@ export class HomePage {
     },
   ];
   LightStyle = [];
+  async ReserveBooking() {
+    if (this.selectedCar.approxOrMaxValue == 0) {
+      this.presentToast(this.respFromLanguage.selectRide);
+    } else if (this.FindDriverObj.noOfSeating == 0 && this.FindDriverObj.vehicleType !== 'lite') {
+      this.presentToast(this.respFromLanguage.selectSeats);
+    } else {
+      const modal = await this.modalController.create({
+        component: ReserveBookingConfirmationPage,
+      });
+      await modal.present();
+      modal.onDidDismiss().then(value => {
+        if (value.data) {
+          this.AskPayWay(true, value.data.date, value.data.time);
+        }
+      })
+    }
+  }
 }

@@ -160,6 +160,7 @@
         "searchWithoutDestination": "Search Without Destination",
         "searchWithDestination": "Search With Destination",
         "addMore": "Add More",
+        "reserved": "Reserve this trip",
         "seaters": "Seaters",
         "fixedPrice": "Fixed Price",
         "generalPurpose": "General Purpose",
@@ -385,5 +386,14 @@
         "fixed": "Fixed Price",
         "sedanN": "General Purpose",
         "sedanH": "For Handicaps"
+    },
+    "reserveBookingPage": {
+        "text": "You can Pre Book a Fijo Taxi vehicle in advance. Please press the save button after you select a specific date or time",
+        "select": "Select (Date - Hour - Minutes)",
+        "now": "Now",
+        "in30": "In 30 mins.",
+        "in60": "In 60 mins.",
+        "title": "Pickup Time",
+        "save": "SAVE"
     }
 }

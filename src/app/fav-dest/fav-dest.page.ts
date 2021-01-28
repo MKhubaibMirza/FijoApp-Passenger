@@ -19,7 +19,6 @@ export class FavDestPage implements OnInit {
     public t: TranslateService
   ) {
     t.get("myFavDestinationPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -30,6 +29,9 @@ export class FavDestPage implements OnInit {
   ngOnInit() {
     this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.setComponentRestrictions({
+        country: ["ES", "PK","UA"],
+      });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();

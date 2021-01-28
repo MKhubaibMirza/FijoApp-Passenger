@@ -26,6 +26,11 @@ agm-map {
   font-weight: bold;
   position: absolute;
   top: 0px;
+  ion-icon{
+    color: #ffca22;
+    position: relative;
+    top: 2px;
+  }
 }
 
 .FooterBottomTitle {
@@ -113,7 +118,7 @@ agm-map {
 
 .noimg {
   font-size: 50px;
-  color: #4ebe38;
+  color: white;
   margin: auto;
   display: block;
   background: #4ebe38;

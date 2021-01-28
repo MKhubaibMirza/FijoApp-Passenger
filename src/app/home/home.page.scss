@@ -173,12 +173,18 @@ agm-map {
 }
 
 .order {
-  width: 90%;
+  width: 95%;
   --background: #4ebe38;
   --color: white;
   margin: auto;
   display: block;
-  margin-bottom: 23px;
+}
+.reserveButton {
+  width: 95%;
+  --background: #3880ff;
+  --color: white;
+  margin: auto;
+  display: block;
 }
 
 .ul {
@@ -204,9 +210,21 @@ agm-map {
     padding-right: 11px;
   }
 }
+
 ion-fab {
   ion-fab-button {
     --background: white !important;
     --color: black !important;
+  }
+}
+
+.reserved {
+  ion-label {
+    text-align: left;
+    padding-left: 21px;
+  }
+
+  ion-checkbox {
+    margin-right: 7px;
   }
 }

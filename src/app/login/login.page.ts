@@ -25,7 +25,6 @@ export class LoginPage implements OnInit {
     private t: TranslateService,
   ) {
     t.get("loginPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -105,7 +104,8 @@ export class LoginPage implements OnInit {
       message: msg,
       duration: 2000,
       position: 'top',
-      color: 'success'
+      color: 'success',
+      mode:'ios',
     });
     toast.present();
   }

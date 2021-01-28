@@ -27,7 +27,6 @@ export class ViaPhonePage implements OnInit {
     public t: TranslateService
   ) {
     t.get("viaPhonePage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
 
@@ -52,7 +51,6 @@ export class ViaPhonePage implements OnInit {
       this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
         .then((result: NativeGeocoderResult[]) => {
           this.d.getContryCodeAndFlag(result[0].countryName).subscribe((resp: any) => {
-            console.log(resp[0].flag);
             this.data.phoneNumber = resp[0].callingCodes[0];
             this.countryData.flag = resp[0].flag;
           })
@@ -148,6 +146,7 @@ export class ViaPhonePage implements OnInit {
       message: msg,
       duration: 2000,
       position: 'top',
+      mode: 'ios',
       color: 'medium'
     });
     toast.present();

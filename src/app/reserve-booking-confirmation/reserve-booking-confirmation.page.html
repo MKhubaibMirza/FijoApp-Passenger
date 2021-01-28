@@ -1,0 +1,45 @@
+<ion-header color='transparent' class="ion-no-border">
+  <ion-toolbar color='transparent' class="ion-no-border">
+    <ion-icon (click)="close()" name="arrow-back-outline" slot="start"></ion-icon>
+    <ion-title>
+      {{'reserveBookingPage.title' | translate}}
+    </ion-title>
+    <ion-button (click)="saveNow()" class="saveBtn" slot="end" fill="outline">{{'reserveBookingPage.save' | translate}}
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-card mode="ios" (click)="selectCard('now')" [class]="selectedCard == 'now'?'selectedCardClass':'card'">
+          {{'reserveBookingPage.now' | translate}}
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card mode="ios" (click)="selectCard('30')" [class]="selectedCard == '30'?'selectedCardClass':'card'">
+          {{'reserveBookingPage.in30' | translate}}
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card mode="ios" (click)="selectCard('60')" [class]="selectedCard == '60'?'selectedCardClass':'card'">
+          {{'reserveBookingPage.in60' | translate}}
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <br>
+  <div class="center" style="width:50%;">
+    <div class="divider-line-x"><span>or</span></div>
+  </div>
+  <br>
+  <ion-item>
+    <ion-label>{{'reserveBookingPage.select' | translate}}</ion-label>
+    <ion-datetime mode="ios" (ionChange)="valueOfDateAndTime($event)" [dayValues]="allowedDays"
+      displayFormat="DDD, hh:mm A" pickerFormat="DD, hh:mm A"></ion-datetime>
+  </ion-item>
+  <br>
+  <p class="text">
+    {{'reserveBookingPage.text' | translate}}
+  </p>
+</ion-content>

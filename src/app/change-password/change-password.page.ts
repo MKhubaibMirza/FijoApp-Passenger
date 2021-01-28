@@ -18,7 +18,6 @@ export class ChangePasswordPage implements OnInit {
     private toastController: ToastController,
   ) {
     t.get("changePasswordModal").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -72,6 +71,7 @@ export class ChangePasswordPage implements OnInit {
       message: msg,
       duration: 2000,
       position: 'top',
+      mode:'ios',
       color: 'medium'
     });
     toast.present();

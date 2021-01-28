@@ -22,8 +22,17 @@ export class AskPaymentWayPage implements OnInit {
     origin: '',
     destination: '',
     estTime: '',
-    totalKM: 0
+    totalKM: 0,
+    isReserved: false,
+    date: '',
+    time: ''
   }
+  isReserved;
+  ReserveDate;
+  ReserveTime;
+  paymentMethodsLength = 0;
+  paymentMethods = '';
+  IsSaving = false;
   constructor(
     public modal: ModalController,
     public toastController: ToastController,
@@ -35,20 +44,24 @@ export class AskPaymentWayPage implements OnInit {
     this.paymentService.GetPaymentMethodOfPassenger().subscribe((resp: any) => {
       this.paymentMethodsLength = resp.length;
       this.paymentMethods = JSON.stringify(resp);
-    })
+    });
+    this.FindDriverObj.isReserved = this.isReserved;
+    if (this.isReserved) {
+      this.FindDriverObj.date = this.ReserveDate;
+      this.FindDriverObj.time = this.ReserveTime;
+    }
   }
   async presentToast(message) {
     const toast = await this.toastController.create({
       message: message,
       color: 'medium',
       position: 'top',
+      mode:'ios',
       duration: 2000
     });
     toast.present();
   }
-  paymentMethodsLength = 0;
-  paymentMethods = '';
-  IsSaving = false;
+
   onSelect(i) {
     if (i == 1) {
       this.FindDriverObj.paymentVia = 'card';

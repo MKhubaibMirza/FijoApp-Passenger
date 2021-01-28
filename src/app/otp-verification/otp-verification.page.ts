@@ -21,7 +21,6 @@ export class OtpVerificationPage implements OnInit {
     public t: TranslateService
   ) {
     t.get("otpPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -113,6 +112,7 @@ export class OtpVerificationPage implements OnInit {
       message: msg,
       duration: 2000,
       position: 'bottom',
+      mode:'ios',
       color: 'medium'
     });
     toast.present();

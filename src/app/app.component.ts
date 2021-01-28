@@ -61,24 +61,22 @@ export class AppComponent {
         this.setupPush();
       }
       this.insomnia.keepAwake()
-        .then(
-          () => console.log('Keep Awaking'),
-          () => console.log('Error In Keep Awaking')
-        );
     });
     this.platform.resume.subscribe(() => {
       if (localStorage.getItem('user')) {
-        if (!localStorage.getItem('remember')) {
-          let id = JSON.parse(localStorage.getItem('user')).id;
-          this.passengerService.logoutPassenger(id).subscribe((resp: any) => {
-            if (this.getCurrentLanguage() == 'en') {
-              this.showAlert('Session Expired', 'Please log in to continue.');
-            } else {
-              this.showAlert('Sesión Expirada', 'Por favor inicie sesión para continuar.');
-            }
-            localStorage.clear()
-            this.r.navigate(['/login'])
-          });
+        if (!localStorage.getItem('tracking')) {
+          if (!localStorage.getItem('remember')) {
+            let id = JSON.parse(localStorage.getItem('user')).id;
+            this.passengerService.logoutPassenger(id).subscribe((resp: any) => {
+              if (this.getCurrentLanguage() == 'en') {
+                this.showAlert('Session Expired', 'Please log in to continue.');
+              } else {
+                this.showAlert('Sesión Expirada', 'Por favor inicie sesión para continuar.');
+              }
+              localStorage.clear()
+              this.r.navigate(['/login'])
+            });
+          }
         }
         this.dataservice.idDeviceIdMatched().subscribe((resp: any) => {
           if (resp.message == 'Device Id is not matched') {
@@ -194,7 +192,6 @@ export class AppComponent {
 
   route(r) {
     this.menuController.close();
-    console.log(r)
     if (r == '/inviteFakePath') {
       this.sendInvitation();
     } else if (r == '/lang') {
@@ -207,7 +204,6 @@ export class AppComponent {
     let respFromLanguage;
     let selectedLang = this.translateConfigService.selectedLanguage();
     this.t.get("sideMenu").subscribe((resp: any) => {
-      console.log(resp);
       respFromLanguage = resp;
     });
     let isEn = false;
@@ -241,13 +237,11 @@ export class AppComponent {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
           }
         }, {
           text: respFromLanguage.okay,
           handler: (val) => {
             this.translateConfigService.setLanguage(val);
-            console.log(val, 'Confirm Ok');
           }
         }
       ]
@@ -273,17 +267,12 @@ export class AppComponent {
   sendInvitation() {
     let respFromLanguage;
     this.t.get("sideMenu").subscribe((resp: any) => {
-      console.log(resp);
       respFromLanguage = resp;
     });
     let url = 'https://play.google.com/store/apps/details?id=com.fijotaxi.passenger';
     let message = this.getName() + respFromLanguage.invite;
-    console.log(url);
-    console.log(message);
     this.socialSharing.share(message, 'Fijo Taxi', null, url).then(res => {
-      console.log(res);
     }).catch(err => {
-      console.log(err);
     })
   }
 }

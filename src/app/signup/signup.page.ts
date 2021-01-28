@@ -30,7 +30,6 @@ export class SignupPage implements OnInit {
 
   ) {
     t.get("signUp").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -95,12 +94,10 @@ export class SignupPage implements OnInit {
     };
     this.nativeGeocoder.reverseGeocode(currentlatitude, currentlongitude)
       .then((result: NativeGeocoderResult[]) => {
-        console.log(result);
         this.signupData.city = result[0].locality;
         this.signupData.address = result[0].subLocality + ' ' + result[0].thoroughfare;
         this.signupData.postalCode = result[0].postalCode;
         this.d.getContryCodeAndFlag(result[0].countryName).subscribe((resp: any) => {
-          console.log(resp[0].flag);
           this.signupData.phoneNumber = resp[0].callingCodes[0];
           this.countryData.flag = resp[0].flag;
         })
@@ -211,6 +208,7 @@ export class SignupPage implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       duration: 2000,
+      mode:'ios',
       position: 'bottom',
       color: 'primary'
     });

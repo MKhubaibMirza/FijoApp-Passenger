@@ -70,7 +70,6 @@ export class LocationService {
         this.TrackPassengerLocation();
       }
     ).catch(err => {
-      console.log('close app')
       navigator['app'].exitApp();
     });
   }

@@ -63,9 +63,7 @@ export class SmartAudioService {
     } else {
 
       this.nativeAudio.play(audio.asset).then((res) => {
-        console.log(res);
       }, (err) => {
-        console.log(err);
       });
 
     }

@@ -160,6 +160,7 @@
         "searchWithoutDestination": "Buscar sin destino",
         "searchWithDestination": "Buscar con destino",
         "addMore": "Añadir más",
+        "reserved": "Reserva este viaje",
         "seaters": "Asientos",
         "fixedPrice": "Precio fijo",
         "generalPurpose": "Propósito general",
@@ -385,5 +386,14 @@
         "fixed": "Precio fijo",
         "sedanN": "Propósito general",
         "sedanH": "Para discapacitados"
+    },
+    "reserveBookingPage": {
+        "text": "Puede reservar un vehículo Fijo Taxi con anticipación. Presione el botón guardar después de seleccionar una fecha u hora específicas",
+        "select": "Seleccione (Fecha - Hora - Minutos)",
+        "now": "Ahora",
+        "in30": "En 30 min.",
+        "in60": "En 60 min.",
+        "title": "Hora de recogida",
+        "save": "Salvar"
     }
 }

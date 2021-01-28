@@ -30,7 +30,6 @@ export class InfoPage implements OnInit {
     public t: TranslateService
   ) {
     t.get("infoPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -184,6 +183,7 @@ export class InfoPage implements OnInit {
       message: msg,
       duration: 2000,
       position: 'top',
+      mode:'ios',
       color: 'medium'
     });
     toast.present();

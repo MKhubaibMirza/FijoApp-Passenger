@@ -207,7 +207,15 @@ const routes: Routes = [
     path: 'new-signup',
     canActivate: [AuthGuard],
     loadChildren: () => import('./new-signup/new-signup.module').then(m => m.NewSignupPageModule)
+  },  {
+    path: 'reserved-bookings',
+    loadChildren: () => import('./reserved-bookings/reserved-bookings.module').then( m => m.ReservedBookingsPageModule)
   },
+  {
+    path: 'reserve-booking-confirmation',
+    loadChildren: () => import('./reserve-booking-confirmation/reserve-booking-confirmation.module').then( m => m.ReserveBookingConfirmationPageModule)
+  },
+
 
 
 

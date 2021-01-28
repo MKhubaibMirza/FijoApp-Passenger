@@ -22,7 +22,6 @@ export class ViaEmailPage implements OnInit {
     private socialAuth: SocialAuthService
   ) {
     t.get("viaEmail").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -65,6 +64,7 @@ export class ViaEmailPage implements OnInit {
       message: msg,
       duration: 2000,
       position: 'top',
+      mode:'ios',
       color: 'medium'
     });
     toast.present();

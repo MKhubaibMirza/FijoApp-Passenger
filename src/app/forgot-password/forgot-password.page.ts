@@ -19,7 +19,6 @@ export class ForgotPasswordPage implements OnInit {
     public t: TranslateService
   ) {
     t.get("forgotPasswordPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -46,6 +45,7 @@ export class ForgotPasswordPage implements OnInit {
     const toast = await this.toastController.create({
       message: mes,
       color: 'medium',
+      mode:'ios',
       duration: 2000,
     });
     toast.present();

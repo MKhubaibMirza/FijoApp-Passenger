@@ -19,7 +19,6 @@ export class ContactUsPage implements OnInit {
     private loadingController: LoadingController,
   ) {
     t.get("contactUsPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -68,6 +67,7 @@ export class ContactUsPage implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       duration: 2000,
+      mode:'ios',
       color: 'medium',
       position: 'top',
     });

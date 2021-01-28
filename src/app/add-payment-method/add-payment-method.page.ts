@@ -21,7 +21,6 @@ export class AddPaymentMethodPage implements OnInit {
     public t: TranslateService
   ) {
     t.get("addPaymentCardPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -101,6 +100,7 @@ export class AddPaymentMethodPage implements OnInit {
       message: message,
       color: 'medium',
       position: 'top',
+      mode:'ios',
       duration: 2000
     });
     toast.present();

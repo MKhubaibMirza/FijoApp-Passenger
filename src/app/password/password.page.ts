@@ -19,7 +19,6 @@ export class PasswordPage implements OnInit {
     public r: Router,
   ) {
     t.get("passwordPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }
@@ -63,6 +62,7 @@ export class PasswordPage implements OnInit {
       message: msg,
       duration: 2000,
       position: 'top',
+      mode:'ios',
       color: 'medium'
     });
     toast.present();

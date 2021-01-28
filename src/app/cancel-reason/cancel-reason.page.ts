@@ -23,7 +23,6 @@ export class CancelReasonPage implements OnInit {
     public t: TranslateService
   ) {
     t.get("cancelReasonPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
   }

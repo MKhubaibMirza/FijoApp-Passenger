@@ -25,7 +25,12 @@
   </ion-grid>
   <hr class="hr">
   <br>
-  <img *ngIf="journeyObject.screenShot" [src]="url+journeyObject.screenShot" class="img" alt="">
+  <div class="img" style="width: 80%;" id="map-parent">
+    <agm-map [usePanning]="true" [zoom]="18" [zoomControl]="false" [streetViewControl]="false">
+      <agm-direction [origin]="journeyObject.pickup" [destination]="journeyObject.destination">
+      </agm-direction>
+    </agm-map>
+  </div>
   <ion-card class="card">
     <br>
     <ion-grid>
@@ -55,21 +60,10 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <!-- <ion-grid>
-      <ion-row>
-        <ion-col size="2.5">
-          <img class="incardimg" *ngIf="journeyObject.driver.driverPhoto" [src]="url+journeyObject.driver.driverPhoto"
-            alt="">
-          <img class="incardimg" *ngIf="!journeyObject.driver.driverPhoto" src="assets/profile.png" alt="">
-        </ion-col>
-        <ion-col size="8.5">
-          <p class="name">{{journeyObject.driver.firstName}} {{journeyObject.driver.lastName}}</p>
-          <p class="email">{{journeyObject.driver.email}}</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid> -->
-    <p class="footerText_cancelled" *ngIf="journeyObject.status == 'cancelled'">{{'JourneyDetailsPage.noCost' | translate}}</p>
-    <p class="footerText_completed" *ngIf="journeyObject.status == 'completed'">{{'JourneyDetailsPage.withCost' | translate}}
+    <p class="footerText_cancelled" *ngIf="journeyObject.status == 'cancelled'">
+      {{'JourneyDetailsPage.noCost' | translate}}</p>
+    <p class="footerText_completed" *ngIf="journeyObject.status == 'completed'">
+      {{'JourneyDetailsPage.withCost' | translate}}
       {{journeyObject.exactPriceForPassenger}}&euro;</p>
     <br>
   </ion-card>

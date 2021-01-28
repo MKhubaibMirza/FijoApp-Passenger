@@ -45,6 +45,7 @@ export class PaymentMethodsPage implements OnInit {
       message: message,
       color: 'medium',
       position: 'top',
+      mode:'ios',
       duration: 2000
     });
     toast.present();
@@ -58,7 +59,6 @@ export class PaymentMethodsPage implements OnInit {
   }
   async deleteCard(item) {
     this.t.get("paymentMethodPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
     const alert = await this.alertController.create({

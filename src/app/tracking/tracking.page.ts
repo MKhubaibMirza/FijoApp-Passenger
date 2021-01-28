@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from '../services/translate-config.service';
 import { SmartAudioService } from '../services/smart-audio.service';
+import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications/ngx';
+
 const CountdownTimeUnits: Array<[string, number]> = [
   ['Y', 1000 * 60 * 60 * 24 * 365], // years
   ['M', 1000 * 60 * 60 * 24 * 30], // months
@@ -45,6 +47,11 @@ export class TrackingPage {
   };
   latitude = 56;
   longitude = 10;
+  DriverRating() {
+    if (localStorage.getItem('tracking')) {
+      return JSON.parse(localStorage.getItem('tracking')).driverObj.rating.toFixed(1);
+    }
+  }
   zoom = 18;
   address: string;
   isEn: Boolean;
@@ -61,6 +68,7 @@ export class TrackingPage {
   constructor(
     private mapsAPILoader: MapsAPILoader,
     public modalController: ModalController,
+    private localNotifications: LocalNotifications,
     public loadingController: LoadingController,
     public alertController: AlertController,
     public driverService: DriverService,
@@ -82,7 +90,6 @@ export class TrackingPage {
     this.Route_To_Destination = false;
     this.waitToGetRoute = false;
     t.get("trackingPage").subscribe((resp: any) => {
-      console.log(resp);
       this.respFromLanguage = resp;
     });
     let selectedLang = this.translate.selectedLanguage();
@@ -91,6 +98,9 @@ export class TrackingPage {
     } else {
       this.isSp = true;
     }
+  }
+  getName() {
+    return JSON.parse(localStorage.getItem('user')).firstName + ' ' + JSON.parse(localStorage.getItem('user')).lastName;
   }
   ionViewWillEnter() {
     this.mapsAPILoader.load().then(() => {
@@ -156,10 +166,8 @@ export class TrackingPage {
           if (resp.length !== 0) {
             this.socket.emit('send-data-to-drivers', resp);
             this.driverNotFundInRegion = false;
-            console.log(resp)
           }
         }, er => {
-          console.log('Driver Not FOund and send data to admin panel');
           this.DispatcherCode();
         })
       }, 2100);
@@ -216,14 +224,23 @@ export class TrackingPage {
         this.RatingModal();
       }
     });
+    this.socket.on('isDriverReachedOnMyLocation' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      let localNotificationData =
+      {
+        id: 1,
+        title: 'Dear ' + this.getName(),
+        text: this.translate.selectedLanguage() == 'en' ? 'Driver Reached your location' : 'El conductor llegó a su ubicación',
+        trigger: { in: 1, unit: ELocalNotificationTriggerUnit.SECOND }
+      }
 
+      this.localNotifications.schedule(localNotificationData)
+    });
     setTimeout(() => {
       if (!localStorage.getItem('tracking')) {
         if (this.DriverFound == false) {
           if (this.router.url == '/tracking') {
             if (this.driverNotFundInRegion == false) {
               // send data to admin panel and wait for 1 minute
-              console.log('Driver FOund but not accepted');
               this.DispatcherCode();
             }
           }
@@ -439,24 +456,24 @@ export class TrackingPage {
           height: 50
         }
       },
-      infoWindow: 'My Destination',
+      infoWindow: 'My Location',
       draggable: false,
     },
     travelMode: "DRIVING",
   }
 
   public toOriginMarker = {
-    origin: {
-      icon: {
-        url: 'assets/driver.png',
-        scaledSize: {
-          width: 35,
-          height: 50
-        }
-      },
-      infoWindow: 'Driver Location',
-      draggable: false,
-    },
+    // origin: {
+    //   icon: {
+    //     url: 'assets/driver.png',
+    //     scaledSize: {
+    //       width: 35,
+    //       height: 50
+    //     }
+    //   },
+    //   infoWindow: 'Driver Location',
+    //   draggable: false,
+    // },
     destination: {
       icon: {
         url: 'assets/man.png',
@@ -550,6 +567,7 @@ export class TrackingPage {
     const toast = await this.toastController.create({
       message: message,
       position: 'top',
+      mode:'ios',
       color: 'medium',
       duration: 2000
     });
@@ -714,7 +732,6 @@ export class TrackingPage {
         z = m + '' + s + "Remaining";
       }
       // let z = h + '' + m + '' + s + '';
-      // console.log(text)
       return z;
     },
   };

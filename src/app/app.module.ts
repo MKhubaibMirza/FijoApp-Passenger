@@ -37,14 +37,16 @@ import { SplashPage } from './splash/splash.page';
 import { Insomnia } from '@ionic-native/insomnia/ngx';
 import { ConfirmBookingPage } from './confirm-booking/confirm-booking.page';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { ReserveBookingConfirmationPage } from './reserve-booking-confirmation/reserve-booking-confirmation.page';
 
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 firebase.initializeApp(environment.firebaseConfig);
 @NgModule({
-  declarations: [AppComponent, AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage, SplashPage, ConfirmBookingPage],
-  entryComponents: [AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage, SplashPage, ConfirmBookingPage],
+  declarations: [AppComponent, AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage, SplashPage, ConfirmBookingPage, ReserveBookingConfirmationPage],
+  entryComponents: [AskPaymentWayPage, WelcomeUserPage, CancelConfirmationPage, SplashPage, ConfirmBookingPage, ReserveBookingConfirmationPage],
   imports: [
     PdfViewerModule,
     BrowserModule,
@@ -70,6 +72,7 @@ firebase.initializeApp(environment.firebaseConfig);
     Geolocation,
     NativeAudio,
     ImagePicker,
+    LocalNotifications,
     AndroidPermissions,
     Camera,
     DocumentViewer,

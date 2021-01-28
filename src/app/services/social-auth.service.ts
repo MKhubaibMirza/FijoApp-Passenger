@@ -58,18 +58,15 @@ export class SocialAuthService {
   getUserDetail(userid) {
     this.fb.api("/" + userid + "/?fields=id,email,name,picture,gender,mobile_phone", ["public_profile"])
       .then(res => {
-        console.log(res, 'get user detail');
         localStorage.setItem('facebook', JSON.stringify(res));
         return true;
       })
       .catch(e => {
-        console.log(e);
       });
   }
   fblog() {
     this.fb.login(['public_profile', 'email', 'mobile_phone'])
       .then(res => {
-        console.log(res, 'fblog')
         if (res.status === "connected") {
           this.isLoggedIn = true;
           this.getUserDetail(res.authResponse.userID);
@@ -193,6 +190,7 @@ export class SocialAuthService {
   async presentToast(mes) {
     const toast = await this.toastController.create({
       message: mes,
+      mode:'ios',
       color: 'medium',
       position: 'top',
       duration: 2000
