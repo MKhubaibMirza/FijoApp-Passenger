@@ -20,6 +20,9 @@ export class DataService {
   getContryCodeAndFlag(contryName) {
     return this.http.get('https://restcountries.eu/rest/v2/name/' + contryName + '?fields=callingCodes;flag');
   }
+  getAlpha2Code(contryName) {
+    return this.http.get('https://restcountries.eu/rest/v2/name/' + contryName + '?fields=alpha2Code');
+  }
   getExactPrice(data) {
     return this.http.post(this.ApiUrl + "booking/calculate-estimated-price", data);
   }

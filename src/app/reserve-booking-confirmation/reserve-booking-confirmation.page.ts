@@ -46,6 +46,7 @@ export class ReserveBookingConfirmationPage implements OnInit {
     this.selectedCard = val;
   }
   valueOfDateAndTime(e) {
+    this.selectedCard = '';
     this.selectedDate = new Date(e.detail.value).toLocaleDateString();
     this.selectedTime = new Date(e.detail.value).toLocaleTimeString();
   }

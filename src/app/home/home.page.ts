@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { TranslateConfigService } from '../services/translate-config.service';
 import { PassengerService } from '../services/passenger.service';
 import { ReserveBookingConfirmationPage } from '../reserve-booking-confirmation/reserve-booking-confirmation.page';
+import { NativeGeocoder, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 
 declare var google: any;
 
@@ -31,6 +32,7 @@ export class HomePage {
   constructor(
     public loadingController: LoadingController,
     private mapsAPILoader: MapsAPILoader,
+    public nativeGeocoder: NativeGeocoder,
     private menuControl: MenuController,
     public platform: Platform,
     public toastController: ToastController,
@@ -228,7 +230,7 @@ export class HomePage {
     const toast = await this.toastController.create({
       message: message,
       color: 'medium',
-      mode:'ios',
+      mode: 'ios',
       position: 'top',
       duration: 2000
     });
@@ -248,20 +250,42 @@ export class HomePage {
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       this.setCurrentLocation();
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.setComponentRestrictions({
-        country: ["ES", "PK", "UA"],
-      });
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-          this.destination = place.formatted_address;
-          this.getDirection();
-        });
-      });
+      this.geolocation.getCurrentPosition().then((resp: any) => {
+        this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
+          .then((result: NativeGeocoderResult[]) => {
+            this.dataservice.getContryCodeAndFlag(result[0].countryName).subscribe((innerResp: any) => {
+              let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+              autocomplete.setComponentRestrictions({
+                country: [innerResp[0].alpha2Code],
+              });
+              autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                  let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                  if (place.geometry === undefined || place.geometry === null) {
+                    return;
+                  }
+                  this.destination = place.formatted_address;
+                  this.getDirection();
+                });
+              });
+            })
+          }, err => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+            autocomplete.setComponentRestrictions({
+              country: ["ES", "PK"],
+            });
+            autocomplete.addListener("place_changed", () => {
+              this.ngZone.run(() => {
+                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                if (place.geometry === undefined || place.geometry === null) {
+                  return;
+                }
+                this.destination = place.formatted_address;
+                this.getDirection();
+              });
+            });
+          })
+      })
     });
     this.dataservice.saved_location_get().subscribe((resp: any) => {
       this.SavedLocations = resp;

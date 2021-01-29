@@ -1,5 +1,7 @@
 import { MapsAPILoader } from '@agm/core';
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { NativeGeocoder, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { DataService } from '../services/data.service';
@@ -16,6 +18,9 @@ export class FavDestPage implements OnInit {
     public alertController: AlertController,
     public d: DataService,
     private ngZone: NgZone,
+    public nativeGeocoder: NativeGeocoder,
+    public geolocation: Geolocation,
+    public dataservice: DataService,
     public t: TranslateService
   ) {
     t.get("myFavDestinationPage").subscribe((resp: any) => {
@@ -28,19 +33,40 @@ export class FavDestPage implements OnInit {
   destination = '';
   ngOnInit() {
     this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.setComponentRestrictions({
-        country: ["ES", "PK","UA"],
-      });
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-          this.presentAlertConfirm(place.formatted_address)
-        });
-      });
+      this.geolocation.getCurrentPosition().then((resp: any) => {
+        this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
+          .then((result: NativeGeocoderResult[]) => {
+            this.dataservice.getContryCodeAndFlag(result[0].countryName).subscribe((resp: any) => {
+              let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+              autocomplete.setComponentRestrictions({
+                country: [resp[0].alpha2Code],
+              });
+              autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                  let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                  if (place.geometry === undefined || place.geometry === null) {
+                    return;
+                  }
+                  this.presentAlertConfirm(place.formatted_address)
+                });
+              });
+            }, err => {
+              let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+              autocomplete.setComponentRestrictions({
+                country: ["ES", "PK"],
+              });
+              autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                  let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+                  if (place.geometry === undefined || place.geometry === null) {
+                    return;
+                  }
+                  this.presentAlertConfirm(place.formatted_address)
+                });
+              });
+            })
+          })
+      })
     });
   }
   ionViewWillEnter() {
