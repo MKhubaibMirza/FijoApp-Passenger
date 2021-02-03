@@ -160,7 +160,7 @@
         "searchWithoutDestination": "Buscar sin destino",
         "searchWithDestination": "Buscar con destino",
         "addMore": "Añadir más",
-        "reserved": "Reserva este viaje",
+        "reserved": "Pre-reserva",
         "seaters": "Asientos",
         "fixedPrice": "Precio fijo",
         "generalPurpose": "Propósito general",
@@ -349,11 +349,12 @@
     "cancelReasonPage": {
         "title": "Viaje cancelado",
         "subtitle": "¿Por qué cancelaste?",
-        "r1": "Esta tardando demasiado",
-        "r2": "Cambié de opinión",
-        "r3": "El conductor me pidió que cancelara",
-        "r4": "Un error en los detalles de mi viaje",
-        "close": "Cerca",
+        "r1": "Tardó mucho en recogerme",
+        "r2": "Mi dirección de  recogida es incorrecta",
+        "r3": "El taxista no se ha movido",
+        "r4": "Otro motivo",
+        "r5": "Necesito cambiar el destino",
+        "close": "No cancelar",
         "rideCancelTitle": "Viaje cancelado",
         "dear": "Querido",
         "rideCancelMessage": "su viaje se cancela debido a",
@@ -394,6 +395,14 @@
         "in30": "En 30 min.",
         "in60": "En 60 min.",
         "title": "Hora de recogida",
-        "save": "Salvar"
+        "save": "Reserva"
+    },
+    "reservationDetailPage": {
+        "title": "Reservas previas",
+        "noFound": "¡Sin reserva previa todavía!",
+        "Pickup": "Punto de recogida",
+        "Destination": "Destino",
+        "DateTime": "Date Time",
+        "Cost": "Cost"
     }
 }

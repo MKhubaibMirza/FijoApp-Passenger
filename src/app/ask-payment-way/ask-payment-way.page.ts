@@ -25,14 +25,26 @@ export class AskPaymentWayPage implements OnInit {
     totalKM: 0,
     isReserved: false,
     date: '',
+    isAmOrPm: '',
+    reserveCode: '',
     time: ''
   }
   isReserved;
   ReserveDate;
   ReserveTime;
+  isAmOrPm;
   paymentMethodsLength = 0;
   paymentMethods = '';
   IsSaving = false;
+  randomString(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~!@#$%^&*()_+=-';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
   constructor(
     public modal: ModalController,
     public toastController: ToastController,
@@ -49,6 +61,10 @@ export class AskPaymentWayPage implements OnInit {
     if (this.isReserved) {
       this.FindDriverObj.date = this.ReserveDate;
       this.FindDriverObj.time = this.ReserveTime;
+      this.FindDriverObj.isAmOrPm = this.isAmOrPm;
+      let a = this.randomString(20);
+      console.log(a)
+      this.FindDriverObj.reserveCode = a;
     }
   }
   async presentToast(message) {
@@ -56,7 +72,7 @@ export class AskPaymentWayPage implements OnInit {
       message: message,
       color: 'medium',
       position: 'top',
-      mode:'ios',
+      mode: 'ios',
       duration: 2000
     });
     toast.present();

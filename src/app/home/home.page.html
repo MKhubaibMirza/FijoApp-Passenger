@@ -14,8 +14,9 @@
       (originDrag)="markerDragEndOrigin($event)" *ngIf="directionCondition" [renderOptions]="renderOptions"
       [markerOptions]="markerOptions" [origin]="origin" [destination]="destination">
     </agm-direction>
-    <agm-marker *ngIf="!directionCondition" [animation]="currentMarkerAnimation" [iconUrl]="currentMarker"
-      [latitude]="currentLatitude" [longitude]="currentLongitude">
+    <agm-marker *ngIf="!directionCondition"
+      [animation]="currentMarkerAnimation" [iconUrl]="currentMarker" [latitude]="currentLatitude"
+      [longitude]="currentLongitude">
     </agm-marker>
   </agm-map>
   <ion-fab (click)="locationClick()" vertical="bottom" horizontal="end" slot="fixed">
@@ -99,7 +100,7 @@
       <ion-grid>
         <ion-row>
           <ion-col size="6">
-            <ion-button class="order" (click)="AskPayWay(false,null,null)">
+            <ion-button class="order" (click)="AskPayWay(false,null,null,null)">
               {{'homePage.orderNow' | translate}}
             </ion-button>
           </ion-col>

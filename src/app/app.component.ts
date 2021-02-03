@@ -89,6 +89,21 @@ export class AppComponent {
             this.r.navigate(['/login']);
           }
         })
+        if (!localStorage.getItem('tracking')) {
+          this.dataservice.isAnyReserveBookingStarted().subscribe((resp: any) => {
+            if (resp) {
+              let data = {
+                findDriverObj: resp,
+                tracking: {
+                  driverObj: resp.driver,
+                  vehicleObj: resp.driver.vehicles[0]
+                },
+              }
+              localStorage.setItem('tracking', JSON.stringify(data));
+              this.r.navigate(['/tracking']);
+            }
+          })
+        }
       }
     });
 
@@ -118,6 +133,24 @@ export class AppComponent {
           }
         }
       })
+      if (!localStorage.getItem('tracking')) {
+        this.dataservice.isAnyReserveBookingStarted().subscribe((resp: any) => {
+          if (resp) {
+            let data = {
+              findDriverObj: resp,
+              tracking: {
+                driverObj: resp.driver,
+                passengerId: JSON.parse(localStorage.getItem('user')).id,
+                vehicleObj: resp.driver.vehicles[0]
+              },
+            }
+            console.log(data);
+            localStorage.setItem('findDriverObj', JSON.stringify(data.findDriverObj));
+            localStorage.setItem('tracking', JSON.stringify(data.tracking));
+            this.r.navigate(['/tracking']);
+          }
+        })
+      }
     }
   }
   closeApp() {

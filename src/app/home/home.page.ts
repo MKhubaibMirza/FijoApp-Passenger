@@ -28,7 +28,14 @@ declare var google: any;
 })
 export class HomePage {
   socket = io(environment.baseUrl);
-
+  passengerObj = {
+    firstName: JSON.parse(localStorage.getItem('user')).firstName,
+    lastName: JSON.parse(localStorage.getItem('user')).lastName,
+    phoneNumber: JSON.parse(localStorage.getItem('user')).phoneNumber,
+    id: JSON.parse(localStorage.getItem('user')).id,
+    email: JSON.parse(localStorage.getItem('user')).email,
+    profilePhoto: JSON.parse(localStorage.getItem('user')).profilePhoto
+  }
   constructor(
     public loadingController: LoadingController,
     private mapsAPILoader: MapsAPILoader,
@@ -67,6 +74,12 @@ export class HomePage {
   logingHoppingReturner() {
     if (localStorage.getItem('logedInDeviceId'))
       return 'notify-old-device' + localStorage.getItem('logedInDeviceId');
+    else
+      return false;
+  }
+  reserveBookingReturner() {
+    if (localStorage.getItem('user'))
+      return 'informpassenger-reservedstatuschanged' + JSON.parse(localStorage.getItem('user')).id;
     else
       return false;
   }
@@ -153,12 +166,13 @@ export class HomePage {
     currentLng: 0,
     searchInKM: 15,
     paymentVia: '',
-    passengerObj: localStorage.getItem('user'),
+    passengerObj: JSON.stringify(this.passengerObj),
     origin: '',
     destination: '',
     estTime: '',
     exactPriceForDriver: 0,
     exactPriceForPassenger: 0,
+    isReserved: false,
     totalKM: 0
   }
   @ViewChild('search')
@@ -183,7 +197,7 @@ export class HomePage {
       this.FindDriverObj.vehicleType = 'sedanH';
     }
   }
-  async AskPayWay(isReserved, date, time) {
+  async AskPayWay(isReserved, date, time, isAmOrPm) {
     if (this.selectedCar.approxOrMaxValue == 0) {
       this.presentToast(this.respFromLanguage.selectRide);
     } else if (this.FindDriverObj.noOfSeating == 0 && this.FindDriverObj.vehicleType !== 'lite') {
@@ -200,7 +214,8 @@ export class HomePage {
             FindDriverObj: this.FindDriverObj,
             isReserved: isReserved,
             ReserveDate: date,
-            ReserveTime: time
+            ReserveTime: time,
+            isAmOrPm: isAmOrPm
           },
           cssClass: 'askpayway'
         });
@@ -298,6 +313,12 @@ export class HomePage {
       }
       localStorage.clear();
       this.r.navigate(['/login']);
+    })
+    this.socket.on(this.reserveBookingReturner(), (data) => {
+      console.log(data);
+      localStorage.setItem('findDriverObj', JSON.stringify(data.findDriverObj));
+      localStorage.setItem('tracking', JSON.stringify(data.tracking));
+      this.r.navigate(['/tracking']);
     })
   }
   ShowDestinationCondition = false;
@@ -635,17 +656,19 @@ export class HomePage {
       currentLng: 0,
       searchInKM: 15,
       paymentVia: '',
-      passengerObj: localStorage.getItem('user'),
+      passengerObj: JSON.stringify(this.passengerObj),
       origin: '',
       destination: '',
       estTime: '',
       exactPriceForDriver: 0,
       exactPriceForPassenger: 0,
+      isReserved: false,
       totalKM: 0
     }
     this.destination = '';
     this.ShowDestinationCondition = false;
     this.carsTypes = [];
+    this.locationClick();
   }
   DarkStyle = [
     { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
@@ -739,8 +762,10 @@ export class HomePage {
       });
       await modal.present();
       modal.onDidDismiss().then(value => {
-        if (value.data) {
-          this.AskPayWay(true, value.data.date, value.data.time);
+        if (value.data.isReserved) {
+          this.AskPayWay(true, value.data.date, value.data.time, value.data.isAmOrPm);
+        } else if (value.data) {
+          this.AskPayWay(false, null, null, null);
         }
       })
     }

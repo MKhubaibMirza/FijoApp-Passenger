@@ -41,4 +41,9 @@ export class DataService {
   idDeviceIdMatched() {
     return this.http.post(this.ApiUrl + 'passenger/idDeviceIdMatched/' + JSON.parse(localStorage.getItem('user')).id, { logedInDeviceId: localStorage.getItem('logedInDeviceId') });
   }
+  isAnyReserveBookingStarted() {
+    let a = new Date().toLocaleDateString();
+    let data = { date: a }
+    return this.http.post(this.ApiUrl + 'booking/get-started-reserved-by-passenger/' + JSON.parse(localStorage.getItem('user')).id, data);
+  }
 }

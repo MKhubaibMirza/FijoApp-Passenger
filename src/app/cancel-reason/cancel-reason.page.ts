@@ -38,18 +38,20 @@ export class CancelReasonPage implements OnInit {
       receiverId: JSON.parse(localStorage.getItem('tracking')).driverObj.id
     }
     if (val == 1) {
-      data.reason = "It's taking too long"
+      data.reason = "It took a long time to pick me up"
     } else if (val == 2) {
-      data.reason = "I changed my mind"
+      data.reason = "My pickup address is wrong"
     } else if (val == 3) {
-      data.reason = "The driver requested me to cancel"
+      data.reason = "The taxi driver has not moved"
     } else if (val == 4) {
-      data.reason = "Mistake in my journey details"
+      data.reason = "Another reason"
+    } else if (val == 5) {
+      data.reason = "I need to change destiny"
     }
     this.socket.emit('cancelRide', data);
     this.m.dismiss();
-    this.presentAlert(data.reason);
     this.r.navigate(['/home']);
+    this.presentAlert(data.reason);
   }
   async presentAlert(reason) {
     let user = JSON.parse(localStorage.getItem('user'));

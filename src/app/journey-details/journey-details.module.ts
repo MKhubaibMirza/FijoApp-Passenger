@@ -16,8 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     IonicModule,
     AgmCoreModule,
-    TranslateModule,
     AgmDirectionModule,
+    TranslateModule,
     JourneyDetailsPageRoutingModule
   ],
   declarations: [JourneyDetailsPage]

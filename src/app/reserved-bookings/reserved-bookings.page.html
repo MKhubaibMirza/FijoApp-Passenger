@@ -1,9 +1,53 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>reservedBookings</ion-title>
+<ion-header color='primary'>
+  <ion-toolbar color='primary'>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{'reservationDetailPage.title' | translate}}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
-
+<ion-content class="ion-padding">
+  <ion-slides *ngIf="MyReservedBookings.length == 0">
+    <ion-slide>
+      <p>
+        {{'reservationDetailPage.noFound' | translate}}
+      </p>
+    </ion-slide>
+  </ion-slides>
+  <div *ngIf="MyReservedBookings.length !== 0" style="width: 97%;" id="map-parent">
+    <ion-card class="ion-no-margin" *ngFor="let item of MyReservedBookings" mode="ios">
+      <div class="img">
+        <agm-map (mapReady)="getMapInstance($event)" [usePanning]="true" [zoom]="18" [zoomControl]="false"
+          [streetViewControl]="false">
+          <agm-direction [origin]="item.origin" [destination]="item.destination">
+          </agm-direction>
+        </agm-map>
+      </div>
+      <ion-card-content>
+        <ion-grid class="ion-no-padding ion-no-margin">
+          <ion-row class="ion-no-padding ion-no-margin">
+            <ion-col size="2">
+              <img class="incardimg" *ngIf="item.driver?.profilePhoto" [src]="url+item.driver?.profilePhoto" alt="">
+              <img class="incardimg" *ngIf="!item.driver?.profilePhoto" src="assets/profile.png" alt="">
+            </ion-col>
+            <ion-col size="10">
+              <p class="name">{{item.driver?.firstName}} {{item.driver?.lastName}}</p>
+              <p class="email">{{item.driver?.email}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <p>
+          <b>{{'reservationDetailPage.Pickup' | translate}}</b>: {{item.origin}} <br>
+          <b>{{'reservationDetailPage.Destination' | translate}}</b>: {{item.destination}} <br>
+          <b>{{'reservationDetailPage.DateTime' | translate}}</b>:
+          {{getModifiedDateTime(item.date+' , '+ item.time) | date:'EEEE, d MMM, h:mm a'}}
+          <br>
+          <b>{{'reservationDetailPage.Cost' | translate}}</b>: {{item.exactPriceForPassenger}}&euro; vía
+          {{item.paymentVia}}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

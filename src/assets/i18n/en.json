@@ -160,7 +160,7 @@
         "searchWithoutDestination": "Search Without Destination",
         "searchWithDestination": "Search With Destination",
         "addMore": "Add More",
-        "reserved": "Reserve this trip",
+        "reserved": "Pre Booking",
         "seaters": "Seaters",
         "fixedPrice": "Fixed Price",
         "generalPurpose": "General Purpose",
@@ -349,10 +349,11 @@
     "cancelReasonPage": {
         "title": "Journey Cancelled",
         "subtitle": "Why did you cancel?",
-        "r1": "It's taking too long",
-        "r2": "I changed my mind",
-        "r3": "The driver requested me to cancel",
-        "r4": "A mistake in my journey details",
+        "r1": "It took a long time to pick me up",
+        "r2": "My pickup address is wrong",
+        "r3": "The taxi driver has not moved",
+        "r4": "Another reason",
+        "r5": "I need to change destiny",
         "close": "Close",
         "rideCancelTitle": "Ride Cancelled",
         "dear": "Dear",
@@ -394,6 +395,14 @@
         "in30": "In 30 mins.",
         "in60": "In 60 mins.",
         "title": "Pickup Time",
-        "save": "SAVE"
+        "save": "Reserve"
+    },
+    "reservationDetailPage":{
+        "title":"Pre Bookings",
+        "noFound":"No Pre Booking Yet!",
+        "Pickup":"Pickup",
+        "Destination":"Destination",
+        "DateTime":"Date Time",
+        "Cost":"Cost"
     }
 }

@@ -14,6 +14,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from '../services/translate-config.service';
 import { SmartAudioService } from '../services/smart-audio.service';
 import { ELocalNotificationTriggerUnit, LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { PassengerService } from '../services/passenger.service';
 
 const CountdownTimeUnits: Array<[string, number]> = [
   ['Y', 1000 * 60 * 60 * 24 * 365], // years
@@ -82,6 +83,7 @@ export class TrackingPage {
     public t: TranslateService,
     public translate: TranslateConfigService,
     public platform: Platform,
+    public passengerservice: PassengerService,
     private audioService: SmartAudioService,
   ) {
     this.endTripCounter = false;
@@ -102,7 +104,23 @@ export class TrackingPage {
   getName() {
     return JSON.parse(localStorage.getItem('user')).firstName + ' ' + JSON.parse(localStorage.getItem('user')).lastName;
   }
+  async presentAlertForPreBooking(head, message, buttonText) {
+    const alert = await this.alertController.create({
+      header: head,
+      message: message,
+      buttons: [{
+        text: buttonText,
+        handler: () => {
+          this.r.navigate(['/reserved-bookings']);
+        }
+      }]
+    });
+
+    await alert.present();
+  }
+  receivedriverCounter = 0;
   ionViewWillEnter() {
+    this.receivedriverCounter = 0;
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
     });
@@ -174,9 +192,38 @@ export class TrackingPage {
     }
     this.menuControl.enable(false);
     this.socket.on('receive-driver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.DriverFound = true;
-      this.DriverDetail = object;
-      localStorage.setItem('tracking', JSON.stringify(object));
+      if (this.receivedriverCounter == 0) {
+        this.receivedriverCounter = this.receivedriverCounter + 1;
+        if (JSON.parse(localStorage.getItem('findDriverObj')).isReserved) {
+          let reserveBookingObject = {
+            passengerId: JSON.parse(localStorage.getItem('user')).id,
+            driverId: object.driverObj.id,
+            passengerEmail: JSON.parse(localStorage.getItem('user')).email,
+            driverEmail: object.driverObj.email,
+            reserveCode: JSON.parse(localStorage.getItem('findDriverObj')).randomString
+          }
+          Object.assign(reserveBookingObject, JSON.parse(localStorage.getItem('findDriverObj')));
+          this.passengerservice.createReserveBooking(reserveBookingObject).subscribe((bookingresp: any) => {
+            let availabilityData = {
+              isAvailable: true
+            }
+            let id = JSON.parse(localStorage.getItem('user')).id;
+            this.passengerservice.passengerAvailablity(id, availabilityData).subscribe((resp: any) => {
+            })
+            this.r.navigate(['/home']);
+            localStorage.removeItem('findDriverObj');
+            if (this.translate.selectedLanguage() == 'en') {
+              this.presentAlertForPreBooking('🙂 Dear ' + this.getName(), 'Your booking is reserved successfully.', 'View Details');
+            } else {
+              this.presentAlertForPreBooking('🙂 Querido ' + this.getName(), 'Su reserva está reservada con éxito.', 'Ver detalles');
+            }
+          })
+        } else {
+          this.DriverFound = true;
+          this.DriverDetail = object;
+          localStorage.setItem('tracking', JSON.stringify(object));
+        }
+      }
     });
     this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
       this.zoom = 18
@@ -567,7 +614,7 @@ export class TrackingPage {
     const toast = await this.toastController.create({
       message: message,
       position: 'top',
-      mode:'ios',
+      mode: 'ios',
       color: 'medium',
       duration: 2000
     });
@@ -618,6 +665,7 @@ export class TrackingPage {
     this.isSearching = false;
     this.isTripStarted = false;
     this.totaltime = '';
+    this.receivedriverCounter = 0;
     this.endTripCounter = false;
     this.startTripCounter = false;
     this.menuControl.enable(true);

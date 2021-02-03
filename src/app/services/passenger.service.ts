@@ -92,12 +92,26 @@ export class PassengerService {
   getAllBookings() {
     return this.http.get(this.ApiUrl + 'booking/getall-customer-bookings/' + JSON.parse(localStorage.getItem('user')).id);
   }
-
+  getAllReservedBookings() {
+    return this.http.get(this.ApiUrl + 'booking/getall-customer-reserved-bookings/' + JSON.parse(localStorage.getItem('user')).id);
+  }
   updateInfo(data) {
     return this.http.post(this.ApiUrl + 'passenger/update/' + JSON.parse(localStorage.getItem('user')).id, data);
   }
 
   logoutPassenger(id) {
     return this.http.post(this.ApiUrl + 'passenger/logout/' + id, {})
+  }
+  createReserveBookingCondition = true;
+  createReserveBooking(data) {
+    if (this.createReserveBookingCondition) {
+      this.createReserveBookingCondition = false;
+      setTimeout(() => {
+        this.createReserveBookingCondition = true;
+      }, 1500);
+      return this.http.post(this.ApiUrl + 'booking/reserve/', data);
+    }
+    else
+      return this.http.get(this.ApiUrl);
   }
 }

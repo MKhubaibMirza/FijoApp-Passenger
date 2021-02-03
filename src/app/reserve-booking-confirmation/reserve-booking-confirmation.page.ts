@@ -17,7 +17,7 @@ export class ReserveBookingConfirmationPage implements OnInit {
   async presentToast(mes) {
     const toast = await this.toastController.create({
       message: mes,
-      mode:'ios',
+      mode: 'ios',
       position: 'bottom',
       color: 'primary',
       duration: 2000
@@ -42,6 +42,7 @@ export class ReserveBookingConfirmationPage implements OnInit {
   selectedCard = '';
   selectedDate = '';
   selectedTime = '';
+  isAmOrPm = '';
   selectCard(val) {
     this.selectedCard = val;
   }
@@ -49,22 +50,32 @@ export class ReserveBookingConfirmationPage implements OnInit {
     this.selectedCard = '';
     this.selectedDate = new Date(e.detail.value).toLocaleDateString();
     this.selectedTime = new Date(e.detail.value).toLocaleTimeString();
+    var dt = new Date(e.detail.value);
+    var h = dt.getHours();
+    var _time = (h > 12) ? ('PM') : ('AM');
+    this.isAmOrPm = _time;
   }
   saveNow() {
     if (this.selectedCard !== '') {
       if (this.selectedCard == 'now') {
-        this.modal.dismiss({ date: new Date().toLocaleDateString(), time: new Date().toLocaleTimeString() })
+        this.modal.dismiss({ isReserved: false })
       } else if (this.selectedCard == '30') {
         var addMinutes = new Date();
         let finalDateTime = addMinutes.setMinutes(addMinutes.getMinutes() + 30);
-        this.modal.dismiss({ date: new Date(finalDateTime).toLocaleDateString(), time: new Date(finalDateTime).toLocaleTimeString() })
+        var dt = new Date(finalDateTime);
+        var h = dt.getHours();
+        var _time = (h > 12) ? ('PM') : ('AM');
+        this.modal.dismiss({ date: new Date(finalDateTime).toLocaleDateString(), time: new Date(finalDateTime).toLocaleTimeString(), isReserved: true, isAmOrPm: _time })
       } else if (this.selectedCard == '60') {
         var addMinutes = new Date();
         let finalDateTime = addMinutes.setMinutes(addMinutes.getMinutes() + 60);
-        this.modal.dismiss({ date: new Date(finalDateTime).toLocaleDateString(), time: new Date(finalDateTime).toLocaleTimeString() })
+        var dt = new Date(finalDateTime);
+        var h = dt.getHours();
+        var _time = (h > 12) ? ('PM') : ('AM');
+        this.modal.dismiss({ date: new Date(finalDateTime).toLocaleDateString(), time: new Date(finalDateTime).toLocaleTimeString(), isReserved: true, isAmOrPm: _time })
       }
     } else if ((this.selectedDate && this.selectedTime) !== '') {
-      this.modal.dismiss({ date: this.selectedDate, time: this.selectedTime })
+      this.modal.dismiss({ date: this.selectedDate, time: this.selectedTime, isReserved: true, isAmOrPm: this.isAmOrPm })
     } else {
       if (this.translateservice.selectedLanguage() == 'en') {
         this.presentToast('Please Select Date Time');
