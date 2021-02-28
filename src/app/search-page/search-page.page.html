@@ -1,0 +1,53 @@
+<ion-content class="ion-padding">
+  <div class="art2"></div>
+  <h3 class="title">
+    Choose your destination
+  </h3>
+  <ion-card mode="ios" class="ion-no-padding ion-no-margin card">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div class="circle"></div>
+          <div class="afterCircle"></div>
+        </ion-col>
+        <ion-col size="11">
+          <input type="text" ngx-google-places-autocomplete [options]='options' #placesRef2="ngx-places"
+            (onAddressChange)="handleAddressChange($event,true)" [value]="origin" class="input"
+            placeholder="Enter your pickup location">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1">
+          <div class="circle"></div>
+        </ion-col>
+        <ion-col size="11">
+          <input [value]="destination" type="text" ngx-google-places-autocomplete [options]='options'
+            #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event,false)" class="input"
+            placeholder="Enter your destination">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <br>
+  <ion-item button (click)="setCurrentlocationAddressInPickup()" class="ion-no-padding ion-no-margin" lines="none">
+    <ion-icon slot="start" name="locate-outline"></ion-icon>
+    <ion-label>Set current location in pickup</ion-label>
+  </ion-item>
+  <ion-item routerLink="/fav-dest" (click)="closeModal()" class="ion-no-padding ion-no-margin" lines="none">
+    <ion-icon slot="start" name="add"></ion-icon>
+    <ion-label>Add a new destination</ion-label>
+  </ion-item>
+  <ion-item *ngFor="let item of SavedLocations" (click)="OnRouteItemClick(item)" class="ion-no-padding ion-no-margin"
+    lines="none">
+    <ion-icon slot="start" name="location"></ion-icon>
+    <ion-label>{{item.routeTitle}}</ion-label>
+  </ion-item>
+  <ion-fab (click)="done()" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary">
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

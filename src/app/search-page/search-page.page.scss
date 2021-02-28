@@ -1,0 +1,73 @@
+.card {
+    .circle {
+      height: 13px;
+      width: 13px;
+      background: #4ebe38;
+      border-radius: 9px;
+      margin-top: 7px;
+    }
+  
+    .circle2 {
+      height: 13px;
+      width: 13px;
+      background: #4ebe38;
+      border-radius: 9px;
+      margin-top: 6px;
+    }
+  
+    .afterCircle {
+      height: 178%;
+      background: #4ebe38;
+      width: 0;
+      margin-left: 6px;
+      margin-top: 1px;
+      border: 1px solid #ffffff;
+      border-style: dashed;
+    }
+  
+    .textUnderCard {
+      color: black;
+      padding-top: 3px;
+      font-size: 17px;
+    }
+  
+    p {
+      margin: 0;
+    }
+  }
+  
+  .input {
+    border: none;
+    padding: 6px;
+    outline: none;
+    color: black;
+    width: 100%;
+  }
+  
+  .title {
+    margin: 0;
+    font-size: 17px;
+    padding-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .art2 {
+    width: 90px;
+    height: 5px;
+    background: #f4f5f8;
+    margin: auto;
+    display: block;
+    margin-bottom: 13px;
+    border-radius: 14px;
+  }
+  
+  .fixed {
+    position: fixed;
+    top: 0;
+    z-index: 111;
+    width: 92%;
+  }
+  .emptyDiv{
+    height: 185px;
+  }
+  

@@ -16,37 +16,21 @@
       </p>
     </ion-slide>
   </ion-slides>
-  <div *ngIf="MyReservedBookings.length !== 0" style="width: 97%;" id="map-parent">
+  <div *ngIf="MyReservedBookings.length !== 0">
     <ion-card class="ion-no-margin" *ngFor="let item of MyReservedBookings" mode="ios">
-      <div class="img">
-        <agm-map (mapReady)="getMapInstance($event)" [usePanning]="true" [zoom]="18" [zoomControl]="false"
-          [streetViewControl]="false">
-          <agm-direction [origin]="item.origin" [destination]="item.destination">
-          </agm-direction>
-        </agm-map>
-      </div>
       <ion-card-content>
-        <ion-grid class="ion-no-padding ion-no-margin">
-          <ion-row class="ion-no-padding ion-no-margin">
-            <ion-col size="2">
-              <img class="incardimg" *ngIf="item.driver?.profilePhoto" [src]="url+item.driver?.profilePhoto" alt="">
-              <img class="incardimg" *ngIf="!item.driver?.profilePhoto" src="assets/profile.png" alt="">
-            </ion-col>
-            <ion-col size="10">
-              <p class="name">{{item.driver?.firstName}} {{item.driver?.lastName}}</p>
-              <p class="email">{{item.driver?.email}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <p>
+        <div [class]="getStatusForButton(item.date+' , '+ item.time) !== 'Time Up'? 'datetime':'datetimered'">
+          <ion-icon class="timeIcon" name="time-outline"></ion-icon> {{getStatusForButton(item.date+' , '+ item.time)}}
+        </div>
+        <p class="p">
           <b>{{'reservationDetailPage.Pickup' | translate}}</b>: {{item.origin}} <br>
-          <b>{{'reservationDetailPage.Destination' | translate}}</b>: {{item.destination}} <br>
-          <b>{{'reservationDetailPage.DateTime' | translate}}</b>:
-          {{getModifiedDateTime(item.date+' , '+ item.time) | date:'EEEE, d MMM, h:mm a'}}
-          <br>
-          <b>{{'reservationDetailPage.Cost' | translate}}</b>: {{item.exactPriceForPassenger}}&euro; vía
-          {{item.paymentVia}}
+          <b>{{'reservationDetailPage.Destination' | translate}}</b>: {{item.destination}}
         </p>
+        <br>
+        <ion-button (click)="cancelJourney(item.id, item.driverId)" fill="outline" expand="block"
+          color="danger">
+          Cancel Journey
+        </ion-button>
       </ion-card-content>
     </ion-card>
   </div>

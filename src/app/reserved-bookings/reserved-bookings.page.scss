@@ -40,4 +40,29 @@ agm-map {
 
 ion-card {
     margin-bottom: 30px;
+    border:5px solid #4ebe38;
+}
+
+.datetime {
+    font-size: 15px;
+    color: black;
+    border-radius: 7px;
+    text-align: left;
+    padding-bottom: 15px;
+}
+
+.datetimered {
+    color: red;
+    padding-bottom: 15px;
+}
+
+.p {
+    font-size: 17px;
+    color: black;
+}
+
+.timeIcon {
+    font-size: 25px;
+    position: relative;
+    top: 6px;
 }

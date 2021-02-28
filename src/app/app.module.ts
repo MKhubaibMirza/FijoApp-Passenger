@@ -39,6 +39,7 @@ import { ConfirmBookingPage } from './confirm-booking/confirm-booking.page';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { ReserveBookingConfirmationPage } from './reserve-booking-confirmation/reserve-booking-confirmation.page';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 export function LanguageLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -52,6 +53,7 @@ firebase.initializeApp(environment.firebaseConfig);
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
+    GooglePlaceModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

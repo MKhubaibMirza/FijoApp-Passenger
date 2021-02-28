@@ -14,29 +14,7 @@
               <p class="email">{{getEmail()}}</p>
             </ion-col>
           </ion-row>
-        </ion-grid>
-
-        <!-- <ion-grid class="list ion-no-padding"> -->
-        <!-- <ion-row *ngFor='let item of navlist' (click)='route(item.route);'>
-            <ion-col size="2.2">
-              <ion-icon [name]="item.icon"></ion-icon>
-            </ion-col>
-            <ion-col size="9.8">
-              <p>{{'sideMenu.'+item.title | translate}}</p>
-            </ion-col>
-          </ion-row> -->
-
-        <!-- <hr>
-
-          <ion-row (click)="logOut()">
-            <ion-col size="2.2">
-              <ion-icon name="exit"></ion-icon>
-            </ion-col>
-            <ion-col size="9.8">
-              <p>{{'sideMenu.logout' | translate}}</p>
-            </ion-col>
-          </ion-row> -->
-        <!-- </ion-grid> -->
+        </ion-grid> 
         <ion-list class="list">
           <ion-item *ngFor='let item of navlist' lines="none" (click)='route(item.route);'>
             <ion-icon [name]="item.icon" slot="start"></ion-icon>

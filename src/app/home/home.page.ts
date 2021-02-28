@@ -18,6 +18,7 @@ import { TranslateConfigService } from '../services/translate-config.service';
 import { PassengerService } from '../services/passenger.service';
 import { ReserveBookingConfirmationPage } from '../reserve-booking-confirmation/reserve-booking-confirmation.page';
 import { NativeGeocoder, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
+import { SearchPagePage } from '../search-page/search-page.page';
 
 declare var google: any;
 
@@ -83,6 +84,12 @@ export class HomePage {
     else
       return false;
   }
+  cancelRideReturner() {
+    if (localStorage.getItem('user'))
+      return 'canceled-reserved' + JSON.parse(localStorage.getItem('user')).id;
+    else
+      return false;
+  }
   getLangData() {
     this.t.get("homePage").subscribe((resp: any) => {
       this.respFromLanguage = resp;
@@ -129,8 +136,8 @@ export class HomePage {
   public currentMarker = {
     url: 'assets/currentMarkerGif.gif',
     scaledSize: {
-      width: 70,
-      height: 70
+      width: 50,
+      height: 50
     }
   }
   public markerOptions = {
@@ -251,6 +258,19 @@ export class HomePage {
     });
     toast.present();
   }
+  async openSearchModal() {
+    const modal = await this.modalController.create({
+      component: SearchPagePage
+    });
+    await modal.present();
+    await modal.onDidDismiss().then(resp => {
+      if (resp.data) {
+        this.destination = resp.data.destination;
+        this.origin = resp.data.origin;
+        this.getDirection();
+      }
+    });
+  }
   ionViewWillEnter() {
     if (localStorage.getItem('user')) {
       let data = {
@@ -265,42 +285,6 @@ export class HomePage {
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       this.setCurrentLocation();
-      this.geolocation.getCurrentPosition().then((resp: any) => {
-        this.nativeGeocoder.reverseGeocode(resp.coords.latitude, resp.coords.longitude)
-          .then((result: NativeGeocoderResult[]) => {
-            this.dataservice.getContryCodeAndFlag(result[0].countryName).subscribe((innerResp: any) => {
-              let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-              autocomplete.setComponentRestrictions({
-                country: [innerResp[0].alpha2Code],
-              });
-              autocomplete.addListener("place_changed", () => {
-                this.ngZone.run(() => {
-                  let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-                  if (place.geometry === undefined || place.geometry === null) {
-                    return;
-                  }
-                  this.destination = place.formatted_address;
-                  this.getDirection();
-                });
-              });
-            })
-          }, err => {
-            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-            autocomplete.setComponentRestrictions({
-              country: ["ES", "PK"],
-            });
-            autocomplete.addListener("place_changed", () => {
-              this.ngZone.run(() => {
-                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-                if (place.geometry === undefined || place.geometry === null) {
-                  return;
-                }
-                this.destination = place.formatted_address;
-                this.getDirection();
-              });
-            });
-          })
-      })
     });
     this.dataservice.saved_location_get().subscribe((resp: any) => {
       this.SavedLocations = resp;
@@ -319,6 +303,26 @@ export class HomePage {
       localStorage.setItem('findDriverObj', JSON.stringify(data.findDriverObj));
       localStorage.setItem('tracking', JSON.stringify(data.tracking));
       this.r.navigate(['/tracking']);
+    })
+    this.socket.on(this.cancelRideReturner(), (data) => {
+      this.rideCancelledAlert();
+      this.totalBookingsAmountNumber();
+    })
+    this.totalBookingsAmountNumber();
+  }
+  async rideCancelledAlert() {
+    const alert = await this.alertCtrl.create({
+      header: 'Reserve Booking Cancelled',
+      message: 'Your reserve booking is cancelled.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+  noOfReservedBookings = 0;
+  totalBookingsAmountNumber() {
+    this.passengerService.getAllReservedBookings().subscribe((resp: any) => {
+      this.noOfReservedBookings = resp.length;
     })
   }
   ShowDestinationCondition = false;
@@ -770,4 +774,23 @@ export class HomePage {
       })
     }
   }
+  lightMode = [
+    {
+      "featureType": "poi.business",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.park",
+      "elementType": "labels.text",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 <ion-content>
   <div style="width: 90%;height: 100%;" id="map-parent">
-    <agm-map #agmmap [usePanning]="true" [zoom]="zoom" [latitude]="latitude" [longitude]="longitude"
+    <agm-map [styles]="lightMode" #agmmap [usePanning]="true" [zoom]="zoom" [latitude]="latitude" [longitude]="longitude"
       [zoomControl]="false" [streetViewControl]="false">
       <agm-direction *ngIf="Route_To_Passenger" (onResponse)="onResponse($event)"
         [renderOptions]="toOrigin.renderOptions" [markerOptions]="toOriginMarker" [origin]="toOrigin.origin"
@@ -69,11 +69,10 @@
                 <ion-icon [name]="DriverRating() > 4.5 ? 'star':'star-outline'"></ion-icon>
               </span>
             </p>
-            <br>
-            <div *ngIf="waitToGetRoute">
+            <!-- <div *ngIf="waitToGetRoute">
               <ion-icon class="speedicon" name="speedometer-outline"></ion-icon>
               <countdown class="countdown" [config]="getConfig"></countdown>
-            </div>
+            </div> -->
           </ion-col>
           <ion-col size="3">
             <ion-icon *ngIf="!DriverDetail.driverObj.driverPhoto" class="noimg" name="person"></ion-icon>

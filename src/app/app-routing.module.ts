@@ -215,6 +215,10 @@ const routes: Routes = [
     path: 'reserve-booking-confirmation',
     loadChildren: () => import('./reserve-booking-confirmation/reserve-booking-confirmation.module').then( m => m.ReserveBookingConfirmationPageModule)
   },
+  {
+    path: 'search-page',
+    loadChildren: () => import('./search-page/search-page.module').then( m => m.SearchPagePageModule)
+  },
 
 
 

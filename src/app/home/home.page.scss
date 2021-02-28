@@ -228,3 +228,18 @@ ion-fab {
     margin-right: 7px;
   }
 }
+.cardBar{
+  padding: 18px;
+  margin: 0;
+  margin-bottom: 5px;
+  ion-icon{
+    margin: auto;
+    display: block;
+    color: #4ebe38;
+    padding-top: 6px;
+  }
+  p{
+    color: black;
+    font-size: 18px;
+  }
+}

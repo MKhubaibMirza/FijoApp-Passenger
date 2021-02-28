@@ -4,19 +4,21 @@
       <ion-menu-button class="menu" autoHide="false" color="light"></ion-menu-button>
     </ion-buttons>
     <ion-title color="light">{{'homePage.title' | translate}}</ion-title>
-    <ion-icon slot="end" name="calendar-outline" style="outline:none" routerLink="/reserved-bookings"></ion-icon>
+    <ion-button style="margin-right: 9px;" routerLink="/reserved-bookings" slot="end" color="light">
+      <ion-icon slot="start" name="calendar-outline"></ion-icon>
+      <ion-badge>{{noOfReservedBookings}}</ion-badge>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <agm-map [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom" [latitude]="latitude"
+  <agm-map [styles]="lightMode" [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom" [latitude]="latitude"
     [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
     <agm-direction (onResponse)="onResponse($event)" (destinationDrag)="markerDragEndDestination($event)"
       (originDrag)="markerDragEndOrigin($event)" *ngIf="directionCondition" [renderOptions]="renderOptions"
       [markerOptions]="markerOptions" [origin]="origin" [destination]="destination">
     </agm-direction>
-    <agm-marker *ngIf="!directionCondition"
-      [animation]="currentMarkerAnimation" [iconUrl]="currentMarker" [latitude]="currentLatitude"
-      [longitude]="currentLongitude">
+    <agm-marker *ngIf="!directionCondition" [animation]="currentMarkerAnimation" [iconUrl]="currentMarker"
+      [latitude]="currentLatitude" [longitude]="currentLongitude">
     </agm-marker>
   </agm-map>
   <ion-fab (click)="locationClick()" vertical="bottom" horizontal="end" slot="fixed">
@@ -32,7 +34,20 @@
       <p class="cardTitle">{{'homePage.hello' | translate}} {{getName()}}!</p>
       <p class="subTitle">{{'homePage.whereToGo' | translate}}</p>
       <br>
-      <ion-grid class="ion-no-padding">
+      <ion-card (click)="openSearchModal()" mode="ios" class="cardBar">
+        <ion-grid class="ion-no-padding ion-no-margin">
+          <ion-row class="ion-no-padding ion-no-margin">
+            <ion-col size="1.5">
+              <ion-icon name="ellipse"></ion-icon>
+            </ion-col>
+            <ion-col size="10.5">
+              <p>{{'homePage.enterDestination' | translate}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-card-content>
+    <!-- <ion-grid class="ion-no-padding">
         <ion-row class="ion-no-padding">
           <ion-col size="10">
             <input (focus)="consoleer('focus')" (blur)="consoleer('blur')" type="text" [(ngModel)]="destination"
@@ -44,18 +59,17 @@
             <ion-icon (click)="getDirection()" class="search" name="search-outline"></ion-icon>
           </ion-col>
         </ion-row>
-      </ion-grid>
-      <p *ngIf="SavedLocations.length !== 0" (click)="ShowDestinationClick()" class="bottomTitle">
-        {{'homePage.searchWithoutDestination' | translate}}</p>
-    </ion-card-content>
-    <ion-card-content *ngIf="ShowDestinationCondition">
+      </ion-grid> -->
+    <!-- <p *ngIf="SavedLocations.length !== 0" (click)="ShowDestinationClick()" class="bottomTitle">
+        {{'homePage.searchWithoutDestination' | translate}}</p> -->
+    <!-- <ion-card-content *ngIf="ShowDestinationCondition">
       <ul class="ul">
         <li class="li" *ngFor="let item of SavedLocations" (click)="OnRouteItemClick(item)">{{item.routeTitle}}</li>
         <li class="li" routerLink="/fav-dest">{{'homePage.addMore' | translate}}</li>
       </ul>
       <p (click)="HideDestinationClick()" class="bottomTitle">{{'homePage.searchWithDestination' | translate}}
       </p>
-    </ion-card-content>
+    </ion-card-content> -->
   </ion-card>
   <ion-card *ngIf="directionCondition" class="FooterCard" style="background:rgb(255, 255, 255, 0.9)">
     <ion-grid>

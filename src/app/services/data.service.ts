@@ -46,4 +46,10 @@ export class DataService {
     let data = { date: a }
     return this.http.post(this.ApiUrl + 'booking/get-started-reserved-by-passenger/' + JSON.parse(localStorage.getItem('user')).id, data);
   }
+  deleteReserveBooking(id) {
+    return this.http.post(this.ApiUrl + 'booking/delete/' + id, null);
+  }
+  getTotalBookingsSum() {
+    return this.http.get(this.ApiUrl + 'booking/getall-reserved-bookings-by-passenger/' + JSON.parse(localStorage.getItem('user')).id);
+  }
 }
