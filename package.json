@@ -161,6 +161,8 @@
       "call-number": {},
       "cordova-plugin-local-notification": {}
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }

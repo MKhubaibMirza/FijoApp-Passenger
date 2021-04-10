@@ -357,19 +357,20 @@ export class TrackingPage {
     if (!localStorage.getItem('paid')) {
       let PayVia = JSON.parse(localStorage.getItem('findDriverObj')).paymentVia;
       if (PayVia == 'card') {
+        
         // choose Payment methode and show all paymentMethods
-        let paymentMethods = JSON.parse(localStorage.getItem('paymentMethods'));
-        let inputArray = [];
-        paymentMethods.forEach((element, i) => {
-          inputArray.push({
-            name: 'radio' + i,
-            type: 'radio',
-            label: '**** **** **** ' + element.number.toString().substr(12, 16),
-            value: element,
-            checked: i == 0 ? true : false
-          })
-        });
-        this.presentAlertRadio(inputArray);
+        // let paymentMethods = JSON.parse(localStorage.getItem('paymentMethods'));
+        // let inputArray = [];
+        // paymentMethods.forEach((element, i) => {
+        //   inputArray.push({
+        //     name: 'radio' + i,
+        //     type: 'radio',
+        //     label: '**** **** **** ' + element.number.toString().substr(12, 16),
+        //     value: element,
+        //     checked: i == 0 ? true : false
+        //   })
+        // });
+        // this.presentAlertRadio(inputArray);
       }
     }
   }

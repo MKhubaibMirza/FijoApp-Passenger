@@ -216,7 +216,7 @@ export class AppComponent {
   navlist = [
     // { title: 'home', icon: 'home', route: '/home', },
     { title: 'myJourney', icon: 'car', route: '/my-journeys', },
-    { title: 'paymentMethods', icon: 'cash', route: '/payment-methods', },
+    // { title: 'paymentMethods', icon: 'cash', route: '/payment-methods', },
     { title: 'myAccount', icon: 'person', route: '/profile', },
     { title: 'changeLanguage', icon: 'language', route: '/lang', },
     { title: 'inviteFriends', icon: 'person-add', route: '/inviteFakePath', },

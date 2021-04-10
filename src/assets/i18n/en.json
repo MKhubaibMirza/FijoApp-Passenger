@@ -181,6 +181,7 @@
         "addPay": "Add a payment method",
         "viaCard": "Pay via Credit Card",
         "viaCash": "Pay via Cash",
+        "viaTPV": "CHARGE WITH THE CARD",
         "savingMethod": "Saving your payment method"
     },
     "trackingPage": {
@@ -397,12 +398,12 @@
         "title": "Pickup Time",
         "save": "Reserve"
     },
-    "reservationDetailPage":{
-        "title":"Pre Bookings",
-        "noFound":"No Pre Booking Yet!",
-        "Pickup":"Pickup",
-        "Destination":"Destination",
-        "DateTime":"Date Time",
-        "Cost":"Cost"
+    "reservationDetailPage": {
+        "title": "Pre Bookings",
+        "noFound": "No Pre Booking Yet!",
+        "Pickup": "Pickup",
+        "Destination": "Destination",
+        "DateTime": "Date Time",
+        "Cost": "Cost"
     }
 }

@@ -181,6 +181,7 @@
         "addPay": "Añade un metodo de pago",
         "viaCard": "Pagar con tarjeta de crédito",
         "viaCash": "Pagar en efectivo",
+        "viaTPV": "TAXISTA COBRARÁ CON LA TARJETA",
         "savingMethod": "Guardando su método de pago"
     },
     "trackingPage": {
