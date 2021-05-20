@@ -81,9 +81,9 @@ export class AskPaymentWayPage implements OnInit {
   onSelect(i) {
     if (i == 1) {
       this.FindDriverObj.paymentVia = 'card';
-      if (this.paymentMethodsLength == 0) {
-        this.presentToast("Opps! You don't have any payment method yet.");
-      } else {
+      // if (this.paymentMethodsLength == 0) {
+      //   this.presentToast("Opps! You don't have any payment method yet.");
+      // } else {
         localStorage.setItem('paymentMethods', this.paymentMethods);
         this.IsSaving = true;
         localStorage.setItem('findDriverObj', JSON.stringify(this.FindDriverObj));
@@ -91,7 +91,7 @@ export class AskPaymentWayPage implements OnInit {
           this.r.navigate(['/tracking'])
           this.modal.dismiss();
         }, 1500);
-      }
+      // }
     } else if (i == 3) {
       this.r.navigate(['/add-payment-method'])
       this.modal.dismiss();
