@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,7 +26,7 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 * {
-    font-family: 'Andika New Basic', sans-serif;
+    font-family: "Andika New Basic", sans-serif;
 }
 
 .grecaptcha-badge {
@@ -34,11 +34,11 @@
 }
 
 ion-label {
-    font-family: 'Andika New Basic', sans-serif !important;
+    font-family: "Andika New Basic", sans-serif !important;
 }
 
 ion-input {
-    font-family: 'Andika New Basic', sans-serif !important;
+    font-family: "Andika New Basic", sans-serif !important;
 }
 
 .askpayway {
@@ -67,7 +67,6 @@ ion-input {
         }
     }
 }
-
 
 .ratingModal .modal-wrapper {
     height: 570px;
@@ -239,5 +238,28 @@ ion-input {
 .tripStarted {
     .alert-message.sc-ion-alert-md {
         max-height: none !important;
+    }
+}
+.taxiselection {
+    --height: auto;
+
+    .modal-wrapper {
+        width: 100%;
+        display: block;
+        margin: auto;
+        position: absolute;
+        bottom: 0px;
+        box-shadow: none;
+
+        .ion-page {
+            position: relative;
+            display: block;
+            contain: content;
+
+            .inner-content {
+                max-height: 80vh;
+                overflow: auto;
+            }
+        }
     }
 }

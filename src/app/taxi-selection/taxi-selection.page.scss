@@ -1,0 +1,162 @@
+.FooterCard {
+        width: 100%;
+        // background: rgb(36, 123, 37, 0.8);
+        margin: auto;
+        display: block;
+        // border: 5px solid #4ebe38;
+        border-radius: 8px;
+
+        .cardTitle {
+                color: black;
+                font-size: 15px;
+                margin: 0;
+                font-weight: bold;
+        }
+
+        .subTitle {
+                margin: 0;
+                font-size: 21px;
+                color: #4ebe38;
+                margin-top: -3px;
+                font-weight: bold;
+        }
+
+        .bottomTitle {
+                margin: 0;
+                font-size: 18px;
+                color: black;
+                padding-top: 39px;
+        }
+
+        .destination {
+                border: 3px solid #4ebe38;
+                height: 57px;
+                padding-left: 17px;
+                padding-right: 17px;
+                width: 100%;
+                outline: none;
+                color: black;
+                border-right: 0;
+                font-size: 17px;
+                border-radius: 9px 0px 0px 9px;
+        }
+
+        .destination::placeholder {
+                color: black;
+                font-weight: bold;
+        }
+}
+
+.loopcar {
+        height: 70px;
+        width: 100%;
+        object-fit: contain;
+        border-radius: 7px;
+}
+
+.looptitle {
+        font-size: 19px;
+        margin: 0;
+        font-weight: bold;
+        padding-top: 3px;
+}
+
+.loopdesc {
+        font-size: 15px;
+        margin: 0;
+        font-weight: bold;
+        color: #262626;
+}
+
+.loopdesc2 {
+        margin: 0;
+        color: grey;
+        font-size: 16px;
+        text-align: left;
+        padding-bottom: 15px;
+        padding-left: 5%;
+}
+
+.loopprice {
+        font-size: 18px;
+        margin: 0;
+        padding-top: 15px;
+        font-weight: bold;
+        padding-right: 15px;
+        text-align: right;
+}
+
+.search {
+        border: 3px solid #4ebe38;
+        width: 100%;
+        color: white;
+        background: #4ebe38;
+        height: 33px;
+        padding: 9px 0px;
+        border-radius: 0px 9px 9px 0px;
+        outline: none;
+        border-left: none;
+}
+
+.close {
+        font-size: 23px;
+        color: red;
+        background: white;
+        float: right;
+        border-radius: 3px;
+        padding-right: 7px;
+        outline: none;
+}
+
+.totaldistance {
+        color: #4ebe38;
+        font-size: 18px;
+        margin: 0;
+}
+
+.totaltime {
+        color: black;
+        font-size: 18px;
+        padding-left: 17px;
+        font-weight: bold;
+        margin: 0;
+}
+
+.order {
+        width: 95%;
+        --background: #4ebe38;
+        --color: white;
+        margin: auto;
+        display: block;
+}
+.reserveButton {
+        width: 95%;
+        --background: #3880ff;
+        --color: white;
+        margin: auto;
+        display: block;
+}
+
+.ul {
+        overflow: scroll;
+        max-height: 350px;
+}
+
+.li {
+        color: #4ebe38;
+        font-size: 20px;
+        outline: none;
+}
+
+.approxAndMax {
+        font-size: 15px;
+        text-align: center;
+        font-weight: bold;
+        padding-top: 3px;
+        color: black;
+
+        .max {
+                float: right;
+                padding-right: 11px;
+        }
+}

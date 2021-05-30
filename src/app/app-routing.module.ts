@@ -219,7 +219,11 @@ const routes: Routes = [
   {
     path: 'search-page',
     loadChildren: () => import('./search-page/search-page.module').then( m => m.SearchPagePageModule)
+  },  {
+    path: 'taxi-selection',
+    loadChildren: () => import('./taxi-selection/taxi-selection.module').then( m => m.TaxiSelectionPageModule)
   },
+
 
 
 

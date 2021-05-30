@@ -1,3 +1,4 @@
+import { TaxiSelectionPage } from './../taxi-selection/taxi-selection.page';
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import {
   AgmMap,
@@ -96,9 +97,7 @@ export class HomePage {
     });
   }
   respFromLanguage: any;
-  inRange(x, min, max) {
-    return ((x - min) * (x - max) <= 0);
-  }
+
   getName() {
     if (localStorage.getItem('user'))
       return JSON.parse(localStorage.getItem('user')).firstName + ' ' + JSON.parse(localStorage.getItem('user')).lastName;
@@ -107,14 +106,7 @@ export class HomePage {
     this.menuControl.enable(true);
     this.menuControl.open();
   }
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      message: this.respFromLanguage.loading,
-      duration: 7000,
-      spinner: 'dots',
-    });
-    await loading.present();
-  }
+
   latitude: number;
   longitude: number;
   currentLongitude = 0;
@@ -168,7 +160,7 @@ export class HomePage {
   FindDriverObj = {
     noOfSeating: 0,
     vehicleType: '',
-    city: JSON.parse(localStorage.getItem('user')).city,
+    city: JSON.parse(localStorage.getItem('user'))?.city,
     currentLat: 0,
     currentLng: 0,
     searchInKM: 15,
@@ -186,32 +178,14 @@ export class HomePage {
   public searchElementRef: ElementRef;
   @ViewChild(AgmMap) agmMap: AgmMap;
   selectedCar = { approxOrMaxValue: 0 };
-  selectCar(item, i) {
-    this.selectedCar = item;
-    this.carsTypes.forEach((element, index) => {
-      if (index == i) {
-        this.carsTypes[index].condition = true;
-      } else {
-        this.carsTypes[index].condition = false;
-      }
-    });
-    if (item.desc == "Fixed Price") {
-      this.FindDriverObj.vehicleType = 'lite';
-      this.FindDriverObj.noOfSeating = 0;
-    } else if (item.desc == "General Purpose") {
-      this.FindDriverObj.vehicleType = 'sedanN';
-    } else if (item.desc == "For Handicaps") {
-      this.FindDriverObj.vehicleType = 'sedanH';
-    }
-  }
   async AskPayWay(isReserved, date, time, isAmOrPm) {
+    console.log(isReserved,'is reserved from askpayway')
+    this.FindDriverObj.isReserved = isReserved;
     if (this.selectedCar.approxOrMaxValue == 0) {
       this.presentToast(this.respFromLanguage.selectRide);
     } else if (this.FindDriverObj.noOfSeating == 0 && this.FindDriverObj.vehicleType !== 'lite') {
       this.presentToast(this.respFromLanguage.selectSeats);
     } else {
-      this.FindDriverObj.origin = this.origin;
-      this.FindDriverObj.destination = this.destination;
       if (this.FindDriverObj.vehicleType == 'lite') {
         this.FindDriverObj.exactPriceForDriver = this.totalPriceForLite - this.basePriceForLite;
         this.FindDriverObj.exactPriceForPassenger = this.totalPriceForLite;
@@ -227,6 +201,9 @@ export class HomePage {
           cssClass: 'askpayway'
         });
         await modal.present();
+        await modal.onDidDismiss().then(() => {
+          this.CancelClick();
+        })
       } else {
         if (this.FindDriverObj.noOfSeating == 4) {
           this.FindDriverObj.exactPriceForDriver = this.For4SeaterPrice - this.BasePrice4Seater;
@@ -235,16 +212,18 @@ export class HomePage {
           this.FindDriverObj.exactPriceForDriver = this.For5SeaterPrice - this.BasePrice5Seater;
           this.FindDriverObj.exactPriceForPassenger = this.For5SeaterPrice;
         }
-        // localStorage.setItem('tempFindDriverObj', JSON.stringify(this.FindDriverObj));
-        // this.r.navigate(['/confirm-booking']);
         const modal = await this.modalController.create({
           component: AskPaymentWayPage,
           componentProps: {
+            isReserved: isReserved,
             FindDriverObj: this.FindDriverObj
           },
           cssClass: 'askpayway'
         });
         await modal.present();
+        await modal.onDidDismiss().then(() => {
+          this.CancelClick();
+        })
       }
     }
   }
@@ -267,6 +246,8 @@ export class HomePage {
       if (resp.data) {
         this.destination = resp.data.destination;
         this.origin = resp.data.origin;
+        this.FindDriverObj.origin = this.origin;
+        this.FindDriverObj.destination = this.destination;
         this.getDirection();
       }
     });
@@ -383,8 +364,6 @@ export class HomePage {
   }
   totaltime = '';
   totaldistance = '';
-  iAmCalled = 0;
-  iAmCalledForLite = 0;
   For4SeaterPrice = 0;
   For5SeaterPrice = 0;
   BasePrice4Seater = 0;
@@ -406,156 +385,72 @@ export class HomePage {
       let totalKm = event.routes[0]?.legs[0].distance.value;
       this.FindDriverObj.totalKM = totalKm / 1000;
       this.FindDriverObj.estTime = this.totaltime;
-      this.getLitePriceThenSedan();
+      this.modalController.getTop().then(resp => {
+        if (resp == undefined) {
+          this.taxiSelection();
+        }
+      })
     }
+  }
+  async taxiSelection() {
+    const modal = await this.modalController.create({
+      component: TaxiSelectionPage,
+      mode: "ios",
+      cssClass: 'taxiselection',
+      componentProps: {
+        dataFromHomePage: this.FindDriverObj,
+        totaltime: this.totaltime,
+        totaldistance: this.totaldistance
+      }
+    });
+    await modal.present();
+    await modal.onDidDismiss().then((data: any) => {
+      if (data.data) {
+        this.basePriceForLite = data.data.basePriceForLite;
+        this.totalPriceForLite = data.data.totalPriceForLite;
+        this.For4SeaterPrice = data.data.For4SeaterPrice;
+        this.For5SeaterPrice = data.data.For5SeaterPrice;
+        this.BasePrice4Seater = data.data.BasePrice4Seater;
+        this.BasePrice5Seater = data.data.BasePrice5Seater;
+        this.FindDriverObj.noOfSeating = data.data.noOfSeating;
+        this.selectedCar = data.data.selectedCar;
+        this.FindDriverObj.isReserved = data.data.isReserved;
+        if (data.data.isReserved) {
+          this.ReserveBooking()
+        } else {
+          this.AskPayWay(
+            data.data.isReserved,
+            data.data.askpaywaydata.date,
+            data.data.askpaywaydata.time,
+            data.data.askpaywaydata.isAmOrPm
+          )
+        }
+      } else {
+        this.CancelClick()
+      }
+    })
+  }
+  async ReserveBooking() {
+    const modal2 = await this.modalController.create({
+      component: ReserveBookingConfirmationPage,
+    });
+    await modal2.present();
+    await modal2.onDidDismiss().then(value => {
+      console.log(value);
+      console.log('--------------------')
+      if (value.data.isReserved == true) {
+        this.AskPayWay(true, value.data.date, value.data.time, value.data.isAmOrPm);
+      } else if (value.data.isReserved == false) {
+        this.AskPayWay(false, null, null, null);
+      }
+      if (!value.data) {
+        this.CancelClick();
+      }
+    })
   }
   basePriceForLite = 0;
   totalPriceForLite = 0;
-  getLitePriceThenSedan() {
-    this.carsTypes = [];
-    this.iAmCalledForLite = this.iAmCalledForLite + 1;
-    let getExactPriceObjectFor_Lite = {
-      km: this.FindDriverObj.totalKM,
-      isMorning: false,
-      isWeekend: false,
-      isAirport: false,
-      isLite: true,
-      seatingCapacity: 4
-    }
-    if (this.inRange(new Date().getHours(), 7, 21)) {
-      getExactPriceObjectFor_Lite.isMorning = true;
-    } else {
-      getExactPriceObjectFor_Lite.isMorning = false;
-    }
-    if ((new Date().getDay() == 6) || new Date().getDay() == 7) {
-      getExactPriceObjectFor_Lite.isWeekend = true;
-    } else {
-      getExactPriceObjectFor_Lite.isWeekend = false;
-    }
-    if ((this.destination.includes('airport')) || this.destination.includes('Airport')) {
-      getExactPriceObjectFor_Lite.isAirport = true;
-    } else {
-      getExactPriceObjectFor_Lite.isAirport = false;
-    }
-    if (this.iAmCalledForLite == 1) {
-      this.dataservice.getExactPrice(getExactPriceObjectFor_Lite).subscribe((resp: any) => {
-        this.totalPriceForLite = resp.totalPrice;
-        this.basePriceForLite = resp.basePrice;
-        this.carsTypes.push({
-          title: 'Lite',
-          desc: 'Fixed Price',
-          approxOrMaxValue: this.totalPriceForLite,
-          condition: false,
-          description: this.respFromLanguage.fixed,
-          seats: [
-            {
-              numbers: 0,
-              price: this.totalPriceForLite,
-              checked: false
-            }
-          ],
-          image: 'assets/Fijo_Lite_Cab_v1.png'
-        })
-        this.getSedanPrice();
-      })
-      setTimeout(() => {
-        this.iAmCalledForLite = 0;
-      }, 3000);
-    }
-  }
-  getSedanPrice() {
-    this.iAmCalled = this.iAmCalled + 1;
-    let getExactPriceObject = {
-      km: this.FindDriverObj.totalKM,
-      isMorning: false,
-      isWeekend: false,
-      isAirport: false,
-      isLite: false,
-      seatingCapacity: 4
-    }
-    if (this.inRange(new Date().getHours(), 7, 21)) {
-      getExactPriceObject.isMorning = true;
-    } else {
-      getExactPriceObject.isMorning = false;
-    }
-    if ((new Date().getDay() == 6) || new Date().getDay() == 7) {
-      getExactPriceObject.isWeekend = true;
-    } else {
-      getExactPriceObject.isWeekend = false;
-    }
-    if ((this.destination.includes('airport')) || this.destination.includes('Airport')) {
-      getExactPriceObject.isAirport = true;
-    } else {
-      getExactPriceObject.isAirport = false;
-    }
-    if (this.iAmCalled == 1) {
-      getExactPriceObject.seatingCapacity = 4;
-      this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-        this.For4SeaterPrice = resp.totalPrice;
-        this.BasePrice4Seater = resp.basePrice;
-        let carTypesArray = [
-          { title: 'Taxi XL', desc: 'General Purpose', description: this.respFromLanguage.sedanN, img: 'assets/Fijo_Sedan_XL_v1.png', approxOrMaxValue: 0 },
-          { title: 'Sedan Accesivilidad', desc: 'For Handicaps', description: this.respFromLanguage.sedanH, img: 'assets/Fijo_Sedan_Handicap_v_2.png', approxOrMaxValue: 0 }
-        ];
-        getExactPriceObject.seatingCapacity = 5;
-        this.dataservice.getExactPrice(getExactPriceObject).subscribe((resp: any) => {
-          this.For5SeaterPrice = resp.totalPrice;
-          this.BasePrice5Seater = resp.basePrice;
-          let approxPrice = this.For4SeaterPrice + this.BasePrice5Seater / 2;
-          carTypesArray.forEach(element => {
-            if (resp.length == 0) {
-              this.carsTypes.push({
-                title: element.title,
-                desc: element.desc,
-                description: element.description,
-                condition: false,
-                approxOrMaxValue: this.For4SeaterPrice,
-                seats: [
-                  {
-                    numbers: 4,
-                    price: this.For4SeaterPrice,
-                    checked: false
-                  }
-                ],
-                image: element.img
-              });
-            } else {
-              this.carsTypes.push({
-                title: element.title,
-                desc: element.desc,
-                description: element.description,
-                condition: false,
-                approxOrMaxValue: approxPrice,
-                seats: [
-                  {
-                    numbers: 4,
-                    price: this.For4SeaterPrice,
-                    checked: false
-                  },
-                  {
-                    numbers: 5,
-                    price: this.For5SeaterPrice,
-                    checked: false
-                  },
-                  {
-                    numbers: 6,
-                    price: this.For5SeaterPrice,
-                    checked: false
-                  },
-                ],
-                image: element.img
-              });
-            }
-          });
-          this.loadingController.dismiss();
-        })
-      })
-      setTimeout(() => {
-        this.iAmCalled = 0;
-      }, 3000);
-    }
-  }
-  carsTypes = [];
+
   markerDragEndDestination(event: any) {
     let coords = JSON.stringify(event);
     let coords3 = JSON.parse(coords);
@@ -589,7 +484,6 @@ export class HomePage {
     this.getLangData();
     if ((this.destination !== '') && (this.origin !== '')) {
       setTimeout(() => {
-        this.presentLoading();
         this.directionCondition = true;
         new google.maps.event.trigger(this.agmMap, 'resize');
       }, 900);
@@ -612,7 +506,6 @@ export class HomePage {
     this.directionCondition = false;
     this.ShowDestinationCondition = false;
     this.destination = '';
-    this.carsTypes = [];
     this.locationClick();
     this.selectedCar = { approxOrMaxValue: 0 }
   }
@@ -640,16 +533,6 @@ export class HomePage {
     });
     return await modal.present();
   }
-  async presentConfirmBookingPage() {
-    const modal = await this.modalController.create({
-      component: ConfirmBookingPage,
-      componentProps: {
-        FindDriverObj: this.FindDriverObj,
-        approxOrMaxValue: this.selectedCar.approxOrMaxValue
-      }
-    });
-    return await modal.present();
-  }
   ionViewWillLeave() {
     this.directionCondition = false;
     this.FindDriverObj = {
@@ -671,7 +554,6 @@ export class HomePage {
     }
     this.destination = '';
     this.ShowDestinationCondition = false;
-    this.carsTypes = [];
     this.locationClick();
   }
   DarkStyle = [
@@ -755,25 +637,7 @@ export class HomePage {
     },
   ];
   LightStyle = [];
-  async ReserveBooking() {
-    if (this.selectedCar.approxOrMaxValue == 0) {
-      this.presentToast(this.respFromLanguage.selectRide);
-    } else if (this.FindDriverObj.noOfSeating == 0 && this.FindDriverObj.vehicleType !== 'lite') {
-      this.presentToast(this.respFromLanguage.selectSeats);
-    } else {
-      const modal = await this.modalController.create({
-        component: ReserveBookingConfirmationPage,
-      });
-      await modal.present();
-      modal.onDidDismiss().then(value => {
-        if (value.data.isReserved) {
-          this.AskPayWay(true, value.data.date, value.data.time, value.data.isAmOrPm);
-        } else if (value.data) {
-          this.AskPayWay(false, null, null, null);
-        }
-      })
-    }
-  }
+
   lightMode = [
     {
       "featureType": "poi.business",

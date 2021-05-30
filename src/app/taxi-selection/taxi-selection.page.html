@@ -1,0 +1,58 @@
+<div class="inner-content">
+  <ion-card mode="md" class="FooterCard" style="background:rgb(255, 255, 255, 0.9)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10">
+          <p class="totaltime">{{totaltime}} &nbsp; {{totaldistance}}</p>
+        </ion-col>
+        <ion-col size="2">
+          <ion-icon (click)="CancelClick()" class="close" name="close-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row *ngFor="let item of carsTypes;index as i" [style.color]="item.condition?'#4ebe38':'#4ebe38'"
+        [style.background]="item.condition?'white':'white'" style="margin-bottom: 6px;" (click)="selectCar(item,i)">
+        <ion-col size="2.5">
+          <img class="loopcar" [src]="item.image" alt="">
+        </ion-col>
+        <ion-col size="6">
+          <p class="looptitle"><b>{{item.title}}</b></p>
+          <p class="loopdesc">{{item.description}}</p>
+        </ion-col>
+        <ion-col size="3.5">
+          <p class="approxAndMax">
+            <span class="max" *ngIf="item.desc == 'Fixed Price'">max. {{item.approxOrMaxValue}}&euro;</span>
+            <span *ngIf="item.desc !== 'Fixed Price'">aprox. {{item.approxOrMaxValue}}&euro;</span>
+          </p>
+        </ion-col>
+        <ion-col size="12" *ngIf="item.condition == true">
+          <ion-radio-group [(ngModel)]="noOfSeating">
+            <ion-item no-lines lines="none" *ngFor="let inner of item.seats" color="transparent">
+              <ion-label color="dark"> <span *ngIf="inner.numbers !== 0">{{inner.numbers}}
+                  {{'homePage.seaters' | translate}}</span>
+                (€{{inner.price}})</ion-label>
+              <ion-radio [value]="inner.numbers"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+        </ion-col>
+      </ion-row>
+      <p *ngIf="selectedCar.approxOrMaxValue !== 0" class="loopdesc2" (click)="presentConfirmBookingPage()">
+        {{'homePage.seeDetails' | translate}}</p>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-button class="order" (click)="AskPayWay(false,null,null,null)">
+              {{'homePage.orderNow' | translate}}
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button class="reserveButton" (click)="ReserveBooking()">
+              {{'homePage.reserved' | translate}}
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-grid>
+  </ion-card>
+</div>

@@ -66,6 +66,7 @@ export class AskPaymentWayPage implements OnInit {
       console.log(a)
       this.FindDriverObj.reserveCode = a;
     }
+    console.log(this.FindDriverObj)
   }
   async presentToast(message) {
     const toast = await this.toastController.create({
