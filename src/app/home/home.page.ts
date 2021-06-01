@@ -244,6 +244,7 @@ export class HomePage {
     await modal.present();
     await modal.onDidDismiss().then(resp => {
       if (resp.data) {
+        console.log(resp.data);
         this.destination = resp.data.destination;
         this.origin = resp.data.origin;
         this.FindDriverObj.origin = this.origin;
@@ -342,7 +343,7 @@ export class HomePage {
         this.FindDriverObj.currentLng = this.longitude;
         this.currentLatitude = parseFloat(position.coords.latitude);
         this.currentLongitude = parseFloat(position.coords.longitude);
-        this.getAddress(this.latitude, this.longitude);
+        // this.getAddress(this.latitude, this.longitude);
       });
     let watchPositionTrigger = 0;
     this.geolocation.watchPosition().subscribe((coords: any) => {
@@ -357,7 +358,7 @@ export class HomePage {
         }
         this.currentLatitude = this.latitude;
         this.currentLongitude = this.longitude;
-        this.getAddress(this.currentLatitude, this.currentLongitude);
+        // this.getAddress(this.currentLatitude, this.currentLongitude);
         watchPositionTrigger = 0;
       }
     });
@@ -491,16 +492,16 @@ export class HomePage {
       this.presentToast(this.respFromLanguage.enterDestinationPlz);
     }
   }
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      if (status === 'OK') {
-        if (results[0]) {
-          this.zoom = 18;
-          this.origin = results[0].formatted_address;
-        }
-      }
-    });
-  }
+  // getAddress(latitude, longitude) {
+  //   this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+  //     if (status === 'OK') {
+  //       if (results[0]) {
+  //         this.zoom = 18;
+  //         this.origin = results[0].formatted_address;
+  //       }
+  //     }
+  //   });
+  // }
   directionCondition = false;
   CancelClick() {
     this.directionCondition = false;

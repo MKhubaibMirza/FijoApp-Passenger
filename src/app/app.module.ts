@@ -65,8 +65,7 @@ firebase.initializeApp(environment.firebaseConfig);
     AgmDirectionModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDTqB69PYC2D18TqUGMd-yyyMK9a3Qg2g8',
-      libraries: ['places'],
-      // language: 'en'
+      libraries: ['places']
     }),],
   providers: [
     StatusBar,
