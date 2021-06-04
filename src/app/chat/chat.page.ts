@@ -13,7 +13,8 @@ export class ChatPage implements OnInit {
   messagesArray = [];
   socket = io(environment.baseUrl);
   @ViewChild('content', { static: true }) content: IonContent;
-
+  delay = 1000;
+  lastExecution = 0;
   constructor(
     public msgService: MessageService,
     public activeparms: ActivatedRoute
@@ -27,8 +28,11 @@ export class ChatPage implements OnInit {
       this.driverD = this.receiverName.charAt(0);
       this.GetMessages();
       this.socket.on('listenchat' + this.senderId, (data) => {
-        this.messagesArray.push(data);
-        this.scrollToBottom();
+        if ((this.lastExecution + this.delay) < Date.now()) {
+          this.messagesArray.push(data);
+          this.scrollToBottom();
+          this.lastExecution = Date.now();
+        }
       });
     })
   }

@@ -46,8 +46,10 @@ export class LoginPage implements OnInit {
       this.passengerService.login(this.loginData).subscribe((resp: any) => {
         this.loading.dismiss(true);
         let data = {
-          oldDeviceId: resp.oldDeviceId
+          oldDeviceId: resp.oldDeviceId,
+          numeric: JSON.stringify(Math.floor(Math.random() * 9000000000) + 1000000000)
         }
+        localStorage.setItem('sameApplication', data.numeric);
         this.socket.emit('loging-hopping', data);
         localStorage.setItem('logedInDeviceId', resp.newDeviceId);
         localStorage.setItem('user', JSON.stringify(resp.pessenger));
@@ -105,7 +107,7 @@ export class LoginPage implements OnInit {
       duration: 2000,
       position: 'top',
       color: 'success',
-      mode:'ios',
+      mode: 'ios',
     });
     toast.present();
   }

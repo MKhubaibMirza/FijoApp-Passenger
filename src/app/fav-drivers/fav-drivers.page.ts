@@ -22,8 +22,8 @@ export class FavDriversPage {
   drivers = [];
   call(phoneNumber) {
     if (phoneNumber) {
-      this.callNumber.callNumber(phoneNumber, true)
-        .then(res =>{})
+      this.callNumber.callNumber('+' + phoneNumber, true)
+        .then(res => { })
         .catch(err => {
         });
     }

@@ -30,6 +30,8 @@ declare var google: any;
 })
 export class HomePage {
   socket = io(environment.baseUrl);
+  delay = 1000;
+  lastExecution = 0;
   passengerObj = {
     firstName: JSON.parse(localStorage.getItem('user')).firstName,
     lastName: JSON.parse(localStorage.getItem('user')).lastName,
@@ -75,10 +77,13 @@ export class HomePage {
   }
   logingHoppingReturner() {
     if (localStorage.getItem('logedInDeviceId'))
-      return 'notify-old-device' + localStorage.getItem('logedInDeviceId');
-    else
-      return false;
+      return localStorage.getItem('logedInDeviceId');
   }
+  sameApplicationReturner() {
+    if (localStorage.getItem('sameApplication'))
+      return localStorage.getItem('sameApplication');
+  }
+
   reserveBookingReturner() {
     if (localStorage.getItem('user'))
       return 'informpassenger-reservedstatuschanged' + JSON.parse(localStorage.getItem('user')).id;
@@ -179,7 +184,7 @@ export class HomePage {
   @ViewChild(AgmMap) agmMap: AgmMap;
   selectedCar = { approxOrMaxValue: 0 };
   async AskPayWay(isReserved, date, time, isAmOrPm) {
-    console.log(isReserved,'is reserved from askpayway')
+    console.log(isReserved, 'is reserved from askpayway')
     this.FindDriverObj.isReserved = isReserved;
     if (this.selectedCar.approxOrMaxValue == 0) {
       this.presentToast(this.respFromLanguage.selectRide);
@@ -253,6 +258,15 @@ export class HomePage {
       }
     });
   }
+  sessionClear() {
+    if (this.translateconfig.selectedLanguage() == 'en') {
+      this.showAlert('Session Expire', 'Your account is logged in from a different device.');
+    } else {
+      this.showAlert('Sesión Expirada', 'Su cuenta está conectada desde un dispositivo diferente.');
+    }
+    localStorage.clear();
+    this.r.navigate(['/login']);
+  }
   ionViewWillEnter() {
     if (localStorage.getItem('user')) {
       let data = {
@@ -271,24 +285,37 @@ export class HomePage {
     this.dataservice.saved_location_get().subscribe((resp: any) => {
       this.SavedLocations = resp;
     })
-    this.socket.on(this.logingHoppingReturner(), (data) => {
-      if (this.translateconfig.selectedLanguage() == 'en') {
-        this.showAlert('Session Expire', 'Your account is logged in from a different device.');
-      } else {
-        this.showAlert('Sesión Expirada', 'Su cuenta está conectada desde un dispositivo diferente.');
+    this.socket.on('notify-old-device' + this.logingHoppingReturner(), (data) => {
+      console.log(this.logingHoppingReturner(), 'from login hope');
+      console.log(data, 'data');
+      if ((this.lastExecution + this.delay) < Date.now()) {
+        if (!this.sameApplicationReturner()) {
+          this.sessionClear();
+        } else {
+          if (this.sameApplicationReturner() == data.numeric) {
+            localStorage.removeItem('sameApplication')
+          } else {
+            this.sessionClear();
+          }
+        }
+        this.lastExecution = Date.now();
       }
-      localStorage.clear();
-      this.r.navigate(['/login']);
     })
     this.socket.on(this.reserveBookingReturner(), (data) => {
-      console.log(data);
-      localStorage.setItem('findDriverObj', JSON.stringify(data.findDriverObj));
-      localStorage.setItem('tracking', JSON.stringify(data.tracking));
-      this.r.navigate(['/tracking']);
+      if ((this.lastExecution + this.delay) < Date.now()) {
+        console.log(data);
+        localStorage.setItem('findDriverObj', JSON.stringify(data.findDriverObj));
+        localStorage.setItem('tracking', JSON.stringify(data.tracking));
+        this.r.navigate(['/tracking']);
+        this.lastExecution = Date.now();
+      }
     })
     this.socket.on(this.cancelRideReturner(), (data) => {
-      this.rideCancelledAlert();
-      this.totalBookingsAmountNumber();
+      if ((this.lastExecution + this.delay) < Date.now()) {
+        this.rideCancelledAlert();
+        this.totalBookingsAmountNumber();
+        this.lastExecution = Date.now();
+      }
     })
     this.totalBookingsAmountNumber();
   }
@@ -539,7 +566,7 @@ export class HomePage {
     this.FindDriverObj = {
       noOfSeating: 0,
       vehicleType: '',
-      city: JSON.parse(localStorage.getItem('user')).city,
+      city: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))?.city : null,
       currentLat: 0,
       currentLng: 0,
       searchInKM: 15,

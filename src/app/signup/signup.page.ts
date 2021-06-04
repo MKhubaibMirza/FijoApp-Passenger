@@ -81,9 +81,7 @@ export class SignupPage implements OnInit {
   getLocation() {
     let currentlatitude = 0
     let currentlongitude = 0
-
-    // geolocation geolocation geolocation geolocation 
-    this.geolocation.getCurrentPosition().then((resp: any) => {
+    this.geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((resp: any) => {
       currentlatitude = resp.coords.latitude;
       currentlongitude = resp.coords.longitude;
     }).catch((error) => {
@@ -208,7 +206,7 @@ export class SignupPage implements OnInit {
     const toast = await this.toastController.create({
       message: msg,
       duration: 2000,
-      mode:'ios',
+      mode: 'ios',
       position: 'bottom',
       color: 'primary'
     });

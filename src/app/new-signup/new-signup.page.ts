@@ -117,7 +117,7 @@ export class NewSignupPage implements OnInit {
   getLocation() {
     let currentlatitude;
     let currentlongitude;
-    this.geolocation.getCurrentPosition().then((resp: any) => {
+    this.geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((resp: any) => {
       currentlatitude = resp.coords.latitude;
       currentlongitude = resp.coords.longitude;
       this.signupData.currentLat = resp.coords.latitude;
@@ -145,7 +145,7 @@ export class NewSignupPage implements OnInit {
       message: msg,
       duration: 2000,
       position: 'top',
-      mode:'ios',
+      mode: 'ios',
       color: 'primary'
     });
     toast.present();

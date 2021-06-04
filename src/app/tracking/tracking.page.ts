@@ -66,6 +66,8 @@ export class TrackingPage {
   endTripCounter = false;
   startTripCounter = false;
   url = environment.baseUrl;
+  delay = 1300;
+  lastExecution = 0;
   constructor(
     private mapsAPILoader: MapsAPILoader,
     public modalController: ModalController,
@@ -127,41 +129,50 @@ export class TrackingPage {
     this.setCurrentLocation();
 
     this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.toOrigin.origin.lat = object.driverLat;
-      this.toOrigin.origin.lng = object.driverLng;
-      this.driverLat = object.driverLat;
-      this.driverLng = object.driverLng;
-      this.latitude = object.driverLat;
-      this.longitude = object.driverLng;
+      if ((this.lastExecution + this.delay) < Date.now()) {
+        this.toOrigin.origin.lat = object.driverLat;
+        this.toOrigin.origin.lng = object.driverLng;
+        this.driverLat = object.driverLat;
+        this.driverLng = object.driverLng;
+        this.latitude = object.driverLat;
+        this.longitude = object.driverLng;
 
-      if (localStorage.getItem('tripStarted')) {
-        this.zoom = 18
-        this.isTripStarted = true;
-        this.Route_To_Passenger = false;
-        this.Route_To_Destination = true;
-      } else {
-        this.Route_To_Passenger = true;
-        this.Route_To_Destination = false;
+        if (localStorage.getItem('tripStarted')) {
+          this.zoom = 18
+          this.isTripStarted = true;
+          this.Route_To_Passenger = false;
+          this.Route_To_Destination = true;
+        } else {
+          this.Route_To_Passenger = true;
+          this.Route_To_Destination = false;
+        }
+        this.lastExecution = Date.now();
       }
     });
     let senderId = JSON.parse(localStorage.getItem('user')).id;
     this.socket.on('listenchat' + senderId, (data) => {
-      this.audioService.preload('chat')
-      this.audioService.play('chat')
-      this.newMesssage = true;
+      if ((this.lastExecution + this.delay) < Date.now()) {
+        this.audioService.preload('chat')
+        this.audioService.play('chat')
+        this.newMesssage = true;
+        this.lastExecution = Date.now();
+      }
     });
 
     this.socket.on('isCancel' + JSON.parse(localStorage.getItem('user')).id, (data) => {
-      this.audioService.preload('cancelReq')
-      this.audioService.play('cancelReq')
-      if (this.isEn) {
-        let header = "Ride Cancelled";
-        let message = " Passenger cancel this ride due to"
-        this.presentCancelRidePopUp(data.reason, header, "Dear", message, "Ok")
-      } else if (this.isSp) {
-        let header = "Viaje cancelado";
-        let message = " El pasajero cancela este viaje debido a"
-        this.presentCancelRidePopUp(data.reason, header, "Querido", message, "Okay")
+      if ((this.lastExecution + this.delay) < Date.now()) {
+        this.audioService.preload('cancelReq')
+        this.audioService.play('cancelReq')
+        if (this.isEn) {
+          let header = "Ride Cancelled";
+          let message = " Passenger cancel this ride due to"
+          this.presentCancelRidePopUp(data.reason, header, "Dear", message, "Ok")
+        } else if (this.isSp) {
+          let header = "Viaje cancelado";
+          let message = " El pasajero cancela este viaje debido a"
+          this.presentCancelRidePopUp(data.reason, header, "Querido", message, "Okay")
+        }
+        this.lastExecution = Date.now();
       }
     });
     if (localStorage.getItem('tracking')) {
@@ -192,37 +203,40 @@ export class TrackingPage {
     }
     this.menuControl.enable(false);
     this.socket.on('receive-driver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      if (this.receivedriverCounter == 0) {
-        this.receivedriverCounter = this.receivedriverCounter + 1;
-        if (JSON.parse(localStorage.getItem('findDriverObj')).isReserved) {
-          let reserveBookingObject = {
-            passengerId: JSON.parse(localStorage.getItem('user')).id,
-            driverId: object.driverObj.id,
-            passengerEmail: JSON.parse(localStorage.getItem('user')).email,
-            driverEmail: object.driverObj.email,
-            reserveCode: JSON.parse(localStorage.getItem('findDriverObj')).randomString
-          }
-          Object.assign(reserveBookingObject, JSON.parse(localStorage.getItem('findDriverObj')));
-          this.passengerservice.createReserveBooking(reserveBookingObject).subscribe((bookingresp: any) => {
-            let availabilityData = {
-              isAvailable: true
+      if ((this.lastExecution + this.delay) < Date.now()) {
+        if (this.receivedriverCounter == 0) {
+          this.receivedriverCounter = this.receivedriverCounter + 1;
+          if (JSON.parse(localStorage.getItem('findDriverObj')).isReserved) {
+            let reserveBookingObject = {
+              passengerId: JSON.parse(localStorage.getItem('user')).id,
+              driverId: object.driverObj.id,
+              passengerEmail: JSON.parse(localStorage.getItem('user')).email,
+              driverEmail: object.driverObj.email,
+              reserveCode: JSON.parse(localStorage.getItem('findDriverObj')).randomString
             }
-            let id = JSON.parse(localStorage.getItem('user')).id;
-            this.passengerservice.passengerAvailablity(id, availabilityData).subscribe((resp: any) => {
+            Object.assign(reserveBookingObject, JSON.parse(localStorage.getItem('findDriverObj')));
+            this.passengerservice.createReserveBooking(reserveBookingObject).subscribe((bookingresp: any) => {
+              let availabilityData = {
+                isAvailable: true
+              }
+              let id = JSON.parse(localStorage.getItem('user')).id;
+              this.passengerservice.passengerAvailablity(id, availabilityData).subscribe((resp: any) => {
+              })
+              this.r.navigate(['/home']);
+              localStorage.removeItem('findDriverObj');
+              if (this.translate.selectedLanguage() == 'en') {
+                this.presentAlertForPreBooking('🙂 Dear ' + this.getName(), 'Your booking is reserved successfully.', 'View Details');
+              } else {
+                this.presentAlertForPreBooking('🙂 Querido ' + this.getName(), 'Su reserva está reservada con éxito.', 'Ver detalles');
+              }
             })
-            this.r.navigate(['/home']);
-            localStorage.removeItem('findDriverObj');
-            if (this.translate.selectedLanguage() == 'en') {
-              this.presentAlertForPreBooking('🙂 Dear ' + this.getName(), 'Your booking is reserved successfully.', 'View Details');
-            } else {
-              this.presentAlertForPreBooking('🙂 Querido ' + this.getName(), 'Su reserva está reservada con éxito.', 'Ver detalles');
-            }
-          })
-        } else {
-          this.DriverFound = true;
-          this.DriverDetail = object;
-          localStorage.setItem('tracking', JSON.stringify(object));
+          } else {
+            this.DriverFound = true;
+            this.DriverDetail = object;
+            localStorage.setItem('tracking', JSON.stringify(object));
+          }
         }
+        this.lastExecution = Date.now();
       }
     });
     this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
@@ -263,24 +277,30 @@ export class TrackingPage {
       }
     });
     this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.audioService.preload('endRide')
-      this.audioService.play('endRide')
-      localStorage.setItem('tripEnded', 'true');
-      if (this.endTripCounter == false) {
-        this.endTripCounter = true;
-        this.RatingModal();
+      if ((this.lastExecution + this.delay) < Date.now()) {
+        this.audioService.preload('endRide')
+        this.audioService.play('endRide')
+        localStorage.setItem('tripEnded', 'true');
+        if (this.endTripCounter == false) {
+          this.endTripCounter = true;
+          this.RatingModal();
+        }
+        this.lastExecution = Date.now();
       }
     });
     this.socket.on('isDriverReachedOnMyLocation' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      let localNotificationData =
-      {
-        id: 1,
-        title: 'Dear ' + this.getName(),
-        text: this.translate.selectedLanguage() == 'en' ? 'Driver Reached your location' : 'El conductor llegó a su ubicación',
-        trigger: { in: 1, unit: ELocalNotificationTriggerUnit.SECOND }
-      }
+      if ((this.lastExecution + this.delay) < Date.now()) {
+        let localNotificationData =
+        {
+          id: 1,
+          title: 'Dear ' + this.getName(),
+          text: this.translate.selectedLanguage() == 'en' ? 'Driver Reached your location' : 'El conductor llegó a su ubicación',
+          trigger: { in: 1, unit: ELocalNotificationTriggerUnit.SECOND }
+        }
 
-      this.localNotifications.schedule(localNotificationData)
+        this.localNotifications.schedule(localNotificationData)
+        this.lastExecution = Date.now();
+      }
     });
     setTimeout(() => {
       if (!localStorage.getItem('tracking')) {
@@ -357,7 +377,7 @@ export class TrackingPage {
     if (!localStorage.getItem('paid')) {
       let PayVia = JSON.parse(localStorage.getItem('findDriverObj')).paymentVia;
       if (PayVia == 'card') {
-        
+
         // choose Payment methode and show all paymentMethods
         // let paymentMethods = JSON.parse(localStorage.getItem('paymentMethods'));
         // let inputArray = [];
@@ -649,7 +669,7 @@ export class TrackingPage {
   }
   call() {
     let driver = JSON.parse(localStorage.getItem('tracking')).driverObj;
-    let Phone = driver.phoneNumber.toString();
+    let Phone = '+' + driver.phoneNumber.toString();
     let name = driver.firstName + ' ' + driver.lastName;
     if (Phone) {
       this.callNumber.callNumber(Phone, true)
