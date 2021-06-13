@@ -1,3 +1,4 @@
+import { SocketsService } from './../services/sockets.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
@@ -13,11 +14,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  socket = io(environment.baseUrl);
   constructor(
     private passengerService: PassengerService,
     private toastController: ToastController,
     private menucontroller: MenuController,
+    public socketsService: SocketsService,
     private router: Router,
     private loading: LoadingController,
     private socialService: SocialAuthService,
@@ -28,6 +29,7 @@ export class LoginPage implements OnInit {
       this.respFromLanguage = resp;
     });
   }
+  socket = this.socketsService.socket;
 
   ngOnInit() {
   }

@@ -1,3 +1,4 @@
+import { SocketsService } from './../services/sockets.service';
 import { AgmMap, MapsAPILoader } from '@agm/core';
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -32,7 +33,6 @@ const CountdownTimeUnits: Array<[string, number]> = [
 })
 export class TrackingPage {
   @ViewChild(AgmMap) private agmMap: AgmMap;
-  socket = io(environment.baseUrl);
   DriverDetail = {
     driverObj: {
       firstName: '',
@@ -74,6 +74,7 @@ export class TrackingPage {
     private localNotifications: LocalNotifications,
     public loadingController: LoadingController,
     public alertController: AlertController,
+    public socketsService: SocketsService,
     public driverService: DriverService,
     public paymentService: PaymentService,
     private callNumber: CallNumber,
@@ -103,6 +104,7 @@ export class TrackingPage {
       this.isSp = true;
     }
   }
+  socket = this.socketsService.socket;
   getName() {
     return JSON.parse(localStorage.getItem('user')).firstName + ' ' + JSON.parse(localStorage.getItem('user')).lastName;
   }
@@ -128,53 +130,49 @@ export class TrackingPage {
     });
     this.setCurrentLocation();
 
-    this.socket.on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      if ((this.lastExecution + this.delay) < Date.now()) {
-        this.toOrigin.origin.lat = object.driverLat;
-        this.toOrigin.origin.lng = object.driverLng;
-        this.driverLat = object.driverLat;
-        this.driverLng = object.driverLng;
-        this.latitude = object.driverLat;
-        this.longitude = object.driverLng;
+    this.socket.off('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id).on('getLatLngOfDriver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+      this.toOrigin.origin.lat = object.driverLat;
+      this.toOrigin.origin.lng = object.driverLng;
+      this.driverLat = object.driverLat;
+      this.driverLng = object.driverLng;
+      this.latitude = object.driverLat;
+      this.longitude = object.driverLng;
 
-        if (localStorage.getItem('tripStarted')) {
-          this.zoom = 18
-          this.isTripStarted = true;
-          this.Route_To_Passenger = false;
-          this.Route_To_Destination = true;
-        } else {
-          this.Route_To_Passenger = true;
-          this.Route_To_Destination = false;
-        }
-        this.lastExecution = Date.now();
+      if (localStorage.getItem('tripStarted')) {
+        this.zoom = 18
+        this.isTripStarted = true;
+        this.Route_To_Passenger = false;
+        this.Route_To_Destination = true;
+      } else {
+        this.Route_To_Passenger = true;
+        this.Route_To_Destination = false;
       }
     });
     let senderId = JSON.parse(localStorage.getItem('user')).id;
-    this.socket.on('listenchat' + senderId, (data) => {
-      if ((this.lastExecution + this.delay) < Date.now()) {
+    this.socket
+      .off('listenchat' + senderId)
+      .on('listenchat' + senderId, (data) => {
         this.audioService.preload('chat')
         this.audioService.play('chat')
         this.newMesssage = true;
-        this.lastExecution = Date.now();
-      }
-    });
+      });
 
-    this.socket.on('isCancel' + JSON.parse(localStorage.getItem('user')).id, (data) => {
-      if ((this.lastExecution + this.delay) < Date.now()) {
+    this.socket
+      .off('isCancel' + JSON.parse(localStorage.getItem('user')).id)
+      .on('isCancel' + JSON.parse(localStorage.getItem('user')).id, (data) => {
+        console.log(data)
         this.audioService.preload('cancelReq')
         this.audioService.play('cancelReq')
         if (this.isEn) {
-          let header = "Ride Cancelled";
-          let message = " Passenger cancel this ride due to"
-          this.presentCancelRidePopUp(data.reason, header, "Dear", message, "Ok")
+          let header = "Ride Canceled";
+          let message = " Driver canceled this ride due to"
+          this.presentCancelRidePopUp(data.reason, header, "Dear", message, "Search Again!")
         } else if (this.isSp) {
           let header = "Viaje cancelado";
-          let message = " El pasajero cancela este viaje debido a"
-          this.presentCancelRidePopUp(data.reason, header, "Querido", message, "Okay")
+          let message = " La conductora canceló este viaje debido a"
+          this.presentCancelRidePopUp(data.reason, header, "Querido", message, "Busca de nuevo")
         }
-        this.lastExecution = Date.now();
-      }
-    });
+      });
     if (localStorage.getItem('tracking')) {
       this.DriverDetail = JSON.parse(localStorage.getItem('tracking'));
       this.DriverFound = true;
@@ -192,6 +190,7 @@ export class TrackingPage {
         this.Route_To_Passenger = false;
         let findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
         this.driverService.findDrivers(findDriverObj).subscribe((resp: any) => {
+         console.log(resp)
           if (resp.length !== 0) {
             this.socket.emit('send-data-to-drivers', resp);
             this.driverNotFundInRegion = false;
@@ -202,9 +201,12 @@ export class TrackingPage {
       }, 2100);
     }
     this.menuControl.enable(false);
-    this.socket.on('receive-driver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      if ((this.lastExecution + this.delay) < Date.now()) {
+    this.socket
+      .off('receive-driver' + JSON.parse(localStorage.getItem('user')).id)
+      .on('receive-driver' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+
         if (this.receivedriverCounter == 0) {
+          console.log('receive driver Counter ' + this.receivedriverCounter)
           this.receivedriverCounter = this.receivedriverCounter + 1;
           if (JSON.parse(localStorage.getItem('findDriverObj')).isReserved) {
             let reserveBookingObject = {
@@ -230,29 +232,32 @@ export class TrackingPage {
                 this.presentAlertForPreBooking('🙂 Querido ' + this.getName(), 'Su reserva está reservada con éxito.', 'Ver detalles');
               }
             })
+
           } else {
+            console.log(' all works')
             this.DriverFound = true;
+            this.isSearching = false;
             this.DriverDetail = object;
             localStorage.setItem('tracking', JSON.stringify(object));
           }
         }
-        this.lastExecution = Date.now();
-      }
-    });
-    this.socket.on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      this.zoom = 18
-      this.audioService.preload('startRide');
-      this.audioService.play('startRide');
-      this.isTripStarted = true;
-      this.Route_To_Destination = true;
-      this.Route_To_Passenger = false;
-      if (this.startTripCounter == false) {
-        this.startTripCounter = true;
-        if (this.r.url !== '/tracking') {
-          this.r.navigate(['/tracking']);
-        }
-        if (this.isEn) {
-          let message = `
+      });
+    this.socket
+      .off('isStarted' + JSON.parse(localStorage.getItem('user')).id)
+      .on('isStarted' + JSON.parse(localStorage.getItem('user')).id, (object) => {
+        this.zoom = 18
+        this.audioService.preload('startRide');
+        this.audioService.play('startRide');
+        this.isTripStarted = true;
+        this.Route_To_Destination = true;
+        this.Route_To_Passenger = false;
+        if (this.startTripCounter == false) {
+          this.startTripCounter = true;
+          if (this.r.url !== '/tracking') {
+            this.r.navigate(['/tracking']);
+          }
+          if (this.isEn) {
+            let message = `
       Your trip is started.Please read <b> COVID - 19 </b> SOPs carefully. <br>
         <p>
       ⦿ Keep your distance from other people when you travel, where possible. <br>
@@ -261,9 +266,9 @@ export class TrackingPage {
       ⦿ Plan ahead, check for disruption before you leave, and avoid the busiest routes, as well as busy times. <br>
       ⦿ Wash or sanitise your hands regularly.
       </p>`
-          this.tripStart_Or_PaymentRepeater_Or_AlertShower(message);
-        } else if (this.isSp) {
-          let message = `
+            this.tripStart_Or_PaymentRepeater_Or_AlertShower(message);
+          } else if (this.isSp) {
+            let message = `
           Tu viaje ha comenzado. Lee <b> COVID - 19 </b>SOP con cuidado. <br>
             <p>
           ⦿ Mantenga su distancia de otras personas cuando viaje, siempre que sea posible. <br>
@@ -272,12 +277,13 @@ export class TrackingPage {
           ⦿ Planifique con anticipación, verifique si hay interrupciones antes de partir y evite las rutas más concurridas, así como las horas punta. <br>
           ⦿ Lávese o desinfecte sus manos con regularidad.
           </p>`
-          this.tripStart_Or_PaymentRepeater_Or_AlertShower(message);
+            this.tripStart_Or_PaymentRepeater_Or_AlertShower(message);
+          }
         }
-      }
-    });
-    this.socket.on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      if ((this.lastExecution + this.delay) < Date.now()) {
+      });
+    this.socket
+      .off('isEnded' + JSON.parse(localStorage.getItem('user')).id)
+      .on('isEnded' + JSON.parse(localStorage.getItem('user')).id, (object) => {
         this.audioService.preload('endRide')
         this.audioService.play('endRide')
         localStorage.setItem('tripEnded', 'true');
@@ -285,11 +291,10 @@ export class TrackingPage {
           this.endTripCounter = true;
           this.RatingModal();
         }
-        this.lastExecution = Date.now();
-      }
-    });
-    this.socket.on('isDriverReachedOnMyLocation' + JSON.parse(localStorage.getItem('user')).id, (object) => {
-      if ((this.lastExecution + this.delay) < Date.now()) {
+      });
+    this.socket
+      .off('isDriverReachedOnMyLocation' + JSON.parse(localStorage.getItem('user')).id)
+      .on('isDriverReachedOnMyLocation' + JSON.parse(localStorage.getItem('user')).id, (object) => {
         let localNotificationData =
         {
           id: 1,
@@ -299,9 +304,8 @@ export class TrackingPage {
         }
 
         this.localNotifications.schedule(localNotificationData)
-        this.lastExecution = Date.now();
-      }
-    });
+
+      });
     setTimeout(() => {
       if (!localStorage.getItem('tracking')) {
         if (this.DriverFound == false) {
@@ -330,20 +334,28 @@ export class TrackingPage {
     let name = user.firstName + ' ' + user.lastName;
     const alert = await this.alertController.create({
       header: header,
+      backdropDismiss: false,
       message: dear + ' ' + name + ',' + message + ' <br>"' + reason + '"',
       buttons: [{
         text: button,
         handler: () => {
+          this.isSearching = true;
+          this.DriverFound = false;
+          this.Route_To_Destination = true;
+          this.Route_To_Passenger = false;
+          this.endTripCounter = false;
+          this.startTripCounter = false;
+          this.waitToGetRoute = false;
+          this.receivedriverCounter = 0;
+          localStorage.removeItem('tracking');
+          localStorage.removeItem('tripEnded');
+          localStorage.removeItem('tripStarted');
+          localStorage.removeItem('paymentMethods');
+          localStorage.removeItem('paid');
+          this.ionViewWillEnter();
         }
       }]
     });
-    localStorage.removeItem('findDriverObj');
-    localStorage.removeItem('tracking');
-    localStorage.removeItem('tripEnded');
-    localStorage.removeItem('tripStarted');
-    localStorage.removeItem('paymentMethods');
-    localStorage.removeItem('paid');
-    this.r.navigate(['/home'])
     await alert.present();
   }
   newMesssage = false;

@@ -1,3 +1,4 @@
+import { SocketsService } from './../services/sockets.service';
 import { TaxiSelectionPage } from './../taxi-selection/taxi-selection.page';
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import {
@@ -29,7 +30,6 @@ declare var google: any;
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  socket = io(environment.baseUrl);
   delay = 1000;
   lastExecution = 0;
   passengerObj = {
@@ -46,6 +46,7 @@ export class HomePage {
     public nativeGeocoder: NativeGeocoder,
     private menuControl: MenuController,
     public platform: Platform,
+    public socketsService: SocketsService,
     public toastController: ToastController,
     private ngZone: NgZone,
     public dataservice: DataService,
@@ -60,6 +61,9 @@ export class HomePage {
   ) {
     this.getLangData();
   }
+
+  socket = this.socketsService.socket;
+
   async showAlert(title, msg) {
     const alert = await this.alertCtrl.create({
       header: title,
@@ -244,6 +248,8 @@ export class HomePage {
   }
   async openSearchModal() {
     const modal = await this.modalController.create({
+      mode: "ios",
+      swipeToClose: true,
       component: SearchPagePage
     });
     await modal.present();
@@ -285,10 +291,11 @@ export class HomePage {
     this.dataservice.saved_location_get().subscribe((resp: any) => {
       this.SavedLocations = resp;
     })
-    this.socket.on('notify-old-device' + this.logingHoppingReturner(), (data) => {
-      console.log(this.logingHoppingReturner(), 'from login hope');
-      console.log(data, 'data');
-      if ((this.lastExecution + this.delay) < Date.now()) {
+    this.socket
+      .off('notify-old-device' + this.logingHoppingReturner())
+      .on('notify-old-device' + this.logingHoppingReturner(), (data) => {
+        console.log(this.logingHoppingReturner(), 'from login hope');
+        console.log(data, 'data');
         if (!this.sameApplicationReturner()) {
           this.sessionClear();
         } else {
@@ -298,25 +305,22 @@ export class HomePage {
             this.sessionClear();
           }
         }
-        this.lastExecution = Date.now();
-      }
-    })
-    this.socket.on(this.reserveBookingReturner(), (data) => {
-      if ((this.lastExecution + this.delay) < Date.now()) {
+      })
+    this.socket
+      .off(this.reserveBookingReturner())
+      .on(this.reserveBookingReturner(), (data) => {
         console.log(data);
         localStorage.setItem('findDriverObj', JSON.stringify(data.findDriverObj));
         localStorage.setItem('tracking', JSON.stringify(data.tracking));
         this.r.navigate(['/tracking']);
-        this.lastExecution = Date.now();
-      }
-    })
-    this.socket.on(this.cancelRideReturner(), (data) => {
-      if ((this.lastExecution + this.delay) < Date.now()) {
+
+      })
+    this.socket
+      .off(this.cancelRideReturner())
+      .on(this.cancelRideReturner(), (data) => {
         this.rideCancelledAlert();
         this.totalBookingsAmountNumber();
-        this.lastExecution = Date.now();
-      }
-    })
+      })
     this.totalBookingsAmountNumber();
   }
   async rideCancelledAlert() {

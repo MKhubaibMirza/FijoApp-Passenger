@@ -1,3 +1,4 @@
+import { SocketsService } from './../services/sockets.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
@@ -12,7 +13,6 @@ import { PassengerService } from '../services/passenger.service';
   styleUrls: ['./cancel-reason.page.scss'],
 })
 export class CancelReasonPage implements OnInit {
-  socket = io(environment.baseUrl);
 
   constructor(
     public m: ModalController,
@@ -20,12 +20,14 @@ export class CancelReasonPage implements OnInit {
     public driverService: DriverService,
     public passengerService: PassengerService,
     public r: Router,
+    public socketsService: SocketsService,
     public t: TranslateService
   ) {
     t.get("cancelReasonPage").subscribe((resp: any) => {
       this.respFromLanguage = resp;
     });
   }
+  socket = this.socketsService.socket;
   respFromLanguage: any;
   ngOnInit() {
   }

@@ -1,3 +1,4 @@
+import { SocketsService } from './../services/sockets.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import io from 'socket.io-client';
 import { ActivatedRoute } from '@angular/router';
@@ -11,12 +12,12 @@ import { MessageService } from '../services/message.service';
 })
 export class ChatPage implements OnInit {
   messagesArray = [];
-  socket = io(environment.baseUrl);
   @ViewChild('content', { static: true }) content: IonContent;
   delay = 1000;
   lastExecution = 0;
   constructor(
     public msgService: MessageService,
+    public socketsService: SocketsService,
     public activeparms: ActivatedRoute
   ) {
     activeparms.params.subscribe((rsp: any) => {
@@ -27,15 +28,17 @@ export class ChatPage implements OnInit {
       this.passengerP = this.senderName.charAt(0);
       this.driverD = this.receiverName.charAt(0);
       this.GetMessages();
-      this.socket.on('listenchat' + this.senderId, (data) => {
-        if ((this.lastExecution + this.delay) < Date.now()) {
+      this.socket
+      .off('listenchat' + this.senderId)
+      .on('listenchat' + this.senderId, (data) => { 
           this.messagesArray.push(data);
           this.scrollToBottom();
-          this.lastExecution = Date.now();
-        }
+           
       });
     })
   }
+  socket = this.socketsService.socket;
+
   scrollToBottom() {
     setTimeout(() => {
       this.content.scrollToBottom(300);

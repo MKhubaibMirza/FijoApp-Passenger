@@ -50,6 +50,9 @@ export class AppComponent {
     });
     return await modal.present();
   }
+  getMyId() {
+    return JSON.parse(localStorage.getItem('user')).id
+  }
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleLightContent();
@@ -66,7 +69,7 @@ export class AppComponent {
       if (localStorage.getItem('user')) {
         if (!localStorage.getItem('tracking')) {
           if (!localStorage.getItem('remember')) {
-            let id = JSON.parse(localStorage.getItem('user')).id;
+            let id = this.getMyId();
             this.passengerService.logoutPassenger(id).subscribe((resp: any) => {
               if (this.getCurrentLanguage() == 'en') {
                 this.showAlert('Session Expired', 'Please log in to continue.');
@@ -140,7 +143,7 @@ export class AppComponent {
               findDriverObj: resp,
               tracking: {
                 driverObj: resp.driver,
-                passengerId: JSON.parse(localStorage.getItem('user')).id,
+                passengerId: this.getMyId(),
                 vehicleObj: resp.driver.vehicles[0]
               },
             }

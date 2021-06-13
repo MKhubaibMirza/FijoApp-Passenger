@@ -1,3 +1,4 @@
+import { SocketsService } from './../services/sockets.service';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { DataService } from '../services/data.service';
@@ -11,13 +12,13 @@ import * as moment from 'moment';
   styleUrls: ['./reserved-bookings.page.scss'],
 })
 export class ReservedBookingsPage implements OnInit {
-  url = environment.baseUrl;
-  socket = io(environment.baseUrl);
-
+  url = environment.baseUrl; 
   constructor(
+    public socketsService: SocketsService,
     public passengerService: PassengerService,
     public dataservice: DataService
   ) { }
+  socket = this.socketsService.socket;
   MyReservedBookings = [];
   public getMapInstance(map: any): void {
     map.setOptions({ draggable: false });
