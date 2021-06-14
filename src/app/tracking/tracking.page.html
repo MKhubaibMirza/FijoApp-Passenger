@@ -1,7 +1,7 @@
 <ion-content>
   <div style="width: 90%;height: 100%;" id="map-parent">
-    <agm-map [styles]="lightMode" #agmmap [usePanning]="true" [zoom]="zoom" [latitude]="latitude" [longitude]="longitude"
-      [zoomControl]="false" [streetViewControl]="false">
+    <agm-map [styles]="lightMode" #agmmap [usePanning]="true" [zoom]="zoom" [latitude]="latitude"
+      [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
       <agm-direction *ngIf="Route_To_Passenger" (onResponse)="onResponse($event)"
         [renderOptions]="toOrigin.renderOptions" [markerOptions]="toOriginMarker" [origin]="toOrigin.origin"
         [destination]="toOrigin.destination">
@@ -50,6 +50,10 @@
       <br>
       <p class="bottomtext">{{'trackingPage.findingDrivers' | translate}}</p>
       <ion-progress-bar class="progress" color="primary" value="0.9"></ion-progress-bar>
+      <br>
+      <ion-button color="danger" (click)="cancelSearchingAndGoToHomePage()" expand="block">
+        Cancel Searching
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-footer>

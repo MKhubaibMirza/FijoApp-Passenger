@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
     email: '',
     password: ''
   }
-  isRememberMe = false;
+  isRememberMe = true;
 
   loginClick() {
     if ((this.loginData.email && this.loginData.password) !== '') {

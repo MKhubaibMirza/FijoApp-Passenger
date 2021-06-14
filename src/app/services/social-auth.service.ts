@@ -1,3 +1,4 @@
+import { SocketsService } from './sockets.service';
 import { Injectable } from '@angular/core';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { LoadingController, MenuController, ToastController } from '@ionic/angular';
@@ -42,6 +43,7 @@ export class SocialAuthService {
     public loadingController: LoadingController,
     private fb: Facebook,
     public passenger: PassengerService,
+    public socketsService: SocketsService,
     public alertController: AlertController
   ) {
     fb.getLoginStatus()
@@ -54,6 +56,8 @@ export class SocialAuthService {
       })
     this.getLocation();
   }
+  socket = this.socketsService.socket;
+
   // facebook login
   getUserDetail(userid) {
     this.fb.api("/" + userid + "/?fields=id,email,name,picture,gender,mobile_phone", ["public_profile"])
@@ -70,9 +74,6 @@ export class SocialAuthService {
         if (res.status === "connected") {
           this.isLoggedIn = true;
           this.getUserDetail(res.authResponse.userID);
-          // this.rot.navigate(['/tabs/tabs/tab1']);
-          // localStorage.setItem('fbdatamilgia','milgia data');
-          // localStorage.setItem('cond','true');
         } else {
           this.isLoggedIn = false;
         }
@@ -89,7 +90,16 @@ export class SocialAuthService {
           localStorage.setItem('google', JSON.stringify(res));
           this.passenger.checkByEmail({ email: res.email }).subscribe((resp: any) => {
             if (resp.isPassengerExist) {
-              // If Found
+              // If Found 
+
+              let data = {
+                oldDeviceId: resp.oldDeviceId,
+                numeric: JSON.stringify(Math.floor(Math.random() * 9000000000) + 1000000000)
+              }
+              localStorage.setItem('sameApplication', data.numeric);
+              this.socket.emit('loging-hopping', data);
+              localStorage.setItem('logedInDeviceId', resp.newDeviceId);
+
               localStorage.setItem("user", JSON.stringify(resp.passenger));
               this.r.navigate(["/home"]);
             } else {
@@ -190,7 +200,7 @@ export class SocialAuthService {
   async presentToast(mes) {
     const toast = await this.toastController.create({
       message: mes,
-      mode:'ios',
+      mode: 'ios',
       color: 'medium',
       position: 'top',
       duration: 2000

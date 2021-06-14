@@ -160,17 +160,14 @@ export class TrackingPage {
     this.socket
       .off('isCancel' + JSON.parse(localStorage.getItem('user')).id)
       .on('isCancel' + JSON.parse(localStorage.getItem('user')).id, (data) => {
-        console.log(data)
-        this.audioService.preload('cancelReq')
-        this.audioService.play('cancelReq')
         if (this.isEn) {
           let header = "Ride Canceled";
           let message = " Driver canceled this ride due to"
-          this.presentCancelRidePopUp(data.reason, header, "Dear", message, "Search Again!")
+          this.presentCancelRidePopUp(data.reason, header, "Dear", message, "Search Again!", "Cancel")
         } else if (this.isSp) {
           let header = "Viaje cancelado";
           let message = " La conductora canceló este viaje debido a"
-          this.presentCancelRidePopUp(data.reason, header, "Querido", message, "Busca de nuevo")
+          this.presentCancelRidePopUp(data.reason, header, "Querido", message, "Busca de nuevo", "Cancelar")
         }
       });
     if (localStorage.getItem('tracking')) {
@@ -190,7 +187,7 @@ export class TrackingPage {
         this.Route_To_Passenger = false;
         let findDriverObj = JSON.parse(localStorage.getItem('findDriverObj'));
         this.driverService.findDrivers(findDriverObj).subscribe((resp: any) => {
-         console.log(resp)
+          console.log(resp)
           if (resp.length !== 0) {
             this.socket.emit('send-data-to-drivers', resp);
             this.driverNotFundInRegion = false;
@@ -329,34 +326,70 @@ export class TrackingPage {
       this.RatingModal();
     }
   }
-  async presentCancelRidePopUp(reason, header, dear, message, button) {
+  cancelSearchingAndGoToHomePage() {
+    localStorage.removeItem('tracking');
+    localStorage.removeItem('tripEnded');
+    localStorage.removeItem('tripStarted');
+    localStorage.removeItem('paymentMethods');
+    localStorage.removeItem('paid');
+    this.router.navigate(['/home']);
+  }
+  async presentCancelRidePopUp(reason, header, dear, message, button, cancellButton) {
     let user = JSON.parse(localStorage.getItem('user'));
     let name = user.firstName + ' ' + user.lastName;
-    const alert = await this.alertController.create({
-      header: header,
-      backdropDismiss: false,
-      message: dear + ' ' + name + ',' + message + ' <br>"' + reason + '"',
-      buttons: [{
-        text: button,
-        handler: () => {
-          this.isSearching = true;
-          this.DriverFound = false;
-          this.Route_To_Destination = true;
-          this.Route_To_Passenger = false;
-          this.endTripCounter = false;
-          this.startTripCounter = false;
-          this.waitToGetRoute = false;
-          this.receivedriverCounter = 0;
-          localStorage.removeItem('tracking');
-          localStorage.removeItem('tripEnded');
-          localStorage.removeItem('tripStarted');
-          localStorage.removeItem('paymentMethods');
-          localStorage.removeItem('paid');
-          this.ionViewWillEnter();
-        }
-      }]
-    });
-    await alert.present();
+    if (reason == "Could not contact passenger") {
+      // Options for cancel or find other
+      this.audioService.preload('cancelReq')
+      this.audioService.play('cancelReq')
+      const alert = await this.alertController.create({
+        header: header,
+        backdropDismiss: false,
+        message: dear + ' ' + name + ',' + message + ' <br>"' + reason + '"',
+        buttons: [
+          {
+            text: cancellButton,
+            handler: () => {
+              this.cancelSearchingAndGoToHomePage()
+            }
+          },
+          {
+            text: button,
+            handler: () => {
+              this.isSearching = true;
+              this.DriverFound = false;
+              this.Route_To_Destination = true;
+              this.Route_To_Passenger = false;
+              this.endTripCounter = false;
+              this.startTripCounter = false;
+              this.waitToGetRoute = false;
+              this.receivedriverCounter = 0;
+              localStorage.removeItem('tracking');
+              localStorage.removeItem('tripEnded');
+              localStorage.removeItem('tripStarted');
+              localStorage.removeItem('paymentMethods');
+              localStorage.removeItem('paid');
+              this.ionViewWillEnter();
+            }
+          }]
+      });
+      await alert.present();
+    } else {
+      //  Automatic
+      this.isSearching = true;
+      this.DriverFound = false;
+      this.Route_To_Destination = true;
+      this.Route_To_Passenger = false;
+      this.endTripCounter = false;
+      this.startTripCounter = false;
+      this.waitToGetRoute = false;
+      this.receivedriverCounter = 0;
+      localStorage.removeItem('tracking');
+      localStorage.removeItem('tripEnded');
+      localStorage.removeItem('tripStarted');
+      localStorage.removeItem('paymentMethods');
+      localStorage.removeItem('paid');
+      this.ionViewWillEnter();
+    }
   }
   newMesssage = false;
   // Get Current Location Coordinates
@@ -681,10 +714,16 @@ export class TrackingPage {
   }
   call() {
     let driver = JSON.parse(localStorage.getItem('tracking')).driverObj;
-    let Phone = '+' + driver.phoneNumber.toString();
+    let phoneNumber = driver.phoneNumber.toString();
     let name = driver.firstName + ' ' + driver.lastName;
-    if (Phone) {
-      this.callNumber.callNumber(Phone, true)
+    if (phoneNumber) {
+      let pn = "";
+      if (phoneNumber.substr(0, 2) == '34') {
+        pn = "+" + phoneNumber;
+      } else {
+        pn = "+34" + phoneNumber;
+      }
+      this.callNumber.callNumber(pn, true)
         .then(res => { })
         .catch(err => {
           this.presentToast(this.respFromLanguage.opps);
