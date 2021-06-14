@@ -717,13 +717,7 @@ export class TrackingPage {
     let phoneNumber = driver.phoneNumber.toString();
     let name = driver.firstName + ' ' + driver.lastName;
     if (phoneNumber) {
-      let pn = "";
-      if (phoneNumber.substr(0, 2) == '34') {
-        pn = "+" + phoneNumber;
-      } else {
-        pn = "+34" + phoneNumber;
-      }
-      this.callNumber.callNumber(pn, true)
+      this.callNumber.callNumber("+" + phoneNumber, true)
         .then(res => { })
         .catch(err => {
           this.presentToast(this.respFromLanguage.opps);

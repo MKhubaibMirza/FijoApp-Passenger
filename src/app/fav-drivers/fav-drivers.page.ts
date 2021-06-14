@@ -22,13 +22,7 @@ export class FavDriversPage {
   drivers = [];
   call(phoneNumber) {
     if (phoneNumber) {
-      let pn = ""
-      if (phoneNumber.substr(0, 2) == '34') {
-        pn = "+" + phoneNumber;
-      } else {
-        pn = "+34" + phoneNumber;
-      }
-      this.callNumber.callNumber(pn, true)
+      this.callNumber.callNumber("+" + phoneNumber, true)
         .then(res => { });
     }
   }

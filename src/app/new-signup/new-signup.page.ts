@@ -5,14 +5,20 @@ import { PassengerService } from '../services/passenger.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { TranslateService } from '@ngx-translate/core';
-
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 @Component({
   selector: 'app-new-signup',
   templateUrl: './new-signup.page.html',
   styleUrls: ['./new-signup.page.scss'],
 })
 export class NewSignupPage implements OnInit {
-
+  separateDialCode = true;
+  SearchCountryField = SearchCountryField;
+  CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+  preferredCountries: CountryISO[] = [CountryISO.Pakistan, CountryISO.Spain];
+  phoneForm: FormGroup;
   constructor(
     private menuControl: MenuController,
     private r: Router,
@@ -27,7 +33,22 @@ export class NewSignupPage implements OnInit {
     t.get("signup").subscribe((resp: any) => {
       this.respFromLanguage = resp;
     });
+    this.phoneForm = new FormGroup({
+      phone: new FormControl(undefined, [Validators.required])
+    });
+    this.phoneForm.valueChanges.subscribe(x => {
+      if (this.phoneForm.valid) {
+        let pNumber = x.phone.e164Number;
+        pNumber = pNumber.substr(1, pNumber.length);
+        console.log(pNumber);
+        this.signupData.phoneNumber = pNumber;
+        this.validPhone = true;
+      } else {
+        this.validPhone = false;
+      }
+    })
   }
+  validPhone = false;
 
   ngOnInit() {
   }
@@ -64,48 +85,45 @@ export class NewSignupPage implements OnInit {
     if (this.password.new == this.password.confirm) {
       this.signupData.password = this.password.new
       if ((this.signupData.firstName && this.signupData.lastName && this.signupData.email && this.signupData.password && this.signupData.phoneNumber && this.signupData.gender) !== '') {
-        let a = ''
-        if (this.signupData.phoneNumber.toString().substr(0, 1) == '+') {
-          a = this.signupData.phoneNumber
-        } else {
-          a = '+' + this.signupData.phoneNumber
-        }
         this.presentLoading()
         let numberData = {
           phoneNumber: this.signupData.phoneNumber
         }
-        this.passengerService.checkByPhone(numberData).subscribe((checkNumber: any) => {
-          if (!checkNumber.isPassengerExist) {
-            let email = {
-              email: this.signupData.email
-            }
-            this.passengerService.checkByEmail(email).subscribe((checkEmail: any) => {
-              if (!checkEmail.isPassengerExist) {
-                this.passengerService.sigup(this.signupData).subscribe((resp: any) => {
-                  if (resp.message == "Passenger is Created Successfully") {
-                    this.presentToast(this.respFromLanguage.registerSuccessfully)
-                    this.loading.dismiss();
-                    localStorage.setItem('logedInDeviceId', resp.newDeviceId);
-                    localStorage.setItem('user', JSON.stringify(resp.passenger))
-                    setTimeout(() => {
-                      this.r.navigate(['/home'])
-                    }, 2000);
-                  } else {
-                    this.loading.dismiss()
-                    this.presentToast(resp.error)
-                  }
-                })
-              } else {
-                this.loading.dismiss()
-                this.presentToast(this.respFromLanguage.emailExist)
+        if (this.validPhone) {
+          this.passengerService.checkByPhone(numberData).subscribe((checkNumber: any) => {
+            if (!checkNumber.isPassengerExist) {
+              let email = {
+                email: this.signupData.email
               }
-            })
-          } else {
-            this.loading.dismiss()
-            this.presentToast(this.respFromLanguage.phoneNumberExist)
-          }
-        })
-        // localStorage.setItem('signupData', JSON.stringify(this.signupData))
+              this.passengerService.checkByEmail(email).subscribe((checkEmail: any) => {
+                if (!checkEmail.isPassengerExist) {
+                  this.passengerService.sigup(this.signupData).subscribe((resp: any) => {
+                    if (resp.message == "Passenger is Created Successfully") {
+                      this.presentToast(this.respFromLanguage.registerSuccessfully)
+                      this.loading.dismiss();
+                      localStorage.setItem('logedInDeviceId', resp.newDeviceId);
+                      localStorage.setItem('user', JSON.stringify(resp.passenger))
+                      setTimeout(() => {
+                        this.r.navigate(['/home'])
+                      }, 2000);
+                    } else {
+                      this.loading.dismiss()
+                      this.presentToast(resp.error)
+                    }
+                  })
+                } else {
+                  this.loading.dismiss()
+                  this.presentToast(this.respFromLanguage.emailExist)
+                }
+              })
+            } else {
+              this.loading.dismiss()
+              this.presentToast(this.respFromLanguage.phoneNumberExist)
+            }
+          })
+        } else {
+          this.presentToast("Invalid Phone Number")
+        }
       } else {
         this.presentToast(this.respFromLanguage.fillAllFields)
       }

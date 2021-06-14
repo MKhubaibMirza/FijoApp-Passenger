@@ -61,18 +61,21 @@
       <ion-row>
         <ion-col size="12">
           <ion-item>
-            <ion-icon name="call-outline" slot="start"></ion-icon>
-            <ion-input [(ngModel)]="signupData.phoneNumber" type='number'
-              [placeholder]="'signup.phoneNumber' | translate"></ion-input>
+            <ion-icon name="location-outline" slot="start"></ion-icon>
+            <ion-input [(ngModel)]="signupData.city" type='text' [placeholder]="'signup.city' | translate"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="12">
-          <ion-item>
-            <ion-icon name="location-outline" slot="start"></ion-icon>
-            <ion-input [(ngModel)]="signupData.city" type='text' [placeholder]="'signup.city' | translate"></ion-input>
-          </ion-item>
+          <form class="phoneBorder" #f="ngForm" [formGroup]="phoneForm">
+            <ngx-intl-tel-input [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+              [selectedCountryISO]="CountryISO.Spain" [maxLength]="13" [phoneValidation]="true"
+              [separateDialCode]="separateDialCode" [numberFormat]="PhoneNumberFormat.National" name="phone"
+              formControlName="phone">
+            </ngx-intl-tel-input>
+          </form>
         </ion-col>
       </ion-row>
 

@@ -13,13 +13,13 @@ img {
 p {
     font-size: 18px;
     font-weight: bold;
-    color: #4ebe38;
+    color: grey;
     text-align: center;
     padding: 5px 15px;
 }
 
 ion-card {
-    // background: #4ebe38;
+    // background: grey;
     // box-shadow: 0 0 0px 3px #3f8c00;
     margin: auto;
     display: block;
@@ -27,13 +27,13 @@ ion-card {
 
     ion-item {
         ion-icon {
-            color: #4ebe38;
+            color: grey;
             margin-right: 10px;
         }
 
         --background: transparent;
-        border: 2px solid #4ebe38;
-        color: #4ebe38;
+        // border: 2px solid grey;
+        color: grey;
     }
 
     ion-button {
@@ -42,17 +42,20 @@ ion-card {
         display: block;
         height: 45px;
         font-size: 18px;
-        --background: #4ebe38;
+        --background: #22d260;
         --color: white;
     }
 
     p {
         font-size: 15px;
         font-weight: unset;
-        color: #4ebe38;
+        color: #22d260;
 
         span {
             font-weight: bold;
         }
     }
+}
+.phoneBorder {
+    border-bottom: 1px solid #e4e4e4;
 }
