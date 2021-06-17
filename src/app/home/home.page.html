@@ -11,8 +11,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <agm-map [styles]="lightMode" [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom" [latitude]="latitude"
-    [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
+  <ion-button *ngIf="directionCondition" mode="ios" class="confirm_btn" (click)="confirmedAddress()" expand="block"
+    color="success">
+    {{'homePage.confirmation' | translate}}
+  </ion-button>
+  <agm-map [styles]="lightMode" [usePanning]="true" (mapReady)="getMapInstance($event)" #agmmap [zoom]="zoom"
+    [latitude]="latitude" [longitude]="longitude" [zoomControl]="false" [streetViewControl]="false">
     <agm-direction (onResponse)="onResponse($event)" (destinationDrag)="markerDragEndDestination($event)"
       (originDrag)="markerDragEndOrigin($event)" *ngIf="directionCondition" [renderOptions]="renderOptions"
       [markerOptions]="markerOptions" [origin]="origin" [destination]="destination">

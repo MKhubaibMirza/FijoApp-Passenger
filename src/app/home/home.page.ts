@@ -417,12 +417,14 @@ export class HomePage {
       let totalKm = event.routes[0]?.legs[0].distance.value;
       this.FindDriverObj.totalKM = totalKm / 1000;
       this.FindDriverObj.estTime = this.totaltime;
-      this.modalController.getTop().then(resp => {
-        if (resp == undefined) {
-          this.taxiSelection();
-        }
-      })
     }
+  }
+  confirmedAddress() {
+    this.modalController.getTop().then(resp => {
+      if (resp == undefined) {
+        this.taxiSelection();
+      }
+    })
   }
   async taxiSelection() {
     const modal = await this.modalController.create({
@@ -462,6 +464,7 @@ export class HomePage {
       }
     })
   }
+
   async ReserveBooking() {
     const modal2 = await this.modalController.create({
       component: ReserveBookingConfirmationPage,

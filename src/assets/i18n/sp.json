@@ -155,6 +155,7 @@
     "homePage": {
         "title": "Fijo Taxi",
         "hello": "Hola",
+        "confirmation": "Confirmar dirección",
         "whereToGo": "¿A dónde vas?",
         "enterDestination": "Introduce tu destino",
         "searchWithoutDestination": "Buscar sin destino",

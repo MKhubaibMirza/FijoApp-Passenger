@@ -99,7 +99,7 @@ export class SocialAuthService {
               localStorage.setItem('sameApplication', data.numeric);
               this.socket.emit('loging-hopping', data);
               localStorage.setItem('logedInDeviceId', resp.newDeviceId);
-
+              localStorage.setItem('remember', 'true');
               localStorage.setItem("user", JSON.stringify(resp.passenger));
               this.r.navigate(["/home"]);
             } else {
@@ -180,6 +180,7 @@ export class SocialAuthService {
               this.presentLoading();
               this.passenger.sigup(this.signupData).subscribe((resp: any) => {
                 this.loadingController.dismiss();
+                localStorage.setItem('remember', 'true');
                 localStorage.setItem("user", JSON.stringify(resp.passenger));
                 this.r.navigate(["/home"]);
               })

@@ -102,7 +102,8 @@ export class NewSignupPage implements OnInit {
                       this.presentToast(this.respFromLanguage.registerSuccessfully)
                       this.loading.dismiss();
                       localStorage.setItem('logedInDeviceId', resp.newDeviceId);
-                      localStorage.setItem('user', JSON.stringify(resp.passenger))
+                      localStorage.setItem('user', JSON.stringify(resp.passenger));
+                      localStorage.setItem('remember', 'true');
                       setTimeout(() => {
                         this.r.navigate(['/home'])
                       }, 2000);
