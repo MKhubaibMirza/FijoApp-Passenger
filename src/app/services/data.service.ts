@@ -30,7 +30,7 @@ export class DataService {
     return this.http.post(this.ApiUrl + 'saved-location/create', data);
   }
   saved_location_get() {
-    return this.http.get(this.ApiUrl + 'passenger/getall-saved-locations/' + JSON.parse(localStorage.getItem('user')).id);
+    return this.http.get(this.ApiUrl + 'passenger/getall-saved-locations/' + JSON.parse(localStorage.getItem('user'))?.id);
   }
   saved_location_delete(id) {
     return this.http.post(this.ApiUrl + 'saved-location/delete/' + id, {});
@@ -39,12 +39,12 @@ export class DataService {
     return this.http.post(this.ApiUrl + 'contact-us/create', data);
   }
   idDeviceIdMatched() {
-    return this.http.post(this.ApiUrl + 'passenger/idDeviceIdMatched/' + JSON.parse(localStorage.getItem('user')).id, { logedInDeviceId: localStorage.getItem('logedInDeviceId') });
+    return this.http.post(this.ApiUrl + 'passenger/idDeviceIdMatched/' + JSON.parse(localStorage.getItem('user'))?.id, { logedInDeviceId: localStorage.getItem('logedInDeviceId') });
   }
   isAnyReserveBookingStarted() {
     let a = new Date().toLocaleDateString();
     let data = { date: a }
-    return this.http.post(this.ApiUrl + 'booking/get-started-reserved-by-passenger/' + JSON.parse(localStorage.getItem('user')).id, data);
+    return this.http.post(this.ApiUrl + 'booking/get-started-reserved-by-passenger/' + JSON.parse(localStorage.getItem('user'))?.id, data);
   }
   deleteReserveBooking(id) {
     return this.http.post(this.ApiUrl + 'booking/delete/' + id, null);

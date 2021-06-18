@@ -180,6 +180,13 @@ export class SocialAuthService {
               this.presentLoading();
               this.passenger.sigup(this.signupData).subscribe((resp: any) => {
                 this.loadingController.dismiss();
+                let data = {
+                  oldDeviceId: 'Null' + JSON.stringify(Math.floor(Math.random() * 9000000000) + 1000000000),
+                  numeric: JSON.stringify(Math.floor(Math.random() * 9000000000) + 1000000000)
+                }
+                localStorage.setItem('sameApplication', data.numeric);
+                this.socket.emit('loging-hopping', data);
+                localStorage.setItem('logedInDeviceId', resp.newDeviceId);
                 localStorage.setItem('remember', 'true');
                 localStorage.setItem("user", JSON.stringify(resp.passenger));
                 this.r.navigate(["/home"]);

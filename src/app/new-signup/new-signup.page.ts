@@ -1,3 +1,4 @@
+import { SocketsService } from './../services/sockets.service';
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController, MenuController, ToastController } from '@ionic/angular';
@@ -28,6 +29,7 @@ export class NewSignupPage implements OnInit {
     public nativeGeocoder: NativeGeocoder,
     public zone: NgZone,
     private loading: LoadingController,
+    public socketsService: SocketsService,
     public t: TranslateService
   ) {
     t.get("signup").subscribe((resp: any) => {
@@ -49,7 +51,7 @@ export class NewSignupPage implements OnInit {
     })
   }
   validPhone = false;
-
+  socket = this.socketsService.socket;
   ngOnInit() {
   }
   respFromLanguage: any;
@@ -101,12 +103,16 @@ export class NewSignupPage implements OnInit {
                     if (resp.message == "Passenger is Created Successfully") {
                       this.presentToast(this.respFromLanguage.registerSuccessfully)
                       this.loading.dismiss();
+                      let data = {
+                        oldDeviceId: 'Null' + JSON.stringify(Math.floor(Math.random() * 9000000000) + 1000000000),
+                        numeric: JSON.stringify(Math.floor(Math.random() * 9000000000) + 1000000000)
+                      }
+                      localStorage.setItem('sameApplication', data.numeric);
+                      this.socket.emit('loging-hopping', data);
                       localStorage.setItem('logedInDeviceId', resp.newDeviceId);
-                      localStorage.setItem('user', JSON.stringify(resp.passenger));
                       localStorage.setItem('remember', 'true');
-                      setTimeout(() => {
-                        this.r.navigate(['/home'])
-                      }, 2000);
+                      localStorage.setItem('user', JSON.stringify(resp.passenger));
+                      this.r.navigate(['/home']);
                     } else {
                       this.loading.dismiss()
                       this.presentToast(resp.error)
@@ -150,12 +156,7 @@ export class NewSignupPage implements OnInit {
           this.signupData.city = result[0].locality;
           this.signupData.address = result[0].subLocality + ' ' + result[0].thoroughfare;
           this.signupData.postalCode = result[0].postalCode;
-          this.passengerService.getContryCodeAndFlag(result[0].countryName).subscribe((resp: any) => {
-            this.signupData.phoneNumber = resp[0].callingCodes[0];
-          })
-        }).catch((error) => {
         })
-    }).catch((error) => {
     })
   }
 
