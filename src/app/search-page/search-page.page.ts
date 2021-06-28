@@ -87,6 +87,9 @@ export class SearchPagePage {
     });
   }
   done() {
+    if (this.destination == "Carretera del Aeropuerto, s/n, 46940 Manises, Valencia, Spain") {
+      this.destination = "Aeroport, 46940, Valencia, Spain"
+    }
     if ((this.origin && this.destination) !== '') {
       this.modal.dismiss({ origin: this.origin, destination: this.destination });
     } else {
